@@ -335,16 +335,18 @@ bool sdk_profile_matches(SdkSnapshot* snapshot = nullptr) {
         if (!read_exact(rmod1_plan::kImageBase + item.rva, observed.data(), observed.size()) || observed != expected) return false;
         candidate.checks.push_back(expected);
     }
-    if (!sdk_extension_present() || !sdk_binding_profile::extension_size ||
-        sdk_binding_profile::rw_offset > sdk_binding_profile::extension_size ||
-        sdk_binding_profile::rw_size > sdk_binding_profile::extension_size - sdk_binding_profile::rw_offset) return false;
-    const auto head = sdk_binding_profile::rw_offset;
-    const auto tail = head + sdk_binding_profile::rw_size;
-    std::vector<std::uint8_t> code(head + sdk_binding_profile::extension_size - tail);
-    if ((!code.empty() && head && !read_exact(sdk_binding_profile::extension_va, code.data(), head)) ||
-        (tail < sdk_binding_profile::extension_size &&
-         !read_exact(sdk_binding_profile::extension_va + tail, code.data() + head,
-                     sdk_binding_profile::extension_size - tail))) return false;
+    if (!sdk_extension_present() || !sdk_binding_profile::extension_size) return false;
+    std::size_t code_size=0;
+    for(const auto& region:sdk_binding_profile::immutable_ranges){
+        if(region.offset>sdk_binding_profile::extension_size||region.size>sdk_binding_profile::extension_size-region.offset||
+           region.size>SIZE_MAX-code_size)return false;
+        code_size+=region.size;
+    }
+    std::vector<std::uint8_t> code(code_size);std::size_t cursor=0;
+    for(const auto& region:sdk_binding_profile::immutable_ranges){
+        if(region.size&&!read_exact(sdk_binding_profile::extension_va+region.offset,code.data()+cursor,region.size))return false;
+        cursor+=region.size;
+    }
     if (snapshot) {candidate.code=std::move(code);*snapshot=std::move(candidate);}
     return true;
 }
@@ -361,17 +363,19 @@ bool sdk_snapshot_matches(const SdkSnapshot& snapshot) noexcept {
             !read_exact(rmod1_plan::kImageBase+item.rva,bytes.data(),expected.size()) ||
             std::memcmp(bytes.data(),expected.data(),expected.size())) return false;
     }
-    const auto head=sdk_binding_profile::rw_offset;
-    const auto tail=head+sdk_binding_profile::rw_size;
-    if (snapshot.code.size()!=head+sdk_binding_profile::extension_size-tail) return false;
-    for (std::size_t index=0;index<snapshot.code.size();) {
-        const auto source=index<head ? index : index+sdk_binding_profile::rw_size;
-        const auto region_end=index<head ? head : snapshot.code.size();
-        const auto n=std::min<std::size_t>(bytes.size(),region_end-index);
-        if (!read_exact(sdk_binding_profile::extension_va+source,bytes.data(),n) ||
-            std::memcmp(bytes.data(),snapshot.code.data()+index,n)) return false;
-        index+=n;
+    std::size_t index=0;
+    for(const auto& region:sdk_binding_profile::immutable_ranges){
+        if(region.offset>sdk_binding_profile::extension_size||region.size>sdk_binding_profile::extension_size-region.offset||
+           index>snapshot.code.size()||region.size>snapshot.code.size()-index)return false;
+        for(std::size_t offset=0;offset<region.size;){
+            const auto n=std::min<std::size_t>(bytes.size(),region.size-offset);
+            if(!read_exact(sdk_binding_profile::extension_va+region.offset+offset,bytes.data(),n)||
+               std::memcmp(bytes.data(),snapshot.code.data()+index+offset,n))return false;
+            offset+=n;
+        }
+        index+=region.size;
     }
+    if(index!=snapshot.code.size())return false;
     return true;
 }
 

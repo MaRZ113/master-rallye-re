@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from build_r_mod1_candidate import compiler_environment, locate_toolchain
-from extra_options_sdk_binding import propose, render_header, write_proposal
+from extra_options_sdk_binding import propose, render_header, write_proposal, extension_regions
 from r_mod1_native_plan import (build_plan, public_plan, render_cpp_header,
                                 make_challenge_preview_code, make_challenge_consumer_code)
 from audit_dinput8_exports import audit
@@ -51,16 +51,11 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
     payload = (sdk_manifest.parent/'native-extension.bin').read_bytes()
     if len(payload) != ext['size'] or hashlib.sha256(payload).hexdigest() != ext['sha256']:
         raise ValueError('SDK extension payload differs from its existing runtime profile')
-    ranges = ext.get('writable_ranges', [])
-    if len(ranges) != 1:
-        raise ValueError('SDK binding requires a single qualified writable region')
-    rw = ranges[0]
-    if (ext['address'] != 0x10000000 or ext['size'] > ext['allocation_size'] or
-        rw['offset'] < 4096 or rw['size'] != 4096 or rw['offset'] + rw['size'] > len(payload)):
+    extension={'address':ext['address'],'size':ext['size'],'writable_ranges':ext.get('writable_ranges',[]),'code_sha256':'0'*64}
+    _,immutable=extension_regions(extension)
+    if ext['address']!=0x10000000 or ext['size']>ext['allocation_size']:
         raise ValueError('unsupported SDK extension layout')
-    extension = {'address': ext['address'], 'size': ext['size'], 'rw_offset': rw['offset'],
-                 'rw_size': rw['size'], 'code_sha256': hashlib.sha256(
-                     payload[:rw['offset']] + payload[rw['offset']+rw['size']:]).hexdigest()}
+    extension['code_sha256']=hashlib.sha256(b''.join(payload[r['offset']:r['offset']+r['size']] for r in immutable)).hexdigest()
     output.mkdir(parents=True)
     include = output / 'include'; include.mkdir()
     (include / 'native_plan.hpp').write_text(render_cpp_header(plan), encoding='ascii', newline='\n')

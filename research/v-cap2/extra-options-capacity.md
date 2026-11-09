@@ -41,7 +41,11 @@ is composed from the new explicit RaceTest layout. The physical identity field
 is `race_test_base + race_test_stride - 4`; the separate human/class field is
 `race_test_base + race_test_stride - 8`. Unexpected overlapping opcodes or a
 displacement inconsistent with the profile fail. The full existing startup
-transaction and readback rollback remain active.
+transaction and readback rollback remain active. Multiple sorted page-aligned
+mutable ranges are supported; immutable snapshots and provenance hashes exclude
+every mutable page. The legacy single-page manifest shape remains accepted by
+the header generator. SDK page protection belongs to the launcher; Extra Options
+only validates and snapshots the installed allocation.
 
 Ghost/five-difficulty code and the existing Challenge eligibility rules are
 unchanged. MODEL/GENERAL native menus retain their accepted behavior.
@@ -56,8 +60,10 @@ per-player INI persistence. Renderer queries were called directly without a
 Renderer DLL. The provider harness registered 487 rows (IDs 26 through 512),
 rejected invalid rows and retained the original participant default.
 
-Five Python binding tests passed, including explicit RaceTest displacements
-for counts 33/128/256/513/4096 and existing Unicorn replay checks. Five source
+Six Python binding tests passed, including explicit RaceTest displacements
+for counts 33/128/256/513/4096 and existing Unicorn replay checks. A production x86 SDK snapshot/readback harness
+verified that both separate mutable pages may change while an immutable middle
+region change is rejected. Five source
 integration tests for the accepted Renderer build workflow also passed.
 
 The actual 34-record runtime produced a private proxy and core under

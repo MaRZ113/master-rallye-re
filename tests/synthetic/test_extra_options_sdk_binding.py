@@ -6,7 +6,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
-from extra_options_sdk_binding import propose, render_header
+from extra_options_sdk_binding import propose, render_header, extension_regions
 
 
 def fixtures():
@@ -35,6 +35,27 @@ class BindingTests(unittest.TestCase):
         self.assertEqual(len(proposal['sdk_checks']), 3)
         extension = {'address': 0x10000000, 'size': 8192, 'rw_offset': 4096, 'rw_size': 4096, 'code_sha256': '0'*64}
         self.assertIn('0x70002800u', render_header(proposal, f3, extension))
+
+    def test_multiple_mutable_pages(self):
+        extension={'address':0x10000000,'size':24576,'code_sha256':'0'*64,
+                   'writable_ranges':[{'offset':4096,'size':4096},{'offset':16384,'size':4096}]}
+        writable,immutable=extension_regions(extension)
+        self.assertEqual(immutable,[{'offset':0,'size':4096},{'offset':8192,'size':8192},{'offset':20480,'size':4096}])
+        payload=bytearray(b'X'*extension['size'])
+        def sealed():return b''.join(payload[r['offset']:r['offset']+r['size']] for r in immutable)
+        original=sealed()
+        for r in writable:payload[r['offset']:r['offset']+r['size']]=b'Y'*r['size']
+        self.assertEqual(sealed(),original)
+        payload[8192]=ord('Z');self.assertNotEqual(sealed(),original)
+        sdk,f3,a,b=fixtures();header=render_header(propose(sdk,f3,a,b),f3,extension,registry_count=34)
+        self.assertIn('std::array<Range,2> writable_ranges',header)
+        self.assertIn('std::array<Range,3> immutable_ranges',header)
+        for ranges in ([{'offset':4097,'size':4096}],
+                       [{'offset':4096,'size':0}],
+                       [{'offset':4096,'size':8192},{'offset':8192,'size':4096}],
+                       [{'offset':24576,'size':4096}],
+                       [{'offset':0,'size':4096}]):
+            with self.assertRaises(ValueError):extension_regions(dict(extension,writable_ranges=ranges))
 
     def test_explicit_capacity_displacement(self):
         for count in (33,128,256,513,4096):

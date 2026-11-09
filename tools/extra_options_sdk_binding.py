@@ -117,6 +117,37 @@ def write_proposal(path, proposal):
     path.write_text(json.dumps(proposal, indent=2, sort_keys=True) + '\n', encoding='utf-8')
 
 
+def extension_regions(extension):
+    """Normalize legacy one-page metadata and checked multi-page descriptors."""
+    if not isinstance(extension,dict):
+        raise ValueError('invalid SDK extension profile')
+    common={'address','size','code_sha256'}
+    if set(extension)==common|{'rw_offset','rw_size'}:
+        ranges=[{'offset':extension['rw_offset'],'size':extension['rw_size']}]
+    elif set(extension)==common|{'writable_ranges'}:
+        ranges=extension['writable_ranges']
+    else:
+        raise ValueError('invalid SDK extension profile fields')
+    if (any(type(extension[k]) is not int or extension[k]<0 for k in ('address','size')) or
+        not extension['size'] or extension['address']+extension['size']>0x100000000 or
+        not isinstance(ranges,list) or not isinstance(extension['code_sha256'],str) or
+        len(extension['code_sha256'])!=64 or any(c not in '0123456789abcdef' for c in extension['code_sha256'])):
+        raise ValueError('invalid SDK extension profile')
+    immutable=[];cursor=0
+    for region in ranges:
+        if (not isinstance(region,dict) or set(region)!={'offset','size'} or
+            any(type(region[k]) is not int for k in ('offset','size')) or
+            region['offset']<4096 or region['size']<=0 or region['offset']%4096 or region['size']%4096 or
+            region['offset']<cursor or region['offset']+region['size']>extension['size']):
+            raise ValueError('invalid, overlapping or unaligned writable range')
+        if region['offset']>cursor:
+            immutable.append({'offset':cursor,'size':region['offset']-cursor})
+        cursor=region['offset']+region['size']
+    if cursor<extension['size']:
+        immutable.append({'offset':cursor,'size':extension['size']-cursor})
+    return ranges,immutable
+
+
 def render_header(proposal, f3_plan, extension, *, registry_count=0):
     if proposal.get('schema') != 'extra-options-sdk-binding/1' or proposal.get('runtime_qualified') is not False:
         raise ValueError('invalid binding proposal')
@@ -125,17 +156,16 @@ def render_header(proposal, f3_plan, extension, *, registry_count=0):
     checks = proposal['sdk_checks']
     challenges = proposal['challenge']
     symbols = f3_plan['code_symbols']
-    if (not isinstance(extension, dict) or set(extension) != {'address', 'size', 'rw_offset', 'rw_size', 'code_sha256'} or
-        any(type(extension[k]) is not int or extension[k] < 0 for k in ('address', 'size', 'rw_offset', 'rw_size')) or
-        extension['size'] == 0 or extension['rw_offset'] + extension['rw_size'] > extension['size'] or
-        len(extension['code_sha256']) != 64 or any(c not in '0123456789abcdef' for c in extension['code_sha256'])):
-        raise ValueError('invalid SDK extension profile')
+    writable,immutable=extension_regions(extension)
+    def cpp_regions(name,regions):
+        rows=','.join('{%du,%du}'%(r['offset'],r['size']) for r in regions)
+        return 'inline constexpr std::array<Range,%d> %s = {{%s}};\n'%(len(regions),name,rows)
     names = {'challenge-preview-identity': 'challenge_preview', 'challenge-race-consume': 'challenge_consumer'}
     rows = '\n'.join('    {0x%Xu, "%s"},' % (x['rva'], x['expected_hex']) for x in checks)
     hooks = '\n'.join('    {"%s", 0x%Xu, 0x%Xu, "%s"},' %
                       (x['id'], x['rva'], symbols[names[x['id']]], x['expected_mapped_hex'])
                       for x in challenges)
-    return ('#pragma once\n#include <cstddef>\n#include <cstdint>\n'
+    return ('#pragma once\n#include <cstddef>\n#include <cstdint>\n#include <array>\n'
             'namespace sdk_binding_profile {\n'
             'inline constexpr std::uint32_t registry_count = %du;\n' % registry_count +
             'struct Check { std::uint32_t rva; const char* expected_hex; };\n'
@@ -145,6 +175,7 @@ def render_header(proposal, f3_plan, extension, *, registry_count=0):
             'inline constexpr std::size_t check_count = sizeof(checks)/sizeof(checks[0]);\n'
             'inline constexpr std::size_t hook_count = sizeof(hooks)/sizeof(hooks[0]);\n'
             'inline constexpr std::uint32_t extension_va = 0x%Xu;\n' % extension['address'] +
-            'inline constexpr std::size_t extension_size = %du, rw_offset = %du, rw_size = %du;\n' %
-            (extension['size'], extension['rw_offset'], extension['rw_size']) +
+            'inline constexpr std::size_t extension_size = %du;\n' % extension['size'] +
+            'struct Range {std::size_t offset,size;};\n' +
+            cpp_regions('writable_ranges',writable) + cpp_regions('immutable_ranges',immutable) +
             'inline constexpr char extension_code_sha256[] = "%s";\n}\n' % extension['code_sha256'])
