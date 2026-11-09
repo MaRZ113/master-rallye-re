@@ -27,3 +27,5 @@ Searched Python authoring/build/validation tools, Qt/legacy Workshop, addon SDK,
 | Renderer / Extra Options | Separate checkouts and runtime ownership; no modifications in this phase. |
 
 Existing dirty runtime/setup changes were excluded from this commit. No installed files were changed.
+
+The historical stock-audio evidence loader accepts Git LF/CRLF checkout differences. Its data content, tuned profile set and supported EXE identity remain verified; editing actual profile evidence still fails.

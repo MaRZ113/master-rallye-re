@@ -34,6 +34,14 @@ def synthetic_hashes(data: bytes) -> tuple[str, str]:
 
 
 class VehicleAudioCandidateTests(unittest.TestCase):
+    def test_git_line_endings_do_not_change_evidence_identity(self):
+        raw=audio.STOCK_AUDIO_MATRIX_PATH.read_bytes().replace(b'\r\n',b'\n')
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'matrix.json';path.write_bytes(raw.replace(b'\n',b'\r\n'))
+            self.assertEqual(audio.get_stock_audio_profile(0,path)['id'],0)
+            path.write_bytes(raw.replace(b'Landcruiser',b'ChangedName',1))
+            with self.assertRaisesRegex(audio.CandidateError,'matrix SHA256'):audio.get_stock_audio_profile(0,path)
+
     def test_stock_audio_matrix_covers_ids_and_distinct_profile_groups(self) -> None:
         matrix_path = Path(__file__).resolve().parents[2] / "research" / "vehicles" / "audio" / "stock-audio-matrix.json"
         matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
