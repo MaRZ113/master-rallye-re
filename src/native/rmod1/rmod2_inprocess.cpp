@@ -493,6 +493,10 @@ bool initialize_impl(char* error, unsigned capacity) {
         auto choose=GetProcAddress(runtime,"MRChooseClassV1"); auto limit=GetProcAddress(runtime,"MROpponentLimitV1");
         auto can_start=GetProcAddress(runtime,"MRCanStartQuickRaceV1"); auto set_phase=GetProcAddress(runtime,"MRSetStartPhaseV1");
         auto challenge=GetProcAddress(runtime,"MRChallengeV1");
+#if defined(RMOD_EXTRA_OPTIONS)
+        auto registry_pool=GetProcAddress(runtime,"MRFilterAiPoolV1");
+        if(rmod1_plan::kRegistryAiPool&&!registry_pool)throw std::runtime_error("registry AI candidate callback missing");
+#endif
 #if defined(RMOD3_G2_PLAYER_OVERRIDE)
         auto player_car=GetProcAddress(runtime,"MRQuickRacePlayerCarV1");
 #endif
@@ -596,6 +600,9 @@ bool initialize_impl(char* error, unsigned capacity) {
         const auto slot=[&](std::uint32_t at, FARPROC fn){const auto value=reinterpret_cast<std::uintptr_t>(fn);if(value>UINT32_MAX) throw std::runtime_error("runtime callback is outside x86 address space");store32(data,at,static_cast<std::uint32_t>(value));};
         store32(data,rmod1_plan::kSlotModule,static_cast<std::uint32_t>(reinterpret_cast<std::uintptr_t>(runtime)));
         slot(rmod1_plan::kSlotConfigure,reinterpret_cast<FARPROC>(configure));slot(rmod1_plan::kSlotChooseClass,choose);slot(rmod1_plan::kSlotOpponentLimit,limit);slot(rmod1_plan::kSlotCanStart,can_start);store32(data,rmod1_plan::kSlotLoadLibraryW,0);slot(rmod1_plan::kSlotStartPhase,set_phase);slot(rmod1_plan::kSlotChallenge,challenge);
+#if defined(RMOD_EXTRA_OPTIONS)
+        if(rmod1_plan::kRegistryAiPool)slot(rmod1_plan::kSlotRegistryAiPool,registry_pool);
+#endif
 #if defined(RMOD3_G2_PLAYER_OVERRIDE)
         slot(rmod1_plan::kSlotPlayerCar,player_car);
 #endif

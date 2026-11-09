@@ -42,13 +42,15 @@ def package_header(sdk_runtime=None):
     br=[]
     for b in bindings:
         br.append('{%d,%d,%d,%s,%s},'%(b['index'],b['width'],b['height'],json.dumps(b['base_path']),json.dumps(b['alternate_path'])))
-    sys.path.insert(0,str(ROOT/'.research-output/extra-set1/python-tools'))
-    import pefile
-    pe=pefile.PE(str(RETAIL))
+    # Reuse the project's checked retail mapper. Header generation needs only
+    # file-backed preimages, not an undeclared pefile installation.
+    from patch_vehicle_slot25 import parse_pe,va_to_file_offset
+    source=RETAIL.read_bytes();pe=parse_pe(source)
     apis=[]
     for va in [0x4d0580,0x4d8ec0,0x4d6760,0x4d6520,0x4d8000,0x4d85f0,0x4d8880,0x4d11d0,0x407b30,0x5c1cb4,0x5b4c00,
                0x4d6650,0x4d6fb0,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630,0x525a80,0x525800]:
-        apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in pe.get_data(va-0x400000,8))))
+        at=va_to_file_offset(pe,va,8)
+        apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in source[at:at+8])))
     runtime=Path(sdk_runtime) if sdk_runtime is not None else BASE/'runtime'
     plan=json.loads((runtime/'addon-plan.json').read_text())
     native=json.loads((runtime/'native-patch-manifest.json').read_text())
@@ -197,7 +199,7 @@ def build(name, *, graphics=True):
 def build_core(out):
     work=out/'core';work.mkdir()
     definition=work/'runtime.def'
-    definition.write_text((ROOT/'src/native/rmod1/runtime_core.def').read_text().rstrip()+'\n    MRRegisterSdkRosterV1=_MRRegisterSdkRosterV1@4\n')
+    definition.write_text((ROOT/'src/native/rmod1/runtime_core.def').read_text().rstrip()+'\n    MRRegisterSdkRosterV1=_MRRegisterSdkRosterV1@4\n    MRFilterAiPoolV1=_MRFilterAiPoolV1@12\n')
     vcvars,msvc=locate_toolchain();env=compiler_environment(vcvars,'x64_x86')
     dll=work/'MRallyeRandomizerRuntime.dll'
     subprocess.run([str(msvc/'bin/Hostx64/x86/cl.exe'),'/nologo','/LD','/MT','/EHsc','/std:c++17','/W4','/WX','/Brepro','/O2','/DNDEBUG',

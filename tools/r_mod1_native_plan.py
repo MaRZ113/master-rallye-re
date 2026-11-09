@@ -50,6 +50,7 @@ SLOT_LOAD_LIBRARY_W = DATA_BASE + 0x0018
 SLOT_START_PHASE = DATA_BASE + 0x001C
 SLOT_CHALLENGE = DATA_BASE + 0x0020
 SLOT_PLAYER_CAR = DATA_BASE + 0x0024
+SLOT_REGISTRY_POOL = DATA_BASE + 0x0028
 CONFIG_BLOB = DATA_BASE + 0x0100
 DLL_PATH = DATA_BASE + 0x1200
 KERNEL32_NAME = DATA_BASE + 0x2200
@@ -61,6 +62,7 @@ EXPORT_CAN_START = DATA_BASE + 0x2290
 EXPORT_START_PHASE = DATA_BASE + 0x22D0
 EXPORT_CHALLENGE = DATA_BASE + 0x22F0
 EXPORT_PLAYER_CAR = DATA_BASE + 0x2310
+EXPORT_REGISTRY_POOL = DATA_BASE + 0x2330
 
 IAT_VA = {
     "LoadLibraryA": 0x0068F0B8,
@@ -195,7 +197,7 @@ def make_start_gate_code() -> bytes:
     return a.finish()[0]
 
 
-def make_oep_bootstrap(checkpoint: str = "v13") -> bytes:
+def make_oep_bootstrap(checkpoint: str = "v13",registry_pool=False) -> bytes:
     a = CodeBuilder(BOOTSTRAP_BASE)
     a.emit("9c60")  # Preserve retail entry registers/flags until OEP replay.
     # Resolve LoadLibraryW using the already-resolved retail imports. The
@@ -228,6 +230,7 @@ def make_oep_bootstrap(checkpoint: str = "v13") -> bytes:
         exports.append((EXPORT_CHALLENGE, SLOT_CHALLENGE, "MRChallengeV1"))
     if checkpoint == "g2":
         exports.append((EXPORT_PLAYER_CAR, SLOT_PLAYER_CAR, "MRQuickRacePlayerCarV1"))
+    if registry_pool:exports.append((EXPORT_REGISTRY_POOL,SLOT_REGISTRY_POOL,'MRFilterAiPoolV1'))
     for name_va, function_slot, _name in exports:
         a.emit(b"\x68" + struct.pack("<I", name_va))
         a.emit(b"\xff\x35" + struct.pack("<I", SLOT_MODULE))
@@ -256,7 +259,23 @@ def make_rmod1_selector(spec: dict[str, Any]) -> tuple[bytes, dict[str, int]]:
     original_loader = randomizer.LOADER
     try:
         randomizer.LOADER = CHOICE_GATE
-        return randomizer.selection_code(spec)
+        blob,labels=randomizer.selection_code(spec)
+        if spec.get('registry_pool',False):
+            # Only an active policy rebuild (-1/-2 marker) is filtered. Native
+            # Stock pass-through never calls the provider. Preserve every
+            # register/flag and the existing participant-exclusion machinery.
+            a=CodeBuilder(spec['base']+len(blob));a.emit('9c')
+            a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0xff)));a.branch('0f84','filter')
+            a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0xfe)));a.branch('0f85','done')
+            a.label('filter');a.emit('60')
+            a.emit(bytes((0x8d,0x44,0x24,spec['primary']+36))+b'\x50')
+            a.emit(b'\xff\xb4\x24'+struct.pack('<I',spec['cls']+40))
+            a.emit(bytes((0x6a,spec['hint'])))
+            a.emit(b'\xff\x15'+struct.pack('<I',SLOT_REGISTRY_POOL));a.emit('61')
+            a.label('done');a.emit('9d');a.branch('e9',labels['pool_end'])
+            wrapper=a.finish()[0];labels['unfiltered_pool_end']=labels['pool_end'];labels['pool_end']=spec['base']+len(blob)
+            blob+=wrapper
+        return blob,labels
     finally:
         randomizer.LOADER = original_loader
 
@@ -428,6 +447,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
     if _verify_import_table(source) != IAT_VA:
         raise NativePlanError("retail bootstrap import map mismatch")
     exports = _module_exports(runtime_dll)
+    registry_pool=is_g1 and 'MRFilterAiPoolV1' in exports
     required_exports = {
         "MRConfigureBlobV1", "MRChooseClassV1", "MROpponentLimitV1",
         "MRCanStartQuickRaceV1", "MRSetStartPhaseV1",
@@ -436,6 +456,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
         required_exports.add("MRChallengeV1")
     if is_g2:
         required_exports.add("MRQuickRacePlayerCarV1")
+    if registry_pool:required_exports.add('MRFilterAiPoolV1')
     if not required_exports.issubset(exports):
         raise NativePlanError(f"runtime DLL is missing ABI exports: {sorted(required_exports - exports)}")
 
@@ -456,6 +477,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
             selector_specs.append(mode_spec)
     selectors: dict[str, tuple[dict[str, Any], bytes, dict[str, int]]] = {}
     for spec in selector_specs:
+        spec['registry_pool']=registry_pool
         code_bytes, labels = make_rmod1_selector(spec)
         if len(code_bytes) > 0x300:
             raise NativePlanError(f"{spec['name']} selector exceeds its assigned remote code interval")
@@ -470,7 +492,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
         (LIMIT_GATE - CODE_BASE, limit_gate),
         (UI_LIST_BASE - CODE_BASE, make_ui_list_code()),
         (START_GATE_BASE - CODE_BASE, make_start_gate_code()),
-        (BOOTSTRAP_BASE - CODE_BASE, make_oep_bootstrap(checkpoint)),
+        (BOOTSTRAP_BASE - CODE_BASE, make_oep_bootstrap(checkpoint,registry_pool)),
     ]
     if has_challenge:
         code_objects.append((CHALLENGE_GATE - CODE_BASE, stdcall_tail_gate(SLOT_CHALLENGE)))
@@ -509,6 +531,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
         export_strings.append((EXPORT_CHALLENGE - DATA_BASE, b"MRChallengeV1\0"))
     if is_g2:
         export_strings.append((EXPORT_PLAYER_CAR - DATA_BASE, b"MRQuickRacePlayerCarV1\0"))
+    if registry_pool:export_strings.append((EXPORT_REGISTRY_POOL-DATA_BASE,b'MRFilterAiPoolV1\0'))
     for at, value in export_strings:
         data[at:at + len(value)] = value
 
@@ -666,6 +689,7 @@ def build_plan(source: bytes, runtime_dll: bytes, checkpoint: str = "v13") -> di
         "schema_version": 1,
         "phase": "R-MOD1-D" if checkpoint == "v13" else "R-MOD3-G2" if is_g2 else "R-MOD3-G1" if is_g1 else "R-MOD1-F",
         **({"checkpoint": checkpoint} if checkpoint != "v13" else {}),
+        **({'registry_ai_pool':True} if registry_pool else {}),
         "status": "STATICALLY_VERIFIED_RUNTIME_PLAN_TEMPLATE",
         "runtime_qualified": False,
         "source_executable": {"sha256": RETAIL_SHA256, "size": RETAIL_SIZE,
@@ -824,6 +848,8 @@ def render_cpp_header(plan: dict[str, Any]) -> str:
         f"inline constexpr std::uint32_t kCodeSize = 0x{CODE_ALLOCATION_SIZE:x}u;",
         f"inline constexpr std::uint32_t kDataBase = 0x{DATA_BASE:08x}u;",
         f"inline constexpr std::uint32_t kDataSize = 0x{DATA_ALLOCATION_SIZE:x}u;",
+        f"inline constexpr bool kRegistryAiPool = {'true' if plan.get('registry_ai_pool',False) else 'false'};",
+        f"inline constexpr std::uint32_t kSlotRegistryAiPool = 0x{SLOT_REGISTRY_POOL:08x}u;",
         f"inline constexpr std::uint32_t kSlotModule = 0x{SLOT_MODULE:08x}u;",
         f"inline constexpr std::uint32_t kSlotConfigure = 0x{SLOT_CONFIGURE:08x}u;",
         f"inline constexpr std::uint32_t kSlotChooseClass = 0x{SLOT_CHOOSE_CLASS:08x}u;",

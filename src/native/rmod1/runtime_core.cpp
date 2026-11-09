@@ -9,6 +9,7 @@
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "sdk_roster_abi.hpp"
 #include "extra_registry.hpp"
+#include "registry_ai_pool.hpp"
 #include <unordered_set>
 #include <climits>
 #endif
@@ -37,10 +38,13 @@ char g_generation_hash[65]{};
 ChallengeSelection g_challenge;
 #if defined(RMOD_EXTRA_OPTIONS)
 std::vector<RegisteredAddon> g_registered;
+std::vector<uint32_t> g_registry_classes;
+std::vector<Vehicle> g_generation_pool;
 std::uint32_t g_challenge_human_offset=0x570;
 #endif
 int runtime_class(int id) {
 #if defined(RMOD_EXTRA_OPTIONS)
+    if(!g_registry_classes.empty())return id>=0&&size_t(id)<g_registry_classes.size()?int(g_registry_classes[size_t(id)]):-1;
     for (const auto& item:g_registered) if(item.physical_id==id) return item.class_id;
 #endif
     return rmod1::stock_class_for_physical_id(id);
@@ -52,6 +56,11 @@ std::vector<Vehicle> runtime_pool(GameMode mode,std::uint8_t rewards,AddonMode a
     return eligible_vehicles(mode,rewards,{},addons);
 #endif
 }
+#if defined(RMOD_EXTRA_OPTIONS)
+unsigned runtime_registered_count(){
+    return static_cast<unsigned>(g_registered.size());
+}
+#endif
 #if defined(RMOD3_G2_PLAYER_OVERRIDE)
 PreparedPlayerVehicle g_prepared_player;
 char g_prepared_player_hash[65]{};
@@ -166,7 +175,11 @@ void append_runtime_log(const char* line) {
 void note_effective_configuration() {
     char line[640]{};
     const int size = wsprintfA(line,
+#if defined(RMOD_EXTRA_OPTIONS)
+        "CONFIG version=%u randomizer_hooks=%u policies=%u:%s,%u:%s,%u:%s,%u:%s,%u:%s duplicates=%u:%s opponents=%u max_ai=%u extended=%u addons=%u:%s registered_addons=%u provider=%s logging=%u config_sha256=%s",
+#else
         "CONFIG version=%u randomizer_hooks=%u policies=%u:%s,%u:%s,%u:%s,%u:%s,%u:%s duplicates=%u:%s opponents=%u max_ai=%u extended=%u addons=%u:%s registered_addons=0 provider=none logging=%u config_sha256=%s",
+#endif
         g_config.config_version, config_needs_randomizer_hooks(g_config) ? 1u : 0u,
         policy_numeric_id_for_version(policy_for_mode(g_config, GameMode::QuickRace), g_config.config_version), policy_name(policy_for_mode(g_config, GameMode::QuickRace)),
         policy_numeric_id_for_version(policy_for_mode(g_config, GameMode::RallyeCup), g_config.config_version), policy_name(policy_for_mode(g_config, GameMode::RallyeCup)),
@@ -178,7 +191,11 @@ void note_effective_configuration() {
         g_config.opponents_enabled ? 1u : 0u, g_config.max_opponents,
         config_allows_extended_ai(g_config) ? 1u : 0u,
         g_config.addons == AddonMode::RegisteredOnly ? 1u : 0u,
-        addon_mode_name(g_config.addons), g_config.logging_enabled ? 1u : 0u, g_config_hash);
+        addon_mode_name(g_config.addons),
+#if defined(RMOD_EXTRA_OPTIONS)
+        runtime_registered_count(),runtime_registered_count()?"sdk-registry":"none",
+#endif
+        g_config.logging_enabled ? 1u : 0u, g_config_hash);
     if (size > 0 && size < static_cast<int>(sizeof(line))) append_runtime_log(line);
 }
 
@@ -370,7 +387,11 @@ void note_start_decision(bool admitted, unsigned selected_count, int track, int 
                          const QuickRaceTopology& topology, const char* reason) {
     char line[640]{};
     const int size = wsprintfA(line,
+#if defined(RMOD_EXTRA_OPTIONS)
+        "START %s reason=%s randomizer=%u policy=%u:%s opponents_enabled=%u requested_max=%u experimental_extended_ai=%u requested_ai=%u raw_frontend_split=%u effective_mode=%d active_humans=deferred_to_native_roster predicted_numcars=%u spawned_ai=deferred_to_native_roster track=%d ghost=%u player_id=%d player_class=%d addons=%u registered_addons=%u",
+#else
         "START %s reason=%s randomizer=%u policy=%u:%s opponents_enabled=%u requested_max=%u experimental_extended_ai=%u requested_ai=%u raw_frontend_split=%u effective_mode=%d active_humans=deferred_to_native_roster predicted_numcars=%u spawned_ai=deferred_to_native_roster track=%d ghost=%u player_id=%d player_class=%d addons=%u registered_addons=0",
+#endif
         admitted ? "ADMITTED" : "DENIED", reason ? reason : "unspecified",
         config_requests_randomizer(g_config) ? 1u : 0u,
         policy_numeric_id_for_version(policy_for_mode(g_config, GameMode::QuickRace), g_config.config_version),
@@ -379,7 +400,11 @@ void note_start_decision(bool admitted, unsigned selected_count, int track, int 
         selected_count, raw_split ? 1u : 0u, topology.quick_race ? mode : -1,
         topology.num_cars, track,
         ghost ? 1u : 0u, player_id, player_class,
-        g_config.addons == AddonMode::RegisteredOnly ? 1u : 0u);
+        g_config.addons == AddonMode::RegisteredOnly ? 1u : 0u
+#if defined(RMOD_EXTRA_OPTIONS)
+        ,runtime_registered_count()
+#endif
+        );
     if (size > 0 && size < static_cast<int>(sizeof(line))) append_runtime_log(line);
 }
 
@@ -583,7 +608,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRRegisterSdkRosterV1(const SdkRos
     if(!profile||!ReadProcessMemory(GetCurrentProcess(),profile,&header,sizeof(header),&bytes_read)||bytes_read!=sizeof(header)||
        header.size!=sizeof(SdkRosterV1)||header.version!=1||!header.vehicles||
        header.count>SIZE_MAX/sizeof(SdkVehicleV1)||header.challenge_human_offset<0x570||header.challenge_human_offset>INT_MAX)return 0;
-    uint32_t registry_count=0;wchar_t registry_env[32]{};
+    uint32_t registry_count=0,registry_classes=0;wchar_t registry_env[32]{};
     const auto registry_length=GetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",registry_env,32);
     if(registry_length){
         uint32_t address=0;mr_vehicle_registry::DescriptorV1 registry{};
@@ -591,18 +616,24 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRRegisterSdkRosterV1(const SdkRos
            !ReadProcessMemory(GetCurrentProcess(),reinterpret_cast<const void*>(uintptr_t(address)),&registry,sizeof(registry),&bytes_read)||
            bytes_read!=sizeof(registry)||!extra_registry::descriptor(registry))return 0;
         registry_count=registry.record_count;
+        registry_classes=registry.reverse_classes_va;
     }else if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return 0;
+    if(registry_count&&header.count!=registry_count-26)return 0;
     const size_t bytes=size_t(header.count)*sizeof(SdkVehicleV1);
     if(uint64_t(reinterpret_cast<uintptr_t>(header.vehicles))+bytes>UINT64_C(0x100000000))return 0;
     try {
+        std::vector<uint32_t> class_snapshot(registry_count);
+        if(registry_count&&(!ReadProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(registry_classes)),class_snapshot.data(),size_t(registry_count)*4,&bytes_read)||bytes_read!=size_t(registry_count)*4||
+            std::any_of(class_snapshot.begin(),class_snapshot.end(),[](uint32_t c){return c>2;})))return 0;
         std::vector<SdkVehicleV1> source(header.count);
         if(bytes&&(!ReadProcessMemory(GetCurrentProcess(),header.vehicles,source.data(),bytes,&bytes_read)||bytes_read!=bytes))return 0;
         std::vector<RegisteredAddon> next;next.reserve(header.count);std::unordered_set<int> identities;
         for(const auto& row:source){
             if(row.physical_id<26||(registry_count&&unsigned(row.physical_id)>=registry_count)||row.class_id<0||row.class_id>2||row.mode_mask&~31u||!identities.insert(row.physical_id).second)return 0;
+            if(registry_count&&class_snapshot[size_t(row.physical_id)]!=unsigned(row.class_id))return 0;
             next.push_back({row.physical_id,row.class_id,true,true,true,(row.mode_mask&1u)!=0,row.mode_mask});
         }
-        ExclusiveGuard guard(&g_lock);g_registered=std::move(next);g_challenge_human_offset=header.challenge_human_offset;return 1;
+        ExclusiveGuard guard(&g_lock);g_registered=std::move(next);g_registry_classes=std::move(class_snapshot);g_challenge_human_offset=header.challenge_human_offset;return 1;
     }catch(...){return 0;}
 }
 #endif
@@ -654,7 +685,12 @@ extern "C" __declspec(dllexport) int WINAPI MRChooseClassV1(
     }
 
     const Policy policy = policy_for_mode(snapshot, mode);
-    const auto pool = runtime_pool(mode, reward_mask(), snapshot.addons);
+#if defined(RMOD_EXTRA_OPTIONS)
+    const auto pool = runtime_pool(mode, reward_mask(), policy==Policy::Stock?AddonMode::RegisteredOnly:snapshot.addons);
+    g_generation_pool=pool;
+#else
+    const auto pool = runtime_pool(mode, reward_mask(),snapshot.addons);
+#endif
     ClassCycle* cycle = policy == Policy::Diverse ? &g_diverse_cycle : nullptr;
     if (cycle && slot == first) {
         unsigned mask = 0;
@@ -688,6 +724,44 @@ extern "C" __declspec(dllexport) int WINAPI MRChooseClassV1(
         return -1;
     }
 }
+
+#if defined(RMOD_EXTRA_OPTIONS)
+extern "C" __declspec(dllexport) DWORD WINAPI MRFilterAiPoolV1(int hint,int cls,void* vector) {
+    try {
+        ExclusiveGuard guard(&g_lock);
+        const auto mode=static_cast<GameMode>(g_active_mode);
+        const bool owner=(hint==0&&mode==GameMode::QuickRace)||(hint==4&&mode==GameMode::MasterRallye)||
+            (hint==2&&(mode==GameMode::RallyeCup||mode==GameMode::Invitation));
+        if(!owner||cls<0||cls>2||g_generation_pool.empty())return 0;
+        if(policy_for_mode(g_generation_config,mode)==Policy::Stock)return 1;
+        std::array<uint32_t,4> descriptor{};SIZE_T read=0;
+        if(!vector||!ReadProcessMemory(GetCurrentProcess(),vector,descriptor.data(),sizeof(descriptor),&read)||read!=sizeof(descriptor))return 0;
+        const uint32_t first=descriptor[1],last=descriptor[2],capacity=descriptor[3];
+        if(first>last||last>capacity||(last-first)%4||(capacity-first)%4||
+           (last-first)/4>25+g_registered.size())return 0;
+        std::vector<int> ids((last-first)/4);
+        if(!ids.empty()&&(!ReadProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),ids.data(),last-first,&read)||read!=last-first))return 0;
+        const auto filtered=filter_registry_ai_pool(ids,g_generation_pool,cls);
+        SIZE_T written=0;const auto bytes=filtered.size()*sizeof(int);
+        if(bytes&&(!WriteProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),filtered.data(),bytes,&written)||written!=bytes))return 0;
+        const uint32_t end=first+static_cast<uint32_t>(bytes);
+        auto* end_field=static_cast<unsigned char*>(vector)+8;
+        if(!WriteProcessMemory(GetCurrentProcess(),end_field,&end,sizeof(end),&written)||written!=sizeof(end)) {
+            if(!ids.empty())WriteProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),ids.data(),last-first,&written);
+            return 0;
+        }
+        if(g_generation_config.logging_enabled) {
+            std::string message="AI_REGISTRY_POOL generation="+std::to_string(g_generation_id)+" class="+std::to_string(cls)+
+                " registered="+std::to_string(g_registered.size())+" include="+std::to_string(g_generation_config.addons==AddonMode::RegisteredOnly)+
+                " native="+std::to_string(ids.size())+" eligible="+std::to_string(filtered.size())+" ids=";
+            for(size_t i=0;i<filtered.size()&&i<64;++i)message+=(i?",":"")+std::to_string(filtered[i]);
+            if(filtered.size()>64)message+="...";
+            append_runtime_log(message.c_str());
+        }
+        return 1;
+    }catch(...){return 0;}
+}
+#endif
 
 void clear_challenge_selection() {
     g_challenge.clear();
@@ -910,7 +984,11 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRCanStartQuickRaceV1() {
     auto decision = gate.decision;
     if (mode == 2 && selected_count > kNativeAiMaximum &&
         !g_config.duplicates_when_needed && config_needs_randomizer_hooks(g_config)) {
-        const auto pool = runtime_pool(GameMode::QuickRace, reward_mask(), g_config.addons);
+#if defined(RMOD_EXTRA_OPTIONS)
+        const auto pool = runtime_pool(GameMode::QuickRace, reward_mask(),policy_for_mode(g_config,GameMode::QuickRace)==Policy::Stock?AddonMode::RegisteredOnly:g_config.addons);
+#else
+        const auto pool = runtime_pool(GameMode::QuickRace,reward_mask(),g_config.addons);
+#endif
         decision = enforce_quickrace_duplicate_capacity(
             decision, mode, selected_count, true, g_config.duplicates_when_needed,
             policy_for_mode(g_config, GameMode::QuickRace), player_class, player_id, pool);

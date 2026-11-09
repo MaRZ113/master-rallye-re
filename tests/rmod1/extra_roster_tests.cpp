@@ -24,6 +24,8 @@ int main(int argc,char** argv){
  profile.count=static_cast<unsigned>(many.size());profile.vehicles=many.data();profile.challenge_human_offset=0x12000;
  if(!reg(&profile))return 10;
  mr_vehicle_registry::DescriptorV1 registry{{'M','R','V','C'},1,44,513,52,3,0x45a3c0,0x10000000,0x10000010,0x10000020,0x10001000};
+ std::vector<uint32_t> classes(513);for(unsigned i=0;i<classes.size();++i)classes[i]=i%3;
+ registry.reverse_classes_va=static_cast<uint32_t>(reinterpret_cast<uintptr_t>(classes.data()));
  wchar_t address[32]{};std::swprintf(address,32,L"0x%08x",unsigned(reinterpret_cast<uintptr_t>(&registry)));
  SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",address);
  if(!reg(&profile))return 14;

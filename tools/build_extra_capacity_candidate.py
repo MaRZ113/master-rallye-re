@@ -21,7 +21,7 @@ def build(output: Path, sdk_runtime: Path, sdk_root: Path):
     plan=json.loads((sdk_runtime/'addon-plan.json').read_text())
     source_files=[*sorted((ROOT/'src/native/rmod1').glob('*.cpp')),*sorted((ROOT/'src/native/rmod1').glob('*.hpp')),
                   ROOT/'tools/build_extra_capacity_candidate.py',ROOT/'tools/build_extra_sdk_binding.py',
-                  ROOT/'tools/extra_options_sdk_binding.py',ROOT/'tools/build_extra_options_candidate.py']
+                  ROOT/'tools/extra_options_sdk_binding.py',ROOT/'tools/build_extra_options_candidate.py',ROOT/'tools/r_mod1_native_plan.py']
     report={'schema':'extra-options-capacity-build/1','status':'OWNER_TEST_CANDIDATE',
             'record_count':plan['registry_layout']['record_count'],
             'registry_transport':'MR_VEHICLE_REGISTRY_DESCRIPTOR child environment; MRVC v1',
