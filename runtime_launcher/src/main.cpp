@@ -41,6 +41,10 @@
 #define MR_EXTENSION_RW_COUNT 1u
 #define MR_EXTENSION_RW_RANGES {{{MR_EXTENSION_RW_OFFSET, MR_EXTENSION_RW_SIZE}}}
 #endif
+#ifndef MR_COURSE_REGISTRY_DESCRIPTOR
+#define MR_COURSE_REGISTRY_DESCRIPTOR 0u
+#define MR_COURSE_REGISTRY_FIELDS {0u}
+#endif
 #ifndef MR_VEHICLE_REGISTRY_CLASSES
 #define MR_VEHICLE_REGISTRY_CLASSES {}
 #define MR_VEHICLE_RETIRED_IDS {}
@@ -718,11 +722,15 @@ std::vector<wchar_t> ChildRegistryEnvironment(bool installRegistry) {
         std::wstring entry(at);
         auto equal=entry.find(L'=',entry[0]==L'=' ? 1 : 0);
         auto name=Lower(entry.substr(0,equal));
-        if (name!=L"mr_vehicle_registry_descriptor" && name!=L"mr_vehicle_registry_count") entries.push_back(entry);
+        if (name!=L"mr_vehicle_registry_descriptor" && name!=L"mr_vehicle_registry_count" && name!=L"mr_course_registry_descriptor") entries.push_back(entry);
     }
     FreeEnvironmentStringsW(inherited);
     if (installRegistry && MR_VEHICLE_REGISTRY_DESCRIPTOR) {
         std::wostringstream value; value << L"MR_VEHICLE_REGISTRY_DESCRIPTOR=0x" << std::hex << MR_VEHICLE_REGISTRY_DESCRIPTOR;
+        entries.push_back(value.str());
+    }
+    if (installRegistry && MR_COURSE_REGISTRY_DESCRIPTOR) {
+        std::wostringstream value; value << L"MR_COURSE_REGISTRY_DESCRIPTOR=0x" << std::hex << MR_COURSE_REGISTRY_DESCRIPTOR;
         entries.push_back(value.str());
     }
     std::sort(entries.begin(),entries.end(),[](const auto& a,const auto& b){return Lower(a)<Lower(b);});
@@ -749,6 +757,14 @@ void VerifyRegistryDescriptor(PROCESS_INFORMATION& pi) {
             || received!=sizeof(actual) || actual!=expected)
             Fail("installed vehicle registry descriptor differs from compiled capacity profile");
         std::cout << "VEHICLE_REGISTRY_DESCRIPTOR_VERIFIED count=" << actual[3] << " abi=1 stride=52\n";
+    }
+    if constexpr (MR_COURSE_REGISTRY_DESCRIPTOR != 0) {
+        constexpr std::array<uint32_t,16> expected=MR_COURSE_REGISTRY_FIELDS;
+        std::array<uint32_t,16> actual{}; SIZE_T received{};
+        if (!ReadProcessMemory(pi.hProcess,reinterpret_cast<const void*>(uintptr_t(MR_COURSE_REGISTRY_DESCRIPTOR)),actual.data(),sizeof(actual),&received)
+            || received!=sizeof(actual) || actual!=expected)
+            Fail("installed course descriptor differs from compiled shared layout");
+        std::cout << "COURSE_REGISTRY_DESCRIPTOR_VERIFIED count=" << actual[3] << " abi=1 stride=44 shared_bytes=" << actual[7] << "\n";
     }
 }
 

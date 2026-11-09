@@ -17,11 +17,15 @@ import addon_collection_runtime as collection
 def sha(path):return runtime.sha256_file(path)
 
 
-def package(candidate,extra,renderer_host,*,registered_ai=False):
+def package(candidate,extra,renderer_host,*,registered_ai=False,research_root=None):
     candidate=collection._safe_root(Path(candidate),'private registry candidate');extra=Path(extra);renderer_host=Path(renderer_host)
-    if not any(candidate.is_relative_to((ROOT/'.research-output/vehicles'/phase).resolve()) for phase in ('v-cap2','v-cap3')):raise ValueError('Private hosts must remain inside this registry output root')
+    if research_root is None:
+        if not any(candidate.is_relative_to((ROOT/'.research-output/vehicles'/phase).resolve()) for phase in ('v-cap2','v-cap3')):raise ValueError('Private hosts must remain inside this registry output root')
+    else:
+        research_root=Path(research_root).resolve()
+        if research_root.name!='.research-output' or not candidate.is_relative_to(research_root):raise ValueError('Explicit private research output required')
     profile=json.loads((candidate/'runtime/runtime-profile.json').read_text())
-    config=json.loads((candidate/'registry-build.json').read_text())
+    config=json.loads((candidate/('registry-build.json' if (candidate/'registry-build.json').exists() else 'build-input.json')).read_text())
     built=json.loads((extra/'capacity-build.json').read_text())
     if built['sdk_binding']['sdk_manifest_sha256']!=profile['native_patch_manifest_sha256']:raise ValueError('Extra Options was compiled for a different composite SDK')
     for name,digest in built['files'].items():

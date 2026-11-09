@@ -46,6 +46,29 @@ def fixture(count=128):
 
 
 class CapacityLauncherTests(unittest.TestCase):
+    def test_course_descriptor_shared_layout_and_inverse_maps(self):
+        profile,data=fixture(35);data=bytearray(data);base=0x10000000;cursor=350000
+        def emit(values):
+            nonlocal cursor
+            address=base+cursor;struct.pack_into('<'+str(len(values))+'I',data,cursor,*values);cursor+=4*len(values);return address
+        groups=[list(range(10,13))+[40,39],list(range(13,16)),list(range(16,19)),list(range(19,22)),list(range(22,25)),list(range(25,36)),list(range(10)),list(range(36,39))]
+        counts=emit([len(g) for g in groups]);ptrs=emit([emit(g) for g in groups])
+        reverse={r:(g,p) for g,rows in enumerate(groups) for p,r in enumerate(rows)}
+        rg=emit([reverse[i][0] for i in range(41)]);rl=emit([reverse[i][1] for i in range(41)])
+        strings=[]
+        for i in (39,40):
+            raw=f'CourseRegistryV1/race-{i}'.encode()+b'\0';strings.append(base+cursor);data[cursor:cursor+len(raw)]=raw;cursor+=len(raw)
+        cursor=(cursor+3)//4*4
+        progress=emit([0]*39+strings)
+        stages=emit([3,10,11,12,3,13,14,15,3,16,17,18,3,19,20,21,3,22,23,24,3,36,37,38])
+        address=emit([int.from_bytes(b'MRCR','little'),1,64,41,44,35,1824,3628,0x45a3c0,counts,ptrs,rg,rl,progress,stages,6])
+        profile.update(course_registry_descriptor=address,course_registry_layout={'race_count':41,'allocation_size':3628})
+        fields=launcher._course_descriptor(profile,profile['native_extension'],bytes(data))
+        self.assertEqual(fields[7],3628)
+        for index in (3,5,6,7,9,10,11,12,14):
+            bad=data.copy();struct.pack_into('<I',bad,address-base+4*index,0xffffffff)
+            with self.assertRaises(launcher.LauncherBuildError):launcher._course_descriptor(profile,profile['native_extension'],bytes(bad))
+
     def test_generic_profile_accepts_numeric_boundaries(self):
         for count in (33,128,129,255,256,257,512):
             profile,data=fixture(count)

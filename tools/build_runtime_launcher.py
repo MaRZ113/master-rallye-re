@@ -39,7 +39,7 @@ def _capacity_descriptor(profile, extension, data):
     size, allocation, base = extension.get('size'), extension.get('allocation_size'), extension.get('address')
     if (type(size) is not int or type(allocation) is not int or base != 0x10000000
             or size <= 0 or allocation < size or allocation % 65536
-            or allocation + capacity['layout']['allocation_size'] > capacity['memory_budget_bytes']
+            or allocation + profile.get('course_registry_layout',capacity['layout'])['allocation_size'] > capacity['memory_budget_bytes']
             or base + allocation > 0x7fffffff):
         raise LauncherBuildError('capacity arena exceeds aligned configured memory budget')
     address = profile.get('vehicle_registry_descriptor')
@@ -67,6 +67,52 @@ def _capacity_descriptor(profile, extension, data):
         reverse.update({ident:(cls,slot) for slot,ident in enumerate(ids)})
     if words(fields[9], count) != tuple(reverse[i][0] for i in range(count)) or words(fields[10], count) != tuple(reverse[i][1] for i in range(count)):
         raise LauncherBuildError('capacity descriptor reverse mappings mismatch')
+    return fields
+
+
+def _course_descriptor(profile, extension, data):
+    """MRCR v1 is additive; MRVC v1 retains its original 44-byte ABI."""
+    address = profile.get('course_registry_descriptor')
+    base, size = extension['address'], extension['size']
+    layout = profile.get('course_registry_layout', {})
+    if type(address) is not int or address % 4 or not base <= address <= base+size-64:
+        raise LauncherBuildError('course descriptor outside verified native arena')
+    fields = struct.unpack_from('<16I',data,address-base)
+    n = layout.get('race_count'); v = profile['capacity_profile']['record_count']
+    if type(n) is not int or n<39 or fields[:9] != (int.from_bytes(b'MRCR','little'),1,64,n,44,v,4+v*52,4+v*52+n*44,0x45a3c0):
+        raise LauncherBuildError('course descriptor/shared layout mismatch')
+    if layout.get('allocation_size') != fields[7]:
+        raise LauncherBuildError('course allocation budget differs')
+    def words(at,n):
+        if at%4 or not base<=at or at+n*4>base+size:raise LauncherBuildError('course table outside sealed arena')
+        return struct.unpack_from('<'+str(n)+'I',data,at-base)
+    counts=words(fields[9],8);pointers=words(fields[10],8)
+    forward=[words(ptr,count) for ptr,count in zip(pointers,counts)]
+    reverse=[None]*n
+    for g,rows in enumerate(forward):
+        for local,race in enumerate(rows):
+            if race>=n or reverse[race] is not None:raise LauncherBuildError('course menu is not bijective')
+            reverse[race]=(g,local)
+    if None in reverse or words(fields[11],n)!=tuple(x[0] for x in reverse) or words(fields[12],n)!=tuple(x[1] for x in reverse):
+        raise LauncherBuildError('course forward/reverse maps differ')
+    suffixes=words(fields[13],n);keys=set()
+    if any(suffixes[:39]):raise LauncherBuildError('stock progress must retain native table ownership')
+    for address in suffixes[39:]:
+        if not base<=address<base+size:raise LauncherBuildError('new progress key outside native payload')
+        at=address-base;end=data.find(b'\0',at,min(at+256,len(data)))
+        key=data[at:end] if end>=0 else b''
+        if not key.startswith(b'CourseRegistryV1/') or key in keys:raise LauncherBuildError('invalid/duplicate namespaced progress key')
+        keys.add(key)
+    if fields[15]<6 or fields[15]>size//8:raise LauncherBuildError('invalid competition dispatch table')
+    ptr=fields[14]
+    originals=[(10,11,12),(13,14,15),(16,17,18),(19,20,21),(22,23,24),(36,37,38)]
+    for schedule in range(fields[15]):
+        count=words(ptr,1)[0]
+        if not 1<=count<=n:raise LauncherBuildError('invalid schedule size')
+        stages=words(ptr+4,count)
+        if len(set(stages))!=count or any(i>=n for i in stages):raise LauncherBuildError('invalid explicit stage list')
+        if schedule<6 and stages!=originals[schedule]:raise LauncherBuildError('original competition schedule changed')
+        ptr+=4+count*4
     return fields
 
 
@@ -107,6 +153,10 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any], extension_b
             rows.append('#define MR_COMPETITION_CONTRACT_SHA256 "'+contract+'"')
             rows.extend((f"#define MR_VEHICLE_REGISTRY_DESCRIPTOR {profile['vehicle_registry_descriptor']}u",
                          '#define MR_VEHICLE_REGISTRY_FIELDS {'+', '.join(str(n)+'u' for n in descriptor)+'}'))
+            if profile.get('course_registry_descriptor'):
+                course = _course_descriptor(profile,extension,extension_bytes)
+                rows.extend((f"#define MR_COURSE_REGISTRY_DESCRIPTOR {profile['course_registry_descriptor']}u",
+                             '#define MR_COURSE_REGISTRY_FIELDS {'+', '.join(str(n)+'u' for n in course)+'}'))
         large_damage=(allocation==131072 and profile.get('profile')=='sdk-native-damage-coverage-alpha'
                       and type(extension.get('size')) is int and extension['size']>65536)
         roster=profile.get('sdk_roster_layout',{})
@@ -153,14 +203,21 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
                    retail_exe: Path | None = None,
                    generator: str = "Visual Studio 18 2026",
                    bundle_verifier: Callable[[], dict[str, Any]] | None = None,
-                   sdk_binding_input: bool = False) -> dict[str, Any]:
+                   sdk_binding_input: bool = False,
+                   research_root: Path | None = None) -> dict[str, Any]:
     if os.name != "nt":
         raise LauncherBuildError("the native launcher can only be built on Windows")
     bundle = Path(bundle)
     retail_exe = Path(retail_exe or addon_runtime.DEFAULT_RETAIL_EXE).resolve()
     verified = (bundle_verifier() if bundle_verifier is not None
                 else addon_runtime.verify_bundle(bundle, retail_exe=retail_exe))
-    output = addon_runtime._under_research_output(Path(output))
+    if research_root is None:
+        output = addon_runtime._under_research_output(Path(output))
+    else:
+        research_root = Path(research_root).resolve()
+        output = Path(output).resolve()
+        if research_root.name != '.research-output' or not output.is_relative_to(research_root) or output.exists():
+            raise LauncherBuildError('fresh private research output required')
     profile = json.loads((bundle / "runtime-profile.json").read_text(encoding="utf-8"))
     patch_manifest = json.loads((bundle / "native-patch-manifest.json").read_text(encoding="utf-8"))
     allowed_statuses = {"PASS_STATIC_RUNTIME_BUNDLE", "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE"}
