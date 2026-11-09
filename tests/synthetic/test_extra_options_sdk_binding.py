@@ -36,6 +36,18 @@ class BindingTests(unittest.TestCase):
         extension = {'address': 0x10000000, 'size': 8192, 'rw_offset': 4096, 'rw_size': 4096, 'code_sha256': '0'*64}
         self.assertIn('0x70002800u', render_header(proposal, f3, extension))
 
+    def test_explicit_capacity_displacement(self):
+        for count in (33,128,256,513,4096):
+            sdk, f3, a, b = fixtures()
+            offset=4+count*52+44-4
+            for row in sdk['operations'][:2]:
+                row.update(expected_original_bytes='74050000', replacement_bytes=offset.to_bytes(4,'little').hex())
+            result=propose(sdk,f3,a,b,identity_offset=offset)
+            for row in result['challenge']:
+                self.assertEqual(bytes.fromhex(row['expected_mapped_hex'])[3:],offset.to_bytes(4,'little'))
+            with self.assertRaises(ValueError):
+                propose(sdk,f3,a,b,identity_offset=offset+1)
+
     def test_missing_or_unexpected_overlap_fails_closed(self):
         sdk, f3, a, b = fixtures()
         for mutate in (

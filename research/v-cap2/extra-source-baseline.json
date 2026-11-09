@@ -1,0 +1,22 @@
+{
+  "source_worktree": "D:/Game/Master Rallye/master-rallye-re-rmod1",
+  "head": "1347f9f522e59c19da17abaa5967d05971b86a83",
+  "accepted_dirty_snapshot": [
+    {
+      "sha256": "763acb6654eca421db5c856b3c8433a655065df5aa0b14995f1942bb83dcd277",
+      "path": "src/native/rmod1/extra_options_runtime.cpp"
+    },
+    {
+      "sha256": "c28118b2d24e8b1a22b15860141a93bd77308219188ef3a391fef98b45b1632a",
+      "path": "tests/rmod1/extra_native_tests.cpp"
+    },
+    {
+      "sha256": "42e8bc5ef3ad0d6d92629648a409f9c9cfc68b2e7ad2d36cf2d25fa1c0650d37",
+      "path": "tools/build_extra_options_candidate.py"
+    },
+    {
+      "sha256": "73f02dc5db3b188834390f76dc14e4cddbabff5cd6f68b216f838422e74c4237",
+      "path": "tests/synthetic/test_extra_renderer_build.py"
+    }
+  ]
+}

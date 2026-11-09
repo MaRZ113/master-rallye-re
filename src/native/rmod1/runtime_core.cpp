@@ -8,6 +8,9 @@
 #include "runtime_log.hpp"
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "sdk_roster_abi.hpp"
+#include "extra_registry.hpp"
+#include <unordered_set>
+#include <climits>
 #endif
 
 #include <array>
@@ -576,16 +579,30 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRConfigureBlobV1(const void* blob
 
 #if defined(RMOD_EXTRA_OPTIONS)
 extern "C" __declspec(dllexport) DWORD WINAPI MRRegisterSdkRosterV1(const SdkRosterV1* profile) {
-    if(!profile||profile->size!=sizeof(SdkRosterV1)||profile->version!=1||profile->count>64||
-       !profile->vehicles||profile->challenge_human_offset<0x570||profile->challenge_human_offset>0x10000)return 0;
+    SdkRosterV1 header{};SIZE_T bytes_read=0;
+    if(!profile||!ReadProcessMemory(GetCurrentProcess(),profile,&header,sizeof(header),&bytes_read)||bytes_read!=sizeof(header)||
+       header.size!=sizeof(SdkRosterV1)||header.version!=1||!header.vehicles||
+       header.count>SIZE_MAX/sizeof(SdkVehicleV1)||header.challenge_human_offset<0x570||header.challenge_human_offset>INT_MAX)return 0;
+    uint32_t registry_count=0;wchar_t registry_env[32]{};
+    const auto registry_length=GetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",registry_env,32);
+    if(registry_length){
+        uint32_t address=0;mr_vehicle_registry::DescriptorV1 registry{};
+        if(registry_length>=32||!extra_registry::address(registry_env,address)||
+           !ReadProcessMemory(GetCurrentProcess(),reinterpret_cast<const void*>(uintptr_t(address)),&registry,sizeof(registry),&bytes_read)||
+           bytes_read!=sizeof(registry)||!extra_registry::descriptor(registry))return 0;
+        registry_count=registry.record_count;
+    }else if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return 0;
+    const size_t bytes=size_t(header.count)*sizeof(SdkVehicleV1);
+    if(uint64_t(reinterpret_cast<uintptr_t>(header.vehicles))+bytes>UINT64_C(0x100000000))return 0;
     try {
-        std::vector<RegisteredAddon> next;
-        for(unsigned i=0;i<profile->count;++i){const auto& row=profile->vehicles[i];
-            if(row.physical_id<26||row.physical_id>255||row.class_id<0||row.class_id>2||row.mode_mask&~31u)return 0;
-            for(const auto& existing:next)if(existing.physical_id==row.physical_id)return 0;
+        std::vector<SdkVehicleV1> source(header.count);
+        if(bytes&&(!ReadProcessMemory(GetCurrentProcess(),header.vehicles,source.data(),bytes,&bytes_read)||bytes_read!=bytes))return 0;
+        std::vector<RegisteredAddon> next;next.reserve(header.count);std::unordered_set<int> identities;
+        for(const auto& row:source){
+            if(row.physical_id<26||(registry_count&&unsigned(row.physical_id)>=registry_count)||row.class_id<0||row.class_id>2||row.mode_mask&~31u||!identities.insert(row.physical_id).second)return 0;
             next.push_back({row.physical_id,row.class_id,true,true,true,(row.mode_mask&1u)!=0,row.mode_mask});
         }
-        ExclusiveGuard guard(&g_lock);g_registered=std::move(next);g_challenge_human_offset=profile->challenge_human_offset;return 1;
+        ExclusiveGuard guard(&g_lock);g_registered=std::move(next);g_challenge_human_offset=header.challenge_human_offset;return 1;
     }catch(...){return 0;}
 }
 #endif

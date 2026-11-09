@@ -144,7 +144,7 @@ struct Participant {
 };
 // Any race mode: the choice follows the human player and physical CarID, not Race/Type.
 inline bool tire_applies(const Config& config, const Participant& p) {
-    return config.enabled && config.tires && p.player_type == 1 && !p.attract && p.car_id >= 0 && p.car_id < 256;
+    return config.enabled && config.tires && p.player_type == 1 && !p.attract && p.car_id >= 0;
 }
 
 // Wheel record override: scales only records still equal to the stock type-0 record of a

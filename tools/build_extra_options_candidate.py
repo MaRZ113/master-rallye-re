@@ -7,7 +7,6 @@ import os
 import shutil
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 from build_extra_sdk_binding import build as build_proxy
 from build_r_mod1_candidate import compiler_environment, locate_toolchain
@@ -25,13 +24,7 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
-def replace(path, old, new):
-    text=path.read_text(encoding='utf-8')
-    if text.count(old)!=1:raise ValueError('integration seam differs: '+str(path)+' '+old[:60])
-    path.write_text(text.replace(old,new),encoding='utf-8',newline='\n')
-
-
-def package_header():
+def package_header(sdk_runtime=None):
     manifest=json.loads((ROOT/'research/extra-set1/vehicles.json').read_text())
     previous=SDK/'.research-output/vehicles/v-set1/pilot-07'
     evidence=json.loads((previous/'preparation.json').read_text())
@@ -56,15 +49,16 @@ def package_header():
     for va in [0x4d0580,0x4d8ec0,0x4d6760,0x4d6520,0x4d8000,0x4d85f0,0x4d8880,0x4d11d0,0x407b30,0x5c1cb4,0x5b4c00,
                0x4d6650,0x4d6fb0,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630,0x525a80,0x525800]:
         apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in pe.get_data(va-0x400000,8))))
-    plan=json.loads((BASE/'runtime/addon-plan.json').read_text())
-    native=json.loads((BASE/'runtime/native-patch-manifest.json').read_text())
+    runtime=Path(sdk_runtime) if sdk_runtime is not None else BASE/'runtime'
+    plan=json.loads((runtime/'addon-plan.json').read_text())
+    native=json.loads((runtime/'native-patch-manifest.json').read_text())
     sdk_rows=[]
     modes=['quick_race','rallye_cup','master_rallye','invitation','challenge']
     for item in plan['addons']:
         mask=sum((1<<i) for i,m in enumerate(modes) if item['ai_eligibility'].get(m,{}).get('enabled',False))
         sdk_rows.append('{%d,%d,%d},'%(item['physical_id'],['T1','T2','T3'].index(item['vehicle_class']),mask))
-    layout=native['sdk_roster_extension']['bindings']['capacity']['layout']
-    human_offset=layout['racetest_base']+layout['racetest_stride']-8
+    layout=plan['registry_layout']
+    human_offset=layout['race_test_base']+layout['race_test_stride']-8
     header=('#pragma once\n#include <cstring>\n#include <array>\n#include "sdk_roster_abi.hpp"\nnamespace extra_package {\n'
             'struct Vehicle {int id;const char* family;unsigned paint_count,native_paint;const char* paint_labels[3];unsigned paint_kinds[3];};\n'
             'inline constexpr Vehicle vehicles[]={'+''.join(rows)+'};\n'
@@ -76,39 +70,41 @@ def package_header():
     return header,previous,manifest
 
 
+def graphics_inputs():
+    """Current reviewed inputs, never a persistent staging snapshot."""
+    repo=GENERAL.parents[1]
+    paths=[GENERAL/'overlay/build_overlay.py',GENERAL/'overlay/baseline-lock.json']
+    paths+=list((GENERAL/'overlay/patches').glob('*.patch'))
+    for folder in ('renderer','tests'):
+        paths += [p for p in (GENERAL/folder).rglob('*') if p.is_file() and p.suffix in ('.cpp','.hpp','.py','.def')]
+    return {'general_head': subprocess.check_output(['git','-C',str(repo),'rev-parse','HEAD'],text=True).strip(),
+            'files': {str(p.relative_to(repo)).replace(chr(92),'/'):sha(p) for p in sorted(paths)}}
+
+
 def stage_graphics(out):
+    # Capture identities only. The canonical overlay assembles fresh immutable
+    # renderer + current port inputs and owns staging/build validation.
     source=out/'graphics-source';source.mkdir()
-    upstream=GENERAL/'.staging/ps2-enabled'
-    shutil.copytree(upstream/'modernization/renderer',source/'renderer',ignore=shutil.ignore_patterns('.build*','.analysis','scratch*','recon_scratch'))
-    shutil.copytree(upstream/'ps2-research/pc-port',source/'port',ignore=shutil.ignore_patterns('build','.build*','dist','.staging','.analysis'))
-    port=source/'port/renderer'
-    shutil.copyfile(ROOT/'src/native/rmod1/extra_options_graphics.hpp',port/'extra_options_graphics.hpp')
-    replace(port/'fleet_frame_policy.hpp','#include "fleet_participants.hpp"','#include "fleet_participants.hpp"\n#include "extra_options_graphics.hpp"')
-    replace(port/'fleet_frame_policy.hpp',' return (single&&race.valid&&race.single_human_car_race',
-            ' if(a.active&&mrextra::native(a.folder.data(),int(a.index),1))return false;\n return (single&&race.valid&&race.single_human_car_race')
-    replace(port/'frontend_model_native.hpp',' if(!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};',
-            ' if(!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};\n if(p->profile()&&mrextra::native(p->profile()->family,-1,0))return {};')
-    replace(port/'frontend_model.cpp','#include "frontend_model.hpp"','#include "frontend_model.hpp"\n#include "extra_options_graphics.hpp"')
-    replace(port/'frontend_model.hpp',' float source_radius_sq_=0;',' unsigned extra_revision_=0;\n float source_radius_sq_=0;')
-    replace(port/'frontend_model.cpp','if(!requested())return false;if(textures_.size()==asset_.textures.size())return true;',
-            'if(!requested())return false;const bool extra_race=fleet_active.active;const int extra_car=extra_race?int(fleet_active.index):-1;const unsigned extra_phase=extra_race?1u:0u;const char* extra_family=profile_?profile_->family:nullptr;const auto rev=mrextra::revision(extra_family,extra_car,extra_phase);if(rev!=extra_revision_){if(states_pending())return false;for(auto* t:textures_)if(t)t->Release();textures_.clear();extra_revision_=rev;}if(textures_.size()==asset_.textures.size())return true;')
-    replace(port/'frontend_model.cpp','const auto& t=asset_.textures[i];if(FAILED(n.CreateTexture',
-            'auto t=asset_.textures[i];mrextra::texture(extra_family,unsigned(i),t.width,t.height,asset_.textures[i].pixels.data(),t.pixels.data(),unsigned(t.pixels.size()*4),extra_car,extra_phase);if(FAILED(n.CreateTexture')
+    (source/'inputs.json').write_text(json.dumps(graphics_inputs(),indent=2)+'\n')
     return source
 
 
 def build_graphics(out):
-    source=out/'graphics-source'
-    # Short build path avoids MSVC nested path-length failures.
-    with tempfile.TemporaryDirectory(prefix='mrx-') as temp:
-        build=Path(temp)
-        subprocess.run(['cmake','-S',str(source/'renderer'),'-B',str(build),'-G','Visual Studio 18 2026','-A','Win32',
-                        '-DMRR_ENABLE_PS2_PORT=ON','-DMRR_PS2_PORT_ROOT='+str(source/'port'),'-DBUILD_TESTING=ON'],check=True)
-        subprocess.run(['cmake','--build',str(build),'--config','Release','--parallel','3'],check=True)
-        result=subprocess.run(['ctest','--test-dir',str(build),'-C','Release','--output-on-failure'],capture_output=True,text=True)
-        (out/'graphics-tests.log').write_text(result.stdout+result.stderr)
-        if result.returncode:raise ValueError('renderer regression failed')
-        shutil.copyfile(build/'Release/d3d8.dll',out/'d3d8.dll')
+    snapshot=json.loads((out/'graphics-source/inputs.json').read_text())
+    if snapshot!=graphics_inputs():raise ValueError('graphics inputs changed after source capture')
+    with (out/'graphics-build.log').open('w',encoding='utf-8') as log:
+        subprocess.run([sys.executable,str(GENERAL/'overlay/build_overlay.py')],cwd=GENERAL.parents[1],
+                       stdout=log,stderr=subprocess.STDOUT,check=True)
+    if snapshot!=graphics_inputs():raise ValueError('graphics inputs changed during build')
+    report_path=GENERAL/'dist/current/build-report.json'
+    report=json.loads(report_path.read_text())
+    for relative,digest in report['ps2_source_sha256'].items():
+        if digest!=sha(GENERAL/relative):raise ValueError('compiled port input differs: '+relative)
+    built=GENERAL.parents[1]/report['builds']['ps2-enabled']['dll']
+    if sha(built)!=report['builds']['ps2-enabled']['dll_sha256']:raise ValueError('built renderer hash mismatch')
+    shutil.copyfile(built,out/'d3d8.dll')
+    shutil.copyfile(report_path,out/'graphics-build-manifest.json')
+    shutil.copyfile(GENERAL/'.build/logs/ps2-enabled-ctest.log',out/'graphics-tests.log')
 
 
 def package(out):

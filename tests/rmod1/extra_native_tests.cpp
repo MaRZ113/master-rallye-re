@@ -47,7 +47,7 @@ void* __cdecl test_object(){return reinterpret_cast<void*>(2);}
 int __fastcall test_quick_car(void*,void*,int p){return numbers[p?"mock/quick/1":"mock/quick/0"];}
 int __fastcall test_cup_car(void*,void*,int p){return numbers[p?"mock/cup/1":"mock/cup/0"];}
 // Native vehicle registry: 0x34-byte rows, folder Name at +0x24.
-unsigned char registry[0x24+64*0x34]{};
+unsigned char registry[0x24+513*0x34]{};
 void* __cdecl test_registry(){return registry;}
 struct Entry {uint32_t a,b;uintptr_t object;};
 std::map<std::string,Entry> controllers;
@@ -101,6 +101,28 @@ struct FakeWheel {
 int main(int argc,char** argv){try{
  if(argc!=2)return 2;
  using namespace extra_runtime;
+ directory=argv[1];
+ uint32_t parsed=0;
+ check(extra_registry::address(L"0x10000000",parsed)&&parsed==0x10000000,"descriptor hex address");
+ check(!extra_registry::address(L"4294967296",parsed)&&!extra_registry::address(L"-1",parsed)&&!extra_registry::address(L"0x",parsed),"descriptor address rejects overflow/sign/empty");
+ check(extra_registry::native_count(4+33*52+39*44,parsed)&&parsed==33,"SDK33 allocation count");
+ check(!extra_registry::native_count(4+33*52+39*44+1,parsed),"non-record allocation rejected");
+ for(unsigned count:{33u,128u,129u,255u,256u,257u,513u}){
+  std::vector<uint32_t> ids(count),classes(count,0),locals(count);
+  for(unsigned i=0;i<count;++i)ids[i]=locals[i]=i;
+  uint32_t counts[]={count,0,0};uint32_t tables[]={uint32_t(reinterpret_cast<uintptr_t>(ids.data())),uint32_t(reinterpret_cast<uintptr_t>(ids.data())),uint32_t(reinterpret_cast<uintptr_t>(ids.data()))};
+  mr_vehicle_registry::DescriptorV1 d{{'M','R','V','C'},1,44,count,52,3,0x45a3c0,
+   uint32_t(reinterpret_cast<uintptr_t>(counts)),uint32_t(reinterpret_cast<uintptr_t>(tables)),
+   uint32_t(reinterpret_cast<uintptr_t>(classes.data())),uint32_t(reinterpret_cast<uintptr_t>(locals.data()))};
+  wchar_t location[32]{};std::swprintf(location,32,L"0x%08x",unsigned(reinterpret_cast<uintptr_t>(&d)));
+  SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",location);
+  check(configure_registry()&&car_count==count,"capacity descriptor including numeric boundaries");
+  d.record_stride=48;check(!configure_registry(),"unsupported stride rejected");d.record_stride=52;
+  locals[0]=1;check(!configure_registry(),"inconsistent inverse mapping rejected");
+ }
+ SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",L"invalid");check(!configure_registry(),"malformed present descriptor rejected");
+ SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",nullptr);
+ allocate_state(513);
  directory=argv[1];options.enabled=options.tires=options.liveries=true;installed=true;
  for(unsigned n=0;n<kRaceCars;++n){race_player[n]=-1;race_car[n]=-1;}
  for(auto [id,name]:{std::pair{2,"Tata"},{15,"Simmbugghini"},{18,"Megane"},{21,"SeatBuggy"}}){
@@ -145,7 +167,11 @@ int main(int argc,char** argv){try{
  tires[0][21]=0;race.stamp=0;FakeWheel plain(reinterpret_cast<uintptr_t>(human_controller.data())+0x18,stock);
  wheel_update(plain.get(),nullptr);check(plain.records==stock,"Stock exact passthrough");tires[0][21]=3;
  options.tires=false;race.stamp=0;FakeWheel off(reinterpret_cast<uintptr_t>(human_controller.data())+0x18,stock);
- wheel_update(off.get(),nullptr);check(off.records==stock,"independent tyre toggle");options.tires=true;
+ race_player[0]=-1;race_car[0]=-1;paints[0][21]=1;
+ wheel_update(off.get(),nullptr);check(off.records==stock,"independent tyre toggle");
+ check(MRExtraVisualV2("SeatBuggy",0,1)==1,"appearance race identity refreshes with Tires=0");
+ check(MRExtraVisualV2("Megane",1,1)==0,"Tires=0 keeps AI appearance isolated");
+ options.tires=true;paints[0][21]=0;
 
  // Vehicle Select: generic PS2/PC for every car, per-car presets where authored; immediate.
  numbers["Frontend/VehicleSelect/PlayerID"]=0;numbers["Frontend/VehicleSelect/CarModel"]=15;
@@ -166,6 +192,19 @@ int main(int argc,char** argv){try{
  focused=3;select_scroll(nullptr,nullptr,1);check(scrolls==0,"Left/Right on MODEL keeps the carousel");
  focused=2;select_scroll(nullptr,nullptr,1);check(scrolls==1,"carousel still scrolls from its own row");
  options.liveries=false;check(MRExtraVisualV2("SeatBuggy",0,1)==0,"independent appearance toggle");options.liveries=true;
+ for(int id:{127,128,254,255,256,512}){
+  static const char name[]="CapacityBoundary";const auto ptr=reinterpret_cast<uintptr_t>(name);std::memcpy(registry+0x24+id*0x34,&ptr,4);
+  numbers["Frontend/VehicleSelect/CarModel"]=id;select_tick(nullptr,nullptr,0);
+  numbers["Frontend/ExtraOptions/Paint"]=1;select_tick(nullptr,nullptr,0);
+  check(MRExtraVisualV2(name,-1,0)==1,"high physical ID PC appearance");
+  tires[0][id]=3;numbers["Race/Car0/CarID"]=id;race.stamp=0;
+  FakeWheel high(reinterpret_cast<uintptr_t>(human_controller.data())+0x18,stock);wheel_update(high.get(),nullptr);
+  check(high.records[2*12]==stock[2*12]*extra_options::grip_scale(extra_options::Tire::Gravel,2),"high physical ID tyre wheel");
+  tires[1][id]=2;save(1,id);wchar_t section[32]{};std::swprintf(section,32,L"Player2Car%u",unsigned(id));
+  const auto path=(directory/"MRallyeExtraOptions.state.ini").wstring();
+  check(GetPrivateProfileIntW(section,L"Tire",0,path.c_str())==2,"high physical ID INI persistence");
+ }
+ check(!valid_car(-1)&&!valid_car(513),"capacity bounds");
  options.enabled=false;check(MRExtraVisualV1("SeatBuggy",0,1)==0,"customization off passthrough");
  std::cout<<"EXTRA_NATIVE_PASS GENERAL tyre row (Quick Race + championship, two players); human-only compound wheels; Vehicle Select PS2/PC immediate for every car, carousel locked on MODEL; renderer V1/V2 contract\n";return 0;
  }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

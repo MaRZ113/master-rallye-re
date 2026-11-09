@@ -39,8 +39,11 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     evidence = module.audit(raw, sdk, public)
-    proposal = propose(sdk, public, make_challenge_preview_code(), make_challenge_consumer_code())
-    if len(evidence['overlaps']) != 2 or len(proposal['sdk_checks']) < 1:
+    addon = json.loads((sdk_manifest.parent/'addon-plan.json').read_text(encoding='utf-8'))
+    layout = addon['registry_layout']
+    identity_offset = layout['race_test_base'] + layout['race_test_stride'] - 4
+    proposal = propose(sdk, public, make_challenge_preview_code(), make_challenge_consumer_code(), identity_offset=identity_offset)
+    if len(evidence['overlaps']) < 2 or len(proposal['sdk_checks']) < 1:
         raise ValueError('the verified SDK/F3 overlap set is not qualified')
 
     sdk_profile = json.loads((sdk_manifest.parent/'runtime-profile.json').read_text(encoding='utf-8'))
@@ -61,7 +64,7 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
     output.mkdir(parents=True)
     include = output / 'include'; include.mkdir()
     (include / 'native_plan.hpp').write_text(render_cpp_header(plan), encoding='ascii', newline='\n')
-    (include / 'extra_sdk_profile.hpp').write_text(render_header(proposal, public, extension), encoding='ascii', newline='\n')
+    (include / 'extra_sdk_profile.hpp').write_text(render_header(proposal, public, extension, registry_count=layout['record_count']), encoding='ascii', newline='\n')
     if extra_header is not None:
         (include / 'extra_options_package.hpp').write_text(extra_header, encoding='ascii', newline='\n')
     proxy_def = output / 'extra_sdk_proxy.def'
@@ -70,7 +73,8 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
                      '    MRExtraVisualV1=_MRExtraVisualV1@12 @9\n'
                      '    MRExtraRevisionV1=_MRExtraRevisionV1@12 @10\n'
                      '    MRExtraTextureV1=_MRExtraTextureV1@36 @11\n'
-                     '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n') if extra_header is not None else ''
+                     '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n'
+                     '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n') if extra_header is not None else ''
     proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra, encoding='ascii')
     write_proposal(output / 'binding-proposal.json', proposal)
     (output / 'preimage-audit.json').write_text(json.dumps(evidence, indent=2) + '\n')

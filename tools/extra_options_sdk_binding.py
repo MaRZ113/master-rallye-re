@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import struct
 from pathlib import Path
 
 RETAIL_LOAD = bytes.fromhex('8bbc3874050000')
@@ -45,7 +46,7 @@ def _operations(plan, sdk):
     return rows
 
 
-def propose(sdk_plan, f3_plan, preview_stub, race_stub):
+def propose(sdk_plan, f3_plan, preview_stub, race_stub, *, identity_offset=0x6e0):
     """Create an isolated patch proposal; never relax the existing bootstrap.
 
     Exactly the two witnessed F3 consumers may overlap. Every other overlap,
@@ -69,21 +70,34 @@ def propose(sdk_plan, f3_plan, preview_stub, race_stub):
             lo, hi = max(a[0], b[0]), min(a[0] + len(a[1]), b[0] + len(b[1]))
             if lo < hi:
                 overlaps.append((a, b, lo, hi))
-    if len(overlaps) != 2 or {b[3] for _, b, _, _ in overlaps} != EXPECTED_IDS:
+    if {b[3] for _, b, _, _ in overlaps} != EXPECTED_IDS:
         raise ValueError('unexpected SDK/F3 overlap set')
+    if type(identity_offset) is not int or not 0x570 <= identity_offset <= 0x7fffffff:
+        raise ValueError('invalid explicit RaceTest human offset')
+    mapped_load = RETAIL_LOAD[:3] + struct.pack('<I', identity_offset)
     stubs = {'challenge-preview-identity': preview_stub, 'challenge-race-consume': race_stub}
     result = []
-    for a, b, lo, hi in sorted(overlaps, key=lambda item: item[1][3]):
-        if b[1] != RETAIL_LOAD or lo != b[0] + 3 or hi != b[0] + 5:
+    for identity in sorted(EXPECTED_IDS):
+        group = [item for item in overlaps if item[1][3] == identity]
+        b = group[0][1]
+        if b[1] != RETAIL_LOAD:
             raise ValueError('unexpected overlapping instruction')
-        if a[0] != lo or a[1] != RETAIL_LOAD[3:5] or a[2] != SDK_LOAD[3:5]:
-            raise ValueError('SDK field relocation is not the witnessed displacement')
-        stub = stubs[b[3]]
+        observed = bytearray(RETAIL_LOAD)
+        for a, _, lo, hi in group:
+            if a[0] != lo or a[0]+len(a[1]) != hi or lo < b[0]+3 or hi > b[0]+7:
+                raise ValueError('SDK operation extends outside the witnessed displacement')
+            offset = lo-b[0]
+            if a[1] != RETAIL_LOAD[offset:offset+len(a[1])]:
+                raise ValueError('SDK displacement preimage differs')
+            observed[offset:offset+len(a[2])] = a[2]
+        if bytes(observed) != mapped_load:
+            raise ValueError('SDK displacement differs from explicit capacity layout')
+        stub = stubs[identity]
         if not isinstance(stub, bytes) or not stub.startswith(RETAIL_LOAD + bytes.fromhex('9c60')):
             raise ValueError('F3 replay stub does not begin with the witnessed instruction')
-        updated = SDK_LOAD + stub[len(SDK_LOAD):]
-        result.append({'id': b[3], 'rva': b[0], 'sdk_name': a[3],
-                       'expected_mapped_hex': SDK_LOAD.hex(), 'replacement_hex': b[2].hex(),
+        updated = mapped_load + stub[len(mapped_load):]
+        result.append({'id': identity, 'rva': b[0], 'sdk_name': ','.join(item[0][3] for item in group),
+                       'expected_mapped_hex': mapped_load.hex(), 'replacement_hex': b[2].hex(),
                        'original_stub_sha256': hashlib.sha256(stub).hexdigest(),
                        'composed_stub_hex': updated.hex(),
                        'composed_stub_sha256': hashlib.sha256(updated).hexdigest()})
@@ -103,9 +117,11 @@ def write_proposal(path, proposal):
     path.write_text(json.dumps(proposal, indent=2, sort_keys=True) + '\n', encoding='utf-8')
 
 
-def render_header(proposal, f3_plan, extension):
+def render_header(proposal, f3_plan, extension, *, registry_count=0):
     if proposal.get('schema') != 'extra-options-sdk-binding/1' or proposal.get('runtime_qualified') is not False:
         raise ValueError('invalid binding proposal')
+    if type(registry_count) is not int or registry_count < 0 or registry_count > 0x7fffffff:
+        raise ValueError('invalid compiled registry count')
     checks = proposal['sdk_checks']
     challenges = proposal['challenge']
     symbols = f3_plan['code_symbols']
@@ -121,6 +137,7 @@ def render_header(proposal, f3_plan, extension):
                       for x in challenges)
     return ('#pragma once\n#include <cstddef>\n#include <cstdint>\n'
             'namespace sdk_binding_profile {\n'
+            'inline constexpr std::uint32_t registry_count = %du;\n' % registry_count +
             'struct Check { std::uint32_t rva; const char* expected_hex; };\n'
             'struct Hook { const char* id; std::uint32_t rva; std::uint32_t stub_va; const char* mapped_hex; };\n'
             'inline constexpr Check checks[] = {\n' + rows + '\n};\n'

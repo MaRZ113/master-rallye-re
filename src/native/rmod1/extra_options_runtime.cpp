@@ -4,6 +4,9 @@
 #include "extra_options_runtime.hpp"
 #include "extra_options.hpp"
 #include "extra_options_package.hpp"
+#include "extra_registry.hpp"
+#include <memory>
+#include <mutex>
 #include <array>
 #include <atomic>
 #include <cstdio>
@@ -36,16 +39,27 @@ constexpr uintptr_t kGeneralCommandCall=0x483151,kCommand=0x45d930,kWheelCall=0x
 // Vehicle Select Left/Right: focus 1 changes class, any other focus scrolls the car carousel (0x481f50).
 constexpr uintptr_t kSelectScrollCall=0x4818c5,kSelectScroll=0x481f50;
 constexpr int kModelButton=3;
-constexpr unsigned kPlayers=2,kCars=256,kRaceCars=8;
+constexpr unsigned kPlayers=2,kRaceCars=8;
+unsigned car_count=0;
+uintptr_t registry_getter=0x45a3c0;
 constexpr int kTyreButton=6; // GENERAL rows are 1..5; the native tick ignores IDs above 5.
-std::array<std::array<std::atomic_uint,kCars>,kPlayers> paints{},tires{};
+std::array<std::unique_ptr<std::atomic_uint[]>,kPlayers> paints{},tires{};
 std::atomic_int menu_car{-1},menu_player{0};
 std::array<std::atomic_int,kRaceCars> race_player{},race_car{};
 std::atomic_uint generation{1};
 extra_options::Config options{};
 bool installed=false;
 fs::path directory;
-std::array<std::array<char,32>,kCars> families{};
+std::unique_ptr<std::array<char,65>[]> families;
+std::mutex family_mutex;
+bool valid_car(int id){return id>=0 && unsigned(id)<car_count;}
+void allocate_state(unsigned count){
+ std::array<std::unique_ptr<std::atomic_uint[]>,kPlayers> next_paints,next_tires;
+ for(unsigned p=0;p<kPlayers;++p){next_paints[p]=std::make_unique<std::atomic_uint[]>(count);next_tires[p]=std::make_unique<std::atomic_uint[]>(count);
+  for(unsigned i=0;i<count;++i){next_paints[p][i]=0;next_tires[p][i]=0;}}
+ auto next_families=std::make_unique<std::array<char,65>[]>(count);
+ paints=std::move(next_paints);tires=std::move(next_tires);families=std::move(next_families);car_count=count;
+}
 struct Pixels {std::vector<unsigned char> original,derived;};
 std::vector<Pixels> pixels;
 void log(const char* text) noexcept {try {std::ofstream f(directory/"MRallyeExtraOptions.log",std::ios::app);f<<text<<'\n';}catch(...) {}}
@@ -79,10 +93,11 @@ int clamp_player(int p){return p==1?1:0;}
 // (the setup loader 0x44d720 copies it with 0x4d1990). Live check: IDs 0..32 incl. SDK cars.
 // Rows past the roster belong to other tables, so path-like or empty strings are rejected.
 const char* family(int id){
- if(id<0||id>=int(kCars))return "";
+ if(!valid_car(id))return "";
+ std::lock_guard<std::mutex> lock(family_mutex);
  auto& slot=families[id];
  if(!slot[0]){
-  const auto table=reinterpret_cast<uintptr_t>(fn<void*(__cdecl*)()>(0x45a3c0)());uintptr_t text=0;char copy[32]{};
+  const auto table=reinterpret_cast<uintptr_t>(fn<void*(__cdecl*)()>(registry_getter)());uintptr_t text=0;char copy[65]{};
   if(table&&read(table+0x24+uintptr_t(id)*0x34,&text,4)&&text&&read(text,copy,sizeof(copy)-1)&&copy[0]&&!std::strpbrk(copy,"/\\"))
    std::memcpy(slot.data(),copy,sizeof(copy));
  }
@@ -124,7 +139,7 @@ void publish_tyre(){
 }
 void tyre_sync(bool force){
  const int player=clamp_player(integer("Frontend/CarSetup/PlayerID")),car=setup_car(player);
- if(car<0||car>=int(kCars)){tyre_row={};return;}
+ if(!valid_car(car)){tyre_row={};return;}
  if(force||player!=tyre_row.player||car!=tyre_row.car){
   tyre_row={player,car,tires[player][car].load()};if(tyre_row.value>=extra_options::kTireCount)tyre_row.value=0;
   list("Frontend/ExtraOptions/TireList",{extra_options::kTireLabels.begin(),extra_options::kTireLabels.end()});
@@ -155,7 +170,7 @@ void publish_look(){
 }
 void look_sync(bool force){
  const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
- if(car<0||car>=int(kCars)){look_row={};menu_car=-1;return;}
+ if(!valid_car(car)){look_row={};menu_car=-1;return;}
  menu_player=player;menu_car=car;family(car);
  if(force||player!=look_row.player||car!=look_row.car){
   look_row={player,car,paints[player][car].load()};if(look_row.value>=paint_count(car))look_row.value=0;
@@ -196,7 +211,7 @@ void refresh_race(){
   std::snprintf(path,sizeof(path),"Race/Car%u/PlayerType",n);if(integer(path)!=1)continue;
   std::snprintf(path,sizeof(path),"Race/Car%u/CarID",n);const int id=integer(path);
   Human h;h.car_index=int(n);h.player=clamp_player(player++);h.car=id;
-  race_player[n]=h.player;race_car[n]=id;if(id>=0&&id<int(kCars)){family(id);h.compound=tires[h.player][id].load();}
+  race_player[n]=h.player;race_car[n]=id;if(valid_car(id)){family(id);h.compound=tires[h.player][id].load();}
   std::snprintf(path,sizeof(path),"Controller/Car%u",n);
   uintptr_t entry=reinterpret_cast<uintptr_t>(find(path,"ControllerCarBrokerAccess")),object=0;
   if(entry&&read(entry+8,&object,4))h.controller=object;
@@ -239,13 +254,59 @@ void apply_wheel(void* wheel){
 }
 void __fastcall wheel_update(void* wheel,void*){
  fn<Wheel>(kWheel)(wheel);
- try{apply_wheel(wheel);}catch(...){}
+ try{
+  // MODEL needs participant identity even when tyre customization is disabled.
+  // Keep the original update and the existing bounded race cache; do not apply
+  // a compound merely to refresh appearance ownership.
+  if(options.enabled&&options.liveries&&!options.tires&&(!race.stamp||GetTickCount64()-race.stamp>500))refresh_race();
+  apply_wheel(wheel);
+ }catch(...){}
 }
 
 bool patch(uintptr_t va,const void* p,size_t size){DWORD previous=0,ignored=0;if(!VirtualProtect(reinterpret_cast<void*>(va),size,PAGE_EXECUTE_READWRITE,&previous))return false;std::memcpy(reinterpret_cast<void*>(va),p,size);const bool ok=FlushInstructionCache(GetCurrentProcess(),reinterpret_cast<void*>(va),size)!=FALSE;return VirtualProtect(reinterpret_cast<void*>(va),size,previous,&ignored)&&ok;}
 bool call_is(uintptr_t site,uintptr_t target){std::array<unsigned char,5> b{};if(!read(site,b.data(),b.size())||b[0]!=0xe8)return false;int32_t offset=0;std::memcpy(&offset,b.data()+1,4);return site+5+offset==target;}
 bool slot_is(uintptr_t slot,uintptr_t target){uintptr_t v=0;return read(slot,&v,4)&&v==target;}
 std::vector<unsigned char> load(const char* name,size_t bytes){std::ifstream f(directory/name,std::ios::binary|std::ios::ate);if(!f||f.tellg()!=std::streamoff(bytes))return {};std::vector<unsigned char> p(bytes);f.seekg(0);f.read(reinterpret_cast<char*>(p.data()),std::streamsize(bytes));if(!f)return {};return p;}
+
+bool configure_registry(){
+ wchar_t env[32]{};const DWORD length=GetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",env,32);
+ unsigned count=0;
+ if(length){
+  uint32_t location=0;mr_vehicle_registry::DescriptorV1 d{};
+  if(length>=32||!extra_registry::address(env,location)||!read(location,&d,sizeof(d))||!extra_registry::descriptor(d))return false;
+  std::array<uint32_t,3> counts{},tables{};
+  if(!read(d.class_counts_va,counts.data(),sizeof(counts))||!read(d.class_tables_va,tables.data(),sizeof(tables)))return false;
+  if(uint64_t(counts[0])+counts[1]+counts[2]!=d.record_count)return false;
+  // Verify every mapping in bounded chunks, without allocating from untrusted counts.
+  std::array<uint32_t,256> ids{};
+  for(unsigned c=0;c<3;++c){
+   if(!extra_registry::span(tables[c],counts[c],4))return false;
+   for(unsigned first=0;first<counts[c];){
+    const unsigned n=(counts[c]-first)<ids.size()?counts[c]-first:unsigned(ids.size());
+    if(!read(uintptr_t(tables[c])+uintptr_t(first)*4,ids.data(),size_t(n)*4))return false;
+    for(unsigned j=0;j<n;++j){
+     if(ids[j]>=d.record_count)return false;
+     uint32_t rc=0,rl=0;
+     if(!read(uintptr_t(d.reverse_classes_va)+uintptr_t(ids[j])*4,&rc,4)||!read(uintptr_t(d.reverse_locals_va)+uintptr_t(ids[j])*4,&rl,4)||rc!=c||rl!=first+j)return false;
+    }
+    first+=n;
+   }
+  }
+  count=d.record_count;registry_getter=d.registry_getter_va;
+ }else{
+  if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return false;
+  // Retail and accepted SDK33 keep this PUSH imm32 allocation operand.
+  // Read the installed size rather than walking beyond a native registry.
+  unsigned char instruction[5]{};uint32_t allocation=0;
+  if(!read(0x45a3df,instruction,sizeof(instruction))||instruction[0]!=0x68)return false;
+  std::memcpy(&allocation,instruction+1,4);
+  if(!extra_registry::native_count(allocation,count))return false;
+ }
+ allocate_state(count);
+ char line[128]{};std::snprintf(line,sizeof(line),"REGISTRY_READY count=%u source=%s",count,length?"MRVC_V1":"native-allocation");log(line);
+ return true;
+}
+
 }
 
 bool initialize() noexcept {try{
@@ -253,8 +314,9 @@ bool initialize() noexcept {try{
  std::ifstream f(directory/"MRallyeExtraOptions.ini",std::ios::binary);std::string ini((std::istreambuf_iterator<char>(f)),{});
  const auto parsed=extra_options::parse_config(ini);if(parsed.accepted)options=parsed.config;else log("CONFIG absent/invalid; customization disabled; existing Randomizer settings unchanged");
  if(!options.enabled||(!options.tires&&!options.liveries)){log("CUSTOMIZATION_DISABLED no menu or wheel hooks installed");return true;}
+ if(!configure_registry()){log("REGISTRY_UNSUPPORTED: customization hooks disabled; no guessed CarID bounds");return false;}
  const auto state=(directory/"MRallyeExtraOptions.state.ini").wstring();
- for(unsigned p=0;p<kPlayers;++p)for(unsigned i=0;i<kCars;++i){wchar_t s[32]{};std::swprintf(s,32,p?L"Player2Car%u":L"Car%u",i);
+ for(unsigned p=0;p<kPlayers;++p)for(unsigned i=0;i<car_count;++i){wchar_t s[32]{};std::swprintf(s,32,p?L"Player2Car%u":L"Car%u",i);
   const auto paint=GetPrivateProfileIntW(s,L"Paint",0,state.c_str()),tire=GetPrivateProfileIntW(s,L"Tire",0,state.c_str());
   paints[p][i]=migrate_paint(int(i),paint);tires[p][i]=tire<extra_options::kTireCount?tire:0;}
  pixels.resize(extra_package::binding_count);for(unsigned i=0;i<extra_package::binding_count;++i){const auto& b=extra_package::bindings[i];const size_t size=size_t(b.width)*b.height*4;pixels[i].original=load(b.original,size);pixels[i].derived=load(b.derived,size);}
@@ -265,8 +327,9 @@ bool initialize() noexcept {try{
  try{
   if(options.tires){
    slot(kGeneralInitSlot,kGeneralInit,reinterpret_cast<void*>(&general_init));slot(kGeneralTickSlot,kGeneralTick,reinterpret_cast<void*>(&general_tick));
-   call(kGeneralCommandCall,kCommand,reinterpret_cast<void*>(&general_command));call(kWheelCall,kWheel,reinterpret_cast<void*>(&wheel_update));
+   call(kGeneralCommandCall,kCommand,reinterpret_cast<void*>(&general_command));
   }
+  if(options.tires||options.liveries)call(kWheelCall,kWheel,reinterpret_cast<void*>(&wheel_update));
   if(options.liveries){slot(kSelectInitSlot,kSelectInit,reinterpret_cast<void*>(&select_init));slot(kSelectTickSlot,kSelectTick,reinterpret_cast<void*>(&select_tick));
    call(kSelectScrollCall,kSelectScroll,reinterpret_cast<void*>(&select_scroll));}
  }catch(int){log("HOOK_CONFLICT: Extra Options not installed; selected call/vtable mismatch");return false;}
@@ -285,7 +348,7 @@ using namespace extra_runtime;
 bool selection(int participant,unsigned phase,int& player,int& id){
  if(phase==0){player=menu_player.load();id=menu_car.load();}
  else{if(participant<0||participant>=int(kRaceCars))return false;player=race_player[participant].load();id=race_car[participant].load();}
- return player>=0&&id>=0&&id<int(kCars);
+ return player>=0&&player<int(kPlayers)&&valid_car(id);
 }
 bool family_matches(int id,const char* family_name){
  const char* known=extra_runtime::family(id);
@@ -295,6 +358,7 @@ bool family_matches(int id,const char* family_name){
 }
 
 // The renderer asks this module; it never owns or rewrites customization state.
+extern "C" unsigned WINAPI MRExtraVehicleRegistryAbi(){return 0x4d525601u;}
 extern "C" unsigned WINAPI MRExtraOptionsAbi(){return 0x45583201u;}
 // V2 identifies the selected appearance independently of renderer lighting.
 // 0=no applicable selection, 1=PC bundle, 2=PS2 bundle, 3=PS2 with PC textures.

@@ -7,6 +7,7 @@
 
 #include "core.hpp"
 #include "extra_options.hpp"
+#include "extra_registry.hpp"
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "sdk_roster_abi.hpp"
 #include "extra_options_package.hpp"
@@ -315,6 +316,15 @@ bool sdk_extension_present() {
 bool sdk_profile_matches(SdkSnapshot* snapshot = nullptr) {
     if (sdk_binding_profile::check_count == 0 || sdk_binding_profile::check_count > 4096 ||
         sdk_binding_profile::hook_count != 2) return false;
+    wchar_t capacity_address[32]{};
+    const auto capacity_length=GetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",capacity_address,32);
+    if(capacity_length){
+        uint32_t address=0;mr_vehicle_registry::DescriptorV1 descriptor{};
+        if(capacity_length>=32||!extra_registry::address(capacity_address,address)||
+           !read_exact(address,&descriptor,sizeof(descriptor))||!extra_registry::descriptor(descriptor)||
+           !sdk_binding_profile::registry_count||descriptor.record_count!=sdk_binding_profile::registry_count)return false;
+    }else if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return false;
+
     SdkSnapshot candidate;
     candidate.checks.reserve(sdk_binding_profile::check_count);
     for (const auto& item : sdk_binding_profile::checks) {
@@ -546,7 +556,7 @@ bool initialize_impl(char* error, unsigned capacity) {
         SdkSnapshot sdk_snapshot;
         sdk_bound = sdk_profile_matches(&sdk_snapshot);
         if (!sdk_bound && (any_sdk_hook_present() || sdk_extension_present()))
-            throw std::runtime_error("partial or mismatched SDK profile; no composed hooks installed");
+            throw std::runtime_error("partial, mismatched or capacity-incompatible SDK profile; no composed hooks installed");
         if (sdk_bound) {
 #if defined(RMOD_EXTRA_OPTIONS)
             auto register_sdk=reinterpret_cast<DWORD (WINAPI*)(const rmod1::SdkRosterV1*)>(GetProcAddress(runtime,"MRRegisterSdkRosterV1"));
