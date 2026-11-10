@@ -1,0 +1,81 @@
+# Menu Builder in-game qualification (demo.mrmenu.json). Executed by the native runtime on the game thread.
+# Keys go through UI/Control, clicks through the runtime hit test of the live eggs.
+wait 2500
+expect-screen MainMenu
+dump
+shot 01-mainmenu
+expect-focus 1
+key down
+wait 500
+expect-focus 2
+key down
+wait 500
+expect-focus 3
+key down
+wait 500
+expect-focus 4
+key down
+wait 500
+expect-focus 10
+shot 02-mainmenu-focus-credits
+key down
+wait 500
+expect-focus 5
+key up
+wait 500
+expect-focus 10
+key up
+wait 500
+expect-focus 4
+# moved + resized retail OPTIONS: hitbox follows the new geometry, the old area is empty
+expect-hit 330 256 Options
+expect-hit 290 262 none
+hover 330 256
+wait 500
+expect-focus 3
+shot 03-mainmenu-hover-options
+# new CREDITS button with a real action (navigate.screen Credits)
+click 300 150
+wait 3000
+expect-screen 44
+shot 04-credits
+key back
+wait 3000
+expect-screen Options
+shot 05-options
+# new OPTIONS button -> new custom screen
+click 300 65
+wait 3000
+expect-screen MB_ModMenu
+expect-focus 1
+shot 06-modmenu
+key accept
+wait 3000
+expect-screen MB_VehicleConfig
+expect-focus 1
+shot 07-vehicleconfig
+key down
+wait 500
+expect-focus 2
+key accept
+wait 500
+expect-screen MB_VehicleConfig
+key down
+wait 500
+expect-focus 3
+key down
+wait 500
+expect-focus 4
+key accept
+wait 3000
+expect-screen MB_ModMenu
+key down
+wait 500
+key down
+wait 500
+expect-focus 3
+key accept
+wait 3000
+expect-screen Options
+shot 08-back-to-options
+end

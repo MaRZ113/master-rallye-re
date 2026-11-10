@@ -277,6 +277,23 @@ bool initialize() noexcept {try{
                                 options.tires,options.liveries,unsigned(writes.size()));log(line);return true;
  }catch(...){log("INITIALIZATION_FAILED");return false;}}
 
+// Menu Builder provider "extra_options.model_source": the same PS2/PC choice as the MODEL row of
+// Vehicle Select, for the car currently selected there (Frontend/VehicleSelect/{PlayerID,CarModel}).
+bool appearance_available() noexcept {return installed&&options.enabled&&options.liveries;}
+bool appearance_step(int direction,char* label,size_t size) noexcept {try{
+ if(!appearance_available())return false;
+ const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
+ if(car<0||car>=int(kCars))return false;
+ family(car);
+ const unsigned n=paint_count(car),old=paints[player][car].load()%n;
+ const unsigned v=direction<0?(old+n-1)%n:(old+1)%n;
+ paints[player][car]=v;++generation;save(player,car);
+ menu_player=player;menu_car=car;look_row={player,car,v};publish_look();
+ if(label&&size)std::snprintf(label,size,"%s",paint_label(car,v));
+ char line[180]{};std::snprintf(line,sizeof(line),"APPEARANCE_SELECTED player=%d CarID=%d family=%s choice=%s source=menu-builder",player+1,car,family(car),paint_label(car,v));log(line);
+ return true;
+ }catch(...){return false;}}
+
 } // namespace extra_runtime
 
 namespace {

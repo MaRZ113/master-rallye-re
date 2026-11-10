@@ -1,0 +1,132 @@
+{
+  "format": "mr-menu-project",
+  "version": 1,
+  "name": "Demo",
+  "description": "Qualification layout: edited MAIN MENU, a new MENU BUILDER screen from OPTIONS, and the VEHICLE CONFIGURATION demo opened from QUICK RACE.",
+  "author": "Menu Builder",
+  "settings": { "mouse": true, "aspects": [ "4:3", "16:10", "16:9", "21:9" ], "language": 0 },
+  "styles": {
+    "MenuButton": { "textOffsetX": 110, "hJustify": 0, "vJustify": 1 }
+  },
+  "components": {
+    "LongButton": { "template": "MainMenu/OnePlayer", "style": "MenuButton", "description": "Main menu long button (longbutton.dxb, Arial 16 label)" },
+    "CurvedButton": { "template": "QuickRace/VehicleSetup", "description": "Quick Race left column button (curved_smaller.dxb)" }
+  },
+  "screens": [
+    {
+      "name": "MainMenu",
+      "kind": "retail",
+      "base": "MainMenu",
+      "defaultFocus": 1,
+      "elements": [
+        { "name": "OnePlayer", "base": "OnePlayer", "patch": { "y": 341 } },
+        { "name": "Multiplayer", "base": "Multiplayer", "patch": { "y": 287 } },
+        { "name": "Options", "base": "Options", "patch": { "x": 300, "y": 233, "scaleX": 0.9, "scaleY": 0.9 }, "note": "moved and resized retail button" },
+        { "name": "Progress", "base": "Progress", "patch": { "y": 179, "down": 10 } },
+        { "name": "Quit", "base": "Quit", "patch": { "y": 71, "up": 10 } },
+        { "name": "SureText", "base": "SureText", "patch": { "y": 44 } },
+        { "name": "SureChooser", "base": "SureChooser", "patch": { "y": 24 } },
+        { "name": "SureTiles", "base": "SureTiles", "patch": { "y": 19 } },
+        {
+          "name": "MB_Credits", "template": "component:LongButton",
+          "patch": { "x": 252, "y": 125, "buttonId": 10, "up": 4, "down": 5, "left": 0, "right": 0, "text": "CREDITS" },
+          "action": { "type": "navigate.screen", "screen": "Credits" },
+          "note": "new button with a real action"
+        }
+      ]
+    },
+    {
+      "name": "Options",
+      "kind": "retail",
+      "base": "Options",
+      "elements": [
+        { "name": "Controller", "base": "Controller", "patch": { "up": 10 } },
+        { "name": "Credits", "base": "Credits", "patch": { "down": 10 } },
+        {
+          "name": "MB_MenuBuilder", "template": "Credits",
+          "patch": { "x": 220, "y": 40, "buttonId": 10, "up": 5, "down": 1, "text": "MENU BUILDER" },
+          "action": { "type": "navigate.screen", "screen": "ModMenu" }
+        }
+      ]
+    },
+    {
+      "name": "QuickRace",
+      "kind": "retail",
+      "base": "QuickRace",
+      "elements": [
+        { "name": "StartRace", "base": "StartRace", "patch": { "up": 10 } },
+        { "name": "VehicleSetup", "base": "VehicleSetup", "patch": { "down": 10 } },
+        {
+          "name": "MB_VehicleConfig", "template": "component:CurvedButton",
+          "patch": { "x": 20, "y": 85, "buttonId": 10, "up": 5, "down": 1, "text": "VEHICLE CONFIG" },
+          "action": { "type": "navigate.screen", "screen": "VehicleConfig" }
+        }
+      ]
+    },
+    {
+      "name": "ModMenu",
+      "kind": "custom",
+      "base": "GraphicsMain",
+      "title": "MENU BUILDER",
+      "defaultFocus": 1,
+      "back": { "type": "navigate.back" },
+      "elements": [
+        { "name": "Options", "base": "Options", "deleted": true },
+        { "name": "CardSetup", "base": "CardSetup", "deleted": true },
+        {
+          "name": "MB_VehicleConfig", "template": "component:LongButton",
+          "patch": { "x": 245, "y": 341, "buttonId": 1, "up": 3, "down": 2, "text": "VEHICLE CONFIG" },
+          "action": { "type": "navigate.screen", "screen": "VehicleConfig" }
+        },
+        {
+          "name": "MB_Graphics", "template": "component:LongButton",
+          "patch": { "x": 270, "y": 280, "buttonId": 2, "up": 1, "down": 3, "text": "GRAPHICS" },
+          "action": { "type": "navigate.screen", "screen": "GraphicsMain" }
+        },
+        {
+          "name": "MB_Back", "template": "component:LongButton",
+          "patch": { "x": 277, "y": 219, "buttonId": 3, "up": 2, "down": 1, "text": "BACK" },
+          "action": { "type": "navigate.back" }
+        }
+      ]
+    },
+    {
+      "name": "VehicleConfig",
+      "kind": "custom",
+      "base": "GraphicsMain",
+      "title": "VEHICLE CONFIGURATION",
+      "defaultFocus": 1,
+      "back": { "type": "navigate.back" },
+      "elements": [
+        { "name": "Options", "base": "Options", "deleted": true },
+        { "name": "CardSetup", "base": "CardSetup", "deleted": true },
+        {
+          "name": "VC_Build", "template": "component:LongButton",
+          "patch": { "x": 245, "y": 341, "buttonId": 1, "up": 4, "down": 2, "text": "BUILD" },
+          "action": { "type": "native.forward", "screen": "QuickRace", "command": 5 },
+          "note": "native Vehicle Setup pages via the Quick Race command 5 (setup preparation stays native)"
+        },
+        {
+          "name": "VC_Paint", "template": "component:LongButton",
+          "patch": { "x": 270, "y": 280, "buttonId": 2, "up": 1, "down": 3, "text": "PAINT" },
+          "action": { "type": "extension", "extension": "vehicle.paint" },
+          "note": "typed binding for a future paint provider; disabled until a module registers vehicle.paint"
+        },
+        {
+          "name": "VC_ModelSource", "template": "component:LongButton",
+          "patch": { "x": 277, "y": 219, "buttonId": 3, "up": 2, "down": 4, "text": "MODEL SOURCE" },
+          "action": { "type": "extension", "extension": "extra_options.model_source", "args": "1" }
+        },
+        {
+          "name": "VC_ModelSourceValue", "template": "QuickRace/ModeText",
+          "patch": { "x": 470, "y": 246, "textKey": "Frontend/ExtraOptions/PaintText", "font": 2 }
+        },
+        {
+          "name": "VC_Apply", "template": "component:LongButton",
+          "patch": { "x": 266, "y": 158, "buttonId": 4, "up": 3, "down": 1, "text": "APPLY" },
+          "action": { "type": "navigate.back" }
+        }
+      ]
+    }
+  ]
+}
