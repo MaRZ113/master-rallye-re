@@ -31,8 +31,18 @@ inline bool source_opaque_pass(const SceneMaterial* m,bool texture_opaque,bool b
 // file cannot bypass current race, pass, buffer, geometry or shader proofs.
 class LightingMetadata {
     std::map<std::pair<std::string,std::string>,SceneMaterial> materials_;
+    std::map<std::pair<std::string,std::string>,SceneMaterial> shared_;
+    std::map<std::string,std::vector<SceneMaterial>> variants_,shared_variants_;
+    bool catalogue_=false;
+    static const SceneMaterial* witnessed(const SceneMaterial& representative,const std::map<std::string,std::vector<SceneMaterial>>& variants,uint32_t required) {
+        if(!required||(representative.flags&Deny))return &representative;
+        const auto found=variants.find(representative.texture);
+        if(found!=variants.end())for(const auto& variant:found->second)if((variant.flags&required)==required)return &variant;
+        // A known unsupported pass stays known, never becomes AutoGround.
+        return &representative;
+    }
 public:
-    bool attempted=false,ready=false,present=false;std::string sha;const char* reason="not_loaded";
+    bool attempted=false,ready=false,present=false;std::string sha,shared_sha;const char* reason="not_loaded";
     bool load(const std::filesystem::path& path)noexcept {
         if(attempted)return ready;attempted=true;
         try{
@@ -65,11 +75,64 @@ public:
     }
     // Course records win; "Common" holds course-independent props (Misc/Checkpoints
     // boards/banners) that every course draws through the same course path.
-    const SceneMaterial* find(const char* course,const std::string& texture)const {
-        auto i=materials_.find({canonical_course(course),texture});if(i!=materials_.end())return &i->second;
-        i=materials_.find({std::string("common"),texture});return i==materials_.end()?nullptr:&i->second;
+    const SceneMaterial* find(const char* course,const std::string& texture,uint32_t required_flags=0)const {
+        auto i=materials_.find({canonical_course(course),texture});if(i!=materials_.end())return catalogue_?witnessed(i->second,variants_,required_flags):&i->second;
+        i=materials_.find({std::string("common"),texture});if(i!=materials_.end())return catalogue_?witnessed(i->second,variants_,required_flags):&i->second;
+        i=shared_.find({std::string("common"),texture});return i==shared_.end()?nullptr:witnessed(i->second,shared_variants_,required_flags);
+    }
+    // Authored rows (including Deny) always win over the universal catalogue.
+    // Scope checks inspect authored rows only; catalogue rows never clone IDs.
+    bool inherit_reused_materials(const LightingMetadata& catalogue) {
+        if(!catalogue.ready||!catalogue.only_course("Common"))return false;
+        shared_=catalogue.materials_;shared_variants_=catalogue.variants_;shared_sha=catalogue.sha;return true;
     }
     bool only_course(const std::string& course)const{const auto key=canonical_course(course);return !key.empty()&&std::all_of(materials_.begin(),materials_.end(),[&](const auto& r){return r.first.first==key;});}
+    // Every scene may reuse original, byte-identical course textures. Build
+    // capabilities from scoped source packages, never from material names or a
+    // guessed donor scene. Roles/winding must agree; each admitted pass must
+    // match one complete witnessed flag contract, never a combined cross-product.
+    // Exclusions and semantic conflicts stay denied.
+    // Spatial normal hints are deliberately NOT part of this transfer.
+    bool load_reused_materials(const std::filesystem::path& root)noexcept {
+        if(attempted)return ready;attempted=true;
+        try {
+            std::map<std::pair<std::string,std::string>,SceneMaterial> parsed;std::map<std::string,std::vector<SceneMaterial>> variants;std::map<std::string,std::string> sources;size_t packages=0,variant_count=0;
+            for(const auto& entry:std::filesystem::directory_iterator(root)) {
+                if(!entry.is_directory()||entry.is_symlink())continue;
+                const auto source=canonical_course(entry.path().filename().string());if(source.empty())continue;
+                const auto path=entry.path()/L"materials.lsm";if(!std::filesystem::exists(path))continue;
+                LightingMetadata donor;
+                if(++packages>512||!donor.load(path)||!donor.only_course(source)) {reason="reused_material_source_invalid";return false;}
+                sources.emplace(source,donor.sha);
+                for(const auto& row:donor.materials_) {
+                    auto material=row.second;material.course="Common";const auto key=std::make_pair(std::string("common"),material.texture);
+                    const auto old=parsed.find(key);
+                    const auto original=material;
+                    if(old!=parsed.end()) {
+                        const auto& previous=old->second;
+                        const auto excluded=[](uint32_t flags){return (flags&Deny)&&flags!=(Deny|EnvironmentTexture);};
+                        if(previous.category!=material.category||previous.winding!=material.winding||excluded(previous.flags)||excluded(material.flags)) {
+                            material.category=0;material.flags=Deny;material.winding=-1;
+                        }else {
+                            // Keep a witnessed representative for default
+                            // lookup; pass-aware lookup chooses a whole variant.
+                            material=previous;
+                        }
+                    }
+                    if(material.flags==Deny)variants.erase(material.texture);
+                    else {auto& choices=variants[material.texture];
+                        if(std::none_of(choices.begin(),choices.end(),[&](const SceneMaterial& v){return v.name==original.name&&v.flags==original.flags&&v.category==original.category&&v.winding==original.winding;})){
+                            if(++variant_count>65536){reason="reused_material_variant_limit";return false;}choices.push_back(original);}}
+                    parsed[key]=std::move(material);
+                    if(parsed.size()>16384){reason="reused_material_limit";return false;}
+                }
+            }
+            if(parsed.empty()){reason="reused_material_sources_missing";return false;}
+            std::string provenance;for(const auto& source:sources)provenance+=source.first+":"+source.second+"\n";
+            sha=sha256_bytes(provenance.data(),provenance.size());shared_sha=sha;
+            materials_=std::move(parsed);variants_=std::move(variants);catalogue_=true;ready=true;reason="reused_original_texture_capabilities_ready";return true;
+        }catch(...){reason="reused_material_exception";return false;}
+    }
     size_t size()const noexcept{return materials_.size();}
 };
 

@@ -243,6 +243,73 @@ int main(){
         CHECK(read_headlight_style(L"Z:\missing\Atmosphere.ini",true).enabled&&read_headlight_style(L"Z:\missing\Atmosphere.ini",true).lamp_emissive>1);
         Mat4 m{2,0,0,0, 0,3,0,0, 0,0,4,0, 1,2,3,1},mi{};CHECK(mat_inverse(m,mi));const auto e=mat_mul(m,mi);CHECK(std::abs(e[0]-1)<1e-5f&&std::abs(e[13])<1e-5f&&std::abs(e[15]-1)<1e-5f);
     }
+    {   // A rig seed follows the SAME lens triangle under damage, including its normal.
+        std::vector<LampVec> lens{{-.2f,.5f,2},{.2f,.5f,2},{0,.9f,2}};
+        const std::vector<uint32_t> topology{0,1,2};LampSurfaceAnchor anchor;
+        CHECK(bind_lamp_surface({0,.65f,2.01f},true,lens,topology,anchor));
+        LampVec initial{},axis{};CHECK(anchor.evaluate(lens,initial,axis));
+        CHECK(std::abs(initial[1]-.65f)<1e-5f&&std::abs(initial[2]-2.01f)<1e-5f&&axis[2]>.99f);
+        auto damaged=lens;for(auto& point:damaged){point[0]+=.3f;point[1]-=.12f;point[2]-=.25f;}
+        LampVec moved{};CHECK(anchor.evaluate(damaged,moved,axis));
+        CHECK(std::abs(moved[0]-initial[0]-.3f)<1e-5f&&std::abs(moved[1]-initial[1]+.12f)<1e-5f&&std::abs(moved[2]-initial[2]+.25f)<1e-5f);
+        // A rotated/dented lamp also changes the emission direction.
+        for(size_t i=0;i<lens.size();++i)damaged[i]={lens[i][2],lens[i][1],-lens[i][0]};
+        CHECK(anchor.evaluate(damaged,moved,axis)&&axis[0]>.99f&&std::abs(axis[2])<1e-5f);
+        CHECK(!anchor.evaluate(std::vector<LampVec>(3,LampVec{0,0,0}),moved,axis));
+        CHECK(!anchor.evaluate(std::vector<LampVec>(2),moved,axis));
+        CHECK(!bind_lamp_surface({0,.65f,-2},false,lens,topology,anchor)); // another lamp is not a substitute
+        CHECK(!bind_lamp_surface({0,.65f,2},true,lens,{0,1,99},anchor));
+        auto invalid=lens;invalid[0][0]=std::numeric_limits<float>::quiet_NaN();
+        CHECK(!bind_lamp_surface({0,.65f,2},true,invalid,topology,anchor));
+    }
+    {   // Switch-node attachments identify topology by expanded UVs, not VB-local numbering or damaged positions.
+        std::vector<uint8_t> bytes(3*24);const float xyz[3][3]={{0,0,-2},{1,0,-2},{0,1,-2}},uv[3][2]={{-0.f,0},{1,0},{0,1}};
+        for(unsigned i=0;i<3;++i){std::memcpy(bytes.data()+i*24,xyz[i],12);std::memcpy(bytes.data()+i*24+16,uv[i],8);}
+        std::vector<LampVec> positions;std::string signature;
+        CHECK(lamp_attachment_geometry(bytes,24,{0,1,2},positions,signature));
+        const float normalized_uv[6]={0,0,1,0,0,1};CHECK(signature==sha256_bytes(normalized_uv,sizeof(normalized_uv)));
+        auto moved_bytes=bytes;for(unsigned i=0;i<3;++i){float x=0;std::memcpy(&x,moved_bytes.data()+i*24,4);x+=.4f;std::memcpy(moved_bytes.data()+i*24,&x,4);}
+        std::vector<LampVec> moved;std::string moved_signature;CHECK(lamp_attachment_geometry(moved_bytes,24,{0,1,2},moved,moved_signature)&&moved_signature==signature);
+        auto reordered=bytes;std::memcpy(reordered.data(),bytes.data()+24,48);std::memcpy(reordered.data()+48,bytes.data(),24);
+        CHECK(lamp_attachment_geometry(reordered,24,{2,0,1},moved,moved_signature)&&moved_signature==signature&&moved==positions);
+        CHECK(!lamp_attachment_geometry(bytes,24,{0,1,99},moved,moved_signature));
+        CHECK(!lamp_attachment_geometry(bytes,32,{0,1,2},moved,moved_signature));
+        LampRigs rigs;rigs.sha=std::string(64,'a');LampRig rig;rig.car="Fixture";rig.points.resize(2);rig.points[0].kind=2;rig.points[0].tail=true;rig.points[1].kind=3;rigs.rigs.push_back(rig);
+        const auto texture=std::string(64,'b');
+        const auto payload="Fixture 0 "+texture+" "+signature+" 3 0 .2 .3 .5 0 -1 0\nFixture 1 "+texture+" "+signature+" 3 0 .2 .3 .5 0 -1 0\n";
+        const auto path=std::filesystem::temp_directory_path()/("mrr-lamp-attachment-"+std::to_string(GetCurrentProcessId())+".lpa");
+        auto write=[&](const std::string& contents,const std::string& rig_sha){std::ofstream file(path,std::ios::binary);file<<"LPA1 "<<rig_sha<<" "<<sha256_bytes(contents.data(),contents.size())<<"\n"<<contents;};
+        write(payload,rigs.sha);LampAttachments attachments;CHECK(attachments.load(path,rigs)&&attachments.ready&&attachments.rows.size()==2);
+        CHECK(attachments.manages(0,0)&&attachments.manages(0,1)&&!attachments.manages(1,0));
+        CHECK(attachments.signature_known(texture,signature,3)&&!attachments.signature_known(texture,signature,6));
+        Pilot p(false,L"Z:\\missing\\MRRRenderer.ini");p.lamp_rigs=rigs;p.lamp_attachments=attachments;p.rig_race=22;
+        const Mat4 identity{1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+        LampAttachmentDraw draw;draw.texture=texture;draw.uv=signature;draw.world=identity;draw.positions=positions;
+        p.lamp_attachment_queue.begin(10,22,3);CHECK(p.lamp_attachment_queue.push(draw)); // owner arrives AFTER switch draw
+        p.observe_car(0x1000,identity,10);auto* owner=p.rig_owner(0x1000,10,true);owner->rig=0;
+        resolve_lamp_attachments(p,10,22,3);CHECK(p.lamp_points.size()==2&&p.lamp_points[0].kind==1&&p.lamp_points[1].kind==3);
+        CHECK(std::abs(p.lamp_points[0].world[0]-.3f)<1e-5f&&std::abs(p.lamp_points[0].world[1]-.5f)<1e-5f);
+        resolve_lamp_attachments(p,10,22,3);CHECK(p.lamp_points.size()==2); // drain is once per frame
+        p.lamp_attachment_queue.begin(11,22,3);draw.positions[0][0]+=.6f;CHECK(p.lamp_attachment_queue.push(draw));
+        p.observe_car(0x1000,identity,11);owner->braking=11;resolve_lamp_attachments(p,11,22,3);
+        CHECK(p.lamp_points.size()==2&&p.lamp_points[0].kind==2&&std::abs(p.lamp_points[0].world[0]-.42f)<1e-5f);
+        for(unsigned failure=0;failure<6;++failure){const uint64_t frame=20+failure;p.lamp_points.clear();p.lamp_points_frame=frame;
+            p.lamp_attachment_queue.begin(frame,22,3);auto invalid=draw;
+            p.car_poses={};p.observe_car(0x1000,identity,failure==0?frame-1:frame);
+            if(failure==1)p.observe_car(0x2000,identity,frame); // ambiguous identical WORLD
+            if(failure==2)invalid.owner=0x3000; // explicit owner must agree too
+            if(failure==3)invalid.uv=std::string(64,'c');
+            if(failure==4)invalid.texture=std::string(64,'c');
+            if(failure==5)invalid.positions.assign(3,LampVec{});
+            CHECK(p.lamp_attachment_queue.push(invalid));resolve_lamp_attachments(p,frame,22,3);CHECK(p.lamp_points.empty());}
+        p.lamp_points.clear();p.lamp_attachment_queue.begin(30,22,3);CHECK(p.lamp_attachment_queue.push(draw));p.observe_car(0x1000,identity,30);
+        resolve_lamp_attachments(p,30,23,3);CHECK(p.lamp_points.empty());resolve_lamp_attachments(p,30,22,4);CHECK(p.lamp_points.empty());
+        write(payload,std::string(64,'c'));CHECK(!attachments.load(path,rigs)&&!attachments.ready&&!attachments.manages(0,0));
+        write(payload+"Fixture 99 "+texture+" "+signature+" 3 0 .2 .3 .5 0 -1 0\n",rigs.sha);
+        CHECK(!attachments.load(path,rigs)&&!attachments.manages(0,0)); // no partial admission
+        write(payload,rigs.sha);{std::ofstream file(path,std::ios::binary|std::ios::app);file<<"tamper";}
+        CHECK(!attachments.load(path,rigs)&&!attachments.ready);std::filesystem::remove(path);
+    }
     SunFx no_depth_sun;Native missing_depth;
     CHECK(no_depth_sun.render(missing_depth,sun_center,true,true,true,nullptr,nullptr)==S_FALSE);CHECK(missing_depth.calls==0);
     SunNative sun_restore;SunTransaction sun_transaction;
@@ -466,6 +533,76 @@ int main(){
         CHECK(!off.select_course("../outside"));CHECK(!off.select_course("OtherLayout")&&!off.metadata.ready);
         CHECK(off.select_course("CUSTOMLAYOUT")&&off.normal_hints.records==0);off.package_root.clear();
         for(const auto* folder:{L"customlayout",L"otherlayout"}){std::filesystem::remove(packages/folder/L"materials.lsm");std::filesystem::remove(packages/folder);}std::filesystem::remove(packages);
+    }
+    {
+        const auto packages=std::filesystem::temp_directory_path()/(L"mrr-atmo-reuse-"+std::to_wstring(GetCurrentProcessId()));
+        auto write_package=[&](const char* id,uint32_t category,uint32_t capability,int32_t orientation=-1,char texture='a'){
+            auto bytes=metadata_bytes;auto* r=bytes.data()+76;std::memset(r,0,64);std::memcpy(r,id,std::strlen(id));
+            std::memset(r+160,texture,64);
+            if(capability==(Deny|EnvironmentTexture)){std::memset(r+64,0,96);std::memcpy(r+64,"aluminium-tga",13);}
+            std::memcpy(r+225,&category,4);std::memcpy(r+229,&capability,4);std::memcpy(r+233,&orientation,4);
+            const auto hash=sha256_bytes(r,237);std::memcpy(bytes.data()+12,hash.data(),64);
+            std::filesystem::create_directories(packages/id);std::ofstream f(packages/id/L"materials.lsm",std::ios::binary);
+            f.write(reinterpret_cast<const char*>(bytes.data()),bytes.size());
+        };
+        write_package("donor",2,Noise);off.package_root=packages;off.course_dirty=true;
+        CHECK(off.select_course("IndependentNative")&&!off.metadata.shared_sha.empty()&&off.metadata.only_course("Common")&&!off.metadata.only_course("IndependentNative"));
+        const auto* reused=off.metadata.find("IndependentNative",std::string(64,'a'));
+        CHECK(reused&&reused->category==2&&reused->flags==Noise&&!off.normal_hints.ready&&off.normal_hints.records==0);
+        CHECK(reused->course=="Common"&&reused==off.metadata.find("UnseenFutureLayout",std::string(64,'a')));
+        CHECK(off.select_course("UnseenFutureLayout")&&off.metadata.find("UnseenFutureLayout",std::string(64,'a'))->course=="Common");
+        CHECK(off.select_course("IndependentNative"));
+        CHECK(!off.metadata.find("IndependentNative",std::string(64,'b'))); // new/edited texture is never inferred
+        const auto reloads=off.package_reloads;CHECK(off.select_course("IndependentNative")&&off.package_reloads==reloads);
+        write_package("second",2,Noise);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->category==2);
+        for(const auto conflict:{1,3}){
+            write_package("second",conflict==1?1:2,conflict==2?Plain:Noise,conflict==3?1:-1);
+            off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+            CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->flags==Deny);
+        }
+        write_package("donor",2,Noise|Plain);write_package("second",2,Noise);
+        off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK((off.metadata.find("IndependentNative",std::string(64,'a'),Noise)->flags&Noise)==Noise);
+        CHECK((off.metadata.find("IndependentNative",std::string(64,'a'),Plain)->flags&Plain)==Plain);
+        write_package("donor",2,Noise);write_package("second",2,Plain);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'),Noise)->flags==Noise);
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'),Plain)->flags==Plain);
+        write_package("donor",4,Plain|AlphaTest);write_package("second",4,Noise);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'),Plain|AlphaTest)->flags==(Plain|AlphaTest));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'),Noise)->flags==Noise);
+        CHECK((off.metadata.find("IndependentNative",std::string(64,'a'),Noise|AlphaTest)->flags&(Noise|AlphaTest))!=(Noise|AlphaTest));
+        write_package("donor",4,Plain|AlphaTest|Environment);write_package("second",4,Plain|AlphaTest);
+        off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK((off.metadata.find("IndependentNative",std::string(64,'a'),Plain|AlphaTest)->flags&(Plain|AlphaTest))==(Plain|AlphaTest));
+        write_package("donor",0,Deny|EnvironmentTexture);write_package("second",0,Deny|EnvironmentTexture);
+        off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->flags==(Deny|EnvironmentTexture));
+        write_package("donor",2,Noise);
+        write_package("second",0,Deny);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->flags==Deny);
+        write_package("third",2,Noise);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->flags==Deny);
+        // The new scene's explicit authored package wins over donor conflicts.
+        write_package("independentnative",2,Noise);off.course_dirty=true;CHECK(off.select_course("IndependentNative")&&!off.metadata.shared_sha.empty());
+        CHECK(off.metadata.only_course("IndependentNative")&&off.metadata.find("IndependentNative",std::string(64,'a'))->flags==Noise);
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'),Plain)->flags==Noise); // explicit row priority includes pass mismatch
+        // Missing rows in an existing explicit package inherit Common too.
+        write_package("second",2,Noise);write_package("independentnative",4,Plain,-1,'b');off.course_dirty=true;
+        CHECK(off.select_course("IndependentNative")&&off.metadata.only_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->course=="Common");
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'b'))->course=="independentnative");
+        CHECK(!off.metadata.find("IndependentNative",std::string(64,'c')));
+        // An explicit exclusion wins over a conflicting generic role.
+        write_package("independentnative",0,Deny);off.course_dirty=true;CHECK(off.select_course("IndependentNative"));
+        CHECK(off.metadata.find("IndependentNative",std::string(64,'a'))->flags==Deny);
+        // Presence of a broken package is not permission to fall back.
+        {std::ofstream f(packages/L"independentnative/materials.lsm",std::ios::binary);f<<"broken";}
+        off.course_dirty=true;CHECK(!off.select_course("IndependentNative"));
+        LightingMetadata invalid_source;CHECK(!invalid_source.load_reused_materials(packages));
+        CHECK(!invalid_source.ready&&!invalid_source.find("AnotherNewId",std::string(64,'a')));
+        LightingMetadata missing_sources;CHECK(!missing_sources.load_reused_materials(packages/L"missing"));
+        off.package_root.clear();std::filesystem::remove_all(packages);
     }
     {CourseCapture capture;D3DMATRIX v{},p{};v._11=v._22=v._33=v._44=1;p=v;
         capture.observe(10,v,p);capture.reference_view=v;capture.reference_projection=p;CHECK(capture.same_camera(10));

@@ -320,6 +320,9 @@ public:
     // and the scene hide a lamp exactly like the lens itself.
     bool glint_from_file()const noexcept{return streak_from_file_;}
     HRESULT lamp_sprites(IDirect3DDevice8& n,const std::vector<SunVertex>& glow,const std::vector<SunVertex>& streak,void* context,SunWriter writer,const std::wstring& file=std::wstring()){
+        if(!proof.world||!proof.target||!proof.depth||(glow.empty()&&streak.empty())||glow.size()%6||streak.size()%6)return S_FALSE;
+        D3DSURFACE_DESC desc{};auto allocation=proof.target->GetDesc(&desc);if(SUCCEEDED(allocation))allocation=allocate(n,desc);
+        if(FAILED(allocation)){reason="lamp_depth_mask_allocation_or_target_invalid";last_hr=allocation;return S_FALSE;}
         if(streak_&&streak_file_!=file){sun_drop(streak_);streak_from_file_=false;}
         // Optional author sprite (256x256 BGRA, 20-byte sky header), e.g. made by
         // tools/atmosphere_gt3_glare.py from the owner's own GT3 copy; procedural otherwise.
@@ -350,14 +353,40 @@ public:
         rs(D3DRS_CULLMODE,D3DCULL_NONE);rs(D3DRS_FILLMODE,D3DFILL_SOLID);rs(D3DRS_CLIPPING,TRUE);rs(D3DRS_LIGHTING,FALSE);rs(D3DRS_FOGENABLE,FALSE);rs(D3DRS_STENCILENABLE,FALSE);
         rs(D3DRS_CLIPPLANEENABLE,0);rs(D3DRS_COLORWRITEENABLE,7);rs(D3DRS_SPECULARENABLE,FALSE);rs(D3DRS_VERTEXBLEND,D3DVBF_DISABLE);rs(D3DRS_INDEXEDVERTEXBLENDENABLE,FALSE);rs(D3DRS_WRAP0,0);
         if(SUCCEEDED(hr))hr=transaction.set(n,3,0,0,D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX2);if(SUCCEEDED(hr))hr=transaction.set(n,4,0,0,0);
+        // Sample each lamp centre against the completed scene depth. Using a
+        // constant centre UV for every sprite vertex switches the WHOLE glint
+        // off behind a panel; testing a large quad alone left bright edges.
+        std::vector<SunVertex> mask,visible_glow=glow,visible_streak=streak;
+        auto samples=[&](std::vector<SunVertex>& vertices){for(size_t i=0;i<vertices.size();i+=6){
+            const float x=std::floor((vertices[i].x+vertices[i+1].x)*.5f+.5f),y=std::floor((vertices[i].y+vertices[i+2].y)*.5f+.5f);
+            const float u=(x+.5f)/tw_,v=(y+.5f)/th_;
+            for(size_t j=0;j<6;++j){vertices[i+j].mask_u=u;vertices[i+j].mask_v=v;}
+            SunVertex a{x-.5f,y-.5f,vertices[i].z,vertices[i].rhw,0xffffffffu,0,0,0,0},b=a,c=a,d=a;
+            b.x=x+.5f;c.y=y+.5f;d.x=b.x;d.y=c.y;for(const auto& q:{a,b,c,c,b,d})mask.push_back(q);
+        }};
+        samples(visible_glow);samples(visible_streak);
+        if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,nullptr);
         if(SUCCEEDED(hr))hr=transaction.set(n,2,1,0,0,nullptr);
+        ts(0,D3DTSS_COLOROP,D3DTOP_SELECTARG2);ts(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);
+        ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);ts(2,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(2,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+        rs(D3DRS_ALPHABLENDENABLE,FALSE);
+        const D3DVIEWPORT8 viewport{0,0,width_,height_,0,1};
+        if(SUCCEEDED(hr))hr=transaction.target(n,mask_,proof.depth,viewport);
+        if(SUCCEEDED(hr))hr=n.Clear(0,nullptr,D3DCLEAR_TARGET,0,1,0);
+        if(SUCCEEDED(hr))hr=transaction.triangles(n,mask.data(),sizeof(SunVertex),unsigned(mask.size()/3));
+        if(SUCCEEDED(hr))hr=transaction.target(n,proof.target,proof.depth,viewport);
+        const RECT source{0,0,LONG(width_),LONG(height_)};const POINT destination{0,0};
+        if(SUCCEEDED(hr))hr=n.CopyRects(mask_,&source,1,resolved_,&destination);
+        rs(D3DRS_ZENABLE,D3DZB_FALSE);rs(D3DRS_ALPHABLENDENABLE,TRUE);
         ts(0,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_DIFFUSE);
         ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(0,D3DTSS_TEXCOORDINDEX,0);ts(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);ts(0,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(0,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
         ts(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MIPFILTER,D3DTEXF_NONE);ts(0,D3DTSS_MAXMIPLEVEL,0);
-        ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
-        if(!glow.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,star_);if(SUCCEEDED(hr))hr=transaction.triangles(n,glow.data(),sizeof(SunVertex),unsigned(glow.size()/3));}
-        if(!streak.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,streak_);if(SUCCEEDED(hr))hr=transaction.triangles(n,streak.data(),sizeof(SunVertex),unsigned(streak.size()/3));}
-        const auto restored=transaction.restore(n);if(FAILED(restored))return restored;if(FAILED(hr))return S_FALSE;glints_drawn+=(glow.size()+streak.size())/6;return S_OK;
+        if(SUCCEEDED(hr))hr=transaction.set(n,2,1,0,0,mask_texture_);
+        ts(1,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(1,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(1,D3DTSS_COLORARG2,D3DTA_CURRENT);ts(1,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(1,D3DTSS_ALPHAARG1,D3DTA_CURRENT);ts(1,D3DTSS_RESULTARG,D3DTA_CURRENT);
+        ts(1,D3DTSS_TEXCOORDINDEX,1);ts(1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);ts(1,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(1,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);ts(1,D3DTSS_MINFILTER,D3DTEXF_POINT);ts(1,D3DTSS_MAGFILTER,D3DTEXF_POINT);ts(1,D3DTSS_MIPFILTER,D3DTEXF_NONE);ts(1,D3DTSS_MAXMIPLEVEL,0);
+        if(!glow.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,star_);if(SUCCEEDED(hr))hr=transaction.triangles(n,visible_glow.data(),sizeof(SunVertex),unsigned(visible_glow.size()/3));}
+        if(!streak.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,streak_);if(SUCCEEDED(hr))hr=transaction.triangles(n,visible_streak.data(),sizeof(SunVertex),unsigned(visible_streak.size()/3));}
+        const auto restored=transaction.restore(n);if(FAILED(restored))return restored;if(FAILED(hr)){reason="lamp_depth_mask_failed_no_visibility_fallback";last_hr=hr;return S_FALSE;}reason="lamp_current_frame_center_depth_mask";glints_drawn+=(glow.size()+streak.size())/6;return S_OK;
     }
     HRESULT vignette(IDirect3DDevice8& n,UINT width,UINT height,float strength,void* context,SunWriter writer){
         if(!proof.world||!width||!height||!std::isfinite(strength)||strength<=0)return S_FALSE;

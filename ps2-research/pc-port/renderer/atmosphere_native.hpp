@@ -440,6 +440,9 @@ inline HRESULT particle_end(Device8& d)noexcept{
 }
 // 6.6 GT3-like glints at every lamp lens collected this frame (all cars).
 inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,UINT width,UINT height,uint64_t frame)noexcept{
+    atmosphere::resolve_lamp_attachments(p,frame,p.sun.proof.race,p.sun.proof.reset);
+    if(p.lamp_attachments.ready&&(p.first_reason("lamp_attachment_stats")||(d.trace.control.active&&frame%60==0))){const auto& q=p.lamp_attachment_queue;
+        session().write("{\"type\":\"atmosphere_lamp_attachment_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(q.candidates)+",\"signature_misses\":"+std::to_string(q.signature_misses)+",\"owner_misses\":"+std::to_string(q.owner_misses)+",\"points_total\":"+std::to_string(q.points)+"}");}
     const auto& g=p.glint_style;if(!g.enabled||p.lamp_points_frame!=frame||p.lamp_points.empty()||!width||!height)return S_FALSE;
     const auto& view=p.sun.proof.view;const auto& proj=p.sun.proof.projection;if(proj._11<=0||proj._22<=0||proj._34!=1||proj._44!=0)return S_FALSE;
     atmosphere::Mat4 v{},inverse{};std::memcpy(v.data(),&view,64);if(!atmosphere::mat_inverse(v,inverse))return S_FALSE;
@@ -457,10 +460,13 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         if((l.kind==3||l.kind==4)&&!(owner_lamps&&owner_lamps->reversing))continue;
         if(l.kind==4){bool white=false;for(const auto& o:p.lamp_points)if(o.instance==l.instance&&o.kind==3){white=true;break;}if(white)continue;}   // fallback only
         const float rear_k=l.kind==2?g.rear*g.brake:l.kind>=3?g.reverse:g.rear*.55f;
-        float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f))+.06f;
+        if(facing<=0)continue;
+        float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f));
         k*=1/(1+(dist/90)*(dist/90));if(k<.02f)continue;
-        // Pull the sprite 0.35 m toward the camera so the lens itself never hides it.
-        std::array<float,3> w{l.world[0]+to[0]*.35f,l.world[1]+to[1]*.35f,l.world[2]+to[2]*.35f};
+        // A 1 cm numerical surface bias, not the old 35 cm displacement which
+        // could pull the lamp through damaged body panels. The centre's depth
+        // visibility gates the entire sprite in SunRenderer::lamp_sprites.
+        std::array<float,3> w{l.world[0]+to[0]*.01f,l.world[1]+to[1]*.01f,l.world[2]+to[2]*.01f};
         const float x=w[0]*view._11+w[1]*view._21+w[2]*view._31+view._41,y=w[0]*view._12+w[1]*view._22+w[2]*view._32+view._42,z=w[0]*view._13+w[1]*view._23+w[2]*view._33+view._43;
         if(z<=.3f)continue;const float nx=(x*proj._11+z*proj._31)/z,ny=(y*proj._22+z*proj._32)/z,nz=(z*proj._33+proj._43)/z;
         if(!std::isfinite(nx+ny+nz)||std::abs(nx)>1.1f||std::abs(ny)>1.1f||nz<=0||nz>=1)continue;
@@ -774,7 +780,7 @@ inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const
     if(!p.select_course(course))return S_OK;p.metadata.load(p.metadata_path);if(!p.metadata.ready)return S_OK;
     courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p||!d.trace.resources.generation(reinterpret_cast<uintptr_t>(texture.p)))return S_OK;
     const auto sha=material_sha(d,p,texture.p);if(sha.empty())return S_OK;
-    const auto* material=p.metadata.find(course,sha);
+    const auto* material=p.metadata.find(course,sha,atmosphere::Plain);
     // Waterfalls (Deny by the water word) take the PC-water energy, also as a
     // blended 0x142 card (SpainM/S2). Other XYZ|TEX1 cards need an authored
     // static/vegetation role and get the thin-prop card energy.
@@ -937,18 +943,18 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     auto& n=*d.native();auto& saved=p.pending;
     auto fail=[&](const char* why){if(!saved.any())saved.release();++p.resolver_skipped_draws;return reject(d,p,why);};
     const auto reloads=p.package_reloads;const bool selected=p.select_course(course);
-    if(reloads!=p.package_reloads)session().write("{\"type\":\"atmosphere_course_package\",\"course\":"+quote(p.active_course)+",\"reloads\":"+std::to_string(p.package_reloads)+",\"ready\":"+(selected?"true":"false")+",\"reason\":"+quote(std::string(p.metadata.reason))+",\"normal_records\":"+std::to_string(p.normal_hints.records)+"}");
+    if(reloads!=p.package_reloads)session().write("{\"type\":\"atmosphere_course_package\",\"course\":"+quote(p.active_course)+",\"reloads\":"+std::to_string(p.package_reloads)+",\"ready\":"+(selected?"true":"false")+",\"reason\":"+quote(std::string(p.metadata.reason))+",\"payload_sha256\":"+quote(p.metadata.sha)+",\"shared_catalogue_sha256\":"+quote(p.metadata.shared_sha)+",\"normal_records\":"+std::to_string(p.normal_hints.records)+"}");
     if(!selected)return fail("course_package_missing_invalid_or_wrong_scope");
     p.metadata.load(p.metadata_path);p.normal_hints.load(p.normals_path);
     if(p.first_reason("normal_hints_status"))session().write("{\"type\":\"atmosphere_normal_hints\",\"reason\":"+quote(std::string(p.normal_hints.reason))+",\"records\":"+std::to_string(p.normal_hints.records)+"}");
     if(p.first_reason("resolver_metadata_status"))session().write("{\"type\":\"atmosphere_resolver_metadata\",\"ready\":"+std::string(p.metadata.ready?"true":"false")+
-        ",\"reason\":"+quote(std::string(p.metadata.reason))+",\"materials\":"+std::to_string(p.metadata.size())+",\"payload_sha256\":"+quote(p.metadata.sha)+"}");
+        ",\"reason\":"+quote(std::string(p.metadata.reason))+",\"materials\":"+std::to_string(p.metadata.size())+",\"payload_sha256\":"+quote(p.metadata.sha)+",\"shared_catalogue_sha256\":"+quote(p.metadata.shared_sha)+"}");
     if(!p.metadata.ready&&p.metadata.present)return fail("invalid_present_lighting_metadata");
     courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p)return fail("resolver_texture_unavailable");
     const auto texture_pointer=reinterpret_cast<uintptr_t>(texture.p);const auto texture_generation=d.trace.resources.generation(texture_pointer);
     const auto texture_sha=material_sha(d,p,texture.p);if(texture_sha.empty())return fail("resolver_texture_identity_unavailable");
     bool opaque=false;for(const auto& c:p.material_cache)if(c.pointer==texture_pointer&&c.generation==texture_generation){opaque=c.opaque;break;}
-    const auto* material=p.metadata.find(course,texture_sha);
+    const auto* material=p.metadata.find(course,texture_sha,(noise?atmosphere::Noise:atmosphere::Plain)|((alpha_test||blended)?atmosphere::AlphaTest:0u));
     if(p.capture.stage||p.coverage.enabled){p.draw_texture=texture_sha;p.draw_material=material?material->name:"automatic_ground";p.draw_category=material?material->category:2;}
     // Static cutouts use the observed native coverage contract only. Never
     // turn blended/glass/environment passes into an opaque surface.

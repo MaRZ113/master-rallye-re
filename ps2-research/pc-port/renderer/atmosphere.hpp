@@ -13,6 +13,8 @@
 #include "atmosphere_water.hpp"
 #include "atmosphere_capture.hpp"
 #include "atmosphere_regions.hpp"
+#include "atmosphere_lamp_surface.hpp"
+#include "atmosphere_lamp_attachments.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -255,8 +257,13 @@ public:
         resolver.clear();clear_environment();metadata=LightingMetadata{};normal_hints=NormalHints{};
         active_course=course;active_course_input=id;course_dirty=false;++package_reloads;
         const auto dir=package_root/course;metadata_path=dir/L"materials.lsm";normals_path=dir/L"normals.lnh";
-        metadata.load(metadata_path);normal_hints.load(normals_path);
-        package_failed=!metadata.ready||!metadata.only_course(course);
+        // A valid authored row takes precedence; every missing row may use the
+        // same ID-independent exact-texture catalogue, including existing IDs.
+        // A present broken/mis-scoped package remains authoritative.
+        std::error_code package_error;const bool package_exists=std::filesystem::exists(dir,package_error);
+        if(!package_exists&&!package_error){metadata.load_reused_materials(package_root);package_failed=!metadata.ready;}
+        else {metadata.load(metadata_path);normal_hints.load(normals_path);package_failed=!metadata.ready||!metadata.only_course(course);
+            if(!package_failed){LightingMetadata catalogue;catalogue.load_reused_materials(package_root);metadata.inherit_reused_materials(catalogue);}}
         if(metadata.ready&&package_failed){metadata.ready=false;metadata.reason="course_package_scope_mismatch";}
         if(normal_hints.ready&&!normal_hints.only_course(course)){normal_hints=NormalHints{};normal_hints.attempted=true;normal_hints.reason="normal_package_scope_mismatch";}
         reason_count=0;return !package_failed;
@@ -299,10 +306,13 @@ public:
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
-    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
+    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;size_t rig_point=SIZE_MAX;float surface_error=1e30f;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
+    LampAttachments lamp_attachments;LampAttachmentQueue lamp_attachment_queue;
+    struct AttachmentTexture{uintptr_t pointer=0;uint64_t generation=0;std::string sha;};
+    std::array<AttachmentTexture,256> attachment_textures{};size_t attachment_texture_next=0;
     // 6.15 lamp rigs (tools/atmosphere_lamp_rig.py): instance -> rig, matched once from a lens draw; braking = glow card seen.
-    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX;};std::array<RigOwner,32> rig_owners{};uint64_t rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
+    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX;std::vector<LampDrawAnchors> surfaces;};std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
     // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
     struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
     void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}
@@ -361,8 +371,11 @@ public:
     std::array<std::string,128> reasons{};size_t reason_count=0;
     void diagnostic_epoch(uint64_t race,uint64_t reset)noexcept {
         if(race==observed_race&&reset==observed_reset)return;
+        lamp_attachment_queue.clear();
+        for(auto& owner:rig_owners)owner={};rig_race=UINT64_MAX;lamp_points.clear();lamp_points_frame=UINT64_MAX;
         // Resource serials are never re-used; reset still revokes hash evidence.
-        if(reset!=observed_reset){for(auto& c:sky_cache)c={};sky_cache_next=0;for(auto& c:material_cache)c={};material_cache_next=0;}
+        if(reset!=observed_reset){for(auto& c:sky_cache)c={};sky_cache_next=0;for(auto& c:material_cache)c={};material_cache_next=0;
+            for(auto& c:attachment_textures)c={};attachment_texture_next=0;}
         capture.cancel(world);observed_race=race;observed_reset=reset;reason_count=0;scene_diagnostic_count=0;fog_seen=false;last_fog_frame=UINT64_MAX;
         resolver.clear();body_texture_cache.clear();clear_environment();course_dirty=true;
     }
@@ -410,7 +423,7 @@ public:
         body_path=setting(L"BodyMaterials",L"Atmosphere22/body.blm");if(body_path.is_relative())body_path=std::filesystem::path(ini_).parent_path()/body_path;
         body_tata=setting(L"BodyPrototype",L"Off")==L"TataBonnet";
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
-        package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
+        package_root=setting(L"LightingPackageRoot",L"Atmosphere/courses");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
         upload_ring=GetPrivateProfileIntW(L"Atmosphere",L"UploadRing",1,ini_.c_str())==1;   // PERF-ATMO2: default on (owner A/B: -0.45 ms, no artifacts)
@@ -489,7 +502,11 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);{auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.rigs.size()!=lamp_rigs.rigs.size()){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}}
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);
+        {auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.sha!=lamp_rigs.sha){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}
+         lamp_attachments=LampAttachments{};lamp_attachment_queue.clear();
+         if(lamp_rigs.loaded)lamp_attachments.load(std::filesystem::path(lamp_rigs.path).parent_path()/L"lamp_attachments.lpa",lamp_rigs);
+         session().write("{\"type\":\"atmosphere_lamp_attachment_catalogue\",\"ready\":"+std::string(lamp_attachments.ready?"true":"false")+",\"reason\":"+quote(std::string(lamp_attachments.reason))+",\"rows\":"+std::to_string(lamp_attachments.rows.size())+",\"payload_sha256\":"+quote(lamp_attachments.sha)+"}");}
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.
@@ -524,6 +541,33 @@ public:
     }
     IDirect3DTexture8* texture(unsigned layer)noexcept{return textures_[layer];}
 };
+
+inline void resolve_lamp_attachments(Pilot& p,uint64_t frame,uint64_t race,uint64_t reset) {
+    auto& queue=p.lamp_attachment_queue;
+    if(!p.lamp_attachments.ready||queue.frame!=frame||queue.race!=race||queue.reset!=reset||queue.resolved==frame||p.rig_race!=race)return;
+    queue.resolved=frame;
+    if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
+    for(const auto& draw:queue.draws){
+        const auto instance=lamp_attachment_owner(draw,p.car_poses,frame);
+        auto* owner=instance?p.rig_owner(instance,frame,false):nullptr;
+        if(!owner||owner->rig<0){++queue.owner_misses;continue;}
+        for(const auto& row:p.lamp_attachments.rows){
+            if(row.rig!=owner->rig||row.texture!=draw.texture||row.uv!=draw.uv||row.expanded_vertices!=draw.positions.size())continue;
+            LampVec position{},normal{};if(!row.anchor.evaluate(draw.positions,position,normal))continue;
+            const auto& point=p.lamp_rigs.rigs[size_t(owner->rig)].points[row.anchor.point];
+            uint8_t kind=point.kind==4?0:point.kind;
+            if(kind==2){const bool braking=owner->braking!=UINT64_MAX&&owner->braking+2>=frame;if(!braking){if(!point.tail)continue;kind=1;}}
+            Pilot::LampPoint lamp;lamp.instance=instance;lamp.rig_point=row.anchor.point;lamp.surface_error=row.anchor.distance;
+            lamp.kind=kind;lamp.front=point.kind==0||point.kind==4;lamp.size=point.kind==4?point.size*.8f:point.size;
+            for(unsigned k=0;k<3;++k)lamp.world[k]=position[0]*draw.world[k]+position[1]*draw.world[4+k]+position[2]*draw.world[8+k]+draw.world[12+k];
+            if(!std::all_of(lamp.world.begin(),lamp.world.end(),[](float x){return std::isfinite(x);})||!transformed_normal(normal,draw.world,lamp.axis))continue;
+            bool replaced=false;for(auto& old:p.lamp_points)if(old.instance==instance&&old.rig_point==lamp.rig_point){
+                if(lamp.surface_error<old.surface_error){old=lamp;++queue.points;}replaced=true;break;}
+            if(!replaced&&p.lamp_points.size()<128){p.lamp_points.push_back(lamp);++queue.points;}
+        }
+    }
+    queue.draws.clear();queue.vertices=0;
+}
 
 template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8& n,Writer&& notify) noexcept {
     auto& s=p.pending;HRESULT result=S_OK;

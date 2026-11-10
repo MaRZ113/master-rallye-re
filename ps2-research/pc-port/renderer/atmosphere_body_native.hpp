@@ -7,6 +7,7 @@
 namespace gfx2::atmospherebody {
 inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;
+    collect_lamp_attachment(d,type,min,vertices,start,count,pc);
     try{const auto result=general(d,type,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}catch(...){return atmosphereintegration::repair(d);}
     {const auto result=night_energy(d,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}
     auto* p=atmosphereintegration::pilot(d);

@@ -14,7 +14,7 @@ class SourceContracts(unittest.TestCase):
  def test_bl1_selector_source_is_unchanged(self):
   b=(PORT/'renderer/atmosphere.hpp').read_bytes();prefix=b[:b.index(b'class Pilot')]
   for line in prefix.splitlines(keepends=True):
-   if any(name in line for name in (b'atmosphere_scene.hpp',b'scene_resolver.hpp',b'atmosphere_sun.hpp',b'atmosphere_water.hpp',b'atmosphere_capture.hpp',b'atmosphere_regions.hpp')):prefix=prefix.replace(line,b'')
+   if any(name in line for name in (b'atmosphere_scene.hpp',b'scene_resolver.hpp',b'atmosphere_sun.hpp',b'atmosphere_water.hpp',b'atmosphere_capture.hpp',b'atmosphere_regions.hpp',b'atmosphere_lamp_surface.hpp',b'atmosphere_lamp_attachments.hpp')):prefix=prefix.replace(line,b'')
   # 2.8 changes only the requested preset input; preserve the complete BL1
   # original getter, RET-4 bridge, lifecycle/network guards and choose logic.
   prefix=prefix.replace(b'int requested=parse_preset(text);',b'const int requested=parse_preset(text);')

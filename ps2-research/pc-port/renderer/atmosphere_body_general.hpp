@@ -3,6 +3,50 @@
 #include "atmosphere_body_binding.hpp"
 #include <unordered_map>
 namespace gfx2::atmospherebody {
+// Capture before private body uploads/emissive changes. Switch nodes may precede
+// their parent's verified draw: owner resolution happens once at before-UI.
+inline void collect_lamp_attachment(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept {
+    auto* p=atmosphereintegration::pilot(d);
+    if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!p->glint_style.enabled||!p->lamp_attachments.ready||
+       type!=D3DPT_TRIANGLELIST||!count||!vertices||vertices>4096||count>32768||p->pending.any()||
+       pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||
+       d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return;
+    try {
+        auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
+        DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||(fvf!=0x142&&fvf!=0x152)||FAILED(n.GetPixelShader(&pixel))||pixel||
+           !groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return;
+        courseintegration::Ref<IDirect3DSurface8> target,back;
+        if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return;
+        courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p)return;
+        const auto pointer=reinterpret_cast<uintptr_t>(texture.p);const auto generation=d.trace.resources.generation(pointer);if(!generation)return;
+        const std::string* cached=nullptr;
+        for(const auto& entry:p->attachment_textures)if(entry.pointer==pointer&&entry.generation==generation){cached=&entry.sha;break;}
+        if(!cached){auto& entry=p->attachment_textures[p->attachment_texture_next++%p->attachment_textures.size()];
+            entry.pointer=pointer;entry.generation=generation;entry.sha=atmosphereintegration::material_sha(d,*p,texture.p);cached=&entry.sha;}
+        const auto& sha=*cached;if(!p->lamp_attachments.texture_known(sha))return;
+        D3DMATRIX matrix{};if(FAILED(n.GetTransform(D3DTS_WORLD,&matrix)))return;atmosphere::Mat4 world{};std::memcpy(world.data(),&matrix,64);
+        for(float x:world)if(!std::isfinite(x))return;
+        uintptr_t instance=0;frontendmodelintegration::Context owner;
+        if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)&&frontendmodelintegration::fleet_owner_world(owner,matrix)){
+            uint32_t name_id=0;std::string resource;const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+            if(frontendmodelintegration::word(owner.owner.packet+0xc,name_id)&&atmosphere::native_name(exe,name_id,frontendmodelintegration::word,resource)){
+                for(auto& c:resource){c=char(std::tolower(static_cast<unsigned char>(c)));if(c=='\\')c='/';}
+                const auto slash=resource.find('/',9);
+                if(resource.rfind("vehicles/",0)==0&&slash!=std::string::npos&&resource.substr(slash+1)=="car"){
+                    instance=owner.owner.instance;p->observe_car(instance,world,d.trace.frame_number());}
+            }
+        }
+        auto& queue=p->lamp_attachment_queue;queue.begin(d.trace.frame_number(),cert.race_generation,d.ps2_port()->reset_generation());
+        if(queue.resolved==queue.frame)return;++queue.candidates;
+        p->pending.release();struct Release{atmosphere::Pilot& p;~Release(){p.pending.release();}}release{*p};
+        atmosphereintegration::Geometry geometry;if(!atmosphereintegration::geometry(d,*p,min,vertices,start,count,geometry))return;
+        const unsigned stride=fvf==0x152?36u:24u;if(p->pending.stride!=stride)return;
+        atmosphere::LampAttachmentDraw draw;draw.texture=sha;draw.world=world;draw.owner=instance;
+        if(!atmosphere::lamp_attachment_geometry(geometry.bytes,stride,geometry.indices,draw.positions,draw.uv)||
+           !p->lamp_attachments.signature_known(sha,draw.uv,unsigned(draw.positions.size()))){++queue.signature_misses;return;}
+        queue.push(std::move(draw));
+    }catch(...){if(!p->pending.any())p->pending.release();}
+}
 // Night only (AmbientStrength < .5): vehicle passes the body path does not
 // light (glass, lamp lenses, mirrors, reflection-only parts) keep full texture
 // brightness. Scale their final colour by the night body energy with one extra
@@ -115,33 +159,65 @@ inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t ins
             if(!duplicate)p.lamp_points.push_back(lp);}
     }catch(...){}
 }
-// 6.15: glints of a car matched to an offline lamp rig (tools/atmosphere_lamp_rig.py). Matching uses the lens
-// draw's texture, indexed vertex count and car-space bounds once per instance; afterwards every frame emits
-// exactly the rig's units at this draw's world matrix: head/fog (front), brake units (tail glint, brake glint
-// while this car's glow card was drawn in the last 2 frames), reverse (lamp_glints shows it only in R).
-// Returns false when the car has no rig (the 6.14 per-draw path then runs). 6.15.1: the match is re-checked on
-// every lens draw, because the game reuses instance memory for the next race's cars (Forester got megane's rig).
+// Keep the automatic rig's lamp roles and units, but bind each unit to the lens
+// triangles that are actually drawn. Never emit the entire static rig from one
+// unrelated lens draw. Front lamps require current nondegenerate geometry.
+// Rear OFF/ON switch nodes are not all fleet-owned; preserve their established
+// automatic placement until a current lens can provide a better surface anchor.
 inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::string& texture,const std::vector<uint8_t>& bytes,unsigned stride,
-                            const std::vector<uint32_t>& indices,const D3DMATRIX& w)noexcept{
+                            const std::vector<uint32_t>& indices,const D3DMATRIX& w,uint64_t race)noexcept{
     try{
+        if(p.rig_race!=race){for(auto& owner:p.rig_owners)owner={};p.rig_race=race;}
         if(!p.lamp_rigs.loaded||!instance)return false;auto* o=p.rig_owner(instance,frame,true);if(!o)return false;
-        {const size_t n=stride?bytes.size()/stride:0;if(!n||indices.empty())return false;
+        const size_t n=stride?bytes.size()/stride:0;if(stride<24||stride>128||!n||n>4096||indices.empty()||indices.size()%3)return false;
+        std::vector<atmosphere::LampVec> positions(n);std::vector<uint8_t> identity;
+        identity.insert(identity.end(),reinterpret_cast<const uint8_t*>(indices.data()),reinterpret_cast<const uint8_t*>(indices.data()+indices.size()));
+        for(size_t i=0;i<n;++i){std::memcpy(positions[i].data(),bytes.data()+i*stride,12);for(auto x:positions[i])if(!std::isfinite(x))return false;
+            // UVs survive damage, unlike positions/normals. They distinguish
+            // different lens draws even when local indices happen to coincide.
+            identity.insert(identity.end(),bytes.data()+(i+1)*stride-8,bytes.data()+(i+1)*stride);}
+        const auto key=texture+"/"+std::to_string(stride)+"/"+sha256_bytes(identity.data(),identity.size());
+        int matched=-1;
+        {
             std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};std::vector<uint8_t> used(n,0);unsigned count=0;
             for(const auto i:indices){if(i>=n)return false;if(used[i])continue;used[i]=1;++count;float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);
                 for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
             const int r=p.lamp_rigs.match(texture,count,lo,hi);
+            matched=r;
             if(r<0&&o->rig>=0&&p.lamp_rigs.owns_texture(o->rig,texture)){}   // 6.15.1: a deformed lens of the same car keeps its rig
-            else if(r<0){o->rig=-1;++p.rig_misses;if(p.first_reason(("lamp_rig_miss_"+texture).c_str()))session().write("{\"type\":\"atmosphere_lamp_rig_miss\",\"texture\":"+quote(texture)+",\"vertices\":"+std::to_string(count)+",\"lo\":["+std::to_string(lo[0])+","+std::to_string(lo[1])+","+std::to_string(lo[2])+"],\"hi\":["+std::to_string(hi[0])+","+std::to_string(hi[1])+","+std::to_string(hi[2])+"]}");return false;}
-            else if(r!=o->rig){if(o->rig>=0)++p.rig_rematches;o->rig=r;++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}}
-        if(o->emitted==frame)return true;o->emitted=frame;lamp_points_begin(p,frame);
+            else if(r<0){o->rig=-1;o->surfaces.clear();++p.rig_misses;return false;}
+            else if(r!=o->rig){if(o->rig>=0)++p.rig_rematches;o->surfaces.clear();o->rig=r;++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}}
+        auto* surface=static_cast<atmosphere::LampDrawAnchors*>(nullptr);
+        for(auto& s:o->surfaces)if(s.identity==key){surface=&s;break;}
+        const auto& rig=p.lamp_rigs.rigs[size_t(o->rig)];
+        if(!surface){
+            // If the first observation is already deformed, use the existing
+            // live section detector rather than binding to a wrong rest point.
+            if(matched<0||o->surfaces.size()>=16)return false;
+            atmosphere::LampDrawAnchors s;s.identity=key;
+            for(size_t i=0;i<rig.points.size();++i){const auto& q=rig.points[i];atmosphere::LampSurfaceAnchor a;a.point=i;
+                if(atmosphere::bind_lamp_surface(q.pos,q.kind==0||q.kind==4,positions,indices,a))s.anchors.push_back(a);}
+            o->surfaces.push_back(std::move(s));surface=&o->surfaces.back();
+        }
+        lamp_points_begin(p,frame);
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;
-        const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
-        for(const auto& q:p.lamp_rigs.rigs[size_t(o->rig)].points){if(p.lamp_points.size()>=128)break;
+        if(o->emitted!=frame){o->emitted=frame;const auto forward=atmosphere::normalized({w._31,w._32,w._33});
+            for(size_t i=0;i<rig.points.size()&&p.lamp_points.size()<128;++i){const auto& q=rig.points[i];if(q.kind==0||q.kind==4||p.lamp_attachments.manages(o->rig,i))continue;
+                uint8_t kind=q.kind;if(kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
+                atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.kind=kind;lp.size=q.size;lp.rig_point=i;
+                for(unsigned k=0;k<3;++k){lp.world[k]=q.pos[0]*(&w._11)[k]+q.pos[1]*(&w._11)[4+k]+q.pos[2]*(&w._11)[8+k]+(&w._11)[12+k];lp.axis[k]=-forward[k];}
+                p.lamp_points.push_back(lp);}}
+        for(const auto& a:surface->anchors){const auto& q=rig.points[a.point];
+            atmosphere::LampVec position{},normal{};if(!a.evaluate(positions,position,normal)){
+                p.lamp_points.erase(std::remove_if(p.lamp_points.begin(),p.lamp_points.end(),[&](const auto& point){return point.instance==instance&&point.rig_point==a.point;}),p.lamp_points.end());continue;}
             uint8_t kind=q.kind==4?0:q.kind;if(q.kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
-            const bool front=q.kind==0||q.kind==4;const float x=q.pos[0],y=q.pos[1],z=q.pos[2];
+            const bool front=q.kind==0||q.kind==4;const float x=position[0],y=position[1],z=position[2];
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=front;lp.kind=kind;lp.size=q.kind==4?q.size*.8f:q.size;
+            lp.rig_point=a.point;lp.surface_error=a.distance;
             lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
-            for(unsigned k=0;k<3;++k)lp.axis[k]=front?forward[k]:-forward[k];p.lamp_points.push_back(lp);++p.rig_points;}
+            atmosphere::Mat4 world{};std::memcpy(world.data(),&w,64);if(!atmosphere::transformed_normal(normal,world,lp.axis))continue;
+            bool duplicate=false;for(auto& other:p.lamp_points)if(other.instance==instance&&other.rig_point==a.point){if(lp.surface_error<other.surface_error)other=lp;duplicate=true;break;}
+            if(!duplicate&&p.lamp_points.size()<128){p.lamp_points.push_back(lp);++p.rig_points;}}
         return true;
     }catch(...){return false;}
 }
@@ -295,7 +371,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                 if(dimmed){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}
                 D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){
                     std::string texture=binding.names[0];for(auto& c:texture)c=char(std::tolower(static_cast<unsigned char>(c)));
-                    if(!rig_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,texture,g.bytes,st,g.indices,w)){if(!tex)tex=lens_texture(d,*p,n);
+                    if(!rig_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,texture,g.bytes,st,g.indices,w,cert.race_generation)){if(!tex)tex=lens_texture(d,*p,n);
                         record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,tex,uvo,false,false);}}}}
         // 6.16: rig cars draw their emissive lens pass with the night lens texture (indicators, stickers, glass
         // around the lamp darkened offline) so only the lamp's working area glows.

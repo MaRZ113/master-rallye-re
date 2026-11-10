@@ -8,6 +8,7 @@
 //    is black, so everything behind the lamp (and beyond the range) gets none.
 // Fog colour is black for the pass, so the light fades with the course fog.
 #include <algorithm>
+#include "provenance.hpp"
 #include <array>
 #include <cmath>
 #include <cstdint>
@@ -50,7 +51,7 @@ struct LampRigDraw {std::string texture;unsigned vertices=0;std::array<float,3> 
 struct LampRigOff {unsigned vertices=0;std::array<float,3> lo{},hi{};};   // 6.15.1: blight OFF lens (vertex-range bounds)
 struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigOff> off;std::vector<LampRigPoint> points;std::vector<std::pair<std::string,std::wstring>> masks;};   // 6.16 masks: lens texture -> night lens file
 struct LampRigs {
-    std::vector<LampRig> rigs;std::wstring path;bool loaded=false;
+    std::vector<LampRig> rigs;std::wstring path;std::string sha;bool loaded=false;
     // best rig for one lens draw; -1 = none
     int match(const std::string& texture,unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{
         int best=-1;float best_score=1e9f;
@@ -71,7 +72,9 @@ inline LampRigs read_lamp_rigs(const std::wstring& ini){
     LampRigs s;wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"LampRigs",L"Atmosphere/vehicles/lamp_rigs.txt",path,512,ini.c_str());
     if(!path[0]||GetPrivateProfileIntW(L"Atmosphere",L"LampRigsEnabled",1,ini.c_str())!=1)return s;
     std::wstring t(path);if(t.size()<2||(t[1]!=L':'&&t[0]!=L'\\'&&t[0]!=L'/')){const auto slash=ini.find_last_of(L"\\/");t=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+t;}
-    s.path=t;std::ifstream in(t);if(!in)return s;std::string line;
+    s.path=t;std::ifstream file(t,std::ios::binary|std::ios::ate);if(!file||file.tellg()<0||file.tellg()>2*1024*1024)return s;
+    std::string content(size_t(file.tellg()),'\0');file.seekg(0);if(!file.read(content.data(),content.size()))return s;
+    s.sha=sha256_bytes(content.data(),content.size());std::istringstream in(content);std::string line;
     while(std::getline(in,line)){if(line.empty()||line[0]=='#')continue;std::istringstream q(line);std::string tag;q>>tag;
         if(tag=="car"){LampRig r;q>>r.car;s.rigs.push_back(std::move(r));continue;}
         if(s.rigs.empty())continue;auto& r=s.rigs.back();
