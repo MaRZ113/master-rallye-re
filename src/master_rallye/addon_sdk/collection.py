@@ -15,7 +15,7 @@ from .manifest import AddonValidationError, validate_manifests, _validate_one
 from .ui_assets import append_frame, parse_bank, BANKS
 from ..dxt import parse_dxt_bytes
 
-STOCK_COUNTS = {'T1': 7, 'T2': 7, 'T3': 12}
+STOCK_COUNTS = {'T1': 7, 'T2': 7, 'T3': 12, 'T4': 0}
 
 
 def reserve_roster(requests, *, slots, previous=None):

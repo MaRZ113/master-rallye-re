@@ -15,11 +15,61 @@ import addon_collection_runtime as collection
 
 registry = i0.registry
 
+# CLASS-T4: gaFEScreenVehicleSelectAI (vtable 0x690B08, heap object 0x34 bytes
+# from 0x480A96/0x401BE2) stores per-class arrays back to back: +0x10 class,
+# +0x14 selection[3], +0x20 count[3], +0x2C PlayerID, +0x30 published classes.
+# A fourth class relocates selection[4] to +0x34 and count[4] to +0x44 in a
+# 0x54-byte object. Every consumer below was found by a full scan of the
+# Vehicle Select code and the inherited G.1/ID26/ID27/J.2 caves.
+T4_OBJECT_SIZE = 0x54
+T4_SELECTION, T4_COUNT = 0x34, 0x44
+T4_ALLOCATIONS = (0x480A97, 0x401BE3)          # PUSH 0x34 immediates
+# (instruction VA, displacement byte offset) for selection[] and count[] uses.
+T4_DISPLACEMENTS = (
+    (0x480A41, 2), (0x480A44, 2), (0x480A47, 2),             # ctor zero selection
+    (0x68E635, 2), (0x68E63C, 2), (0x480A62, 2),             # ctor counts T1/T2 (G.1), T3
+    (0x480BE4, 3), (0x68EFD9, 3),                            # XValue publish (retail, J.2 re-entry)
+    (0x481902, 3), (0x481965, 3), (0x481C92, 3), (0x481CC0, 3), (0x481CC4, 3),
+    (0x481F5E, 3), (0x481F79, 3), (0x481F7D, 3), (0x481F84, 3), (0x481F88, 3),
+    (0x481FA4, 3), (0x481FA8, 3),                            # publisher, arrows, carousel
+    (0x481E31, 2), (0x481E38, 2), (0x481E3F, 2),             # retail forward fallback
+    (0x481E63, 2), (0x481E77, 2), (0x481E86, 2),             # retail reverse fallback
+    (0x68E34A, 2), (0x68E388, 2), (0x68E86A, 2), (0x68E895, 2),  # ID26/ID27 map caves
+)
+T4_CTOR_TAIL = 0x68E643          # G.1 ctor stub JMP 0x480A55
+T4_CLASS_LIST = 0x481152         # J.2 JMP to the XY re-entry stub, before VehicleList publish
+GAME_STRING_FROM_CSTR, LIST_INSERT, GAME_FREE = 0x4D11D0, 0x407B30, 0x5B4C00
+
+
+def _relocate(disp):
+    if 0x14 <= disp < 0x20: return disp - 0x14 + T4_SELECTION
+    if 0x20 <= disp < 0x2C: return disp - 0x20 + T4_COUNT
+    raise ValueError('displacement is not a Vehicle Select class array field')
+
+
+def emit_class4(code, image, pe, t4_count, label):
+    """Constructor tail and VehicleList append for the fourth frontend class."""
+    code.label('ctor4')
+    code.emit(b'\xc7\x46' + bytes([T4_SELECTION + 12]) + struct.pack('<I', 0))
+    code.emit(b'\xc7\x46' + bytes([T4_COUNT + 12]) + struct.pack('<I', t4_count))
+    code.jump(branch_target(image, pe, T4_CTOR_TAIL, 0xe9))
+    # At 0x481152: EDI=this, ESI=class list. Publish T4 only when all three
+    # retail classes are published (quick-race path; championships keep LockClass).
+    code.label('t4list'); code.emit(bytes.fromhex('837f3003')); code.jne('t4skip')
+    code.emit(bytes.fromhex('83ec04')); code.push_literal('t4name')
+    code.emit(bytes.fromhex('8d4c2404')); code.call(GAME_STRING_FROM_CSTR)
+    code.emit(bytes.fromhex('8b46088d0c24516a01508bce')); code.call(LIST_INSERT)
+    code.emit(bytes.fromhex('ff3424')); code.call(GAME_FREE)
+    code.emit(bytes.fromhex('83c408c7473004000000'))
+    code.label('t4skip'); code.jump(branch_target(image, pe, T4_CLASS_LIST, 0xe9))
+    code.label('t4name'); code.emit(label.encode('ascii') + b'\0')
+
 
 def validate_rows(rows):
     """Validate resolved rows through the ordinary SDK authorship schema."""
     for row in rows:
         raw = {k:v for k,v in row.items() if k not in {'class_local_index','race_colour_rgba_f32le_hex'}}
+        if raw['vehicle_class'] == 'T4':raw['vehicle_class'] = 'T3'  # record/race class
         raw.update(manifest_version=1, description='Explicit SCALE1 research capacity probe',
                    class_local_placement='append',
                    physical_id={'policy':'explicit','value':row['physical_id']})
@@ -44,7 +94,7 @@ def branch_target(image, pe, va, opcode):
 
 
 def _profile(row):
-    cls = {'T1':0, 'T2':1, 'T3':2}[row['vehicle_class']]
+    cls = {'T1':0, 'T2':1, 'T3':2, 'T4':2}[row['vehicle_class']]  # T4 races as T3
     if row['unlock'] != {'policy':'mirror_stock_unlock','stock_vehicle_id':10}:
         raise ValueError('extension currently admits the audited stock-ID10 unlock oracle only')
     p = collection._record_for_id27(row, 'scale1-roster-extension')
@@ -61,8 +111,10 @@ def emit_audio_lookup(code, rows, parent):
     code.emit(bytes.fromhex('c20400'))
 
 
-def payload(image, pe, rows, va, selection_layout=None):
+def payload(image, pe, rows, va, selection_layout=None, t4_label=None):
     code = registry._CodeImage(va)
+    t4 = selection_layout is not None and 'T4' in selection_layout['class_to_physical_ids']
+    sel = T4_SELECTION if t4 else 0x14
     rows = sorted(rows, key=lambda r:r['physical_id'])
     profiles = [_profile(r) for r in rows]
     old_init = branch_target(image, pe, i0.REGISTRY_INITIALIZER_CALL_VA, 0xe8)
@@ -72,12 +124,12 @@ def payload(image, pe, rows, va, selection_layout=None):
     code.emit(bytes.fromhex('8bc65ec3'))
     mappings = [(p.slot_id,p.vehicle_class,p.local_index) for p in profiles]
     if selection_layout is not None:
-        mappings = [(physical,c,local) for c,cls in enumerate(('T1','T2','T3'))
-                    for local,physical in enumerate(selection_layout['class_to_physical_ids'][cls])]
+        mappings = [(physical,c,local) for c,cls in enumerate(('T1','T2','T3','T4'))
+                    for local,physical in enumerate(selection_layout['class_to_physical_ids'].get(cls,[]))]
     code.label('forward')
     for n,(physical,cls,local) in enumerate(mappings):
         code.emit(b'\x83\x79\x10' + bytes([cls])); code.jne(f'f{n}')
-        code.emit(b'\x83\x79' + bytes([0x14+4*cls,local])); code.jne(f'f{n}')
+        code.emit(b'\x83\x79' + bytes([sel+4*cls,local])); code.jne(f'f{n}')
         code.emit(b'\xb8'+struct.pack('<I',physical)+b'\xc3'); code.label(f'f{n}')
     code.jump(branch_target(image,pe,i0.FORWARD_CLASS_HOOK_VA,0xe9))
     code.label('reverse')
@@ -85,7 +137,7 @@ def payload(image, pe, rows, va, selection_layout=None):
         code.emit(b'\x81\x7c\x24\x04'+struct.pack('<I',physical)); code.jne(f'r{n}')
         code.emit(bytes.fromhex('568bf1'))
         code.emit(b'\xc7\x46\x10'+struct.pack('<I',cls))
-        code.emit(b'\xc7\x46'+bytes([0x14+4*cls])+struct.pack('<I',local))
+        code.emit(b'\xc7\x46'+bytes([sel+4*cls])+struct.pack('<I',local))
         code.jump(0x00481e89); code.label(f'r{n}')
     code.jump(branch_target(image,pe,i0.REVERSE_CLASS_HOOK_VA,0xe9))
     # Each bridge extends all existing identities, with the original helper as
@@ -147,6 +199,9 @@ def payload(image, pe, rows, va, selection_layout=None):
         code.jump(branch_target(image,pe,hook,0xe9)); hooks.append((hook,label,0xe9))
     import sdk_addon_ai
     sdk_addon_ai.emit(code,rows,image,pe,__import__('sys').modules[__name__],hooks)
+    if t4:
+        emit_class4(code,image,pe,len(selection_layout['class_to_physical_ids']['T4']),t4_label or 'T4 (RAID)')
+        hooks.extend([(T4_CTOR_TAIL,'ctor4',0xe9),(T4_CLASS_LIST,'t4list',0xe9)])
     for n,(p,r) in enumerate(zip(profiles,rows)):
         fields={'name':p.internal_name,'manufacturer':p.display_manufacturer,'model':p.display_model,
                 'combined':p.display_quickrace,'results':r['results']['display_name']}
@@ -159,7 +214,7 @@ def payload(image, pe, rows, va, selection_layout=None):
     return code.build(), {k:va+v for k,v in code.labels.items()}, hooks
 
 
-def extend_image(source, image, rows, *, base_count=28, storage='existing_cave', payload_va=0x10000000, selection_order=None, allocation_size=262144):
+def extend_image(source, image, rows, *, base_count=28, storage='existing_cave', payload_va=0x10000000, selection_order=None, allocation_size=262144, t4_label=None):
     """Build one reversible extension; no source/frozen image is modified."""
     if i0.sha256(source)!=i0.RETAIL_SHA256 or len(image)!=len(source):
         raise ValueError('unsupported retail identity/image size')
@@ -173,7 +228,9 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     # retain the original publisher and native mapping chain byte-for-byte.
     expanded=any(len(ids)>12 for ids in selection_layout['canonical'].values())
     if expanded and selection_order is None:raise ValueError('Thirteen-position profile requires explicit selection_order')
-    classes={'T1':8,'T2':8,'T3':12}
+    classes={'T1':8,'T2':8,'T3':12,'T4':0}
+    t4='T4' in selection_layout['canonical']
+    if t4 and selection_order is None:raise ValueError('T4 requires an explicit selection_order')
     for r in rows:
         c=r['vehicle_class']
         if r['class_local_index']!=classes[c] or classes[c]>=13:
@@ -182,7 +239,7 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
         validate_eligibility(c,r['ai_eligibility'])
         classes[c]+=1
     count=base_count+len(rows)
-    if allocation_size!=262144 and not (allocation_size==524288 and count==33 and selection_order is not None):raise ValueError('Unqualified roster storage budget')
+    if allocation_size!=262144 and not (allocation_size==524288 and count in (33,34,35) and selection_order is not None):raise ValueError('Unqualified roster storage budget')
     if count>=128:raise ValueError('current lifecycle/initializer signed imm8 encoding bound exceeded')
     ops=[]
     def patch(name,va,expected,replacement):
@@ -203,6 +260,11 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     for c,va in [('T1',0x68e638),('T2',0x68e63f)]:
         if classes[c]!=8:patch('capacity_'+c,va,bytes([8]),bytes([classes[c]]))
     if classes['T3']!=12:patch('capacity_T3',0x480a65,b'\x0c',bytes([classes['T3']]))
+    if t4:
+        for va in T4_ALLOCATIONS:patch(f'class4_object_{va:x}',va,b'\x34',bytes([T4_OBJECT_SIZE]))
+        for va,pos in T4_DISPLACEMENTS:
+            off=registry.va_to_file_offset(pe,va+pos,1);old=image[off]
+            patch(f'class4_field_{va:x}',va+pos,bytes([old]),bytes([_relocate(old)]))
     if expanded:
         off=registry.va_to_file_offset(pe,0x4819a4,5)
         if image[off:off+5]!=bytes.fromhex('83fe0c7cb1'):raise ValueError('publisher instruction signature changed')
@@ -214,7 +276,7 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
         # resume if unavailable; no guessed relocation or fallback address.
         if type(payload_va) is not int or payload_va%16 or not 0x10000000<=payload_va<0x10000000+allocation_size:
             raise ValueError('capacity payload must be aligned within the bounded shared allocation')
-        va=payload_va;blob,entries,hooks=payload(image,pe,rows,va,selection_layout if selection_order is not None else None)
+        va=payload_va;blob,entries,hooks=payload(image,pe,rows,va,selection_layout if selection_order is not None else None,t4_label)
         if len(blob)>65536:raise ValueError('private native payload budget exceeded')
         if payload_va+len(blob)>0x10000000+allocation_size:raise ValueError('capacity helper exceeds shared allocation')
         chosen=(va,blob,entries,hooks)

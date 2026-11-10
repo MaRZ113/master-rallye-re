@@ -5,7 +5,7 @@ bodies; their independent eligibility uses the original Race/Type getter.
 """
 import struct
 
-SUPPORTED={'T1':('quick_race','rallye_cup','master_rallye'),'T2':('quick_race','rallye_cup','master_rallye'),'T3':('quick_race','rallye_cup','invitation','master_rallye')}
+SUPPORTED={'T1':('quick_race','rallye_cup','master_rallye'),'T2':('quick_race','rallye_cup','master_rallye'),'T3':('quick_race','rallye_cup','invitation','master_rallye'),'T4':()}
 # Existing parent hooks have already appended ID26/27. Values are physical
 # sentinels, independent of menu order. Reentry includes BOTH player exclusions.
 T1=(('quick_race',0x458167,0x458137,0x4582d5),('rallye_cup',0x45ad14,0x45ace2,0x45ae66),('master_rallye',0x451ed9,0x451ea7,0x45202b))

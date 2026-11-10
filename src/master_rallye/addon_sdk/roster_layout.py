@@ -4,26 +4,37 @@ Reservation locals describe append ownership. Selection locals are derived and
 must not be written back into reservation locks or championship participant IDs.
 """
 CLASSES = ('T1', 'T2', 'T3')
+# T4 is an optional frontend class (CLASS-T4, docs/sdk/NEW_CLASS_RESEARCH.md):
+# its own Vehicle Select tab, while each record keeps the qualified T3 race class.
+FRONTEND_CLASSES = CLASSES + ('T4',)
 BASE = {'T1': list(range(7)) + [26], 'T2': list(range(7, 14)) + [27],
         'T3': list(range(14, 26))}
 
 
+def active_classes(rows, order=None):
+    used = any(r['vehicle_class'] == 'T4' for r in rows) or (isinstance(order, dict) and 'T4' in order)
+    return FRONTEND_CLASSES if used else CLASSES
+
+
 def resolve_layout(rows, order=None):
-    canonical = {c: ids[:] for c, ids in BASE.items()}
+    classes = active_classes(rows, order)
+    canonical = {c: BASE.get(c, [])[:] for c in classes}
     for row in sorted(rows, key=lambda r: r['physical_id']):
         cls = row['vehicle_class']
-        if cls not in CLASSES or type(row['physical_id']) is not int:
+        if cls not in classes or type(row['physical_id']) is not int:
             raise ValueError('Invalid physical roster identity/class')
         if row['class_local_index'] != len(canonical[cls]):
             raise ValueError('Reservation locals must remain canonical append indices')
         canonical[cls].append(row['physical_id'])
-    flat = [i for c in CLASSES for i in canonical[c]]
+    flat = [i for c in classes for i in canonical[c]]
     if sorted(flat) != list(range(28 + len(rows))):
         raise ValueError('Physical roster must contain each contiguous ID exactly once')
     selected = canonical if order is None else order
-    if not isinstance(selected, dict) or set(selected) != set(CLASSES):
-        raise ValueError('Selection order must declare exactly T1, T2 and T3')
-    for cls in CLASSES:
+    if not isinstance(selected, dict) or set(selected) != set(classes):
+        raise ValueError('Selection order must declare exactly ' + ', '.join(classes))
+    if 'T4' in classes and not selected['T4']:
+        raise ValueError('An empty T4 class cannot be published')
+    for cls in classes:
         ids = selected[cls]
         if (not isinstance(ids, list) or any(type(i) is not int for i in ids)
                 or len(ids) != len(set(ids)) or sorted(ids) != sorted(canonical[cls])):
@@ -31,9 +42,9 @@ def resolve_layout(rows, order=None):
         if len(ids) > 13:
             raise ValueError('Class capacity beyond thirteen is not qualified')
     return {'version': 1, 'canonical': canonical,
-            'class_to_physical_ids': {c: selected[c][:] for c in CLASSES},
+            'class_to_physical_ids': {c: selected[c][:] for c in classes},
             'physical_id_to_class_local': {str(i): {'vehicle_class': c, 'class_local_index': n}
-                for c in CLASSES for n, i in enumerate(selected[c])},
+                for c in classes for n, i in enumerate(selected[c])},
             'reservation_policy': 'addon.class_local_index and locks remain append ownership; selection locals are this explicit permutation',
             'save_policy': 'physical IDs unchanged; new/disposable competitions only until owner validation'}
 

@@ -7,7 +7,7 @@ def reorder_scene(data, layout):
     import prepare_vehicle_unlock_overlay as g
     text = data.decode('utf-8-sig')
     changes = []
-    for cls in CLASSES:
+    for cls in layout['canonical']:
         canonical = layout['canonical'][cls]
         blocks = {}
         for n, physical in enumerate(canonical):

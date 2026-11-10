@@ -28,6 +28,7 @@ PROFILE='sdk-multi-addon-roster'
 EXPERIMENTAL_31_PROFILE='sdk-multi-addon-roster-experimental-31'
 EXPERIMENTAL_32_PROFILE='sdk-multi-addon-roster-experimental-32'
 EXPERIMENTAL_33_PROFILE='sdk-multi-addon-roster-experimental-33'
+EXPERIMENTAL_T4_PROFILE='sdk-multi-addon-roster-experimental-class-t4'
 ALLOCATION=262144
 
 def append_owned_family(base,source,family):
@@ -112,20 +113,23 @@ def qualified_wheel_profiles(profiles, resources, rows):
 
 
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count','selection_order'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count','selection_order','t4_label'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
     experimental=config.get('experimental_record_count')
-    if experimental is not None and (type(experimental)is not int or experimental not in(31,32,33)):raise ValueError('Only explicit experimental 31/32/33-record layouts are admitted')
+    if experimental is not None and (type(experimental)is not int or experimental not in(31,32,33,34,35)):raise ValueError('Only explicit experimental 31..35-record layouts are admitted')
+    t4_label=config.get('t4_label','T4 (RAID)')
+    if not isinstance(t4_label,str) or not t4_label.isascii() or not 1<=len(t4_label)<=24 or '\0' in t4_label:raise ValueError('t4_label must be short ASCII')
     if not isinstance(inputs,list) or len(inputs) not in ((experimental-28,)if experimental is not None else(1,2)):raise ValueError('29/30 layouts are ordinary; 31/32/33 require explicit experimental_record_count and matching projects')
-    if experimental==33 and config.get('selection_order') is None:raise ValueError('33-record profile requires explicit selection_order')
-    allocation=524288 if experimental==33 else ALLOCATION
-    profile_name={31:EXPERIMENTAL_31_PROFILE,32:EXPERIMENTAL_32_PROFILE,33:EXPERIMENTAL_33_PROFILE}.get(experimental,PROFILE)
+    if experimental in(33,34,35) and config.get('selection_order') is None:raise ValueError('33..35-record profiles require explicit selection_order')
+    if experimental in(34,35) and len(config['selection_order'].get('T4',[]))!=experimental-33:raise ValueError('34/35-record profiles append exactly their T4 vehicles to the accepted 33-record roster')
+    allocation=524288 if experimental in(33,34,35) else ALLOCATION
+    profile_name={31:EXPERIMENTAL_31_PROFILE,32:EXPERIMENTAL_32_PROFILE,33:EXPERIMENTAL_33_PROFILE,34:EXPERIMENTAL_T4_PROFILE,35:EXPERIMENTAL_T4_PROFILE}.get(experimental,PROFILE)
     base=Path(config['base_runtime']);source=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).read_bytes()
     profile,image,base_rows,assets=probe.verified_base(base,source)
     plan=json.loads((base/'addon-plan.json').read_text());base_plan=copy.deepcopy(plan)
-    rows=[];authors=[];class_counts={'T1':8,'T2':8,'T3':12}
+    rows=[];authors=[];class_counts={'T1':8,'T2':8,'T3':12,'T4':0}
     for entry in sorted(inputs,key=lambda x:x['physical_id']):
         if not {'project','build','physical_id'}<=set(entry) or set(entry)-{'project','build','physical_id','vehicle_class','ai_eligibility'}:raise ValueError('invalid roster project input')
         original,resources,report=load_author(Path(entry['project']),Path(entry['build']))
@@ -226,7 +230,7 @@ def derive(config):
                 ops=[old for old in ops if old['file_offset']!=operation['file_offset']]
         ops+=report['operations'];bindings['rolling_wheels']={k:v for k,v in report.items()if k!='operations'}
     blob+=b'\x90'*((-len(blob))%16);capacity_offset=len(blob)
-    image,cap=capacity.extend_image(source,image,rows,storage='private_allocation',payload_va=damage.PAYLOAD_VA+capacity_offset,selection_order=config.get('selection_order'),allocation_size=allocation)
+    image,cap=capacity.extend_image(source,image,rows,storage='private_allocation',payload_va=damage.PAYLOAD_VA+capacity_offset,selection_order=config.get('selection_order'),allocation_size=allocation,t4_label=t4_label)
     blob+=bytes.fromhex(cap.pop('private_payload_hex'));ops+=cap['operations'];bindings['capacity']=cap
     if config.get('frontend_profiler',False):
         from vehicle_frontend_perf_native import append_frontend_perf
@@ -289,7 +293,7 @@ def derive(config):
     plan['addons']=sorted(all_rows,key=lambda x:x['physical_id'])
     for row in rows:
         cls=row['vehicle_class']
-        plan['class_mapping']['class_to_physical_ids'][cls].append(row['physical_id'])
+        plan['class_mapping']['class_to_physical_ids'].setdefault(cls,[]).append(row['physical_id'])
         plan['class_mapping']['physical_id_to_class_local'][str(row['physical_id'])]={'vehicle_class':cls,'class_local_index':row['class_local_index']}
     if config.get('selection_order') is not None:
         plan['selection_layout']=selection_layout
@@ -309,7 +313,7 @@ def derive(config):
         physical_slots_runtime_qualified=[26,27],experimental_physical_slots=[r['physical_id'] for r in rows],unresolved_runtime_gates=['Exact combined imported roster player/AI, finishing, Results and re-entry','Simultaneous independent physics/audio/damage/light behavior','No migration of experimental probe saves or other candidate state'])
     audit={'runtime_qualified':False,'capacity_mechanism':'SCALE1 29/30 user gameplay confirmed; this combined candidate not gameplay tested','author_slot_rebindings':[{'addon_id':r['addon_id'],'author_id':a['original']['physical_id'],'runtime_id':r['physical_id']} for r,a in zip(rows,authors)],'bindings':bindings,'native_hook_count':len(ops),'resource_ownership':ownership,'ui_frames':ui_report,'source_reports':reports,'base_plan_sha256':probe.sha(canonical_json(base_plan))}
     if glass_reports:audit['base_glass_profiles']=glass_reports
-    if experimental in(31,32,33):
+    if experimental in(31,32,33,34,35):
         audit['capacity_mechanism']=f'Explicit {experimental}-record append profile; canonical reservations separate from configured selection maps'
         audit['owner_qualified_record_count']=33
         audit['owner_qualification_boundary']='V-DEF3 ordering/capacity accepted; this exact generated vehicle combination still requires owner review'
@@ -335,7 +339,7 @@ def build(config,output):
     if output.exists():raise ValueError('candidate output already exists')
     exe=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).resolve()
     trial_save=None
-    if config.get('selection_order') is not None or config.get('experimental_record_count')==33:
+    if config.get('selection_order') is not None or config.get('experimental_record_count') in (33,34,35):
         from master_rallye.addon_sdk.roster_layout import validate_trial_save
         state=exe.parent/'DataGame/PlayerState.xml'
         if state.is_file():trial_save=validate_trial_save(state.read_bytes())

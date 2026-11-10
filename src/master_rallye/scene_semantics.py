@@ -71,6 +71,11 @@ def feature_policy(scene,policy,selected_meshes=None,*,require_bump=False):
         if not isinstance(approval,dict)or set(approval)!={'disposition','evidence','impact'}:
             raise ValueError('source feature disposition/evidence/impact required')
         text(approval['evidence'],'source feature');text(approval['impact'],'source fidelity impact')
+        if approval['disposition']=='mr_classic_material':
+            # Owner-selected MR Classic mode: the whole source material (shader,
+            # secondary stages/UVs) is replaced by a stock MR material. This is a
+            # material substitution, never a Source Fidelity claim.
+            result.append({**row,**approval,'status':'WARN'});continue
         if row['kind']=='source_shader':
             raise ValueError('required source shader semantics cannot be waived by feature omission: '+row['id'])
         if approval['disposition']=='alias_uv0':

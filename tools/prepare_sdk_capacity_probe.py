@@ -59,18 +59,21 @@ def scene_append(data,rows):
     text=data.decode('utf-8-sig');bom=data.startswith(b'\xef\xbb\xbf');g=legacy.vehicle_select.g1
     for row in rows:
         cls=row['vehicle_class']
-        if cls not in ('T1','T2','T3'):raise ValueError('unknown scene class')
+        if cls not in ('T1','T2','T3','T4'):raise ValueError('unknown scene class')
         # Every appended row uses the same audited ID10 unlock oracle as its
         # native hook. A bonus/UFO/hidden widget would silently disable it.
         template_name='T2_Car8'
         local=row['class_local_index'];target=f'{cls}_Car{local+1}'
         if f'Name="{target}"' in text:raise ValueError('scene slot collision')
         a,b=g._egg_span(text,template_name);clone=text[a:b].replace(f'<Egg Name="{template_name}">',f'<Egg Name="{target}">',1)
-        if cls!='T2':clone=g._replace_value(clone,'Y ID',str({'T1':0,'T3':2}[cls]))
+        if cls!='T2':clone=g._replace_value(clone,'Y ID',str({'T1':0,'T3':2,'T4':3}[cls]))
         for key,v in [('en2d Image Bank Index',str(row['frontend']['vehicle_select_art']['frame'])),
                       ('True Value',str(row['frontend']['vehicle_select_art']['frame'])),
                       ('X ID',str(local)),('XPos*',f'Frontend/VehicleSelect/Button{local}XPos')]:clone=g._replace_value(clone,key,v)
-        _,end=g._egg_span(text,f'{cls}_Car{local}')
+        if cls=='T4' and local==0:
+            last=max(int(n) for n in re.findall(r'<Egg Name="T3_Car(\d+)">',text))
+            _,end=g._egg_span(text,f'T3_Car{last}')
+        else:_,end=g._egg_span(text,f'{cls}_Car{local}')
         text=text[:end]+'\r\n'+clone+text[end:]
     g._parse_xml(text)
     return (b'\xef\xbb\xbf' if bom else b'')+text.encode('utf-8')
