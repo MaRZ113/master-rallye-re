@@ -1,0 +1,40 @@
+# Menu Builder + Extra Options (EXTRA-SET2 / SDK33) + D3D8 renderer, 16:9 window, renderer Widescreen=2.
+wait 3000
+expect-screen MainMenu
+shot i01-mainmenu-16x9
+key accept
+wait 3000
+expect-screen 2
+key accept
+wait 4000
+expect-screen QuickRace
+dump
+shot i02-quickrace
+expect-hit 120 100 MB_VehicleConfig
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+shot i03-vehicleconfig
+key down
+wait 400
+key down
+wait 400
+expect-focus 3
+key accept
+wait 1500
+shot i04-model-source-step
+key accept
+wait 1500
+key up
+wait 400
+key up
+wait 400
+expect-focus 1
+key accept
+wait 5000
+shot i05-build-native-setup
+dump
+key back
+wait 4000
+shot i06-after-setup-back
+end

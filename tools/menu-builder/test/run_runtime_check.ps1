@@ -6,7 +6,8 @@
   screenshot the runtime requests (PrintWindow, no focus change, no synthetic OS input), waits for
   TEST_DONE, stops the game and copies MenuBuilder.log, live dumps and screenshots to -Out.
 #>
-param([Parameter(Mandatory)][string]$GameHost, [Parameter(Mandatory)][string]$Test, [Parameter(Mandatory)][string]$Out, [int]$TimeoutSec = 240)
+param([Parameter(Mandatory)][string]$GameHost, [Parameter(Mandatory)][string]$Test, [Parameter(Mandatory)][string]$Out, [int]$TimeoutSec = 240,
+      [string]$Launcher = "")   # optional: start through a launcher command (e.g. the SDK candidate's Launch-Extra-Options.cmd)
 $ErrorActionPreference = "Stop"
 $mb = Join-Path $GameHost "MenuBuilder"
 $driver = Join-Path $PSScriptRoot "mrdrive.ps1"
@@ -17,7 +18,14 @@ $text = $text.TrimEnd() + "`r`nAutoTest=$(Split-Path $Test -Leaf)`r`n"
 Set-Content $ini $text -Encoding ASCII
 Remove-Item (Join-Path $mb "MenuBuilder.log"), (Join-Path $mb "shots"), (Join-Path $mb "live") -Recurse -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force (Join-Path $mb "shots"), $Out | Out-Null
-$p = Start-Process -FilePath (Join-Path $GameHost "MRallye.exe") -WorkingDirectory $GameHost -PassThru
+if ($Launcher) {
+  $l = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$Launcher`"" -WorkingDirectory (Split-Path $Launcher) -PassThru -WindowStyle Hidden
+  $p = $null; $t0 = Get-Date
+  while (-not $p -and ((Get-Date) - $t0).TotalSeconds -lt 60) { Start-Sleep -Milliseconds 500; $p = Get-Process MRallye -ErrorAction SilentlyContinue | Select-Object -First 1 }
+  if (-not $p) { "RESULT launcher did not start MRallye.exe"; exit 2 }
+} else {
+  $p = Start-Process -FilePath (Join-Path $GameHost "MRallye.exe") -WorkingDirectory $GameHost -PassThru
+}
 $deadline = (Get-Date).AddSeconds($TimeoutSec); $done = $false
 while ((Get-Date) -lt $deadline -and -not $p.HasExited) {
   Start-Sleep -Milliseconds 200

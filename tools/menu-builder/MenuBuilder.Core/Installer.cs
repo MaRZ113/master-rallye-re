@@ -123,7 +123,8 @@ public static class Installer
                    $"Enabled={(layout != null ? 1 : 0)}\r\n" +
                    $"Layout={SafeName(layout ?? current.layout ?? "")}\r\n" +
                    "\r\n[Diagnostics]\r\n; 1 = write MenuBuilder/live/<screen>.txt (eggs, focus, hitboxes) on every screen load\r\n" +
-                   $"LiveDump={(current.liveDump ? 1 : 0)}\r\n";
+                   $"LiveDump={(current.liveDump ? 1 : 0)}\r\n" +
+                   (current.autoTest != null ? $"; scripted in-game check (tools/menu-builder/test/*.autotest)\r\nAutoTest={current.autoTest}\r\n" : "");
         File.WriteAllText(ConfigPath(gameRoot), text, Encoding.ASCII);
     }
 

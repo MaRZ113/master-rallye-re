@@ -125,7 +125,24 @@ public sealed class SceneDocument
     public Egg? ScreenEgg => Eggs.FirstOrDefault(e => e.Kind == ElementKind.Screen);
     public string? ScreenAi => ScreenEgg?.AiNames.FirstOrDefault(a => a.StartsWith("gaFEScreen"));
 
-    public IEnumerable<Egg> Focusables => Eggs.Where(e => e.IsPrimaryFocusable);
+    /// <summary>
+    /// Focus targets: buttons/multistates/toggles, plus popups whose ButtonEgg has no button AI of its own
+    /// (VehicleSetup RESET: the "Are you sure" popup carries Button ID 4 for the ResetToDefault label).
+    /// </summary>
+    public IEnumerable<Egg> Focusables
+    {
+        get
+        {
+            var eggs = Eggs.ToList();
+            var primary = eggs.Where(e => e.IsPrimaryFocusable).ToList();
+            var ids = primary.Select(e => e.ButtonId).ToHashSet();
+            return eggs.Where(e => e.IsPrimaryFocusable || (e.Kind == ElementKind.Popup && e.IsFocusable && !ids.Contains(e.ButtonId)));
+        }
+    }
+
+    /// <summary>Egg that is drawn and hit for a focus target (a popup's ButtonEgg, else the egg itself).</summary>
+    public Egg VisualOf(Egg focusable) =>
+        focusable.Ai("gaFrontendPopupAI")?.Get("ButtonEgg") is { } owner && Find(owner) is { } o ? o : focusable;
 
     /// <summary>Insert an egg after <paramref name="after"/> (same List) or at the end of the first list.</summary>
     public Egg Add(XElement egg, Egg? after = null)

@@ -14,10 +14,11 @@ public sealed class Workspace : IDisposable
     public SceneRenderer Renderer { get; }
     public Validator Validator { get; }
 
-    public Workspace(string gameRoot)
+    /// <param name="exePath">MRallye.exe when it is not inside <paramref name="gameRoot"/> (SDK launcher resource roots).</param>
+    public Workspace(string gameRoot, string? exePath = null)
     {
         Data = new GameData(gameRoot);
-        var exe = Path.Combine(Data.Root, "MRallye.exe");
+        var exe = exePath ?? Path.Combine(Data.Root, "MRallye.exe");
         if (File.Exists(exe)) { try { Exe = new ExeTables(exe); } catch (Exception ex) { Exe = null; ExeError = ex.ToString(); } }
         Assets = new AssetCache(Data);
         Layout = new LayoutEngine(Assets, Exe);

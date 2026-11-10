@@ -305,6 +305,38 @@ public sealed class EditorSession
 
     public void ZOrder(int delta) => Patch(Selection, delta < 0 ? "Bring forward" : "Send backward", (p, egg) => p.DrawPriority = Math.Max(0, egg.DrawPriority + delta));
 
+    /// <summary>
+    /// Fix for a renderer PreserveMargins match on <paramref name="egg"/>: an exact reference point is left by
+    /// a 1-unit nudge in every wide variant; a left-band match anchors the egg's column (same X ±2) to the
+    /// same margin so the column moves together. Returns a description of what was changed.
+    /// </summary>
+    public string FixMargin(string egg)
+    {
+        var scene = Scene();
+        var e = scene.Find(egg) ?? throw new KeyNotFoundException(egg);
+        int dir = WidescreenModel.MarginDirection(e.X, e.Y, e.Kind == ElementKind.XYButton);
+        if (dir == 0) return "no PreserveMargins rule matches";
+        bool point = WidescreenModel.PointRules.Any(r => r.X == e.X && r.Y == e.Y);
+        var wide = Project.Settings.Aspects.Where(a => a != "4:3").ToList();
+        if (point)
+        {
+            Edit("Nudge out of margin rule", () =>
+            {
+                foreach (var a in wide)
+                {
+                    if (!Screen!.Aspects.TryGetValue(a, out var map)) Screen.Aspects[a] = map = new();
+                    if (!map.TryGetValue(egg, out var p)) map[egg] = p = new ElementPatch();
+                    p.X = e.X - dir;
+                }
+            });
+            return $"{egg}: X {e.X}→{e.X - dir} in {string.Join(", ", wide)} (stays with its row)";
+        }
+        var column = scene.Eggs.Where(o => o.Name != egg && Math.Abs(o.X - e.X) <= 2 && o.Visible && o.Kind is not (ElementKind.Screen or ElementKind.Camera or ElementKind.Background)
+                                           && WidescreenModel.MarginDirection(o.X, o.Y, o.Kind == ElementKind.XYButton) == 0).Select(o => o.Name).ToList();
+        Edit("Anchor column to margin", () => { foreach (var n in column) Def(n).Patch.Anchor = dir < 0 ? "left" : "right"; });
+        return $"anchored {column.Count} column eggs {(dir < 0 ? "left" : "right")}: {string.Join(", ", column)}";
+    }
+
     public void SetAction(string egg, ActionBinding? action) => Edit("Action", () => Def(egg).Action = action);
 
     public void ApplyStyle(string style) => Edit("Style " + style, () => { foreach (var n in Selection) Def(n).Style = style.Length == 0 ? null : style; });

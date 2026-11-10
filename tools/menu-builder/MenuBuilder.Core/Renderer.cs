@@ -58,7 +58,7 @@ public sealed class SceneRenderer
             float alpha = hidden ? 0.35f : 1f;
             int state = LayoutEngine.State(egg, o.FocusedId);
             uint tint = state >= 2 ? 0x80E6E6E6 : 0xFFFFFFFF;
-            double shift = WidescreenModel.RendererShift(o.Mode, c.Ratio, egg.X, egg.Y, egg.TextAi != null && egg.Kind is ElementKind.Text or ElementKind.Label);
+            double shift = WidescreenModel.RendererShift(o.Mode, c.Ratio, egg.X, egg.Y, egg.Kind == ElementKind.XYButton);
             DrawEgg(c, egg, shift, tint, alpha, state);
         }
         if (o.ShowSafeArea) DrawSafeArea(c);
@@ -185,8 +185,8 @@ public sealed class SceneRenderer
         var focus = doc.Focusables.ToList();
         foreach (var egg in focus)
         {
-            var hb = _layout.Hitbox(egg);
-            double shift = WidescreenModel.RendererShift(o.Mode, c.Ratio, egg.X, egg.Y, false);
+            var hb = _layout.Hitbox(doc.VisualOf(egg));
+            double shift = WidescreenModel.RendererShift(o.Mode, c.Ratio, egg.X, egg.Y, egg.Kind == ElementKind.XYButton);
             hb = hb.Offset(shift, 0);
             var a = c.ToPixel(hb.X0, hb.Y0); var b = c.ToPixel(hb.X1, hb.Y1);
             if (o.ShowHitboxes) Rect(c, a.x, b.y, b.x, a.y, 0xA0FF3030);
@@ -196,14 +196,14 @@ public sealed class SceneRenderer
         foreach (var egg in focus)
         {
             var f = egg.Focusable!;
-            var from = _layout.Hitbox(egg);
+            var from = _layout.Hitbox(doc.VisualOf(egg));
             foreach (var (path, color) in new[] { ("Up Path", 0xFF40C0FFu), ("Down Path", 0xFF40FF80u), ("Left Path", 0xFFFFA040u), ("Right Path", 0xFFFF60D0u) })
             {
                 int t = f.GetInt(path) ?? 0;
                 if (t == 0) continue;
                 var to = focus.FirstOrDefault(e => e.ButtonId == t);
                 if (to == null) continue;
-                var tr = _layout.Hitbox(to);
+                var tr = _layout.Hitbox(doc.VisualOf(to));
                 var p = c.ToPixel((from.X0 + from.X1) / 2, (from.Y0 + from.Y1) / 2);
                 var q = c.ToPixel((tr.X0 + tr.X1) / 2, (tr.Y0 + tr.Y1) / 2);
                 double off = path[0] switch { 'U' => -6, 'D' => 6, 'L' => -3, _ => 3 };

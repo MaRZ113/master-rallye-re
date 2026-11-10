@@ -269,9 +269,12 @@ constexpr struct { short x, y; signed char dir; } kMarginRules[] = {
     {550,179,1},{550,194,1},{550,419,1},{550,434,1},{555,160,1},{555,400,1},{565,75,1},{565,315,1},{570,22,1},{570,262,1},
     {580,390,1},{590,160,1},{590,400,1},{601,52,1},{601,292,1},{610,408,1},{610,423,1},{620,179,1},{620,194,1},{620,419,1},{620,434,1},
 };
+// Same classification as the renderer (ui_margins.cpp margin_direction): exact points, then the left band
+// x in [25,106], y in [19,100) or [259,340) for every packet.
 int margin_dir(float x, float y) {
     if (g_mode != 2) return 0;
     for (auto& r : kMarginRules) if (r.x == x && r.y == y) return r.dir;
+    if (x >= 25 && x <= 106 && ((y >= 19 && y < 100) || (y >= 259 && y < 340))) return -1;
     return 0;
 }
 

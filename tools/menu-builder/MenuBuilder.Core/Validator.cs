@@ -114,10 +114,10 @@ public sealed class Validator
             var wide = cs.Variants.ContainsKey("16:9") ? "16:9" : compiled.Aspects.Last();
             foreach (var egg in cs.Variants[wide].Eggs.Where(e => e.Visible))
             {
-                var dir = WidescreenModel.MarginDirection(egg.X, egg.Y, egg.TextAi != null && egg.Kind is ElementKind.Text or ElementKind.Label);
+                var dir = WidescreenModel.MarginDirection(egg.X, egg.Y, egg.Kind == ElementKind.XYButton);
                 if (dir != 0)
                     r.Add(new(Severity.Warning, cs.Name, egg.Name, "WS_MARGIN_RULE",
-                        $"at ({egg.X:0},{egg.Y:0}) the renderer's PreserveMargins mode shifts this element {(dir > 0 ? "right" : "left")} by half the extra width while its neighbours stay; nudge it by 1 unit or anchor the whole group", wide));
+                        $"at ({egg.X:0},{egg.Y:0}) the renderer's PreserveMargins mode shifts this element {(dir > 0 ? "right" : "left")} by half the extra width while its neighbours stay; quick fix: {(WidescreenModel.PointRules.Any(p => p.X == egg.X && p.Y == egg.Y) ? "nudge 1 unit in the wide variants" : "anchor its column to the same margin")}", wide));
             }
             // Text overflow inside button boxes.
             foreach (var egg in doc.Eggs.Where(e => e.TextAi?.Name == "enUITextButtonAI"))

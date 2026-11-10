@@ -301,15 +301,16 @@ public sealed class Compiler
                     _ => BindingStatus.Runtime,
                 };
                 var f = egg.Focusable!;
+                var visual = doc.VisualOf(egg);
                 var b = new CompiledButton
                 {
-                    Id = id, Egg = egg.Name, Kind = egg.Kind, Action = action, Status = status,
-                    Local = _layout.Hitbox(egg).Offset(-egg.X, -egg.Y),
+                    Id = id, Egg = visual.Name, Kind = egg.Kind, Action = action, Status = status,
+                    Local = _layout.Hitbox(visual).Offset(-visual.X, -visual.Y),
                     Up = f.GetInt("Up Path") ?? 0, Down = f.GetInt("Down Path") ?? 0, Left = f.GetInt("Left Path") ?? 0, Right = f.GetInt("Right Path") ?? 0,
                     Enabled = f.Get("Enabled") != "False",
                 };
                 foreach (var (a, vdoc) in cs.Variants)
-                    if (vdoc.Find(egg.Name) is { } ve) b.Hit[a] = _layout.Hitbox(ve);
+                    if (vdoc.Find(visual.Name) is { } ve) b.Hit[a] = _layout.Hitbox(ve);
                 cs.Buttons.Add(b);
             }
             if (screen.IsCustom) cs.Hnt = BuildHnt(doc);

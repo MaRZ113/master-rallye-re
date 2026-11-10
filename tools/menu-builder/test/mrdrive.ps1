@@ -74,7 +74,16 @@ switch ($Command) {
     $ww = $wr.R - $wr.L; $wh = $wr.B - $wr.T
     $full = New-Object System.Drawing.Bitmap $ww, $wh
     $g = [System.Drawing.Graphics]::FromImage($full); $hdc = $g.GetHdc()
-    $ok = [MrDrive]::PrintWindow($h, $hdc, 2); $g.ReleaseHdc($hdc); $g.Dispose()
+    $ok = $false
+    for ($try = 0; $try -lt 8; $try++) {
+      $ok = [MrDrive]::PrintWindow($h, $hdc, 2)
+      # DWM can hand back an empty (uniform) surface while the D3D frame is being replaced: retry.
+      $g.ReleaseHdc($hdc)
+      $c1 = $full.GetPixel([int]($ww / 3), [int]($wh / 3)); $c2 = $full.GetPixel([int]($ww / 2), [int]($wh / 2)); $c3 = $full.GetPixel([int]($ww * 2 / 3), [int]($wh * 3 / 4))
+      if (-not ($c1.ToArgb() -eq $c2.ToArgb() -and $c2.ToArgb() -eq $c3.ToArgb())) { break }
+      Start-Sleep -Milliseconds 250; $hdc = $g.GetHdc()
+    }
+    $g.Dispose()
     $crop = $full.Clone((New-Object System.Drawing.Rectangle ($origin.X - $wr.L), ($origin.Y - $wr.T), $w, $hgt), $full.PixelFormat)
     $crop.Save($A1, [System.Drawing.Imaging.ImageFormat]::Png); $crop.Dispose(); $full.Dispose()
     Write-Output "SHOT $A1 ${w}x${hgt} printwindow=$ok"

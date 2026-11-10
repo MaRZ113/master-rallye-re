@@ -144,7 +144,13 @@
             <GridSplitter Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Background="#FF111214"/>
             <DockPanel Grid.Column="2" Grid.Row="2" Background="{StaticResource Panel}">
                 <TextBlock DockPanel.Dock="Top" x:Name="FindingsTitle" Text="VALIDATION" Margin="6,4" FontWeight="Bold"/>
-                <ListBox x:Name="FindingsList" MouseDoubleClick="OnFindingActivated" FontFamily="Consolas" FontSize="12"/>
+                <ListBox x:Name="FindingsList" MouseDoubleClick="OnFindingActivated" FontFamily="Consolas" FontSize="12">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Quick fix (widescreen margin rule)" Click="OnQuickFix"/>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
             </DockPanel>
         </Grid>
     </DockPanel>

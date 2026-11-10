@@ -54,18 +54,24 @@ public static class WidescreenModel
     public const int LeftBandMinX = 25, LeftBandMaxX = 106;
     public static readonly (int Min, int Max)[] LeftBandY = { (19, 100), (259, 340) };
 
-    /// <summary>PreserveMargins direction for a packet at (x,y): -1 left, +1 right, 0 centred.</summary>
-    public static int MarginDirection(float x, float y, bool isText)
+    /// <summary>
+    /// PreserveMargins direction of an egg whose en2d packet point (+0x54, the egg translation) is (x,y):
+    /// renderer ui_margins.cpp margin_direction — exact reference points first, then the left band
+    /// x∈[25,106], y∈[19,100)∪[259,340) for every packet (sprites and labels alike). Vehicle Select
+    /// carousel cards on the row y=309 keep their source coordinates.
+    /// </summary>
+    public static int MarginDirection(float x, float y, bool carouselCard = false)
     {
+        if (carouselCard && Math.Abs(y - 309f) <= 1f / 4096f) return 0;
         foreach (var r in PointRules) if (r.X == x && r.Y == y) return r.Dir;
-        if (isText && x >= LeftBandMinX && x <= LeftBandMaxX)
+        if (x >= LeftBandMinX && x <= LeftBandMaxX)
             foreach (var (min, max) in LeftBandY) if (y >= min && y < max) return -1;
         return 0;
     }
 
     /// <summary>Horizontal offset applied by the renderer to an egg (authored units).</summary>
-    public static double RendererShift(InterfaceMode mode, double ratio, float x, float y, bool isText) =>
-        mode == InterfaceMode.PreserveMargins ? MarginDirection(x, y, isText) * Half(ratio) : 0;
+    public static double RendererShift(InterfaceMode mode, double ratio, float x, float y, bool carouselCard = false) =>
+        mode == InterfaceMode.PreserveMargins ? MarginDirection(x, y, carouselCard) * Half(ratio) : 0;
 
     /// <summary>Visible authored-x range in the window.</summary>
     public static (double Left, double Right) VisibleRange(InterfaceMode mode, double ratio) =>

@@ -34,6 +34,7 @@ static class Program
                 "export-screen" => ExportScreen(a),
                 "import-screen" => ImportScreen(a),
                 "texts" => Texts(a),
+                "fix-margins" => FixMargins(a),
                 "live" => Live(a),
                 "api" => Api(),
                 _ => Fail($"unknown command '{cmd}'"),
@@ -52,7 +53,8 @@ static class Program
           compare       --game DIR --project P --screen S --out F.png [--aspect A] [--mode M]   original | modified side by side
           validate      --game DIR --project P                         findings (exit 1 on errors)
           compile       --game DIR --project P --out DIR               write the layout folder somewhere else (dry run)
-          install       --game DIR --project P [--no-activate]         write <game>/MenuBuilder/Layouts/<name>, select it
+          install       --game DIR --project P [--target EXEDIR] [--no-activate] [--force]
+                                                                       write <game|target>/MenuBuilder/Layouts/<name>, select it
           activate      --game DIR (--layout NAME | --classic)         switch layout / back to the Classic frontend
           uninstall     --game DIR --layout NAME                       remove an installed layout
           status        --game DIR                                     installed layouts, active selection, runtime log tail
@@ -61,6 +63,7 @@ static class Program
           export-screen --project P --screen S --out F.mrscreen.json
           import-screen --project P --in F.mrscreen.json [--rename N]
           texts         --game DIR [--group G] [--language L]          native localized text table
+          fix-margins   --game DIR --project P --screen S              quick fix for renderer PreserveMargins matches
           live          --game DIR                                     latest runtime live dumps (in-game eggs/focus/hitboxes)
           api                                                          machine-readable description of this API
         """;
@@ -93,7 +96,7 @@ static class Program
         public bool Has(string k) => Flags.Contains(k) || Values.ContainsKey(k);
     }
 
-    static Workspace Ws(Args a) => new(a.Req("game"));
+    static Workspace Ws(Args a) => new(a.Req("game"), a.Opt("exe") ?? (a.Opt("target") is { } t ? Path.Combine(t, "MRallye.exe") : null));
     static MenuProject? Project(Args a) => a.Opt("project") is { } p ? MenuProject.Load(p) : null;
 
     static ScreenDef ScreenOf(Workspace ws, MenuProject? project, string name, bool original = false)
@@ -248,7 +251,7 @@ static class Program
         var (layout, findings) = ws.Build(project);
         int errors = findings.Count(f => f.Severity == Severity.Error);
         if (errors > 0 && !a.Has("force")) return Emit(new { ok = false, error = "validation errors; fix them or pass --force", findings = Report(findings) }, 1);
-        var res = Installer.Install(project, layout, ws.Data, ws.Exe, activate: !a.Has("no-activate"));
+        var res = Installer.Install(project, layout, ws.Data, ws.Exe, activate: !a.Has("no-activate"), targetRoot: a.Opt("target"));
         return Emit(new { ok = true, directory = res.Directory, files = res.Files, active = !a.Has("no-activate"), findings = Report(findings) });
     }
 
@@ -316,6 +319,22 @@ static class Program
         var s = Workspace.ImportScreen(p, File.ReadAllText(a.Req("in")), a.Opt("rename"));
         p.Save(path);
         return Emit(new { ok = true, screen = s.Name });
+    }
+
+    /// <summary>Applies the PreserveMargins quick fix to every flagged egg of a screen (adds the screen if needed).</summary>
+    static int FixMargins(Args a)
+    {
+        using var ws = Ws(a);
+        var path = a.Req("project");
+        var p = MenuProject.Load(path);
+        var name = a.Req("screen");
+        if (p.Screen(name) == null) p.Screens.Add(ws.NewRetailScreen(name));
+        var session = new EditorSession(ws, p, path);
+        session.SelectScreen(name);
+        var flagged = session.Scene().Eggs.Where(e => e.Visible && WidescreenModel.MarginDirection(e.X, e.Y, e.Kind == ElementKind.XYButton) != 0).Select(e => e.Name).ToList();
+        var done = flagged.Select(n => session.FixMargin(n)).ToList();
+        session.Save();
+        return Emit(new { ok = true, screen = name, fixes = done });
     }
 
     static int Texts(Args a)

@@ -245,7 +245,7 @@ public partial class MainWindow : Window
         return new Rect(new Point(Math.Min(a.x, b.x), Math.Min(a.y, b.y)), new Point(Math.Max(a.x, b.x), Math.Max(a.y, b.y)));
     }
 
-    double Shift(Egg e) => WidescreenModel.RendererShift(Mode(), _canvas!.Ratio, e.X, e.Y, e.TextAi != null && e.Kind is ElementKind.Text or ElementKind.Label);
+    double Shift(Egg e) => WidescreenModel.RendererShift(Mode(), _canvas!.Ratio, e.X, e.Y, e.Kind == ElementKind.XYButton);
 
     UiRect ShownBounds(Egg e) => _ws!.Layout.Bounds(e).Offset(Shift(e), 0);
 
@@ -325,7 +325,7 @@ public partial class MainWindow : Window
         if (InteractBox.IsChecked == true)
         {
             var (ux, uy) = _canvas.ToUi(p.X, p.Y);
-            var b = _scene!.Focusables.Where(f => _ws!.Layout.Hitbox(f).Offset(Shift(f), 0).Contains(ux, uy)).LastOrDefault();
+            var b = _scene!.Focusables.Where(f => _ws!.Layout.Hitbox(_scene.VisualOf(f)).Offset(Shift(_scene.VisualOf(f)), 0).Contains(ux, uy)).LastOrDefault();
             if (b != null) { _interactFocus = b.ButtonId; RenderView(); ReportAction(b); }
             return;
         }
@@ -532,7 +532,7 @@ public partial class MainWindow : Window
         Combo("Anchor (wide)", new[] { "none", "left", "right", "center" }, def?.Patch.Anchor ?? "none", v => _s.Patch(new[] { name }, "Anchor", (p, _) => p.Anchor = v == "none" ? null : v));
         var b = ShownBounds(egg);
         Props.Children.Add(new TextBlock { Text = $"bounds {b}\nhitbox {(egg.IsPrimaryFocusable ? _ws!.Layout.Hitbox(egg).ToString() : "—")}", Foreground = Brushes.Gray });
-        int dir = WidescreenModel.MarginDirection(egg.X, egg.Y, egg.TextAi != null && egg.Kind is ElementKind.Text or ElementKind.Label);
+        int dir = WidescreenModel.MarginDirection(egg.X, egg.Y, egg.Kind == ElementKind.XYButton);
         if (dir != 0) Props.Children.Add(new TextBlock { Text = $"⚠ Widescreen 'preserve margins' shifts this element {(dir > 0 ? "right" : "left")} (reference rule at {egg.X:0},{egg.Y:0}).", Foreground = Brushes.Orange, TextWrapping = TextWrapping.Wrap });
 
         if (egg.UsesEn2d && egg.Model != "Null")
@@ -637,6 +637,13 @@ public partial class MainWindow : Window
         if (_s.Project.Screen(f.Screen) != null && _s.Screen?.Name != f.Screen) _s.SelectScreen(f.Screen);
         if (f.Aspect != null && AspectBox.Items.Contains(f.Aspect)) AspectBox.SelectedItem = f.Aspect;
         if (f.Element != null) { _s.Selection.Clear(); _s.Selection.AddRange(f.Element.Split(',').Where(n => _scene?.Find(n) != null)); SyncSelection(); }
+    }
+
+    void OnQuickFix(object sender, RoutedEventArgs e)
+    {
+        if (FindingsList.SelectedItem is not ListBoxItem { Tag: Finding f } || _s == null || f.Code != "WS_MARGIN_RULE" || f.Element == null) { Status("Select a WS_MARGIN_RULE finding"); return; }
+        if (_s.Screen?.Name != f.Screen) _s.SelectScreen(f.Screen);
+        Try(() => Status(_s.FixMargin(f.Element)));
     }
 
     // ---- keyboard ------------------------------------------------------------------------------------------------
