@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuBuilder.Cli", "MenuBuil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuBuilder.App", "MenuBuilder.App\MenuBuilder.App.csproj", "{AB506C16-EF83-4AA5-BEB5-B077553D25D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuBuilder.Tests", "MenuBuilder.Tests\MenuBuilder.Tests.csproj", "{5F65B80F-7DAB-4700-963B-41D99D84AB2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{AB506C16-EF83-4AA5-BEB5-B077553D25D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB506C16-EF83-4AA5-BEB5-B077553D25D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB506C16-EF83-4AA5-BEB5-B077553D25D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F65B80F-7DAB-4700-963B-41D99D84AB2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F65B80F-7DAB-4700-963B-41D99D84AB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F65B80F-7DAB-4700-963B-41D99D84AB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F65B80F-7DAB-4700-963B-41D99D84AB2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

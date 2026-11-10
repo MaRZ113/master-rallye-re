@@ -142,15 +142,30 @@ public sealed class SceneDocument
         for (int i = 2; ; i++) if (!names.Contains($"{stem}{i}")) return $"{stem}{i}";
     }
 
-    /// <summary>Serialized like the retail files: 2-space indent, no declaration, LF.</summary>
+    /// <summary>
+    /// Serialized exactly like the retail scene files: CRLF, two-space indent, attributes in document order,
+    /// empty elements closed as "/>" and no declaration. Unmodified retail scenes round-trip byte-identical.
+    /// </summary>
     public byte[] Serialize()
     {
-        var clean = new XDocument(Document);
-        foreach (var t in clean.DescendantNodes().OfType<XText>().Where(t => string.IsNullOrWhiteSpace(t.Value)).ToList()) t.Remove();
-        var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", OmitXmlDeclaration = true, NewLineChars = "\r\n", Encoding = new UTF8Encoding(false) };
-        using var ms = new MemoryStream();
-        using (var w = XmlWriter.Create(ms, settings)) clean.Root!.WriteTo(w);
-        ms.Write("\r\n"u8);
-        return ms.ToArray();
+        var sb = new StringBuilder();
+        void Write(XElement e, int depth)
+        {
+            sb.Append(' ', depth * 2).Append('<').Append(e.Name.LocalName);
+            foreach (var a in e.Attributes()) sb.Append(' ').Append(a.Name.LocalName).Append("=\"").Append(Escape(a.Value)).Append('"');
+            var children = e.Elements().ToList();
+            var text = string.Concat(e.Nodes().OfType<XText>().Select(t => t.Value)).Trim();
+            if (children.Count == 0 && text.Length == 0) { sb.Append("/>").Append(Crlf); return; }
+            if (children.Count == 0) { sb.Append('>').Append(Escape(text)).Append("</").Append(e.Name.LocalName).Append('>').Append(Crlf); return; }
+            sb.Append('>').Append(Crlf);
+            foreach (var c in children) Write(c, depth + 1);
+            sb.Append(' ', depth * 2).Append("</").Append(e.Name.LocalName).Append('>').Append(Crlf);
+        }
+        Write(Document.Root!, 0);
+        return Encoding.Latin1.GetBytes(sb.ToString());
     }
+
+    const string Crlf = "\r\n";
+
+    static string Escape(string v) => v.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;");
 }
