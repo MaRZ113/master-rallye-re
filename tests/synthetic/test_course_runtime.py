@@ -74,6 +74,46 @@ class NativeTests(unittest.TestCase):
         result=qualify(doc,self.baseline,self.rp)
         self.assertEqual(result['menu_groups'][0],[10,11,12,40,39])
 
+    def test_caption_publisher_uses_real_native_broker_string_id_abi(self):
+        # Execute real 4D0580, 4D8EC0, 4D85F0 and 4DE0D0. Only the string pool
+        # boundary and unrelated original UI publisher are simulated. A mock
+        # Broker setter would conceal a heap-pointer-as-interned-ID defect.
+        from unicorn import UC_HOOK_CODE
+        from unicorn.x86_const import UC_X86_REG_ESP,UC_X86_REG_EIP,UC_X86_REG_ECX,UC_X86_REG_EAX,UC_X86_REG_ESI
+        u=self.machine();sp=0x2008000;obj=0x3000000;end=0x30000000
+        broker=0x3006000;entries=0x3007000;values=0x300b000;count=128
+        u.mem_write(0x6f9410,struct.pack('<I',broker))
+        u.mem_write(broker+4,struct.pack('<3I',entries,entries+count*28,entries+count*28))
+        for i in range(count):
+            u.mem_write(entries+i*28,struct.pack('<7I',i,values+i*4,4,0,0,1,0))
+        ids={'Frontend/RaceSelect/RaceName':12,'Test 39':20,'Test 40':21}
+        interned=[];original=[]
+        def intercept(uc,at,size,user):
+            if at in (0x4d11d0,0x5b4c00,0x4dd9f0):
+                self.fail('Caption path used owned-string/resize helper instead of interned Broker IDs')
+            if at not in (0x47ed10,0x4d44f0,0x4d4460):return
+            stack=uc.reg_read(UC_X86_REG_ESP);ret=struct.unpack('<I',uc.mem_read(stack,4))[0];cleanup=4
+            if at==0x47ed10:
+                original.append(True);uc.reg_write(UC_X86_REG_ECX,0xdeadbeef)
+            elif at==0x4d44f0:uc.reg_write(UC_X86_REG_EAX,0x300d000)
+            else:
+                arg=struct.unpack('<I',uc.mem_read(stack+4,4))[0]
+                text=bytes(uc.mem_read(arg,180)).split(b'\0')[0].decode('ascii')
+                interned.append(text);uc.reg_write(UC_X86_REG_EAX,ids[text]);cleanup=8
+            uc.reg_write(UC_X86_REG_ESP,stack+cleanup);uc.reg_write(UC_X86_REG_EIP,ret)
+        u.hook_add(UC_HOOK_CODE,intercept)
+        for ident in [10,39,40,39]*25:
+            group,local=self.catalog['reverse_menu'][ident]
+            u.mem_write(obj+0x10,struct.pack('<I',group));u.mem_write(obj+0x14+group*4,struct.pack('<I',local))
+            u.mem_write(sp,struct.pack('<I',end));u.reg_write(UC_X86_REG_ESP,sp)
+            u.reg_write(UC_X86_REG_ECX,obj);u.reg_write(UC_X86_REG_ESI,0x12345678)
+            u.emu_start(self.report['entries']['publish_details'],end,count=1000)
+            self.assertEqual(u.reg_read(UC_X86_REG_ESP),sp+4)
+            self.assertEqual(u.reg_read(UC_X86_REG_ESI),0x12345678)
+            if ident>=39:
+                self.assertEqual(struct.unpack('<I',u.mem_read(values+12*4,4))[0],ids[f'Test {ident}'])
+        self.assertEqual(len(original),100);self.assertEqual(len(interned),150)
+
     def test_native_explicit_schedule_lookup(self):
         from unicorn.x86_const import UC_X86_REG_ESP,UC_X86_REG_EAX,UC_X86_REG_EDX,UC_X86_REG_ECX,UC_X86_REG_EFLAGS
         u=self.machine();sp=0x2008000;end=0x30000000

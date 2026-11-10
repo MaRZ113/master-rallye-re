@@ -161,16 +161,15 @@ def append_native(source, image, parent_blob, catalog, *, emitter, pe_offset):
                 label=('get' if target==0x4b0000 else 'set')+'_race_best_dispatch'
                 patch(ins.address,bytes(ins.bytes),branch(ins.address,c.base_va+c.labels[label],0xe8),'race_context_'+hex(ins.address))
     # Retain the original details publisher and override only the new caption.
-    # enString constructors/copies/destructors are the game's own routines.
+    # Broker arguments are interned gaString IDs (4D0580), not owned enString
+    # buffers (4D11D0). Passing a heap pointer as an ID corrupts Broker indexing.
     c.label('publish_details');c.emit(b'\x56\x8b\xf1\x83\xec\x08');c.call(0x47ed10)
     c.emit(b'\x8b\xce');c.call('menu_forward');c.emit(b'\x83\xf8\x27')
     c.emit(b'\x0f\x82\0\0\0\0');c.rel32.append((len(c.code)-4,len(c.code),'details_done'))
     c.emit(b'\x8b\x04\x85');c.imm32.append((len(c.code),'title_pointers'));c.emit(b'\0'*4)
-    c.emit(b'\x50\x8d\x4c\x24\x08');c.call(0x4d11d0)
-    c.emit(b'\x68'+u(0x6b7230)+b'\x8d\x4c\x24\x04');c.call(0x4d11d0)
+    c.emit(b'\x50\x8d\x4c\x24\x08');c.call(0x4d0580)
+    c.emit(b'\x68'+u(0x6b7230)+b'\x8d\x4c\x24\x04');c.call(0x4d0580)
     c.emit(b'\x8d\x54\x24\x04\x8d\x04\x24\x52\x50');c.call(0x4d8ec0);c.emit(b'\x8b\xc8');c.call(0x4d85f0)
-    for displacement in (0,4):
-        c.emit(b'\xff\x74\x24'+bytes([displacement]));c.call(0x5b4c00);c.emit(b'\x83\xc4\x04')
     c.label('details_done');c.emit(b'\x83\xc4\x08\x5e\xc3')
     # Decode original instructions, so inline jump-table bytes are not mistaken
     # for relocations. There are exactly three native direct call owners.

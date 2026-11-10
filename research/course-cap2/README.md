@@ -4,6 +4,25 @@ Status: **implemented offline QuickRace candidate, NOT GAMEPLAY QUALIFIED**.
 The owner must still verify selection, driving/AI, finish/Results, return and
 save/restart. Suspended-process checks do not establish those observations.
 
+## Menu crash follow-up
+
+The owner reported the original candidate crashing when navigating to the new
+France entries in all four mod combinations. Windows Application events and
+Renderer crash stacks agree on `004DD9F8`, through Broker setter `004D85F0` and
+the new caption publisher. The publisher passed an owned enString heap pointer
+as an interned Broker string ID. That invalid ID triggered an enormous Broker
+entry expansion; the associated cleanup would also have incorrectly freed IDs.
+
+The fix constructs both caption/key arguments with the original `004D0580`
+interned-string API and removes the owned-string releases. A regression executes
+the actual `004D0580`, `004D8EC0`, `004D85F0`, and `004DE0D0` code for 100 repeated
+stock/new navigation updates, validating the written IDs, stack and ESI. Only
+the string-pool boundary and unrelated original UI work are simulated. The same
+test fails against revision `9caa3aa`. This is native CPU evidence, not a new
+in-game success claim. Use the fresh `menu-fix-01` package instead of the crashed
+`owner/candidate`; the previous private save is copied with its matching gameplay
+contract, while the old package and its crash evidence remain intact.
+
 ## Architecture and delivered scope
 
 `tools/build_course_registry.py` consumes the accepted Vehicle runtime **and its
@@ -128,11 +147,12 @@ source snapshot records the exact dependencies used for this build.
 
 ## Validation and owner handoff
 
-The final candidate is `.research-output/course-cap2/owner/candidate`.
+The current candidate is `.research-output/course-cap2/menu-fix-01`.
 It has `Launch-sdk.cmd`, `Launch-input.cmd`, `Launch-renderer.cmd` and
 `Launch-both.cmd`, plus an English source/build report and a local owner checklist.
 
-- 101 focused Course tests and 8 launcher descriptor/compatibility tests pass.
+- 102 focused Course tests pass; the unchanged launcher previously passed its
+  8 descriptor/compatibility tests.
 - Real x86 record field writes, temporary ownership call counts/stack balance,
   constructor/destructor/unwind registers, menu bijection, arbitrary additive
   order, namespaced progress return ABI and shared Results routing were checked.
