@@ -10,38 +10,6 @@ from bpy_extras.io_utils import ExportHelper, ImportHelper
 
 from .blender_collision import set_collision_visibility
 from .blender_metadata import refresh_authoring_status
-from .course_route import STATUS_PROPERTY
-
-
-def _route_marker_context(obj):
-    list_name = str(obj.get("mr_source_list_name", ""))
-    source = obj.get("mr_xml_source")
-    ordinal = obj.get("mr_source_list_ordinal", -1)
-    object_type = obj.get("mr_race_logic_object_type")
-    peers = []
-    curve_status = None
-    for item in bpy.data.objects:
-        if (item.get("mr_xml_source") != source or item.get("mr_source_list_name") != list_name
-                or item.get("mr_source_list_ordinal", -1) != ordinal):
-            continue
-        if item.get("mr_race_logic_object_type") == object_type:
-            peers.append(item)
-        elif item.get(STATUS_PROPERTY) is not None:
-            curve_status = str(item.get(STATUS_PROPERTY))
-    peers.sort(key=lambda item: int(item.get("mr_marker_index_in_list", -1)))
-    indices = [int(item.get("mr_marker_index_in_list", -1)) for item in peers]
-    if len(set(indices)) != len(indices):
-        curve_status = "duplicate marker helpers; remove copies to resume"
-    index = int(obj.get("mr_marker_index_in_list", -1))
-    before = after = None
-    if 0 <= index < len(peers):
-        point = obj.matrix_world.translation
-        if index > 0:
-            before = (point - peers[index - 1].matrix_world.translation).length
-        if index + 1 < len(peers):
-            after = (peers[index + 1].matrix_world.translation - point).length
-    progress = index / (len(peers) - 1) if list_name == "RaceLine" and len(peers) > 1 and index >= 0 else None
-    return index, len(peers), progress, before, after, curve_status
 
 
 class OBJECT_OT_master_rallye_print_metadata(bpy.types.Operator):
@@ -403,140 +371,6 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         )
 
 
-class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
-    bl_label = "Master Rallye Course"
-    bl_idname = "VIEW3D_PT_master_rallye_course"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "Master Rallye"
-
-    @classmethod
-    def poll(cls, context):
-        obj = context.object
-        return (obj is not None and obj.get("mr_resource_kind") == "course"
-                and "mr_metadata_json" in obj)
-
-    def draw(self, context):
-        obj = context.object
-        layout = self.layout
-        try:
-            metadata = json.loads(obj["mr_metadata_json"])
-            course = metadata.get("course", {})
-            render = course.get("render_validation", {})
-            draws = metadata.get("draws", [])
-            loaded_textures = sum(
-                1 for material in obj.data.materials
-                if material and material.get("mr_dxt_source")
-            )
-        except (KeyError, TypeError, ValueError):
-            metadata, course, render, draws, loaded_textures = {}, {}, {}, [], 0
-        layout.label(text=obj.get("mr_course_identity", obj.name), icon="MESH_DATA")
-        layout.label(text="Read-only course render resource")
-        layout.label(text=Path(obj.get("mr_source_path", "")).name or "DX source unavailable")
-        grid = layout.grid_flow(columns=2, even_columns=True, align=True)
-        grid.label(text="DX revision")
-        grid.label(text=str(course.get("dx_revision", "unknown")))
-        grid.label(text="Render validation")
-        grid.label(text="passed" if render.get("passed") else "partial")
-        grid.label(text="Vertices / triangles")
-        grid.label(text=f"{len(obj.data.vertices)} / {len(obj.data.polygons)}")
-        grid.label(text="Draw groups")
-        grid.label(text=str(len(draws)))
-        grid.label(text="Texture previews")
-        grid.label(text=f"{loaded_textures} materials")
-        box = layout.box()
-        box.label(text="Course render is read-only; RaceTest logic has a bounded XML exporter", icon="INFO")
-        box.label(text="Route behavior remains partly unknown; tag100 meaning and physical collision grammar remain incomplete.")
-        box.operator(
-            "import_scene.master_rallye_course_xml_markers",
-            text="Load Course Race Logic",
-            icon="EMPTY_AXIS",
-        )
-        box.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
-        box.operator(
-            "import_scene.master_rallye_course_gxm_startpoint",
-            text="Import GXM Startpoint Point Candidate",
-            icon="SPHERE",
-        )
-        box.label(text="RaceTest XML import adds StartArea, FinishArea, split signs, and split trigger spheres.")
-        box.label(text="Split sign and trigger share Egg Row3; companion checkpoints stay separate visuals.")
-        box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
-        box.label(text="Race Logic export supports G0 fields plus existing RaceLine/Limit Marker Pos only.")
-        warnings = metadata.get("blender", {}).get("import_warnings", [])
-        if warnings:
-            warning_box = layout.box()
-            warning_box.label(text=f"Import warnings: {len(warnings)}", icon="ERROR")
-            for warning in warnings[:4]:
-                warning_box.label(text=str(warning)[:96])
-
-
-class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
-    bl_label = "Course Race Logic"
-    bl_idname = "VIEW3D_PT_master_rallye_course_race_logic"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "Master Rallye"
-
-    @classmethod
-    def poll(cls, context):
-        obj = context.object
-        return obj is not None and obj.get("mr_xml_source") and obj.get("mr_race_logic_object_type")
-
-    def draw(self, context):
-        obj = context.object
-        layout = self.layout
-        kind = obj.get("mr_race_logic_object_type")
-        if not obj.get("mr_race_logic_editable"):
-            layout.label(text="This source item is read-only or ambiguous", icon="INFO")
-        elif kind == "area_marker":
-            layout.label(text=f"{obj.get('mr_race_logic_area')} marker {obj.get('mr_marker_index_in_list')}", icon="EMPTY_AXIS")
-            layout.label(text="Runtime-confirmed area point; move with Blender transforms")
-            layout.label(text="Export reads its world-space position")
-        elif kind == "split_center":
-            layout.label(text="Runtime-confirmed spherical split trigger", icon="SPHERE")
-            layout.prop(obj, '["mr_split_time_id"]', text="Split Time ID")
-            layout.prop(obj, '["mr_split_radius"]', text="Radius")
-            layout.label(text=f"ExtraTime preserved: {obj.get('mr_split_extra_time_raw', '')} (meaning UNKNOWN)")
-            layout.label(text="Move center to move trigger; visual companions are shown at their own positions")
-            layout.label(text="Source orientation is preserved; rotation is not authored; scale does not change Radius")
-        elif kind == "split_checkpoint_group":
-            layout.label(text="Split checkpoint translation controller", icon="EMPTY_AXIS")
-            layout.label(text="Move to translate trigger and visual companions together")
-            layout.label(text="Radius remains explicit; rotation and scale are not exported")
-        elif kind == "split_visual_companion":
-            layout.label(text="Visual checkpoint companion; not a trigger center", icon="MESH_DATA")
-            layout.label(text="Move this object alone, or move its checkpoint group")
-            layout.label(text="Its own source orientation is preview-only; export writes final world position only")
-        elif kind in {"route_marker", "limit_marker"}:
-            index, count, progress, before, after, curve_status = _route_marker_context(obj)
-            list_name = str(obj.get("mr_source_list_name", ""))
-            layout.label(text=f"{list_name} marker {index} / {max(0, count - 1)}", icon="EMPTY_AXIS")
-            if progress is not None:
-                layout.label(text=f"Approximate source-order progress: {progress:.3f}")
-                layout.label(text="Marker Pos influences race progression; runtime edit confirmed")
-            else:
-                layout.label(text="Limit Marker Pos: gaLimitsAI consumer confirmed; geometry stays evidence-bounded")
-                layout.label(text=str(obj.get("mr_g1_evidence_status", "UNKNOWN"))[:100])
-            if curve_status not in (None, "ok"):
-                layout.label(text=f"Polyline not refreshed: {curve_status}", icon="ERROR")
-            if before is not None:
-                layout.label(text=f"Previous source-order gap: {before:.3f} units")
-            if after is not None:
-                layout.label(text=f"Next source-order gap: {after:.3f} units")
-            if obj.get("mr_race_logic_editable"):
-                layout.prop(obj, "location", text="Marker Pos")
-                layout.label(text="Only final world position exports; order and Marker Dir stay fixed")
-            else:
-                layout.label(text="This marker is read-only or has ambiguous source structure", icon="INFO")
-            layout.label(text="Marker Dir runtime role remains UNKNOWN")
-        elif kind == "camera_marker":
-            layout.label(text="Camera marker diagnostics are read-only", icon="INFO")
-            layout.label(text="Pos/Dir runtime behavior is not established")
-        layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
-        layout.label(text="Exports a new XML copy and a provenance manifest")
-        layout.label(text="RaceLine/Limit edits are bounded Marker Pos only; cameras and runtime probes stay separate.")
-
-
 CLASSES = (
     OBJECT_OT_master_rallye_export_texture,
     OBJECT_OT_master_rallye_replace_texture,
@@ -547,6 +381,5 @@ CLASSES = (
     OBJECT_OT_master_rallye_reload_textures,
     OBJECT_OT_master_rallye_collision_visibility,
     VIEW3D_PT_master_rallye_resource,
-    VIEW3D_PT_master_rallye_course,
-    VIEW3D_PT_master_rallye_course_race_logic,
 )
+# Courses are edited only in the Course Studio (studio/); the former course panels were removed.
