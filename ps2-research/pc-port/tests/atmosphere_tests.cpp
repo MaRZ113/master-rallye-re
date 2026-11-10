@@ -266,12 +266,18 @@ int main(){
         std::vector<uint8_t> bytes(3*24);const float xyz[3][3]={{0,0,-2},{1,0,-2},{0,1,-2}},uv[3][2]={{-0.f,0},{1,0},{0,1}};
         for(unsigned i=0;i<3;++i){std::memcpy(bytes.data()+i*24,xyz[i],12);std::memcpy(bytes.data()+i*24+16,uv[i],8);}
         std::vector<LampVec> positions;std::string signature;
-        CHECK(lamp_attachment_geometry(bytes,24,{0,1,2},positions,signature));
+        // Native compiler swaps the source first pair. Sidecar UVs, weights
+        // and normal remain in source-DX order, including asymmetric weights.
+        CHECK(lamp_attachment_geometry(bytes,24,{1,0,2},positions,signature));
         const float normalized_uv[6]={0,0,1,0,0,1};CHECK(signature==sha256_bytes(normalized_uv,sizeof(normalized_uv)));
         auto moved_bytes=bytes;for(unsigned i=0;i<3;++i){float x=0;std::memcpy(&x,moved_bytes.data()+i*24,4);x+=.4f;std::memcpy(moved_bytes.data()+i*24,&x,4);}
-        std::vector<LampVec> moved;std::string moved_signature;CHECK(lamp_attachment_geometry(moved_bytes,24,{0,1,2},moved,moved_signature)&&moved_signature==signature);
+        std::vector<LampVec> moved;std::string moved_signature;CHECK(lamp_attachment_geometry(moved_bytes,24,{1,0,2},moved,moved_signature)&&moved_signature==signature);
         auto reordered=bytes;std::memcpy(reordered.data(),bytes.data()+24,48);std::memcpy(reordered.data()+48,bytes.data(),24);
-        CHECK(lamp_attachment_geometry(reordered,24,{2,0,1},moved,moved_signature)&&moved_signature==signature&&moved==positions);
+        CHECK(lamp_attachment_geometry(reordered,24,{0,2,1},moved,moved_signature)&&moved_signature==signature&&moved==positions);
+        CHECK(lamp_attachment_geometry(bytes,24,{0,1,2},moved,moved_signature)&&moved_signature!=signature); // old probe input was wrong
+        std::vector<uint8_t> normals_layout(3*36);
+        for(unsigned i=0;i<3;++i){std::memcpy(normals_layout.data()+i*36,bytes.data()+i*24,12);std::memcpy(normals_layout.data()+i*36+28,bytes.data()+i*24+16,8);}
+        CHECK(lamp_attachment_geometry(normals_layout,36,{1,0,2},moved,moved_signature)&&moved_signature==signature&&moved==positions);
         CHECK(!lamp_attachment_geometry(bytes,24,{0,1,99},moved,moved_signature));
         CHECK(!lamp_attachment_geometry(bytes,32,{0,1,2},moved,moved_signature));
         LampRigs rigs;rigs.sha=std::string(64,'a');LampRig rig;rig.car="Fixture";rig.points.resize(2);rig.points[0].kind=2;rig.points[0].tail=true;rig.points[1].kind=3;rigs.rigs.push_back(rig);

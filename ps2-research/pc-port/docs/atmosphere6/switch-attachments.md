@@ -1,5 +1,8 @@
 # Atmosphere 6.18: switch-node lamp attachments
 
+Historical candidate: gameplay exposed a native/source triangle-order mismatch.
+See `native-winding-fix.md` for the 6.19 correction and revised probe boundary.
+
 This candidate supersedes the rear-displacement limitation documented in
 `geometry-candidate.md` (6.17). It also includes the ID-independent course
 material catalogue and the current-frame centre-depth visibility mask.

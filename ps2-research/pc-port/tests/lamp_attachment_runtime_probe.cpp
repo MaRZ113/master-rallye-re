@@ -29,7 +29,7 @@ int main(int argc,char** argv){
    for(const auto& row:attachments.rows)if(row.rig==rig&&row.texture==texture&&row.uv==uv&&row.expanded_vertices==original.size()){
     LampVec position{},axis{};if(!row.anchor.evaluate(original,position,axis))return 7;
     if(mutation==1||mutation==3)for(unsigned k=0;k<3;++k)position[k]+=delta[k];else if(mutation==2){position=rotate(position);axis=rotate(axis);}
-    for(auto v:row.anchor.vertices)moved[indices[v]]=1;
+    for(auto v:row.anchor.vertices){const auto native_corner=v%3==0?v+1:v%3==1?v-1:v;moved[indices[native_corner]]=1;}
     for(unsigned k=0;k<3;++k)position[k]+=world[12+k];
     const auto& point=rigs.rigs[size_t(rig)].points[row.anchor.point];uint8_t kind=point.kind;
     if(kind==2&&!state){if(!point.tail)continue;kind=1;}
