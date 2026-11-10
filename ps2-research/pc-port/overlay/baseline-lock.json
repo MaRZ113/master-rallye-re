@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "baseline_branch": "fix/atmosphere-custom-courses-lamp-geometry",
+  "baseline_branch": "master",
   "baseline_head": "c357e8b780734b1505acb86f723a0e1b57f3c8a8",
   "files": {
     "modernization/renderer/CMakeLists.txt": {
