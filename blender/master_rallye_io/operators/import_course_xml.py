@@ -627,6 +627,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
     filename_ext = ".xml"
     filter_glob: StringProperty(default="*.xml", options={"HIDDEN"})
+    studio_payload_text: StringProperty(default="", options={"HIDDEN"})
     show_marker_direction_rays: BoolProperty(
         name="Show Marker Dir Rays",
         description="Add read-only arrows for RaceLine, Cameras, and limit Marker Dir fields",
@@ -646,6 +647,13 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 raise ValueError("Course SDK could not parse the selected RaceTest XML")
             document = race_logic.source_document
             authoring = load_course_race_logic_authoring(source)
+            if self.studio_payload_text:
+                text = bpy.data.texts.get(self.studio_payload_text)
+                if text is None:
+                    raise ValueError("Course Studio working XML is missing")
+                authoring = type(authoring)(text.as_string().encode('utf-8'), str(source))
+                race_logic = authoring.race_logic
+                document = race_logic.source_document
             area_status = {item.name: item for item in authoring.area_status}
             marker_list_status = {item.name: item for item in authoring.marker_list_status}
             positioned = [marker for marker in document.markers if marker.position is not None]
@@ -679,7 +687,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             elif root.get("mr_resource_kind") != "course":
                 raise ValueError(f"collection {root_name!r} exists but is not marked as a course")
 
-            payload = source.read_bytes()
+            payload = authoring._source if self.studio_payload_text else source.read_bytes()
             source_path = str(source)
             if any(collection.get("mr_xml_source") == source_path for collection in _walk_collections(root)):
                 raise ValueError(f"this XML source is already imported under {root.name}")

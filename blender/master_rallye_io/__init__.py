@@ -1,19 +1,19 @@
-"""Master Rallye vehicle and read-only course import for Blender."""
+"""Master Rallye vehicle tools and integrated Course Studio for Blender."""
 from __future__ import annotations
 
 bl_info = {
     "name": "Master Rallye IO",
     "author": "master-rallye-re clean-room project",
-    "version": (4, 6, 0),
+    "version": (4, 7, 0),
     "blender": (4, 3, 0),
     "location": "File > Import; 3D View > Sidebar > Master Rallye",
-    "description": "Import vehicles and edit runtime-confirmed Master Rallye course race logic",
+    "description": "Integrated Course Studio, preserving asset import and bounded native course authoring",
     "category": "Import-Export",
 }
 
 import bpy
 
-from . import course_route
+from . import course_route, course_studio
 from .operators import CLASSES as OPERATOR_CLASSES
 from .ui import CLASSES as UI_CLASSES
 
@@ -42,11 +42,13 @@ def register():
     for cls in CLASSES:
         bpy.utils.register_class(cls)
     course_route.register()
+    course_studio.register()
     bpy.types.TOPBAR_MT_file_import.append(_menu_import)
     bpy.types.TOPBAR_MT_file_export.append(_menu_export)
 
 
 def unregister():
+    course_studio.unregister()
     course_route.unregister()
     bpy.types.TOPBAR_MT_file_export.remove(_menu_export)
     bpy.types.TOPBAR_MT_file_import.remove(_menu_import)

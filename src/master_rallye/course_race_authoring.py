@@ -13,6 +13,7 @@ import math
 import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 from xml.parsers import expat
@@ -200,8 +201,13 @@ def _format_float(value: float) -> str:
     # float. A fixed significant-digit budget truncated large world positions
     # (for example -2469.939355 to -2469.93935) and could change a runtime
     # probe's authored coordinate.
-    formatted = repr(float(value))
-    return formatted[:-2] if formatted.endswith(".0") else formatted
+    # repr() switches to exponent notation for tiny/huge magnitudes (1e-05);
+    # Retail XML never uses exponents and the game parser is untested with
+    # them, so expand the same shortest decimal positionally.
+    formatted = format(Decimal(repr(float(value))), "f")
+    if "." in formatted:
+        formatted = formatted.rstrip("0").rstrip(".")
+    return "0" if formatted in ("-0", "") else formatted
 
 
 def _direct_values(element: ET.Element, name: str) -> list[ET.Element]:

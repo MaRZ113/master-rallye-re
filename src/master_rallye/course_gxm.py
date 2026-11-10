@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .errors import BoundsError, FormatError
-from .course_source import CourseTxtDocument, CourseTxtNode
+from .course_source import CourseTxtDocument, CourseTxtNode, parse_course_txt
 
 
 HEADER_SIZE = 32

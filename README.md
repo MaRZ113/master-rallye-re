@@ -127,6 +127,16 @@ See
 [`research/r5t_c/findings.md`](research/r5t_c/findings.md), and
 [`research/r5t_c/whole-x3-closeout.md`](research/r5t_c/whole-x3-closeout.md).
 
+R5T-INV (research + concept, not runtime-tested) maps the EXE race registry
+(39 records; Invitation = Race IDs 36..38 pointing at the shared FranceS1,
+Turkey3 and ItalyM1 scenes), shows that every country's stages are corridors
+of one master map with bit-identical shared vertices, and decodes `ICont/*.sfl`
+as a column-major 3-unit AI heading field that can be synthesized from a
+RaceLine. `tools/invitation_concept.py` builds full-country routes, atlases,
+SFL fields and RaceTest scenes for InvFrance/InvItaly/InvSpain/InvTurkey and a
+Grand Final; `tools/patch_invitation_entries.py` retargets Invitation on an EXE
+copy. See [`docs/course-new-entries.md`](docs/course-new-entries.md).
+
 R5T-E.1 closes read-only version-7 GXM topology: the Demo 9.3.1 loader's
 52-byte triangle grammar is implemented and cross-validated on France1,
 Italy1, Boinds, and Demo 9.10 AI Track. France1's source `startpoint` resolves

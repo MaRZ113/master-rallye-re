@@ -790,6 +790,7 @@ def load_course_project(
     path: Path,
     *,
     search_roots: Iterable[Path] = (),
+    resource_paths: CourseResourcePaths | None = None,
 ) -> CourseProject:
     """Discover and parse available resources into a partial CourseProject.
 
@@ -797,7 +798,7 @@ def load_course_project(
     parse failure for one optional resource does not discard successfully
     parsed siblings.
     """
-    resources = discover_course_resources(path, search_roots=search_roots)
+    resources = resource_paths or discover_course_resources(path, search_roots=search_roots)
     diagnostics = list(resources.diagnostics)
     render = race_logic = dependencies = spatial_field = source_txt = source_gxm = source_geometry = None
     source_meshes: tuple[CourseSourceMesh, ...] = ()

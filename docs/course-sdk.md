@@ -210,9 +210,9 @@ ordered lists above.
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
 FinishArea algorithm, RaceLine steering/route semantics beyond executable
 progress/rank tracking, limit downstream reset behavior and untested per-list
-effects, Cameras XML linkage,
-SFL meaning, most tag100
-semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
+effects, Cameras XML linkage, runtime AI use of a synthesized SFL heading
+field (the geometry is decoded in R5T-INV, see `docs/course-new-entries.md`),
+most tag100 semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
 tested France1 source mesh, face-plane records in the tag100 tree correlate
 with the moved physical state, but F.1 swapped the complete tag100-starting
 suffix and did not isolate later tag1400 bytes at runtime. R5T-E.1 closes the

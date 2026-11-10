@@ -212,6 +212,14 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         self.assertIn(b'Value="-2469.939355 -18.100000 926.482487"', output)
         self.assertEqual(report.changes[0]["new"], (-2469.939355, -18.1, 926.482487))
 
+    def test_float_formatting_never_uses_exponent_notation(self):
+        from master_rallye.course_race_authoring import _format_float
+
+        for value, text in ((1e-05, "0.00001"), (-1.5e-07, "-0.00000015"), (1e16, "10000000000000000"),
+                            (-0.0, "0"), (3.0, "3"), (-2469.939355, "-2469.939355")):
+            self.assertEqual(_format_float(value), text)
+            self.assertEqual(float(text), value)
+
     def test_g1_outer_limit_geometry_warnings_do_not_crash_on_nested_progress_match(self):
         source = g1_marker_source()
         editor = CourseRaceLogicAuthoring(source, "g1-limit-warning.xml")

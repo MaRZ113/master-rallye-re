@@ -10,6 +10,7 @@ from bpy_extras.io_utils import ExportHelper, ImportHelper
 
 from .blender_collision import set_collision_visibility
 from .blender_metadata import refresh_authoring_status
+from .course_route import STATUS_PROPERTY
 
 
 def _route_marker_context(obj):
@@ -17,14 +18,20 @@ def _route_marker_context(obj):
     source = obj.get("mr_xml_source")
     ordinal = obj.get("mr_source_list_ordinal", -1)
     object_type = obj.get("mr_race_logic_object_type")
-    peers = [
-        item for item in bpy.data.objects
-        if item.get("mr_race_logic_object_type") == object_type
-        and item.get("mr_xml_source") == source
-        and item.get("mr_source_list_name") == list_name
-        and item.get("mr_source_list_ordinal", -1) == ordinal
-    ]
+    peers = []
+    curve_status = None
+    for item in bpy.data.objects:
+        if (item.get("mr_xml_source") != source or item.get("mr_source_list_name") != list_name
+                or item.get("mr_source_list_ordinal", -1) != ordinal):
+            continue
+        if item.get("mr_race_logic_object_type") == object_type:
+            peers.append(item)
+        elif item.get(STATUS_PROPERTY) is not None:
+            curve_status = str(item.get(STATUS_PROPERTY))
     peers.sort(key=lambda item: int(item.get("mr_marker_index_in_list", -1)))
+    indices = [int(item.get("mr_marker_index_in_list", -1)) for item in peers]
+    if len(set(indices)) != len(indices):
+        curve_status = "duplicate marker helpers; remove copies to resume"
     index = int(obj.get("mr_marker_index_in_list", -1))
     before = after = None
     if 0 <= index < len(peers):
@@ -34,7 +41,7 @@ def _route_marker_context(obj):
         if index + 1 < len(peers):
             after = (peers[index + 1].matrix_world.translation - point).length
     progress = index / (len(peers) - 1) if list_name == "RaceLine" and len(peers) > 1 and index >= 0 else None
-    return index, len(peers), progress, before, after
+    return index, len(peers), progress, before, after, curve_status
 
 
 class OBJECT_OT_master_rallye_print_metadata(bpy.types.Operator):
@@ -501,7 +508,7 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.label(text="Move this object alone, or move its checkpoint group")
             layout.label(text="Its own source orientation is preview-only; export writes final world position only")
         elif kind in {"route_marker", "limit_marker"}:
-            index, count, progress, before, after = _route_marker_context(obj)
+            index, count, progress, before, after, curve_status = _route_marker_context(obj)
             list_name = str(obj.get("mr_source_list_name", ""))
             layout.label(text=f"{list_name} marker {index} / {max(0, count - 1)}", icon="EMPTY_AXIS")
             if progress is not None:
@@ -510,6 +517,8 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             else:
                 layout.label(text="Limit Marker Pos: gaLimitsAI consumer confirmed; geometry stays evidence-bounded")
                 layout.label(text=str(obj.get("mr_g1_evidence_status", "UNKNOWN"))[:100])
+            if curve_status not in (None, "ok"):
+                layout.label(text=f"Polyline not refreshed: {curve_status}", icon="ERROR")
             if before is not None:
                 layout.label(text=f"Previous source-order gap: {before:.3f} units")
             if after is not None:
