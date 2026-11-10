@@ -74,6 +74,53 @@ def build_editor(out: Path) -> list[Path]:
     return sorted(p for p in out.iterdir() if p.is_file())
 
 
+README = r"""MASTER RALLYE MENU BUILDER - private package
+================================================
+
+Editor\MenuBuilder.exe     WYSIWYG editor (needs the .NET 8 Desktop Runtime, x64)
+Editor\mrmenu.exe          command line / JSON API; Editor\python\mr_menu_builder.py wraps it
+Runtime\dinput8.dll        loader for an install that already uses the Extra Options / Ghost / Randomizer
+                            dinput8 (EXTRA-SET2 + Ghost + five difficulties + Randomizer boot + Menu Builder)
+Runtime\standalone\dinput8.dll  Menu Builder runtime only (plain retail install)
+Examples\demo.mrmenu.json  qualification layout (MAIN MENU edit, OPTIONS > MENU BUILDER, QUICK RACE >
+                            VEHICLE CONFIG, GEARBOX widescreen fix)
+Docs\menu-builder.md       format, actions, runtime, widescreen, API, verification
+Tests\                     in-game autotests + runner (run_runtime_check.ps1) for an isolated copy
+Evidence\                  logs and screenshots of the in-game qualification runs
+
+Install (game folder with MRallye.exe):
+ 1. Back up the existing dinput8.dll, then copy Runtime\dinput8.dll next to MRallye.exe
+    (or Runtime\standalone\dinput8.dll on a plain retail install). Existing INI files stay valid.
+ 2. Start Editor\MenuBuilder.exe, pick the game folder, open Examples\demo.mrmenu.json (or create a project).
+ 3. Game > Install & activate (F8). Layouts go to <game>\MenuBuilder\Layouts\<name>; nothing else is written.
+ 4. Game > Switch to Classic menus restores the native frontend (MenuBuilder.ini Enabled=0).
+Logs: <game>\MenuBuilder\MenuBuilder.log, live dumps: <game>\MenuBuilder\live\<screen>.txt
+"""
+
+
+def assemble_package(out: Path, evidence: Path) -> dict:
+    pkg = out / "package"
+    if pkg.exists():
+        shutil.rmtree(pkg)
+    (pkg / "Runtime/standalone").mkdir(parents=True)
+    shutil.copytree(out / "editor", pkg / "Editor")
+    shutil.copytree(SOLUTION / "python", pkg / "Editor/python", ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copyfile(out / "native/integrated/dinput8.dll", pkg / "Runtime/dinput8.dll")
+    shutil.copyfile(out / "native/standalone/dinput8.dll", pkg / "Runtime/standalone/dinput8.dll")
+    (pkg / "Examples").mkdir()
+    shutil.copyfile(ROOT / "examples/menu-builder/demo.mrmenu.json", pkg / "Examples/demo.mrmenu.json")
+    (pkg / "Docs").mkdir()
+    shutil.copyfile(ROOT / "docs/menu-builder.md", pkg / "Docs/menu-builder.md")
+    shutil.copyfile(ROOT / "docs/menu-builder/project.schema.json", pkg / "Docs/project.schema.json")
+    shutil.copytree(SOLUTION / "test", pkg / "Tests")
+    if evidence.is_dir():
+        shutil.copytree(evidence, pkg / "Evidence")
+    (pkg / "README.txt").write_text(README, encoding="ascii")
+    return {str(p.relative_to(pkg)).replace("\\", "/"): sha(p) for p in sorted(pkg.rglob("*"))
+            if p.is_file() and p.suffix.lower() in (".exe", ".dll", ".json", ".py", ".md", ".txt")
+            and "Evidence" not in p.parts}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--name", default="mb-01")
@@ -81,6 +128,8 @@ def main() -> None:
     ap.add_argument("--include", type=Path, default=DEFAULT_INCLUDE, help="generated headers of an EXTRA-SET2 proxy build")
     ap.add_argument("--skip-editor", action="store_true")
     ap.add_argument("--skip-native", action="store_true")
+    ap.add_argument("--package", action="store_true", help="assemble package/ (editor, runtime, example, docs, tests, evidence)")
+    ap.add_argument("--evidence", type=Path, default=ROOT / ".research-output/menu-evidence")
     a = ap.parse_args()
     out = a.output or ROOT / ".research-output/menu-builder" / a.name
     if out.exists():
@@ -102,6 +151,8 @@ def main() -> None:
         if "obj" in src.parts or "bin" in src.parts:
             continue
         manifest["sources"][str(src.relative_to(ROOT)).replace("\\", "/")] = sha(src)
+    if a.package:
+        manifest["package"] = assemble_package(out, a.evidence)
     (out / "build-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: v for k, v in manifest.items() if k != "sources"}, indent=2))
     print(out)

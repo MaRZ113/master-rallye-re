@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mr-menu-project-1",
+  "title": "Master Rallye Menu Builder project",
+  "type": "object",
+  "required": ["format", "version", "name", "screens"],
+  "properties": {
+    "format": { "const": "mr-menu-project" },
+    "version": { "const": 1 },
+    "name": { "type": "string", "description": "Layout name; installed as MenuBuilder/Layouts/<name>" },
+    "description": { "type": "string" },
+    "author": { "type": "string" },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "mouse": { "type": "boolean", "default": true },
+        "aspects": { "type": "array", "items": { "type": "string", "pattern": "^[0-9.]+[:x][0-9.]+$" }, "default": ["4:3", "16:10", "16:9", "21:9"] },
+        "language": { "type": "integer", "minimum": 0, "maximum": 5 }
+      }
+    },
+    "styles": { "type": "object", "additionalProperties": { "$ref": "#/$defs/patch" } },
+    "components": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["template"],
+        "properties": {
+          "template": { "type": "string", "description": "Screen/Egg of a retail screen" },
+          "style": { "type": "string" },
+          "patch": { "$ref": "#/$defs/patch" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "screens": { "type": "array", "items": { "$ref": "#/$defs/screen" } }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["native", "navigate.screen", "navigate.back", "native.forward", "broker.set_int", "broker.toggle_bool", "broker.cycle_int", "extension", "none"] },
+        "command": { "type": "integer" },
+        "screen": { "type": "string" },
+        "key": { "type": "string" },
+        "value": { "type": "integer" },
+        "min": { "type": "integer" },
+        "max": { "type": "integer" },
+        "step": { "type": "integer" },
+        "extension": { "type": "string" },
+        "args": { "type": "string" }
+      }
+    },
+    "patch": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" }, "y": { "type": "number" },
+        "scaleX": { "type": "number" }, "scaleY": { "type": "number" },
+        "model": { "type": "string" }, "bankIndex": { "type": "integer" },
+        "drawPriority": { "type": "integer" }, "visible": { "type": "boolean" },
+        "buttonId": { "type": "integer" },
+        "up": { "type": "integer" }, "down": { "type": "integer" }, "left": { "type": "integer" }, "right": { "type": "integer" },
+        "enabled": { "type": "boolean" },
+        "text": { "type": "string" }, "textId": { "type": "integer" }, "textIndex": { "type": "integer" }, "textKey": { "type": "string" },
+        "font": { "type": "integer" }, "icon": { "type": "integer" },
+        "textOffsetX": { "type": "integer" }, "textOffsetY": { "type": "integer" },
+        "hJustify": { "enum": [0, 1, 2] }, "vJustify": { "enum": [0, 1, 2] },
+        "anchor": { "enum": ["left", "right", "center"] },
+        "raw": { "type": "object", "additionalProperties": { "type": "string" }, "description": "\"AIName/Value Name\" -> value" }
+      },
+      "additionalProperties": false
+    },
+    "element": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "base": { "type": "string", "description": "existing egg of the base screen" },
+        "template": { "type": "string", "description": "Egg | Screen/Egg | component:Name (new elements)" },
+        "style": { "type": "string" },
+        "deleted": { "type": "boolean" },
+        "patch": { "$ref": "#/$defs/patch" },
+        "action": { "$ref": "#/$defs/action" },
+        "note": { "type": "string" }
+      }
+    },
+    "screen": {
+      "type": "object",
+      "required": ["name", "kind", "base"],
+      "properties": {
+        "name": { "type": "string" },
+        "kind": { "enum": ["retail", "custom"] },
+        "base": { "type": "string" },
+        "baseSha256": { "type": "string" },
+        "title": { "type": "string" },
+        "defaultFocus": { "type": "integer" },
+        "back": { "$ref": "#/$defs/action" },
+        "elements": { "type": "array", "items": { "$ref": "#/$defs/element" } },
+        "aspects": { "type": "object", "additionalProperties": { "type": "object", "additionalProperties": { "$ref": "#/$defs/patch" } } }
+      }
+    }
+  }
+}

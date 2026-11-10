@@ -115,7 +115,16 @@ public sealed class Validator
             foreach (var egg in cs.Variants[wide].Eggs.Where(e => e.Visible))
             {
                 var dir = WidescreenModel.MarginDirection(egg.X, egg.Y, egg.Kind == ElementKind.XYButton);
-                if (dir != 0)
+                if (dir == 0) continue;
+                // Handled when the rest of its column already follows the same margin in this variant.
+                double half = WidescreenModel.Half(Aspect.Parse(wide).Ratio);
+                var column = doc.Eggs.Where(o => o.Name != egg.Name && Math.Abs(o.X - egg.X) <= 2 && o.Visible &&
+                    o.Kind is not (ElementKind.Screen or ElementKind.Camera or ElementKind.Background) &&
+                    WidescreenModel.MarginDirection(o.X, o.Y, o.Kind == ElementKind.XYButton) == 0).ToList();
+                bool handled = column.Count > 0 && column.All(o => cs.Variants[wide].Find(o.Name) is { } w && Math.Abs(w.X - (o.X + dir * half)) < 0.05);
+                if (handled)
+                    r.Add(new(Severity.Info, cs.Name, egg.Name, "WS_MARGIN_HANDLED", $"PreserveMargins shift of ({egg.X:0},{egg.Y:0}) is matched by its anchored column ({string.Join(", ", column.Select(c => c.Name))})", wide));
+                else
                     r.Add(new(Severity.Warning, cs.Name, egg.Name, "WS_MARGIN_RULE",
                         $"at ({egg.X:0},{egg.Y:0}) the renderer's PreserveMargins mode shifts this element {(dir > 0 ? "right" : "left")} by half the extra width while its neighbours stay; quick fix: {(WidescreenModel.PointRules.Any(p => p.X == egg.X && p.Y == egg.Y) ? "nudge 1 unit in the wide variants" : "anchor its column to the same margin")}", wide));
             }
