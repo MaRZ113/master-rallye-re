@@ -297,7 +297,9 @@ def build_course(project: CourseProject, *, project_dir: Path | None, resource_r
                 compose = {k: v for k, v in base.items() if k not in ("course_manifest", "resource_overrides",
                                                                       "player_state_source", "previous_course_contract")}
                 compose["course_manifest"] = str((target / "courses.json").resolve())
-                compose["resource_overrides"] = {rel: str((target / "resource-root" / rel).resolve()) for rel in files}
+                # chained Studio builds keep the earlier courses' files (their catalog rows are kept too)
+                compose["resource_overrides"] = {**base.get("resource_overrides", {}),
+                                                 **{rel: str((target / "resource-root" / rel).resolve()) for rel in files}}
                 (staging / "compose.json").write_text(json.dumps(compose, indent=2), encoding="utf-8")
         report["findings"] = [f.to_dict() for f in findings]
         report["summary"] = summary(findings)

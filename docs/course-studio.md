@@ -1,199 +1,168 @@
-# Blender Course Studio (COURSE-VIS1)
+# Master Rallye Course Studio
 
-Course Studio extends **master_rallye_io**, not a second add-on. The SDK parsers,
-race-logic authoring transaction, material preview and COURSE-CAP2 builder remain
-the implementation base. `src/master_rallye/course_studio.py` has no `bpy`
-dependency. The Blender adapter owns presentation and translates source XYZ to
-Blender `(X, -Z, Y)` at scale 1, using the existing coordinate helpers.
+Course Studio creates, edits and builds Master Rallye courses in Blender. It
+replaces the COURSE-VIS1 inspector panels with one product: a single sidebar
+tab, one project model, one build. The same core runs from the command line.
 
-## Open and edit
+* Core library (no `bpy`): `src/master_rallye/studio/`
+* Blender add-on: `blender/master_rallye_io/studio/` (add-on `master_rallye_io` 5.0)
+* Command line: `tools/mr_course_studio.py`
+* Getting started: [course-studio-getting-started.md](course-studio-getting-started.md)
+* Qualification: [course-studio-qualification.md](course-studio-qualification.md)
 
-1. Install the ZIP using Blender's Install from Disk, enable Master Rallye IO,
-   then open the 3D View sidebar: **Master Rallye > Course Studio**.
-2. Choose **Open Course Project**. Select a RaceTest XML, course DX, unpacked
-   course folder, `course-studio.json`, or `mr-course-registry/1` catalog. For a
-   catalog, specify its resource root and an explicit Race ID. The resource
-   root is the directory containing `DataGx` and `DataScene`.
-3. The source `CourseProject` binds the landscape from the exact XML model path,
-   the sibling HNT, the exact AI dataset, and available TXT/GXM sidecars. A
-   registry with multiple registrations requires a selection; missing and
-   ambiguous dependencies produce errors. No fuzzy filename choice is made by
-   the Studio resolver. The existing material sidecar scoring remains visible
-   as material-candidate provenance, not an invented physics binding.
-4. Use the semantic collections: Visual Terrain, Static Objects, Collision,
-   Start & Finish, Checkpoints, RaceLine, Limits, AI, Diagnostics. Layer toggles
-   control the actual collection containing the corresponding helpers.
-5. Edit terrain vertex positions in Edit Mode. Return to Object Mode for
-   validation. The writer preserves triangle order, draw/group attributes,
-   UVs, materials, normals, spatial bounds and all trailing collision bytes.
-   It refuses changes to topology, UVs or assignments, and refuses modifiers.
-   A position edit therefore needs an explicit visual/physics acceptance check;
-   it does not rebuild collision or automatically recalculate native bounds.
-6. Move existing area markers and RaceLine/Limit helpers. Curves follow the
-   existing route handler. Split center, Radius and Split Time ID are exposed
-   in the panel. The trigger uses the native sphere center, not the centroid
-   of its visual companions. ExtraTime remains uninterpreted.
+## 1. Project model
 
-### Marker Builder
+`master_rallye.studio.model.CourseProject` (schema `mr-course-studio-project/2`)
+holds everything a course is: meshes with a role, materials, textures, start and
+finish areas, checkpoints, the AI route, limits, pace notes, sound sources,
+environment, build settings, provenance and an operation history. On disk it is
+a folder: `project.json`, `geometry.bin` (all mesh arrays) and `blob-*.bin`
+(binary data such as a recovered native object tree). Paths are relative to the
+project folder or the resource root; no install path is stored as a requirement.
 
-All commands operate on an embedded working XML transaction. Source XML remains
-unchanged. Working XML and the operation audit survive saving the `.blend`.
+Positions are game space (the RaceTest/DX frame, Y up). Blender shows game
+`(x, y, z)` as `(x, -z, y)`. Headings are degrees, 0 = game +Z.
 
-| Command | Native changes |
+| Role | In the game |
 |---|---|
-| Create Start Area / Create Finish Area | Place the four existing `Marker Pos` fields around the 3D cursor, using the requested width/depth. If absent, clone the opposite supported four-marker list. Existing direction fields remain unchanged. |
-| Add SplitTime / Create Checkpoint | Append a native SplitTime Egg and its existing 0..3 visual companion templates, assign a fresh ID/name, translate their real centers, and set Radius. Template ExtraTime and unknown template fields survive. |
-| Delete Selected SplitTime | Remove the selected native trigger Egg and its exact 0..3 companions. Unknown content inside those intentionally removed Eggs is removed with them; all other records survive. |
-| Reorder Markers | Assign contiguous Split Time IDs in the existing XML source order. Egg names, source-order identity and unknown components remain unchanged. |
-| Validate Route | Run the same complete Course validation, including bounded writer diagnostics. |
+| `terrain` | drawn, collision tree, surface database (`$bsp/$draw $landdb`) |
+| `terrain_hidden` | collision tree + surface database, not drawn (Retail `$landdb fill`) |
+| `visual` | drawn only (`$objects`) |
+| `collision` | collision tree only (`$bsp/$nodraw`): walls, proxies, blockers |
+| `water` | drawn + surface database, never solid (Surface.xml `Solid=False`) |
+| `physical` (Blender) | movable rigid body of the optional Renderer RigidProps module |
 
-These inventory operations have **offline preservation/binding validation**.
-New marker inventories still need owner gameplay acceptance. The existing
-runtime-confirmed field edits and these new template operations have different
-evidence levels. Marker Dir/camera semantics are not upgraded by the UI.
-Studio refuses helper transforms that the bounded exporter would otherwise
-ignore, rather than silently dropping an apparent direction/scale edit.
+Inside Blender the objects in the `MR Course` collections are the source of
+truth; saving the `.blend` also writes the project folder next to it
+(`<name>_mrcourse/`). Reopening restores objects, materials, settings, links to
+game textures and the binary blobs.
 
-## Materials and surfaces
+## 2. Native course DX writer (`dx_build.py`)
 
-The existing DXT/PNG implementation and material preview are reused. Select a
-native material to export upright PNG or stage a same-dimension PNG replacement.
-The original 20-byte FEED header, UVs and material binding survive. Drafts are
-written to a sibling `<output>-texture-drafts` directory; validation incorporates
-them into the final resource transaction. Shared textures outside the isolated
-course folder cannot be changed for a new registration without a qualified
-binding remap. Source SHA is provenance and template integrity, not a texture
-artwork whitelist.
+The writer emits the complete course DX for any topology. Its contract was
+recovered from `invspaingx.dx`, which Retail `MRallye.exe` cooked from a GXM we
+wrote, and from a census of Retail course records against their TXT names:
 
-Literal `$surfacetype(...)` and `$grnd(...)` tokens are linked to source material
-candidates and shown on selected materials. Multiple candidates remain multiple
-candidates. **Changing physical surface behavior is INSPECT_ONLY**: a material
-name or visual shader does not prove the cooked physics mapping.
+| Part | Contract |
+|---|---|
+| Header | `0xD00D, 135, 1337, vertex count`; positions, normals, BGRA colours, 2 UV sets, u16 local indices |
+| Draw table | envelope `(1, n)` of tag-2 records, one per material, split at 65 536 local vertices |
+| Record core | `vertex base, local max, index start, index count, address, effect, mip, flags, slot mask` |
+| address | 1 wrap, 2 `$clamp(u)`, 4 `$clamp(v)`, 0 `$clamp(uv)` |
+| effect | 0, 1 water/puddle, 2 scrolling (`$shader(waterall)`, `$scroll`) |
+| flags | blend (slot-0 UsesAlpha), alpha test (`$alphatest()`), 1, 1 |
+| slot mask | bit0 base, bit1 vertex lighting, bit2 environment (metal), bit3 noise, bit4 water |
+| Order | opaque, water, blended, alpha-tested |
+| Winding | render `(b, a, c)` of the authoring triangle |
+| Noise UV | `(x, z) / 37 + 0.5` with integer shifts of 5 |
+| tag100 | solid-leaf collision BSP (section 3) |
+| tag1339 | render AABB centre, farthest-vertex radius, AABB |
+| tag1400 | land records `(c, b, a)` + plane `n,d`, material-name strings, 20-unit z-major cell grid by triangle AABB |
 
-Atmosphere 6.17 does not require a manually copied per-Race-ID lighting profile.
-Studio does not write Renderer profiles, hooks or global material catalogs.
-Original bindings are retained; new shader/material families require independent
-Renderer qualification. Blender material appearance is a preview, not parity.
+`tag1500`, present only in Retail files, is a sector visibility graph (2-D
+convex sectors with per-edge neighbour links and visible-sector lists) used by
+the Retail hierarchical render batches. The Retail cooker's own flat layout has
+none, and a course cooked that way was played by the owner (invspaingx), so
+Studio writes the flat layout.
 
-## Collision Studio
+Golden test: the same GXM through the game's cooker and through Studio yields
+the same 74 draw records (texture slots and every field), the same land grid
+(167 x 103, all cells), the same 14 surface strings and land records within
+the cooker's float rounding (< 5 mm). The only intended difference: Studio
+drops zero-area triangles; the cooker keeps them as NaN-plane land records.
 
-The reader exposes real tag100 node indices, source offsets, parent/back/front
-links, raw leaf fields, plane float4 and source code values. Navigation buttons
-follow those native links. A selected plane is drawn as a **25-unit inspection
-glyph**, not a bounded collision face or recovered triangle.
+Every build re-reads its DX with the independent Retail-format parsers.
 
-`Probe Actual BSP at 3D Cursor` partitions the vertical ray into exact native
-solid/empty leaf intervals using the existing BSP branch and leaf contract.
-Solid intervals are drawn as lines. `Check Marker / BSP Clearance` probes the
-area/split anchors within +/-50 source units and warns when no upward
-solid-to-empty boundary lies within 10 units. These are geometric sample
-diagnostics, not a proof of collision completeness, seam closure, intersection
-freedom or vehicle physics. Warnings identify their object in the Text report.
+## 3. Collision
 
-France1 contains 351,793 nodes and additional bytes following its parsed tag100
-tree. Those bytes are kept intact and explicitly UNKNOWN. The existing BSP
-writer is deliberately not enabled as a Studio terrain rebuild: a qualified
-render/source-triangle mapping, subsequent collision structures, seam policy,
-surface properties and gameplay checks are still needed. Visual terrain is
-never relabeled as real collision.
+* **Build**: terrain faces (code = land record index) + collision objects +
+  optional map-edge closure (`close_land`, Retail `$skirt`) -> solid-leaf BSP
+  with polygon clipping (`course_bsp.build_solid_bsp`).
+* **Solid union** (`bsp_union.py`): a solid-leaf BSP from a polygon soup is only
+  correct when every face separates solid from empty. Buried parts of objects are
+  clipped against the terrain tree; terrain and other objects inside a closed
+  object are clipped against its tree. A building sunk into the ground is solid
+  inside (the E2.2 hole cause).
+* **Edited Retail courses** (`native_graft.py`): import keeps the native tree's
+  object cells (solid convex cells above the ground). The build grafts the new
+  terrain, Studio objects and closure into every empty cell of that object tree:
+  the result is exactly `native object OR new ground`. If the user edits the
+  recovered native collision mesh, Studio falls back to the solid union of its
+  closed cells and says so.
+* **Probes** (`validate_tree`): the game's own query (`s = n.p + d`, `s <= 0`
+  back) on a grid: holes under the surface (error next to the AI route, warning
+  elsewhere), solid space just above the surface, walls on the AI route (solid at
+  1.2/2.2 m: error), steps (solid only at 0.5 m: warning), buried collision faces.
+* **Differences**: points where two builds disagree; **game collision preview**:
+  the exact solid/empty boundary around the 3D cursor; **probe at cursor**.
 
-## PS2 dressing, physical objects and triggers
+## 4. Gameplay
 
-Optional assets are selected explicitly; Course SDK and ordinary course export
-work without a D3D8 proxy. No renderer code is imported or modified.
+* **Start/Finish**: the four native `Marker Pos` corners; the grid is placed by
+  the game (0x48EB40).
+* **Checkpoints**: Master Rallye's checkpoint *is* `gaRaceSplitTimeAI` (Split
+  Time ID, trigger Radius, ExtraTime added to the countdown shown by
+  `gaHudAiCheckPoint`) plus four `misc\checkpoints\checkpoint` boards;
+  `gaRacePostFirstSplitTimeAI` gets `numberOfSplitTimePoints` and
+  `TimeToFirstCheckpoint`. "Add Checkpoint" creates exactly that.
+* **AI**: native AI data is the RaceLine list and `DataScene/ICont/<key>.sfl`.
+  The SFL is synthesised with the pure-pursuit model fitted to Retail fields.
+  "Preview AI Path" traces a car steering by the field. One native route exists;
+  extra route curves are variants with one active route.
+* **Limits** (gaLimitsAI resets): road corridor (Retail medians 20..45/30..75 m),
+  open terrain (150/300 m, free off-road driving) or four editable curves.
+* **Pace notes**: `gps_arrow` eggs with a graphic ID; automatic placement uses the
+  Retail statistics of IDs by turn direction; every note is editable.
+* **Environment**: a Retail scene supplies sky, physics, cameras, HUD, managers;
+  place-bound sound sources are replaced by the course's own.
 
-| Source | Representation | Editing/export |
-|---|---|---|
-| PS2RGD02 `.ps2rgd` | Real model triangles/UVs/textures, authored matrices, mass/MOI/trigger fields, exact convex hull points and plane-based hull faces | INSPECT_ONLY |
-| PS2SPL01 `.ps2spl` | Source control polygon, model identity, loop/trigger/rest/speed/banking/config fields | INSPECT_ONLY; control polygon is not a baked Catmull-Rom animation |
-| PS2BRD01 `.ps2bird` | Bird flight/spawn anchors, min/max flight/milling distances, randomization and list-presence gates | INSPECT_ONLY; no fabricated active flock or milling points |
-| PS2GRS01 `.ps2grass` | All original mini-grass/shrub placement points, source bins and PSM/texture/PC provenance | INSPECT_ONLY; short vertical editor ticks mark source placements, not inferred billboard dimensions |
-| RaceTest sound Eggs/components | Source sound anchor glyphs, original matrices/components and typed values | INSPECT_ONLY; icon size is not an inferred audible/trigger radius |
-| Other native Eggs | Hidden diagnostic axes with source XML path, model name, matrices and component tags | INSPECT_ONLY |
+## 5. Materials and surfaces
 
-Spline/bird/rigid assets bind to the exact course DX path, not an approximate
-course name. Grass assets expose their source PC DX digest; mismatches remain
-visible in feature metadata rather than being silently called a match. These
-source digests are independent of the pixel-content replacement policy.
+Shaders: ground, object, sign, metal, tree, water, puddle, waterall. Surface
+types are the ten rows of `DataGame/Surface.xml` (friction, restitution, track
+texture, solid), shown in the editor; the physics reads the first
+`$surfacetype(...)` of a land record's string. Textures are FEED containers
+(`0xFEED, 1, crc32(payload), w, h` + bottom-up BGRA32); any image is accepted
+and conformed to a power of two. Unchanged imported materials keep their exact
+Retail names.
 
-The current proxy validates its own prepared artifacts and selectors. Adding
-or moving props/dressing in a new custom course requires an agreed writable
-asset/selector contract with that proxy. Studio does not bypass those guards or
-silently install altered assets. This is a specific COURSE-VIS2 integration gate.
+## 6. Build (`build.py`)
 
-## Routes and player freedom
+Validate -> DX (+ re-read) -> collision probes -> textures -> RaceTest -> SFL ->
+HNT -> stage -> re-read staged tree -> COURSE-CAP2 rows -> publish with
+`os.replace` (previous build kept as `.previous`). Output:
+`resource-root/` (DX, TXT, textures, RaceTest XML/HNT, ICont SFL),
+`courses.json` + `compose.json` (accepted CAP2 input with this course added;
+fresh private profile), `course-build.json` (hashes, reports, all findings),
+`optional/` (Renderer RigidProps asset when physical objects exist).
+"Make private game package" runs `tools/build_course_registry.py`
+(private output under `.research-output/course-cap2/`, Python with `capstone`).
 
-Existing RaceLine and four Limit lists support the established position-only
-writer. Source marker count, order and identity remain intact. AI proposals can
-be created as independent editable curves and saved in
-`mr-course-neutral-routes/1` (`editor-routes.json`). A separate PLAYER_REGION
-role can describe player freedom. These proposal curves are editor-only and
-do not claim native alternative-AI selection. Player movement is not constrained
-to a proposed narrow AI line. SFL bytes and unknown field semantics survive.
+## 7. Physical objects (optional Renderer module)
 
-## Validate > Stage > Export
+Hay bales, tumbleweeds, checkpoint barrels and new models made from any Blender
+mesh (model + convex hull + texture; mass, inertia, wake distance, shadow) are
+written into a PS2RGD02 asset: the 36 PS2 courses plus the Studio course. The
+course itself never references the asset: its game files are byte-identical
+with and without physical objects (Blender qualification B). The accepted
+Renderer loads only its pinned asset digest; branch
+`feature/course-studio-rigid` adds `RigidPropsAssetSha256` (INI-declared digest,
+same layout validation). Limits: 16 models, 16 textures, 32 props per course.
 
-Validation returns `ERROR`, `WARNING`, `UNKNOWN`, source/object path and a concrete
-message. The Blender Text block `MR Course Validation` retains the report. Errors
-block export. Warnings and unknowns remain in the output manifest; parse success
-never becomes a claim that the Course is ready to play.
+## 8. Large and merged courses
 
-Export requires a **fresh directory outside the input resource tree**. It
-checks source integrity, prepares a temporary tree, reopens it through the same
-CourseProject loader, validates it and atomically publishes the directory.
-No Retail/Pristine resources or saves are overwritten. Unknown course-side files
-and HNT dependencies are copied. Resource bytes and checksums are deterministic;
-absolute provenance/output paths naturally differ between destination trees.
+Terrain tools: carve road along the route, join terrains with weld, snap open
+edges to a neighbour, find gaps, split into sections. One DX and one collision
+tree are written for the whole course (only the first landscape egg collides,
+E1.6). Validator budgets: ~250 textures (Retail crash above ~256), DX size,
+land records. Draw records split automatically at 65 536 vertices.
 
-The staged package contains:
+## 9. Command line
 
-- `course-studio.json`: explicit portable resource bindings, hashes, support,
-  provenance, marker-operation audit and outstanding findings;
-- `resource-root/`: complete bound dependencies and independent course bytes;
-- `resource-overrides.json`: inputs for the accepted CAP2 composition mechanism;
-- `courses.json`, when registering a new race: extended existing registry schema;
-- `editor-routes.json`, when proposal paths exist: neutral, editor-only routes.
-
-For an independent race, choose the **current accepted** CAP2 catalog, explicit
-template Race ID and new portable name. Studio copies the course model/sidecars
-into a new Course folder and creates a distinct Course key, RaceTest, HNT, AI
-dataset and progress/menu entry. Original registrations and original model bytes
-remain unchanged. The existing `tools/build_course_registry.py` performs native
-composition; Studio does not introduce a second EXE patch mechanism.
-
-CLI equivalent:
-
-```powershell
-python tools/course_studio.py <RaceTest.xml> --output <fresh-output> `
-  --catalog <current-courses.json> --template-race-id <id> --name <NewName> `
-  --compose-template <accepted-compose.json>
 ```
-
-The generated `compose.json` can be passed to the existing CAP2 builder, which
-requires its own fresh private worktree output. Old CAP2 catalogs lacking current
-menu/screenshot bindings must be updated from the accepted catalog, not guessed.
-
-Reopening a Studio project restores its linked catalog, stable registration ID
-and neutral proposal curves. Exporting it again without a new name preserves
-that registration. A source registration sharing a stock Course instead needs
-a new name to create isolated model resources. Native local HNT texture paths
-are redirected to the copied folder, keeping native texture slot names intact.
-
-## Qualification and next gates
-
-Synthetic tests cover byte-preserving XML templates, marker identities, exact
-BSP ray partitions in both directions, source changes, invalid paths/topology,
-atomic staging/reopen, textures and independent registry resources. Blender's
-headless integration exercises real France1, material previews, field edits,
-template add/delete/reorder, routes/limits, PS2 assets, neutral route export,
-save/reload and register/unregister/close. Build reports carry source hashes.
-
-The private candidate is **OFFLINE_VALIDATED / RUNTIME_NOT_TESTED** until the
-owner completes gameplay acceptance. A suspended CAP2 preflight is a separate
-gate and must report `game_thread_resumed=false`; it is not gameplay evidence.
-
-COURSE-VIS2 gates are bounded: collision rebuild and post-BSP structures;
-new cooked geometry/topology and native budgets; writable physical surface/water
-properties; proxy asset additions/selectors; native SFL generation and alternative
-route selection. Existing GXM/TXT source writers remain available separately but
-are not automatically promoted to a qualified native terrain/BSP cooker.
+python tools/mr_course_studio.py new <dir> --name MyCourse --template valley
+python tools/mr_course_studio.py import-retail <dir> --race France1
+python tools/mr_course_studio.py import-obj <dir> --obj terrain.obj --role terrain
+python tools/mr_course_studio.py validate <dir> --collision
+python tools/mr_course_studio.py build <dir> --catalog <CAP2 build-input.json> [--cap2]
+```

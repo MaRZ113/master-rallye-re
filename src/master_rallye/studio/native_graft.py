@@ -57,8 +57,13 @@ def fix_slots(node, slot="root"):
     return node
 
 
-def object_tree(native_root, keep_leaf_ids: set):
-    """Copy of the native tree in which only the leaves in ``keep_leaf_ids`` stay solid."""
+def object_tree(native_root, keep_leaf_ids, ordinals: dict | None = None):
+    """Copy of the native tree in which only the leaves in ``keep_leaf_ids`` stay solid.
+
+    ``ordinals`` (optional) receives original leaf id -> ordinal of the solid leaf in the copy
+    (depth-first, back before front: the order :func:`solid_leaves` walks).
+    """
+    keep_leaf_ids = set(keep_leaf_ids)
     def copy(n):
         if isinstance(n, Leaf):
             return Leaf(n.solid and id(n) in keep_leaf_ids)
@@ -67,9 +72,69 @@ def object_tree(native_root, keep_leaf_ids: set):
     old = sys.getrecursionlimit()
     sys.setrecursionlimit(max(old, 100000))
     try:
-        return copy(native_root)
+        tree = copy(native_root)
     finally:
         sys.setrecursionlimit(old)
+    if ordinals is not None:
+        originals = [n for n in _leaves(native_root) if n.solid and id(n) in keep_leaf_ids]
+        for k, n in enumerate(originals):
+            ordinals[id(n)] = k
+    return tree
+
+
+def _leaves(root):
+    """Leaves depth-first, back before front; a slot wrapper (plane d = +-FAR) counts as its real leaf."""
+    stack = [root]
+    while stack:
+        n = stack.pop()
+        if isinstance(n, Leaf):
+            yield n
+        elif n.plane[:3] == (0.0, 1.0, 0.0) and abs(n.plane[3]) >= FAR * 0.5:
+            yield n.back if n.plane[3] < 0 else n.front
+        else:
+            stack.append(n.front)
+            stack.append(n.back)
+
+
+def solid_leaves(root):
+    return [n for n in _leaves(root) if n.solid]
+
+
+def drop_leaves(root, ordinals) -> None:
+    """Make the solid leaves with these ordinals empty (cells the user deleted)."""
+    ordinals = set(ordinals or ())
+    for k, leaf in enumerate(solid_leaves(root)):
+        if k in ordinals:
+            leaf.solid = False
+
+
+def cell_signature(points) -> str:
+    """Identity of a cell from its float32 vertex positions (the precision of geometry.bin and Blender)."""
+    keys = sorted({struct.pack("<3f", *p) for p in points})
+    return hashlib.sha1(b"".join(keys)).hexdigest()[:24]
+
+
+def islands(mesh):
+    """(vertices, triangle point triples) of every connected vertex island of a mesh."""
+    parent = list(range(mesh.vertex_count))
+
+    def find(v):
+        while parent[v] != v:
+            parent[v] = parent[parent[v]]
+            v = parent[v]
+        return v
+    for t in range(mesh.triangle_count):
+        a, b, c = mesh.triangle(t)
+        ra = find(a)
+        parent[find(b)] = ra
+        parent[find(c)] = ra
+    groups: dict = {}
+    for t in range(mesh.triangle_count):
+        ids = mesh.triangle(t)
+        g = groups.setdefault(find(ids[0]), (set(), []))
+        g[0].update(ids)
+        g[1].append(mesh.triangle_points(t))
+    return [([mesh.vertex(i) for i in verts], tris) for verts, tris in groups.values()]
 
 
 def object_leaves(native_root, lo, hi, *, heights, ground_planes, min_lift=0.3, max_span=150.0):

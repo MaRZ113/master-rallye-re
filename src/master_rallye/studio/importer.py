@@ -393,15 +393,18 @@ def import_retail_course(resource_root: Path, race: str, *, extract_collision: b
             progress=lambda s, n: say("collision", 0.6 + 0.3 * min(1.0, n / 400000)))
         project.materials.setdefault("collision", Material("collision", "Collision", shader="object", surface="rock",
                                                            noise=False, textures=[None, None, None]))
-        mesh = solids_to_mesh(solids, name="Native collision", material="collision", source=f"retail-bsp:{race}")
+        signatures: list = []
+        mesh = solids_to_mesh(solids, name="Native collision", material="collision", source=f"retail-bsp:{race}",
+                              signatures=signatures)
         mesh.group = "Collision"
         project.meshes.append(mesh)
         from ..course_bsp import encode_tag100
-        from .native_graft import fix_slots, mesh_digest, object_leaves, object_tree
-        keep = object_leaves(root, lo, (hi[0], top, hi[2]), heights=lambda x, z: hf.ground(x, z),
-                             ground_planes=[r.float_suffix for r in land.records])
-        project.blobs["native_objects"] = encode_tag100(fix_slots(object_tree(root, keep)))
-        project.extras["native_collision"] = {"digest": mesh_digest(mesh), "cells": len(keep),
+        from .native_graft import fix_slots, object_tree
+        leaf_ids = stats.pop("leaf_ids", [])
+        ordinals: dict = {}
+        project.blobs["native_objects"] = encode_tag100(fix_slots(object_tree(root, leaf_ids, ordinals)))
+        leaves = [[ordinals[lid], sig] for lid, sig in zip(leaf_ids, signatures) if sig is not None]
+        project.extras["native_collision"] = {"cells": len(leaf_ids), "leaves": leaves,
                                               "lo": list(lo), "hi": [hi[0], top, hi[2]]}
         project.provenance.notes.append(f"native collision: {stats['object_cells']} closed convex solid cells of the "
                                         f"tag100 tree above the ground ({stats})")

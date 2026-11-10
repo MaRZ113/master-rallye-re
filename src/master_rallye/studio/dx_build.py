@@ -204,7 +204,7 @@ def _bounds1339(positions):
     return struct.pack("<I3ff3f3f", TAG1339, *centre, radius, *lo, *hi), {"centre": centre, "radius": radius}
 
 
-def collision_polygons(project: CourseProject, *, skirt: bool = True, exclude=()):
+def collision_polygons(project: CourseProject, *, skirt: bool = True, exclude=(), extra_objects=()):
     """Polygons for the collision BSP and their provenance (mesh id, triangle) per plane code.
 
     Land faces keep code = land-database record index. Collision objects are
@@ -263,6 +263,21 @@ def collision_polygons(project: CourseProject, *, skirt: bool = True, exclude=()
         native = mesh.source.startswith("retail-bsp")
         for polys, edges in pieces.values():
             objects.append((polys, bool(edges) and all(n == 2 for n in edges.values()), not native))
+    for tris in extra_objects:      # closed islands given as point triples (moved native cells)
+        polys, edges = [], {}
+        keyed = {}
+        for tri in tris:
+            poly = polygon(list(tri), triangle_normal(*tri), code)
+            if poly is None or triangle_area(*tri) < DEGENERATE_AREA:
+                continue
+            polys.append(poly)
+            code += 1
+            ks = [keyed.setdefault((round(p[0], 4), round(p[1], 4), round(p[2], 4)), len(keyed)) for p in tri]
+            for e in ((ks[0], ks[1]), (ks[1], ks[2]), (ks[2], ks[0])):
+                k = (min(e), max(e))
+                edges[k] = edges.get(k, 0) + 1
+        if polys:
+            objects.append((polys, all(n == 2 for n in edges.values()), True))
     stats = {"terrain_polygons": land_count, "collision_polygons": code - land_count, "skirt": None}
     walls_polys = []
     if skirt and land_tris:

@@ -36,35 +36,48 @@ def classify(root, p) -> bool:
 
 
 def native_state(project: CourseProject):
-    """(mesh, unchanged) of the collision recovered from a Retail tree, or (None, False)."""
+    """(native mesh, kept leaf ordinals, removed ordinals, new island triangle lists) or (None, ...)."""
     info = project.extras.get("native_collision")
     mesh = next((m for m in project.meshes if m.role == ROLE_COLLISION and m.source.startswith("retail-bsp")), None)
-    if not info or mesh is None or "native_objects" not in project.blobs:
-        return mesh, False
-    from .native_graft import mesh_digest
-    return mesh, mesh_digest(mesh) == info.get("digest")
+    if not info or mesh is None or "native_objects" not in project.blobs or "leaves" not in info:
+        return mesh, None, None, None
+    from .native_graft import cell_signature, islands
+    original = {sig: ordinal for ordinal, sig in info["leaves"]}
+    kept, new = set(), []
+    for verts, tris in islands(mesh):
+        ordinal = original.get(cell_signature([_f32(v) for v in verts]))
+        if ordinal is None:
+            new.append(tris)
+        else:
+            kept.add(ordinal)
+    removed = set(original.values()) - kept
+    return mesh, kept, removed, new
 
 
 def build_tree(project: CourseProject, *, progress=None):
     """The collision tree the build writes (see :mod:`.native_graft` for edited Retail courses)."""
-    native, unchanged = native_state(project)
-    exclude = {native.id} if (native is not None and unchanged) else set()
-    polys, provenance, stats = collision_polygons(project, skirt=project.build.collision_skirt, exclude=exclude)
+    native, kept, removed, new = native_state(project)
+    graft_native = native is not None and kept is not None
+    exclude, extra = set(), []
+    if graft_native:
+        exclude = {native.id}
+        extra = new             # moved/added native cells become ordinary Studio collision
+    polys, provenance, stats = collision_polygons(project, skirt=project.build.collision_skirt, exclude=exclude,
+                                                  extra_objects=extra)
     t0 = time.time()
     tree = build_solid_bsp(polys) if polys else Leaf(False)
-    if exclude:
+    if graft_native:
         from ..course_bsp import tree_from_parsed
         from ..course_tag100 import parse_course_tag100_bytes
-        from .native_graft import graft
+        from .native_graft import drop_leaves, graft
         objects = tree_from_parsed(parse_course_tag100_bytes(project.blobs["native_objects"], "native", allow_trailing=True))
+        drop_leaves(objects, removed)
         info = project.extras["native_collision"]
-        xs = [p[k] for poly in polys for p in poly.points for k in (0,)] or [0.0]
         lo = [min(info["lo"][k], min(p[k] for poly in polys for p in poly.points)) for k in range(3)]
         hi = [max(info["hi"][k], max(p[k] for poly in polys for p in poly.points)) for k in range(3)]
         tree, gstats = graft(objects, polys, tree, lo, hi)
+        gstats.update(native_cells_kept=len(kept), native_cells_removed=len(removed), native_cells_new=len(new))
         stats["native_graft"] = gstats
-    elif native is not None:
-        stats["native_graft"] = "native collision edited: rebuilt by solid union of its cells"
     stats["build_seconds"] = round(time.time() - t0, 2)
     stats.update(tree_stats(tree))
     return tree, provenance, stats
@@ -688,6 +701,7 @@ def extract_native_solids(root, lo, hi, *, heights=None, ground_planes=(), min_l
                     break
             if boundary:
                 solids.append([(face, normal) for face, normal, _ in cell])
+                stats.setdefault("leaf_ids", []).append(id(node))
                 stats["object_cells"] += 1
             continue
         back, front = _split_cell(cell, node.plane, node.code)
@@ -698,10 +712,16 @@ def extract_native_solids(root, lo, hi, *, heights=None, ground_planes=(), min_l
     return solids, stats
 
 
-def solids_to_mesh(solids, *, name: str, material: str, source: str) -> Mesh:
-    """One mesh, each solid its own closed vertex island (no welding across solids)."""
+def solids_to_mesh(solids, *, name: str, material: str, source: str, signatures: list | None = None) -> Mesh:
+    """One mesh, each solid its own closed vertex island (no welding across solids).
+
+    ``signatures`` (optional) receives, per solid, the identity of its island (or None when it produced
+    no triangle), computed like :func:`master_rallye.studio.native_graft.islands` will see it later.
+    """
+    from .native_graft import cell_signature
     mesh = Mesh(id=new_uid("mesh_"), name=name, role=ROLE_COLLISION, materials=[material], source=source)
     for solid in solids:
+        first_triangle = len(mesh.triangles)
         lookup = {}
         for face, normal in solid:
             ring = []
@@ -724,4 +744,11 @@ def solids_to_mesh(solids, *, name: str, material: str, source: str) -> Mesh:
                     tri = (tri[0], tri[2], tri[1])
                 mesh.triangles.extend(tri)
                 mesh.tri_material.append(0)
+        if signatures is not None:
+            used = sorted(set(mesh.triangles[first_triangle:]))
+            signatures.append(cell_signature([_f32(mesh.vertex(i)) for i in used]) if used else None)
     return mesh
+
+
+def _f32(p):
+    return struct.unpack("<3f", struct.pack("<3f", *p))
