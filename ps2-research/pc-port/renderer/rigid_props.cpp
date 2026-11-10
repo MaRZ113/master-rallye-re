@@ -128,6 +128,15 @@ bool decode_rigid_props_asset(const uint8_t* p,size_t n,std::string_view digest,
     out={};
     return std::string_view(kRigidPropsArtifactSha).size()==64&&digest==kRigidPropsArtifactSha&&decode_rigid_props_layout(p,n,out);
 }
+bool decode_rigid_props_asset_declared(const uint8_t* p,size_t n,std::string_view digest,std::string_view declared,
+                                       RigidPropsAsset& out) noexcept {
+    out={};
+    if(digest==kRigidPropsArtifactSha)return decode_rigid_props_layout(p,n,out);
+    if(declared.size()!=64||digest.size()!=64)return false;
+    for(size_t i=0;i<64;++i){char a=declared[i];if(a>='A'&&a<='F')a+=32;
+        if(!((a>='0'&&a<='9')||(a>='a'&&a<='f'))||a!=digest[i])return false;}
+    return decode_rigid_props_layout(p,n,out);
+}
 size_t rigid_course_index(const RigidPropsAsset& a,std::string_view id) noexcept {
     for(size_t i=0;i<a.courses.size();++i)if(course_id_matches(id,a.courses[i].id))return i;
     return SIZE_MAX;
@@ -331,8 +340,14 @@ RigidPropsPilot::RigidPropsPilot(bool supported,const std::wstring& ini) noexcep
         std::filesystem::path input(path);if(input.is_relative())input=std::filesystem::path(ini).parent_path()/input;
         std::vector<uint8_t> bytes;
         if(!read_file(input,bytes,kRigidPropsMaximumAssetBytes)){reason_="missing_or_wrong_size_rigid_props_asset";return;}
-        verified_=decode_rigid_props_asset(bytes.data(),bytes.size(),sha256_bytes(bytes.data(),bytes.size()),asset_);
-        reason_=verified_?"verified_rigid_props_waiting_for_device":"rigid_props_asset_hash_or_layout_mismatch";
+        wchar_t declared_w[80]{};
+        config::read_string(L"RigidPropsAssetSha256",L"",declared_w,80,ini.c_str());
+        std::string declared;for(const wchar_t* c=declared_w;*c;++c)declared.push_back(*c<128?static_cast<char>(*c):'?');
+        const std::string digest=sha256_bytes(bytes.data(),bytes.size());
+        verified_=decode_rigid_props_asset_declared(bytes.data(),bytes.size(),digest,declared,asset_);
+        declared_asset_=verified_&&digest!=kRigidPropsArtifactSha;
+        reason_=!verified_?"rigid_props_asset_hash_or_layout_mismatch":
+                declared_asset_?"verified_declared_rigid_props_waiting_for_device":"verified_rigid_props_waiting_for_device";
     }catch(...){reason_="rigid_props_asset_load_failed_stock";verified_=false;}
 }
 void RigidPropsPilot::release_textures() noexcept {for(auto* t:textures_)if(t)t->Release();textures_.clear();}

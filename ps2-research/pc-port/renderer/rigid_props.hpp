@@ -70,6 +70,11 @@ struct RigidPropsAsset {
 // Layout-only reader for synthetic tests; the pilot uses the digest-pinned reader.
 bool decode_rigid_props_layout(const uint8_t*,size_t,RigidPropsAsset&) noexcept;
 bool decode_rigid_props_asset(const uint8_t*,size_t,std::string_view digest,RigidPropsAsset&) noexcept;
+// Course Studio assets: accepted when the file digest equals the pinned artifact or the 64-hex digest the owner
+// declared in the INI (RigidPropsAssetSha256, written by the Studio build next to its asset); the full layout check
+// of decode_rigid_props_layout applies either way.
+bool decode_rigid_props_asset_declared(const uint8_t*,size_t,std::string_view digest,std::string_view declared,
+                                       RigidPropsAsset&) noexcept;
 size_t rigid_course_index(const RigidPropsAsset&,std::string_view course_id) noexcept;
 // Port contact coefficients per material (RIGID1: the PS2 surface coefficients are not identified).
 void rigid_material_coefficients(uint32_t material,float& restitution,float& friction,float& rolling) noexcept;
@@ -136,7 +141,7 @@ public:
 };
 
 class RigidPropsPilot {
-    bool requested_=false,verified_=false,disabled_=false,suspended_=false,blocked_=false;
+    bool requested_=false,verified_=false,disabled_=false,suspended_=false,blocked_=false,declared_asset_=false;
     bool diagnostics_=false,stock_courses_=false,logged_rejection_=false,logged_draw_=false,car_impulse_=true;
     RigidSelection selection_{false,false};
     // COURSE-ALIVE4: race generation whose World holds barrels (the native boards of that race are not drawn).

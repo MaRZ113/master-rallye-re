@@ -185,6 +185,16 @@ void asset_and_runtime(){
     CHECK(a.models[0].env==0&&a.shadow_texture==1&&a.normals.size()==6&&a.models[0].aabb[3]==1.f);
     CHECK(rigid_course_index(a,"RaceTest/ItalyS1")==0&&rigid_course_index(a,"RaceTest/Turkey3")==SIZE_MAX);
     CHECK(!decode_rigid_props_asset(bytes.data(),bytes.size(),"0000",a));   // digest pinned
+    {   // Course Studio: an asset is accepted only with the exact owner-declared digest, and still layout-checked
+        const std::string d=gfx2::sha256_bytes(bytes.data(),bytes.size());
+        std::string upper=d;for(auto& c:upper)if(c>='a'&&c<='f')c-=32;
+        CHECK(decode_rigid_props_asset_declared(bytes.data(),bytes.size(),d,d,a));
+        CHECK(decode_rigid_props_asset_declared(bytes.data(),bytes.size(),d,upper,a));
+        CHECK(!decode_rigid_props_asset_declared(bytes.data(),bytes.size(),d,"",a));
+        CHECK(!decode_rigid_props_asset_declared(bytes.data(),bytes.size(),d,std::string(64,'0'),a));
+        auto b=bytes;b[8]=1;const std::string bd=gfx2::sha256_bytes(b.data(),b.size());
+        CHECK(!decode_rigid_props_asset_declared(b.data(),b.size(),bd,bd,a));   // declared but malformed
+    }
     {auto b=bytes;b.push_back(0);CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));}            // trailing byte
     {auto b=bytes;b[8]=1;CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));}                     // version
     {auto b=bytes;b[40]=2;CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));}                    // shadow texture index
