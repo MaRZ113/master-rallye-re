@@ -19,6 +19,7 @@
 #include "rmod2_startup_preflight.hpp"
 #if defined(RMOD_EXTRA_SDK_BINDING)
 #include "extra_sdk_profile.hpp"
+#include "vehicle_roster.hpp"
 #endif
 
 #include <algorithm>
@@ -301,50 +302,60 @@ bool read_exact(std::uintptr_t address, void* out, std::size_t length) {
 }
 
 #if defined(RMOD_EXTRA_SDK_BINDING)
+// The SDK/G1 composition profile comes from the installed roster (roster.mrvr v2, MRLP section, parsed by the
+// VehicleRoster module in DllMain), so this loader build serves every roster. Only the replay stub addresses of
+// the two Challenge hooks belong to this build (generated sdk_binding_stubs).
 struct SdkSnapshot {
     std::vector<std::vector<std::uint8_t>> checks;
     std::vector<std::uint8_t> code;
 };
+const roster_profile::Profile& sdk_profile() { return roster_profile::current(); }
+std::uint32_t sdk_stub_va(const char* id) {
+    for (const auto& stub : sdk_binding_stubs::stubs) if (!std::strcmp(stub.id, id)) return stub.stub_va;
+    throw std::runtime_error("no F3 replay stub for an SDK composition hook");
+}
 
 bool sdk_extension_present() {
+    const auto& profile = sdk_profile();
+    if (!profile.valid) return false;
     MEMORY_BASIC_INFORMATION info{};
-    return VirtualQuery(reinterpret_cast<const void*>(sdk_binding_profile::extension_va), &info, sizeof(info)) == sizeof(info) &&
+    return VirtualQuery(reinterpret_cast<const void*>(std::uintptr_t(profile.extension_va)), &info, sizeof(info)) == sizeof(info) &&
         info.State == MEM_COMMIT && info.Type == MEM_PRIVATE &&
-        reinterpret_cast<std::uintptr_t>(info.AllocationBase) == sdk_binding_profile::extension_va;
+        reinterpret_cast<std::uintptr_t>(info.AllocationBase) == profile.extension_va;
 }
 
 bool sdk_profile_matches(SdkSnapshot* snapshot = nullptr) {
-    if (sdk_binding_profile::check_count == 0 || sdk_binding_profile::check_count > 4096 ||
-        sdk_binding_profile::hook_count != 2) return false;
+    const auto& profile = sdk_profile();
+    if (!profile.valid || profile.checks.empty() || profile.checks.size() > 4096 || profile.hooks.size() != 2) return false;
     wchar_t capacity_address[32]{};
     const auto capacity_length=GetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",capacity_address,32);
     if(capacity_length){
         uint32_t address=0;mr_vehicle_registry::DescriptorV1 descriptor{};
         if(capacity_length>=32||!extra_registry::address(capacity_address,address)||
            !read_exact(address,&descriptor,sizeof(descriptor))||!extra_registry::descriptor(descriptor)||
-           !sdk_binding_profile::registry_count||descriptor.record_count!=sdk_binding_profile::registry_count)return false;
+           descriptor.record_count!=profile.registry_count)return false;
     }else if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return false;
 
     SdkSnapshot candidate;
-    candidate.checks.reserve(sdk_binding_profile::check_count);
-    for (const auto& item : sdk_binding_profile::checks) {
-        const auto expected = from_hex(item.expected_hex);
+    candidate.checks.reserve(profile.checks.size());
+    for (const auto& item : profile.checks) {
+        const auto& expected = item.bytes;
         if (expected.empty() || expected.size() > 256 || item.rva > rmod1_plan::kImageSize ||
             expected.size() > rmod1_plan::kImageSize - item.rva) return false;
         std::vector<std::uint8_t> observed(expected.size());
         if (!read_exact(rmod1_plan::kImageBase + item.rva, observed.data(), observed.size()) || observed != expected) return false;
         candidate.checks.push_back(expected);
     }
-    if (!sdk_extension_present() || !sdk_binding_profile::extension_size) return false;
+    if (!sdk_extension_present() || !profile.extension_size) return false;
     std::size_t code_size=0;
-    for(const auto& region:sdk_binding_profile::immutable_ranges){
-        if(region.offset>sdk_binding_profile::extension_size||region.size>sdk_binding_profile::extension_size-region.offset||
+    for(const auto& region:profile.immutable){
+        if(region.offset>profile.extension_size||region.size>profile.extension_size-region.offset||
            region.size>SIZE_MAX-code_size)return false;
         code_size+=region.size;
     }
     std::vector<std::uint8_t> code(code_size);std::size_t cursor=0;
-    for(const auto& region:sdk_binding_profile::immutable_ranges){
-        if(region.size&&!read_exact(sdk_binding_profile::extension_va+region.offset,code.data()+cursor,region.size))return false;
+    for(const auto& region:profile.immutable){
+        if(region.size&&!read_exact(profile.extension_va+region.offset,code.data()+cursor,region.size))return false;
         cursor+=region.size;
     }
     if (snapshot) {candidate.code=std::move(code);*snapshot=std::move(candidate);}
@@ -355,21 +366,22 @@ bool sdk_profile_matches(SdkSnapshot* snapshot = nullptr) {
 // threads are suspended. Detect changes during installation, without requiring
 // the entire extension to have one particular hash.
 bool sdk_snapshot_matches(const SdkSnapshot& snapshot) noexcept {
-    if (snapshot.checks.size()!=sdk_binding_profile::check_count || !sdk_extension_present()) return false;
+    const auto& profile = sdk_profile();
+    if (snapshot.checks.size()!=profile.checks.size() || !sdk_extension_present()) return false;
     std::array<std::uint8_t,256> bytes{};
-    for (std::size_t i=0;i<sdk_binding_profile::check_count;++i) {
-        const auto& item=sdk_binding_profile::checks[i]; const auto& expected=snapshot.checks[i];
+    for (std::size_t i=0;i<profile.checks.size();++i) {
+        const auto& item=profile.checks[i]; const auto& expected=snapshot.checks[i];
         if (expected.empty() || expected.size()>bytes.size() ||
             !read_exact(rmod1_plan::kImageBase+item.rva,bytes.data(),expected.size()) ||
             std::memcmp(bytes.data(),expected.data(),expected.size())) return false;
     }
     std::size_t index=0;
-    for(const auto& region:sdk_binding_profile::immutable_ranges){
-        if(region.offset>sdk_binding_profile::extension_size||region.size>sdk_binding_profile::extension_size-region.offset||
+    for(const auto& region:profile.immutable){
+        if(region.offset>profile.extension_size||region.size>profile.extension_size-region.offset||
            index>snapshot.code.size()||region.size>snapshot.code.size()-index)return false;
         for(std::size_t offset=0;offset<region.size;){
             const auto n=std::min<std::size_t>(bytes.size(),region.size-offset);
-            if(!read_exact(sdk_binding_profile::extension_va+region.offset+offset,bytes.data(),n)||
+            if(!read_exact(profile.extension_va+region.offset+offset,bytes.data(),n)||
                std::memcmp(bytes.data(),snapshot.code.data()+index+offset,n))return false;
             offset+=n;
         }
@@ -380,38 +392,37 @@ bool sdk_snapshot_matches(const SdkSnapshot& snapshot) noexcept {
 }
 
 bool any_sdk_hook_present() {
-    for (const auto& item : sdk_binding_profile::hooks) {
-        const auto expected = from_hex(item.mapped_hex);
-        if (expected.size() != 7 || item.rva > rmod1_plan::kImageSize - expected.size())
-            throw std::runtime_error("invalid generated SDK hook profile");
-        std::vector<std::uint8_t> observed(expected.size());
-        if (read_exact(rmod1_plan::kImageBase + item.rva, observed.data(), observed.size()) && observed == expected) return true;
+    for (const auto& item : sdk_profile().hooks) {
+        if (item.rva > rmod1_plan::kImageSize - item.mapped.size())
+            throw std::runtime_error("invalid roster SDK hook profile");
+        std::array<std::uint8_t,7> observed{};
+        if (read_exact(rmod1_plan::kImageBase + item.rva, observed.data(), observed.size()) && observed == item.mapped) return true;
     }
     return false;
 }
 
 void compose_sdk_challenge(std::vector<Patch>& patches) {
     unsigned found = 0;
-    for (auto& p : patches) for (const auto& hook : sdk_binding_profile::hooks) {
+    for (auto& p : patches) for (const auto& hook : sdk_profile().hooks) {
         if (std::string_view(p.source->id) != hook.id) continue;
         if (p.address != rmod1_plan::kImageBase + hook.rva || p.expected != from_hex("8bbc3874050000"))
             throw std::runtime_error("F3 challenge operation does not match SDK composition profile");
-        p.expected = from_hex(hook.mapped_hex); ++found;
+        p.expected.assign(hook.mapped.begin(), hook.mapped.end()); ++found;
     }
-    if (found != sdk_binding_profile::hook_count)
+    if (found != sdk_profile().hooks.size())
         throw std::runtime_error("SDK composition requires both selected F3 challenge hooks");
 }
 
 void compose_sdk_stubs(std::vector<std::uint8_t>& code) {
-    for (const auto& hook : sdk_binding_profile::hooks) {
-        if (hook.stub_va < rmod1_plan::kCodeBase) throw std::runtime_error("SDK stub below F3 code allocation");
-        const auto offset = static_cast<std::size_t>(hook.stub_va - rmod1_plan::kCodeBase);
+    for (const auto& hook : sdk_profile().hooks) {
+        const std::uint32_t stub_va = sdk_stub_va(hook.id);
+        if (stub_va < rmod1_plan::kCodeBase) throw std::runtime_error("SDK stub below F3 code allocation");
+        const auto offset = static_cast<std::size_t>(stub_va - rmod1_plan::kCodeBase);
         const auto original = from_hex("8bbc38740500009c60");
-        const auto replacement = from_hex(hook.mapped_hex);
-        if (offset > code.size() || original.size() > code.size() - offset || replacement.size()!=7 ||
+        if (offset > code.size() || original.size() > code.size() - offset ||
             !std::equal(original.begin(), original.end(), code.begin()+offset))
             throw std::runtime_error("F3 challenge replay does not match SDK composition");
-        std::copy(replacement.begin(), replacement.end(), code.begin()+offset);
+        std::copy(hook.mapped.begin(), hook.mapped.end(), code.begin()+offset);
     }
 }
 #endif
@@ -568,8 +579,9 @@ bool initialize_impl(char* error, unsigned capacity) {
         if (sdk_bound) {
 #if defined(RMOD_EXTRA_OPTIONS)
             auto register_sdk=reinterpret_cast<DWORD (WINAPI*)(const rmod1::SdkRosterV1*)>(GetProcAddress(runtime,"MRRegisterSdkRosterV1"));
+            const auto& roster=sdk_profile();
             const rmod1::SdkRosterV1 descriptor{sizeof(rmod1::SdkRosterV1),1,
-                static_cast<unsigned>(std::size(extra_package::sdk_vehicles)),extra_package::challenge_human_offset,extra_package::sdk_vehicles};
+                static_cast<unsigned>(roster.vehicles.size()),roster.challenge_human_offset,roster.vehicles.data()};
             if(!register_sdk||!register_sdk(&descriptor))throw std::runtime_error("SDK roster provider rejected qualified registration");
             append_log(game_dir.wstring(),"SDK_ROSTER_REGISTERED","existing physical IDs and per-mode eligibility supplied by SDK; G1 participant limits unchanged");
 #endif

@@ -22,16 +22,88 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def compile_proxy(output, include, extra_header, menu_builder):
+    proxy_def = output / 'extra_sdk_proxy.def'
+    original_def = (ROOT/'src/native/rmod1/dinput8_proxy.def').read_text(encoding='ascii').rstrip()
+    exports_extra = ('    MRExtraOptionsAbi=_MRExtraOptionsAbi@0 @8\n'
+                     '    MRExtraVisualV1=_MRExtraVisualV1@12 @9\n'
+                     '    MRExtraRevisionV1=_MRExtraRevisionV1@12 @10\n'
+                     '    MRExtraTextureV1=_MRExtraTextureV1@36 @11\n'
+                     '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n'
+                     '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n') if extra_header is not None else ''
+    # Menu Builder exports follow the registry marker (@13); all consumers bind by name.
+    exports_menu = ('    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n'
+                    '    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n'
+                    '    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n') if menu_builder else ''
+    proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra + exports_menu, encoding='ascii')
+
+    vcvars, msvc = locate_toolchain()
+    env = compiler_environment(vcvars, 'x64_x86')
+    compiler = msvc / 'bin/Hostx64/x86/cl.exe'
+    dll = output / 'dinput8.dll'
+    command = [str(compiler), '/nologo', '/LD', '/MT', '/EHsc', '/std:c++17', '/W4', '/WX',
+               '/Brepro', '/O2', '/DNDEBUG', '/D_WIN32_WINNT=0x0601', '/DDIRECTINPUT_VERSION=0x0800',
+               '/DRMOD_EXTRA_SDK_BINDING=1', '/I' + str(include), '/I' + str(ROOT/'src/native/rmod1'),
+               str(ROOT/'src/native/rmod1/dinput8_proxy.cpp'), str(ROOT/'src/native/rmod1/rmod2_inprocess.cpp'),
+               '/link', '/DEF:' + str(proxy_def),
+               'bcrypt.lib', 'user32.lib', '/NOIMPLIB', '/Brepro', '/OUT:' + str(dll)]
+    if extra_header is not None:
+        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_options_runtime.cpp'))
+        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_ghost.cpp'))
+        command.insert(1, '/DRMOD_EXTRA_OPTIONS=1')
+    if menu_builder:
+        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/menu_builder_runtime.cpp'))
+        command.insert(command.index('/NOIMPLIB'), 'gdi32.lib')
+        command.insert(1, '/DRMOD_MENU_BUILDER=1')
+    subprocess.run(command, cwd=output, env=env, check=True)
+    return dll
+
+
+def stub_header(public):
+    """Roster-independent loader: only this build's Challenge replay stub addresses. Everything that depends on the
+    roster (SDK operation checks, mapped hook bytes, extension, SDK vehicle list) comes from roster.mrvr v2."""
+    symbols = public['code_symbols']
+    rows = ''.join('    {"%s", 0x%Xu},\n' % (hook, symbols[name]) for hook, name in
+                   (('challenge-preview-identity', 'challenge_preview'), ('challenge-race-consume', 'challenge_consumer')))
+    return ('#pragma once\n#include <cstdint>\n#include "roster_loader_profile.hpp"\nnamespace sdk_binding_stubs {\n'
+            'struct Stub { const char* id; std::uint32_t stub_va; };\n'
+            'inline constexpr Stub stubs[] = {\n' + rows + '};\n}\n')
+
+
+def build_independent(output, retail, raw, runtime, plan, public, checkpoint, extra_header, menu_builder):
+    output.mkdir(parents=True)
+    include = output / 'include'; include.mkdir()
+    (include / 'native_plan.hpp').write_text(render_cpp_header(plan), encoding='ascii', newline='\n')
+    (include / 'extra_sdk_profile.hpp').write_text(stub_header(public), encoding='ascii', newline='\n')
+    if extra_header is not None:
+        (include / 'extra_options_package.hpp').write_text(extra_header, encoding='ascii', newline='\n')
+    dll = compile_proxy(output, include, extra_header, menu_builder)
+    exports = audit(dll)
+    if not exports.get('required_match') or exports['observed'].get('MRExtraSdkBindingAbi') != 7:
+        raise ValueError('DirectInput export contract changed')
+    result = {'schema': 'extra-options-sdk-binding-build/2', 'status': 'OFFLINE_ONLY', 'roster_independent': True,
+              'source_exe_sha256': sha(retail), 'runtime_core_sha256': sha(runtime), 'private_dinput8_sha256': sha(dll),
+              'sdk_profile_source': 'roster.mrvr v2 MRLP section of the installed roster',
+              'checkpoint': checkpoint, 'native_extra_options': extra_header is not None, 'menu_builder': menu_builder,
+              'runtime_qualified': False, 'gameplay_qualified': False}
+    (output / 'build-manifest.json').write_text(json.dumps(result, indent=2) + '\n')
+    return result
+
+
 def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', extra_header=None, menu_builder=False):
     output = Path(output).resolve()
     allowed = (ROOT / '.research-output/extra-set1').resolve()
     if not output.is_relative_to(allowed) or output == allowed or output.exists():
         raise ValueError('select a fresh private extra-set1 output directory')
-    retail, sdk_manifest, runtime, sdk_root = map(Path, (retail, sdk_manifest, runtime, sdk_root))
+    retail, runtime = Path(retail), Path(runtime)
+    sdk_manifest = Path(sdk_manifest) if sdk_manifest is not None else None
+    sdk_root = Path(sdk_root) if sdk_root is not None else None
     raw = retail.read_bytes()
-    sdk = json.loads(sdk_manifest.read_text(encoding='utf-8'))
     plan = build_plan(raw, runtime.read_bytes(), checkpoint=checkpoint)
     public = public_plan(plan)
+    if sdk_manifest is None:
+        return build_independent(output, retail, raw, runtime, plan, public, checkpoint, extra_header, menu_builder)
+    sdk = json.loads(sdk_manifest.read_text(encoding='utf-8'))
     # Reuse SDK's full file-backed preimage/overlap auditor before creating
     # any generated profile. It checks the current inputs, not filenames.
     sys.path.insert(0, str(sdk_root / 'tools'))
@@ -62,41 +134,9 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
     (include / 'extra_sdk_profile.hpp').write_text(render_header(proposal, public, extension, registry_count=layout['record_count']), encoding='ascii', newline='\n')
     if extra_header is not None:
         (include / 'extra_options_package.hpp').write_text(extra_header, encoding='ascii', newline='\n')
-    proxy_def = output / 'extra_sdk_proxy.def'
-    original_def = (ROOT/'src/native/rmod1/dinput8_proxy.def').read_text(encoding='ascii').rstrip()
-    exports_extra = ('    MRExtraOptionsAbi=_MRExtraOptionsAbi@0 @8\n'
-                     '    MRExtraVisualV1=_MRExtraVisualV1@12 @9\n'
-                     '    MRExtraRevisionV1=_MRExtraRevisionV1@12 @10\n'
-                     '    MRExtraTextureV1=_MRExtraTextureV1@36 @11\n'
-                     '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n'
-                     '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n') if extra_header is not None else ''
-    # Menu Builder exports follow the registry marker (@13); all consumers bind by name.
-    exports_menu = ('    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n'
-                    '    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n'
-                    '    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n') if menu_builder else ''
-    proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra + exports_menu, encoding='ascii')
     write_proposal(output / 'binding-proposal.json', proposal)
     (output / 'preimage-audit.json').write_text(json.dumps(evidence, indent=2) + '\n')
-
-    vcvars, msvc = locate_toolchain()
-    env = compiler_environment(vcvars, 'x64_x86')
-    compiler = msvc / 'bin/Hostx64/x86/cl.exe'
-    dll = output / 'dinput8.dll'
-    command = [str(compiler), '/nologo', '/LD', '/MT', '/EHsc', '/std:c++17', '/W4', '/WX',
-               '/Brepro', '/O2', '/DNDEBUG', '/D_WIN32_WINNT=0x0601', '/DDIRECTINPUT_VERSION=0x0800',
-               '/DRMOD_EXTRA_SDK_BINDING=1', '/I' + str(include), '/I' + str(ROOT/'src/native/rmod1'),
-               str(ROOT/'src/native/rmod1/dinput8_proxy.cpp'), str(ROOT/'src/native/rmod1/rmod2_inprocess.cpp'),
-               '/link', '/DEF:' + str(proxy_def),
-               'bcrypt.lib', 'user32.lib', '/NOIMPLIB', '/Brepro', '/OUT:' + str(dll)]
-    if extra_header is not None:
-        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_options_runtime.cpp'))
-        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_ghost.cpp'))
-        command.insert(1, '/DRMOD_EXTRA_OPTIONS=1')
-    if menu_builder:
-        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/menu_builder_runtime.cpp'))
-        command.insert(command.index('/NOIMPLIB'), 'gdi32.lib')
-        command.insert(1, '/DRMOD_MENU_BUILDER=1')
-    subprocess.run(command, cwd=output, env=env, check=True)
+    dll = compile_proxy(output, include, extra_header, menu_builder)
     exports = audit(dll)
     if not exports.get('required_match') or exports['observed'].get('MRExtraSdkBindingAbi') != 7:
         raise ValueError('DirectInput export contract changed')

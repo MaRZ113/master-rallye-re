@@ -24,7 +24,7 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
-def package_header(sdk_runtime=None):
+def package_header(sdk_runtime=None, roster_independent=False):
     manifest=json.loads((ROOT/'research/extra-set1/vehicles.json').read_text())
     previous=SDK/'.research-output/vehicles/v-set1/pilot-07'
     evidence=json.loads((previous/'preparation.json').read_text())
@@ -51,16 +51,18 @@ def package_header(sdk_runtime=None):
                0x4d6650,0x4d6fb0,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630,0x525a80,0x525800]:
         at=va_to_file_offset(pe,va,8)
         apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in source[at:at+8])))
-    runtime=Path(sdk_runtime) if sdk_runtime is not None else BASE/'runtime'
-    plan=json.loads((runtime/'addon-plan.json').read_text())
-    native=json.loads((runtime/'native-patch-manifest.json').read_text())
-    sdk_rows=[]
-    modes=['quick_race','rallye_cup','master_rallye','invitation','challenge']
-    for item in plan['addons']:
-        mask=sum((1<<i) for i,m in enumerate(modes) if item['ai_eligibility'].get(m,{}).get('enabled',False))
-        sdk_rows.append('{%d,%d,%d},'%(item['physical_id'],['T1','T2','T3'].index(item['vehicle_class']),mask))
-    layout=plan['registry_layout']
-    human_offset=layout['race_test_base']+layout['race_test_stride']-8
+    sdk_rows=[];human_offset=0x570
+    if not roster_independent:
+        # Legacy roster-bound build: the SDK vehicle list is compiled in. Roster-independent builds take it from
+        # the installed roster.mrvr v2 (MRLP section, tools/roster_loader_profile.py).
+        runtime=Path(sdk_runtime) if sdk_runtime is not None else BASE/'runtime'
+        plan=json.loads((runtime/'addon-plan.json').read_text())
+        modes=['quick_race','rallye_cup','master_rallye','invitation','challenge']
+        for item in plan['addons']:
+            mask=sum((1<<i) for i,m in enumerate(modes) if item['ai_eligibility'].get(m,{}).get('enabled',False))
+            sdk_rows.append('{%d,%d,%d},'%(item['physical_id'],['T1','T2','T3'].index(item['vehicle_class']),mask))
+        layout=plan['registry_layout']
+        human_offset=layout['race_test_base']+layout['race_test_stride']-8
     header=('#pragma once\n#include <cstring>\n#include <array>\n#include "sdk_roster_abi.hpp"\nnamespace extra_package {\n'
             'struct Vehicle {int id;const char* family;unsigned paint_count,native_paint;const char* paint_labels[3];unsigned paint_kinds[3];};\n'
             'inline constexpr Vehicle vehicles[]={'+''.join(rows)+'};\n'
@@ -68,7 +70,7 @@ def package_header(sdk_runtime=None):
             'struct Binding {unsigned index,width,height;const char* original;const char* derived;};\n'
             'inline constexpr Binding bindings[]={'+''.join(br)+'};\n'
             'inline constexpr unsigned binding_count=sizeof(bindings)/sizeof(bindings[0]);\n}\n')
-    header=header[:-2]+'inline constexpr rmod1::SdkVehicleV1 sdk_vehicles[]={'+''.join(sdk_rows)+'};\ninline constexpr unsigned challenge_human_offset='+str(human_offset)+';\nstruct API {uintptr_t va;std::array<unsigned char,8> bytes;};\ninline constexpr API apis[]={'+''.join(apis)+'};\n}\n'
+    header=header[:-2]+('inline constexpr rmod1::SdkVehicleV1 sdk_vehicles[]={'+''.join(sdk_rows)+'};\n' if sdk_rows else '')+'inline constexpr unsigned challenge_human_offset='+str(human_offset)+';\nstruct API {uintptr_t va;std::array<unsigned char,8> bytes;};\ninline constexpr API apis[]={'+''.join(apis)+'};\n}\n'
     return header,previous,manifest
 
 

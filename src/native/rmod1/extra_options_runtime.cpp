@@ -53,12 +53,27 @@ fs::path directory;
 std::unique_ptr<std::array<char,65>[]> families;
 std::mutex family_mutex;
 bool valid_car(int id){return id>=0 && unsigned(id)<car_count;}
+// --- DEMO model variants (Roster V4, docs/vehicle-manager/ROSTER_V4_PLAN.md stage 3) ------------
+// The installed roster may list, per family, an alternative resource folder (the historical Demo model) in
+// MRMods/Vehicles/active/variants.ini. Choosing DEMO on the MODEL row points that CarID's registry folder
+// (row +0x24, the string every model/physics loader reads) at the variant folder; the roster ships the folder's
+// resources and a physics block cloned from the family. The registry row is global, so the latest choice of
+// the player in Vehicle Select applies to every car with that CarID (opponents included).
+struct Variant {std::string base,folder,manufacturer,model;};
+std::vector<Variant> variants;
+std::unique_ptr<int[]> variant_of;            // per CarID: index into variants, -1 none, -2 not resolved yet
+std::unique_ptr<uintptr_t[]> original_folder; // registry folder pointer as constructed
+uintptr_t registry_row(int id);
+int variant_index(int id);
 void allocate_state(unsigned count){
  std::array<std::unique_ptr<std::atomic_uint[]>,kPlayers> next_paints,next_tires;
  for(unsigned p=0;p<kPlayers;++p){next_paints[p]=std::make_unique<std::atomic_uint[]>(count);next_tires[p]=std::make_unique<std::atomic_uint[]>(count);
   for(unsigned i=0;i<count;++i){next_paints[p][i]=0;next_tires[p][i]=0;}}
  auto next_families=std::make_unique<std::array<char,65>[]>(count);
+ auto next_variants=std::make_unique<int[]>(count);auto next_original=std::make_unique<uintptr_t[]>(count);
+ for(unsigned i=0;i<count;++i){next_variants[i]=variants.empty()?-1:-2;next_original[i]=0;}
  paints=std::move(next_paints);tires=std::move(next_tires);families=std::move(next_families);car_count=count;
+ variant_of=std::move(next_variants);original_folder=std::move(next_original);
 }
 struct Pixels {std::vector<unsigned char> original,derived;};
 std::vector<Pixels> pixels;
@@ -79,14 +94,16 @@ std::string native_label(const char* value){std::string text(value);for(auto& c:
 void put_text(const char* s,const char* value){const auto text=native_label(value);put_name(s,text.c_str());}
 const extra_package::Vehicle* vehicle(int id){for(const auto& v:extra_package::vehicles)if(v.id==id)return &v;return nullptr;}
 
-// Appearance: the same PS2/PC pair for every car (owner decision; per-car texture variants retired).
-constexpr const char* kLabels[]={"PS2","PC"};
-constexpr unsigned kKinds[]={2,1}; // MRExtraVisualV2: 1 = PC bundle, 2 = PS2 bundle
-unsigned paint_count(int){return 2u;}
-const char* paint_label(int,unsigned i){return kLabels[i<2?i:0];}
-unsigned paint_kind(int,unsigned i){return kKinds[i<2?i:0];}
-// EXTRA-SET1 state stored preset indexes; keep only whether the preset was the PC bundle.
-unsigned migrate_paint(int id,unsigned stored){auto* v=vehicle(id);if(v)return stored<v->paint_count&&v->paint_kinds[stored]==1?1u:0u;return stored<2?stored:0u;}
+
+// Appearance: PS2/PC for every car (owner decision), DEMO as a third choice where the roster has a variant.
+constexpr const char* kLabels[]={"PS2","PC","DEMO"};
+constexpr unsigned kKinds[]={2,1,1}; // MRExtraVisualV2: 1 = PC bundle, 2 = PS2 bundle; DEMO renders as PC
+unsigned paint_count(int id){return variant_index(id)>=0?3u:2u;}
+const char* paint_label(int,unsigned i){return kLabels[i<3?i:0];}
+unsigned paint_kind(int,unsigned i){return kKinds[i<3?i:0];}
+// EXTRA-SET1 state stored preset indexes; keep only whether the preset was the PC bundle. 2 = DEMO (checked
+// against the roster when used: a car without a variant falls back to PS2).
+unsigned migrate_paint(int id,unsigned stored){auto* v=vehicle(id);if(stored==2)return 2u;if(v)return stored<v->paint_count&&v->paint_kinds[stored]==1?1u:0u;return stored<2?stored:0u;}
 int clamp_player(int p){return p==1?1:0;}
 
 // Folder name of a physical CarID: native registry 0x45a3c0, 0x34-byte rows, C string at +0x24
@@ -102,6 +119,69 @@ const char* family(int id){
    std::memcpy(slot.data(),copy,sizeof(copy));
  }
  return slot.data();
+}
+
+// --- DEMO variants: registry folder pointer --------------------------------------------------------
+uintptr_t registry_row(int id){
+ const auto table=reinterpret_cast<uintptr_t>(fn<void*(__cdecl*)()>(registry_getter)());
+ return table?table+0x24+uintptr_t(id)*0x34:0;
+}
+int variant_index(int id){
+ if(!valid_car(id)||!variant_of)return -1;
+ if(variant_of[id]!=-2)return variant_of[id];
+ int found=-1;uintptr_t text=0;char copy[65]{};
+ const uintptr_t row=registry_row(id);
+ if(!row||!read(row,&text,4)||!text||!read(text,copy,sizeof(copy)-1))return -1; // registry not readable yet: retry later
+ for(size_t i=0;i<variants.size();++i)if(!_stricmp(copy,variants[i].base.c_str())){found=int(i);break;}
+ original_folder[id]=text;variant_of[id]=found;
+ if(found>=0){char line[200]{};std::snprintf(line,sizeof(line),"VARIANT_BOUND CarID=%d family=%s DEMO=%s",id,copy,variants[size_t(found)].folder.c_str());log(line);}
+ return found;
+}
+bool demo_selected(int player,int id){const int v=variant_index(id);return v>=0&&paints[clamp_player(player)][id].load()==2;}
+// Points the CarID's registry folder at the variant (or back); true when the pointer changed.
+bool apply_variant(int player,int id){
+ const int v=variant_index(id);if(v<0)return false;
+ const uintptr_t row=registry_row(id),want=demo_selected(player,id)?reinterpret_cast<uintptr_t>(variants[size_t(v)].folder.c_str()):original_folder[id];
+ uintptr_t now=0;if(!row||!want||!read(row,&now,4)||now==want)return false;
+ DWORD previous=0,ignored=0;
+ if(!VirtualProtect(reinterpret_cast<void*>(row),4,PAGE_READWRITE,&previous))return false;
+ std::memcpy(reinterpret_cast<void*>(row),&want,4);
+ VirtualProtect(reinterpret_cast<void*>(row),4,previous,&ignored);
+ {std::lock_guard<std::mutex> lock(family_mutex);families[id][0]=0;}
+ char line[200]{};std::snprintf(line,sizeof(line),"VARIANT_APPLIED player=%d CarID=%d folder=%s",player+1,id,want==original_folder[id]?"original":variants[size_t(v)].folder.c_str());log(line);
+ return true;
+}
+void apply_all_variants(int player){if(!variants.empty())for(unsigned id=0;id<car_count;++id)apply_variant(player,int(id));}
+// Menu car display AI (gaFE car egg, vtable slot 0x69021c -> 0x44c4c0, thiscall RET 4): each tick it compares the
+// Broker car ID with the cached one at +0x0C and rebuilds "Vehicles/<folder>/complete" only on a change. After a
+// folder swap every live instance is told once to rebuild by invalidating that cache.
+constexpr uintptr_t kDisplayTickSlot=0x69021c,kDisplayTick=0x44c4c0;
+std::atomic_uint display_refresh{0};
+struct DisplaySeen {void* self=nullptr;unsigned generation=0;};
+std::array<DisplaySeen,8> display_seen{};unsigned display_next=0;
+void __fastcall display_tick(void* self,void*,void* argument){
+ try{
+  const unsigned g=display_refresh.load();
+  if(g){
+   DisplaySeen* slot=nullptr;for(auto& s:display_seen)if(s.self==self)slot=&s;
+   if(!slot){slot=&display_seen[display_next++%display_seen.size()];*slot={self,0};}
+   if(slot->generation!=g){slot->generation=g;const int stale=-2;std::memcpy(static_cast<char*>(self)+0xc,&stale,4);}
+  }
+ }catch(...){}
+ fn<void(__thiscall*)(void*,void*)>(kDisplayTick)(self,argument);
+}
+void load_variants(){
+ const auto path=(directory/"MRMods"/"Vehicles"/"active"/"variants.ini").wstring();
+ if(GetFileAttributesW(path.c_str())==INVALID_FILE_ATTRIBUTES)return;
+ for(unsigned i=0;i<64;++i){
+  wchar_t section[24]{};std::swprintf(section,24,L"Variant%u",i);
+  auto get=[&](const wchar_t* key){wchar_t w[128]{};GetPrivateProfileStringW(section,key,L"",w,128,path.c_str());std::string out;for(const wchar_t* c=w;*c;++c)out.push_back(*c<128?char(*c):'?');return out;};
+  Variant v{get(L"Base"),get(L"Folder"),get(L"Manufacturer"),get(L"Model")};
+  if(v.base.empty())break;
+  if(v.folder.empty()||v.folder.find_first_of("/\\.")!=std::string::npos||v.folder.size()>48)continue;
+  variants.push_back(v);
+ }
+ char line[96]{};std::snprintf(line,sizeof(line),"VARIANTS_LOADED count=%u",unsigned(variants.size()));log(line);
 }
 
 void list(const char* path,const std::vector<const char*>& values){
@@ -151,7 +231,8 @@ void tyre_sync(bool force){
   char line[160]{};std::snprintf(line,sizeof(line),"TIRE_SELECTED player=%d CarID=%d compound=%s",player+1,car,extra_options::kTireLabels[v]);log(line);
  }
 }
-void __fastcall general_init(void* self,void*,void* argument){fn<Init>(kGeneralInit)(self,argument);try{tyre_sync(true);}catch(...){log("TIRE_MENU_INIT_FAILED");}}
+void apply_all_variants(int player);
+void __fastcall general_init(void* self,void*,void* argument){fn<Init>(kGeneralInit)(self,argument);try{tyre_sync(true);apply_all_variants(clamp_player(integer("Frontend/CarSetup/PlayerID")));}catch(...){log("TIRE_MENU_INIT_FAILED");}}
 uintptr_t __fastcall general_tick(void* self,void*,uint32_t argument){
  const auto result=fn<Tick>(kGeneralTick)(self,argument);
  try{tyre_sync(false);}catch(...){log("TIRE_MENU_UPDATE_FAILED");}
@@ -183,7 +264,24 @@ void look_sync(bool force){
   char line[180]{};std::snprintf(line,sizeof(line),"APPEARANCE_SELECTED player=%d CarID=%d family=%s choice=%s",player+1,car,family(car),paint_label(car,v));log(line);
  }
 }
-void __fastcall select_init(void* self,void*,void* argument){fn<Init>(kSelectInit)(self,argument);try{look_sync(true);}catch(...){log("APPEARANCE_MENU_INIT_FAILED");}}
+// Vehicle Select names follow the model: the native publisher 0x4819b0 writes ManufacturerName/ModelName
+// (localization groups 0x33/0x34 by CarID) only when the car changes; DEMO overrides them afterwards, and leaving
+// DEMO re-runs the publisher. Folder swaps happen here too, so every path that changes MODEL is covered.
+struct NameState {int car=-1;bool demo=false;} names;
+void variant_sync(void* screen){
+ if(variants.empty())return;
+ const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
+ if(!valid_car(car)){names={};return;}
+ if(apply_variant(player,car))++display_refresh;
+ const bool demo=demo_selected(player,car);
+ if(car==names.car&&demo==names.demo)return;
+ if(demo){const auto& v=variants[size_t(variant_index(car))];
+  if(!v.manufacturer.empty())put_text("Frontend/VehicleSelect/ManufacturerName",v.manufacturer.c_str());
+  if(!v.model.empty())put_text("Frontend/VehicleSelect/ModelName",v.model.c_str());}
+ else if(car==names.car&&names.demo&&screen)fn<void(__thiscall*)(void*)>(0x4819b0)(screen);
+ names={car,demo};
+}
+void __fastcall select_init(void* self,void*,void* argument){fn<Init>(kSelectInit)(self,argument);try{names={};look_sync(true);apply_all_variants(clamp_player(integer("Frontend/VehicleSelect/PlayerID")));variant_sync(self);}catch(...){log("APPEARANCE_MENU_INIT_FAILED");}}
 // Left/Right on MODEL changes only the model, never the carousel.
 void __fastcall select_scroll(void* self,void*,int direction){
  try{void* buttons=fn<void*(__cdecl*)()>(0x525a80)();if(buttons&&fn<int(__thiscall*)(void*)>(0x525800)(buttons)==kModelButton)return;}catch(...){}
@@ -191,7 +289,7 @@ void __fastcall select_scroll(void* self,void*,int direction){
 }
 uintptr_t __fastcall select_tick(void* self,void*,uint32_t argument){
  const auto result=fn<Tick>(kSelectTick)(self,argument);
- try{look_sync(false);}catch(...){log("APPEARANCE_MENU_UPDATE_FAILED");}
+ try{look_sync(false);variant_sync(self);}catch(...){log("APPEARANCE_MENU_UPDATE_FAILED");}
  return result;
 }
 
@@ -314,6 +412,7 @@ bool initialize() noexcept {try{
  std::ifstream f(directory/"MRallyeExtraOptions.ini",std::ios::binary);std::string ini((std::istreambuf_iterator<char>(f)),{});
  const auto parsed=extra_options::parse_config(ini);if(parsed.accepted)options=parsed.config;else log("CONFIG absent/invalid; customization disabled; existing Randomizer settings unchanged");
  if(!options.enabled||(!options.tires&&!options.liveries)){log("CUSTOMIZATION_DISABLED no menu or wheel hooks installed");return true;}
+ if(options.liveries)load_variants();
  if(!configure_registry()){log("REGISTRY_UNSUPPORTED: customization hooks disabled; no guessed CarID bounds");return false;}
  const auto state=(directory/"MRallyeExtraOptions.state.ini").wstring();
  for(unsigned p=0;p<kPlayers;++p)for(unsigned i=0;i<car_count;++i){wchar_t s[32]{};std::swprintf(s,32,p?L"Player2Car%u":L"Car%u",i);
@@ -331,7 +430,8 @@ bool initialize() noexcept {try{
   }
   if(options.tires||options.liveries)call(kWheelCall,kWheel,reinterpret_cast<void*>(&wheel_update));
   if(options.liveries){slot(kSelectInitSlot,kSelectInit,reinterpret_cast<void*>(&select_init));slot(kSelectTickSlot,kSelectTick,reinterpret_cast<void*>(&select_tick));
-   call(kSelectScrollCall,kSelectScroll,reinterpret_cast<void*>(&select_scroll));}
+   call(kSelectScrollCall,kSelectScroll,reinterpret_cast<void*>(&select_scroll));
+   if(!variants.empty())slot(kDisplayTickSlot,kDisplayTick,reinterpret_cast<void*>(&display_tick));}
  }catch(int){log("HOOK_CONFLICT: Extra Options not installed; selected call/vtable mismatch");return false;}
  for(size_t i=0;i<writes.size();++i)if(!patch(writes[i].address,writes[i].after.data(),writes[i].size)){for(size_t j=0;j<=i;++j)patch(writes[j].address,writes[j].before.data(),writes[j].size);log("HOOK_INSTALL_FAILED rolled back");return false;}
  for(unsigned n=0;n<kRaceCars;++n){race_player[n]=-1;race_car[n]=-1;}

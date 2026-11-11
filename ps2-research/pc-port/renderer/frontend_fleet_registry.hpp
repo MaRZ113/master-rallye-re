@@ -678,6 +678,25 @@ inline constexpr FrontendSource kFleetSourcesWOOLDAND[]={
 };
 inline constexpr bool kFleetUniqueWOOLDAND[]={true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 inline constexpr bool kFleetMixedReflectionWOOLDAND[]={false,true,true,true,true,false,true,false,true,true,true,false,false,false,false,false,false};
+inline constexpr FrontendSource kFleetSourcesFORESTER[]={
+ {"e802218c3a9d0f4eebe5be2ab8617acfb0713fc2a130dc2f7a993321837c637c",373,245},
+ {"69f94eaca5ffc815b8fb9a5c9efd3979e9de3c34765a20a4b60890542fba2383",206,160},
+ {"515a0551b55a4fa298a51cd9d241b5e98f7243d2e0bf6435155141fbbae00b75",22,10},
+ {"8f33f3b015f57780c1f70b9d503057776c788b44839070301a785ff818520359",22,16},
+ {"dd42febddfa0d72a8a9045f5e4611580c27ef9c3fdcb3e35d0209001ece2b45c",10,6},
+ {"326231315bb82bf7cc892aa458f71bc5c142ecbd8cd1924f7564a36b8bb579ec",137,111},
+ {"21ec4b615a9a6d8c2b4d121f5b2f72deb4eefef366a3e838f159bc4ed1041cad",833,645},
+ {"8865939ea5b6bf30ac4cc492e13dfa20e0b4e02850420f83753be10170023ec9",32,22},
+ {"8538d24c4ff636d057bb461306bc1145d5d52919531a68a51a4f6316ecbd1dc3",112,89},
+ {"343bba2439e7cdbea9a83052bc5bb281b32845db6908b13fa474448ab0215f21",216,288},
+ {"95add3e9f6ff56ea585345ffe8de7feda235c4baa9dffba5d3709f6ba95861b7",152,144},
+ {"43412954d6c69efb95bf0932a547884bad7f9c24e64c8cb6b3100cad2992a009",148,216},
+ {"f93c45f44bc866a8f1b3709c40d67be7502c1e8b7400b56ddea4b47c27e9f3aa",76,72},
+ {"70a29b5177cd802cfac9222b75b3584c8dccde5679b4b43c1f2f0d16c0861ed4",288,288},
+ {"4a0ce072753faa817e77871b98df7ddf955ffa3d4a1063a95e153f63b172d6c4",22,16},
+};
+inline constexpr bool kFleetUniqueFORESTER[]={true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+inline constexpr bool kFleetMixedReflectionFORESTER[]={false,true,true,false,true,true,true,false,false,false,true,false,false};
 inline constexpr FleetProfile kFrontendFleetProfiles[]={
  {"Astero","ASTERO","ASTERO-COMPLETE-FLEET.ps2model","23e274aa87ed9e855c1e64da3a121bc53f1e85e1b3355c0c053d2111f6610214",662014,7930,16110,23,18,24,kFleetSourcesASTERO,kFleetUniqueASTERO,kFleetMixedReflectionASTERO},
  {"Bruno","BRUNO","BRUNO-COMPLETE-FLEET.ps2model","423890a58b834aa3cc083461c3b68eb821c782b40801ccd730a0ee6cbc29db77",619603,6766,14244,20,15,16,kFleetSourcesBRUNO,kFleetUniqueBRUNO,kFleetMixedReflectionBRUNO},
@@ -705,5 +724,6 @@ inline constexpr FleetProfile kFrontendFleetProfiles[]={
  {"Tata","TATA","TATA-COMPLETE-FLEET-FIX1.ps2model","553189dd2b55fd39b3210bb7c6936523a815cf8a8b75df71954f59438d634d4f",706382,6640,13860,33,27,31,kFleetSourcesTATA,kFleetUniqueTATA,kFleetMixedReflectionTATA},
  {"Ufo","UFO","UFO-COMPLETE-CONTINUITY2-V1.ps2model","310c10ee1030188a7741973bef45c568096f549055c3d6c5b721cbd5540b10cf",404451,4635,9471,13,14,6,kFleetSourcesUFO,kFleetUniqueUFO,kFleetMixedReflectionUFO},
  {"Forester","WOOLDAND","WOOLDAND-COMPLETE-CONTINUITY2-V1.ps2model","9cc3fc4d7c4690ab7dd3876b809a20cc80c97d97198fd9dbed069c06acdd84f5",608737,6329,12783,19,17,17,kFleetSourcesWOOLDAND,kFleetUniqueWOOLDAND,kFleetMixedReflectionWOOLDAND},
+ {"ForesterSTI","FORESTER","FORESTER-COMPLETE-FLEET.ps2model","07841b01e077b39a8225acf35fe30af2364a185c05401e05287703fa64221d4a",580673,5963,12153,18,13,15,kFleetSourcesFORESTER,kFleetUniqueFORESTER,kFleetMixedReflectionFORESTER},
 };
 }

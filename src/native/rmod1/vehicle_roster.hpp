@@ -31,6 +31,7 @@
 #include <cctype>
 #include <string>
 #include <vector>
+#include "roster_loader_profile.hpp"
 
 namespace vehicle_roster {
 
@@ -282,7 +283,8 @@ inline bool hook_slot(uint32_t slot, void* hook, FARPROC& original) {
 // ---- install ----------------------------------------------------------------------------------------------------
 inline bool install_native(const std::vector<uint8_t>& b, char* why, size_t why_size) {
     auto fail = [&](const char* text) { std::snprintf(why, why_size, "%s", text); return false; };
-    if (b.size() < kHeaderSize || std::memcmp(b.data(), "MRVR", 4) || u32(b, 4) != 1 || u32(b, 8) != kHeaderSize) return fail("ROSTER_FORMAT_UNSUPPORTED");
+    // v1: native transaction only. v2: + MRLP loader profile (offset/size at header 248/252, inside the digest).
+    if (b.size() < kHeaderSize || std::memcmp(b.data(), "MRVR", 4) || (u32(b, 4) != 1 && u32(b, 4) != 2) || u32(b, 8) != kHeaderSize) return fail("ROSTER_FORMAT_UNSUPPORTED");
     const uint32_t ext_address = u32(b, 16), ext_alloc = u32(b, 20), ext_size = u32(b, 24), rw_count = u32(b, 28);
     const uint32_t descriptor_va = u32(b, 96), rvp_offset = u32(b, 144), rvp_size = u32(b, 148), ext_offset = u32(b, 152), ext_size2 = u32(b, 156);
     uint64_t digest = 0; std::memcpy(&digest, b.data() + 160, 8);
@@ -290,6 +292,15 @@ inline bool install_native(const std::vector<uint8_t>& b, char* why, size_t why_
     if (rw_count > 8 || ext_size != ext_size2 || !ext_size || ext_size > ext_alloc || ext_alloc > 64u * 1024 * 1024 ||
         uint64_t(rvp_offset) + rvp_size > b.size() || uint64_t(ext_offset) + ext_size > b.size() || rvp_size < kRvpHeaderSize)
         return fail("ROSTER_LAYOUT_INVALID");
+    roster_profile::Profile profile;
+    if (u32(b, 4) == 2) {
+        const uint32_t at = u32(b, 248), size = u32(b, 252);
+        char note[160]{};
+        if (at < kHeaderSize || uint64_t(at) + size > b.size() || !roster_profile::parse(b.data() + at, size, profile, note, sizeof(note)))
+            { std::snprintf(why, why_size, "ROSTER_PROFILE_INVALID %s", note); return false; }
+        if (profile.registry_count != u32(b, 112) || profile.extension_va != ext_address || profile.extension_size != ext_size)
+            return fail("ROSTER_PROFILE_MISMATCH");
+    }
     // RVP1 table (the launcher's format): identity, then operations with exact preimages.
     const std::vector<uint8_t> rvp(b.begin() + rvp_offset, b.begin() + rvp_offset + rvp_size);
     if (std::memcmp(rvp.data(), "MRVP", 4) || u16(rvp, 4) != 1 || u16(rvp, 6) != 0x014c || u32(rvp, 8) != kImageBase) return fail("RVP_HEADER_UNSUPPORTED");
@@ -359,8 +370,10 @@ inline bool install_native(const std::vector<uint8_t>& b, char* why, size_t why_
     wchar_t value[32]{};
     std::swprintf(value, 32, L"0x%x", descriptor_va);
     SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR", value);
-    std::snprintf(why, why_size, "INSTALLED operations=%u payload=%u at 0x%08x descriptor=0x%08x records=%u", unsigned(ops.size()), ext_size, ext_address,
-                  descriptor_va, u32(b, 112));
+    const bool has_profile = profile.valid;
+    if (has_profile) roster_profile::current() = std::move(profile);
+    std::snprintf(why, why_size, "INSTALLED operations=%u payload=%u at 0x%08x descriptor=0x%08x records=%u loader_profile=%s", unsigned(ops.size()), ext_size, ext_address,
+                  descriptor_va, u32(b, 112), has_profile ? "roster" : "none");
     return true;
 }
 
