@@ -66,6 +66,8 @@ class FrontendModel {
  std::array<std::vector<FrontendVertex>,4> crew_vertices_;
 public:
  FleetDamageState fleet_damage;KiaDamageState kia_damage;FleetDamageProbe fleet_damage_probe;ModelProbe damage_probe;FleetCarProbe fleet_probe;RaceDamageState damage;
+ // VEHICLE-FIX2: draws already identified as a fleet COMPLETE source (skips per-frame hashing while the car is PC-presented).
+ std::array<FrontendRecord,32> fleet_hits{};std::array<const FleetProfile*,32> fleet_hit_profiles{};unsigned fleet_hit_next=0;
  std::array<FrontendRecord,64> fleet_probes{};unsigned fleet_probe_count=0;uint32_t fleet_failed=0;
  std::vector<std::pair<unsigned,unsigned>> trim17_native_runs;std::array<WheelOwnerState,4> wheel_owners{};std::array<FleetWheelOwnerState,16> fleet_wheel_owners{};FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
  uint32_t car_source_logs=0;D3DMATRIX car_view{},car_projection{};D3DVIEWPORT8 car_viewport{};uintptr_t car_target=0;uint64_t car_fault_frame=UINT64_MAX,car_blocked_frame=UINT64_MAX;uint32_t parts_validated=0;uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,32> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
