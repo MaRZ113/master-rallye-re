@@ -91,8 +91,20 @@ Vehicle Manager (Vehicle SDK tool)          dinput8.dll (generic, no car data)
    `D:/Game/Master Rallye/_builds` (tools/publish_build.py). Next: rebase CLASS-T4
    onto `research/v-cap` (MRVC v2 with `class_count` 4; Dakar 2 vehicles become
    IDs 35/36 after 4Runner 33 and NewRav 34).
-2. **Loader module:** `roster.mrvr` reader/applier in `DllMain`, overlay, MRVC
-   export; proof in the Atmo-copy layout (renderer 6.19 `3fa43355`).
+2. **Loader module (first cut, 2026-11-11):** `src/native/rmod1/vehicle_roster.hpp`
+   runs in `DllMain(PROCESS_ATTACH)`: MRVR v1 (`tools/vehicle_roster_build.py` from a
+   V-CAP runtime bundle: 256-byte header + RVP1 table + native payload, FNV-64 body
+   digest), every preimage and the registry singleton checked before the first write,
+   payload at its fixed arena (occupied arena = stock game, logged), MRVC address
+   published in this process' `MR_VEHICLE_REGISTRY_DESCRIPTOR`, resource overlay =
+   only files the target game folder does not already provide (V-CAP3: 334 of 8062),
+   served through the EXE import slots of `CreateFileA`/`GetFileAttributesA`
+   (Menu Builder reads the CreateFileA slot when it hooks 0x64D573, so it chains
+   through the overlay without patching the site twice). Log `MRallyeVehicleRoster.log`.
+   Still pending in this phase: the SDK/G1 Challenge composition is compiled into the
+   loader (`extra_sdk_profile.hpp`) and must move into the roster file; the
+   competition/save guard and `ROSTER_FALLBACK_ID0` read-time mapping are not yet
+   implemented.
 3. **Manager:** package format, install/remove/order UI in Workshop, atomic apply,
    tombstones, save guard.
 4. Owner tests: stock fallback, add/remove/reorder, T4, Extra Options AI, renderer.

@@ -8,6 +8,7 @@
 #include <string>
 
 #include "rmod2_inprocess.hpp"
+#include "vehicle_roster.hpp"
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "extra_options_runtime.hpp"
 #include "extra_ghost.hpp"
@@ -95,9 +96,9 @@ BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
 } // namespace
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID) {
-    // Static CRT may require thread notifications; keep this callback inert.
-    (void)instance;
-    (void)reason;
+    // Vehicle Manager roster (docs/vehicle-manager/DESIGN.md): before the first game instruction, kernel32 only.
+    // Absent roster = no effect. Thread notifications stay inert.
+    if (reason == DLL_PROCESS_ATTACH) vehicle_roster::attach(instance);
     return TRUE;
 }
 
