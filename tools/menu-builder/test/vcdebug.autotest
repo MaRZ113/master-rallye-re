@@ -1,0 +1,37 @@
+# diagnostics: native.forward directly, then after an accept on a served-disabled button
+wait 3000
+key accept
+wait 3000
+key accept
+wait 4000
+expect-screen QuickRace
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+click 150 208
+wait 5000
+dump
+shot d01-forward-direct
+key back
+wait 4000
+expect-screen QuickRace
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+key down
+wait 400
+key down
+wait 400
+expect-focus 3
+key accept
+wait 1500
+key down
+wait 400
+key down
+wait 400
+expect-focus 5
+key accept
+wait 5000
+dump
+shot d02-forward-after-disabled
+end

@@ -44,6 +44,35 @@ public static class Dialogs
         return w.ShowDialog() == true ? list.SelectedItem as string : null;
     }
 
+    /// <summary>
+    /// Message with a choice of buttons; returns the index of the pressed button, or -1 when the window was closed
+    /// (treated as Cancel). The last button is the Cancel button (Esc).
+    /// </summary>
+    public static int Choice(Window owner, string title, string message, string? details, params string[] buttons)
+    {
+        var panel = new StackPanel { Margin = new Thickness(14), MaxWidth = 720 };
+        panel.Children.Add(new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap, FontWeight = FontWeights.SemiBold });
+        if (!string.IsNullOrEmpty(details))
+            panel.Children.Add(new TextBox
+            {
+                Text = details, IsReadOnly = true, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 8, 0, 0), MaxHeight = 320,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto, FontFamily = new System.Windows.Media.FontFamily("Consolas"), FontSize = 12,
+            });
+        var row = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 12, 0, 0) };
+        panel.Children.Add(row);
+        var w = new Window { Title = title, Owner = owner, Content = panel, SizeToContent = SizeToContent.WidthAndHeight, WindowStartupLocation = WindowStartupLocation.CenterOwner, ResizeMode = ResizeMode.NoResize, MinWidth = 380 };
+        int result = -1;
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            int index = i;
+            var b = new Button { Content = buttons[i], MinWidth = 90, Padding = new Thickness(10, 2, 10, 2), Margin = new Thickness(4), IsDefault = i == 0, IsCancel = i == buttons.Length - 1 };
+            b.Click += (_, _) => { result = index; w.DialogResult = true; };
+            row.Children.Add(b);
+        }
+        w.ShowDialog();
+        return result;
+    }
+
     /// <summary>Several labelled text fields; returns null on cancel.</summary>
     public static string[]? Form(Window owner, string title, params (string label, string value)[] fields)
     {

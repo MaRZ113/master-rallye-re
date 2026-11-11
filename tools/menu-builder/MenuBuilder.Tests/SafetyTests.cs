@@ -331,6 +331,8 @@ static class SafetyTests
         var table = Installer.RuntimeTable(lay, ws.Data, ws.Exe);
         Check(table.Contains($"button\tMainMenu\t{progressId}\tProgress\t0\t"), "runtime table blocks the hidden button");
         Check(s.Scene().Find("Progress") != null, "hidden egg stays in the scene (native links kept)");
+        Check(mm.Variants.Values.All(v => v.Find("Progress") is { } hp && !hp.Visible && hp.X == Compiler.HiddenX),
+              "compiled pages park the hidden egg outside the screen (native button AIs ignore en2d Visible)");
 
         // A path that still points at a hidden element is an error.
         var p2 = s.Project.Clone();

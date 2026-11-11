@@ -18,13 +18,15 @@
                 <MenuItem Header="_New project…" Click="OnNewProject" Foreground="Black"/>
                 <MenuItem Header="_Open project…" Click="OnOpenProject" Foreground="Black"/>
                 <MenuItem Header="_Save" Click="OnSave" InputGestureText="Ctrl+S" Foreground="Black"/>
-                <MenuItem Header="Save _as…" Click="OnSaveAs" Foreground="Black"/>
+                <MenuItem Header="Save _as…" Click="OnSaveAs" InputGestureText="Ctrl+Shift+S" Foreground="Black"/>
+                <MenuItem Header="_Close project" Click="OnCloseProject" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="_Import screen…" Click="OnImportScreen" Foreground="Black"/>
                 <MenuItem Header="_Export screen…" Click="OnExportScreen" Foreground="Black"/>
                 <MenuItem Header="Export preview _PNG…" Click="OnExportPng" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="Game _folder…" Click="OnGameFolder" Foreground="Black"/>
+                <MenuItem Header="_Reload game resources" Click="OnReloadResources" InputGestureText="F5" Foreground="Black"/>
                 <MenuItem Header="E_xit" Click="OnExit" Foreground="Black"/>
             </MenuItem>
             <MenuItem Header="_Edit" Foreground="{StaticResource Text}">
@@ -36,6 +38,11 @@
                 <MenuItem Header="_Duplicate" Click="OnDuplicate" InputGestureText="Ctrl+D" Foreground="Black"/>
                 <MenuItem Header="Re_name…" Click="OnRename" InputGestureText="F2" Foreground="Black"/>
                 <MenuItem Header="De_lete" Click="OnDelete" InputGestureText="Del" Foreground="Black"/>
+                <MenuItem Header="_Hide (keep native links)" Click="OnHide" InputGestureText="Ctrl+H" Foreground="Black"/>
+                <MenuItem Header="Sho_w" Click="OnShow" Foreground="Black"/>
+                <MenuItem Header="Disa_ble" Click="OnDisable" Foreground="Black"/>
+                <MenuItem Header="E_nable" Click="OnEnable" Foreground="Black"/>
+                <MenuItem Header="Native de_pendencies…" Click="OnDependencies" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="Apply _style…" Click="OnApplyStyle" Foreground="Black"/>
                 <MenuItem Header="Style from selection…" Click="OnStyleFromSelection" Foreground="Black"/>
@@ -57,7 +64,7 @@
                 <MenuItem Header="Link navigation top→bottom" Click="OnAutoLink" Foreground="Black"/>
             </MenuItem>
             <MenuItem Header="_Screen" Foreground="{StaticResource Text}">
-                <MenuItem Header="Add _retail screen…" Click="OnAddRetailScreen" Foreground="Black"/>
+                <MenuItem Header="Open _frontend screen…" Click="OnAddRetailScreen" Foreground="Black"/>
                 <MenuItem Header="New _custom screen…" Click="OnAddCustomScreen" Foreground="Black"/>
                 <MenuItem Header="Screen _settings…" Click="OnScreenSettings" Foreground="Black"/>
                 <MenuItem Header="Remove screen from project" Click="OnRemoveScreen" Foreground="Black"/>
@@ -91,6 +98,7 @@
                 <CheckBox x:Name="GridBox" Content="Grid" IsChecked="True" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
                 <TextBlock Text=" snap " VerticalAlignment="Center"/>
                 <ComboBox x:Name="SnapBox" Width="55" SelectionChanged="OnViewChanged"/>
+                <CheckBox x:Name="SmartBox" Content="Smart guides (snap)" IsChecked="True" Checked="OnViewChanged" Unchecked="OnViewChanged" ToolTip="Snap to neighbours' edges/centres and the screen while dragging (hold Alt to disable)"/>
                 <CheckBox x:Name="GuidesBox" Content="Guides" IsChecked="True" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
                 <CheckBox x:Name="HitboxBox" Content="Hitboxes" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
                 <CheckBox x:Name="NavBox" Content="Navigation" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
@@ -120,7 +128,7 @@
             <Grid Grid.Column="0" Grid.RowSpan="3" Background="{StaticResource Panel}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="320"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -143,7 +151,10 @@
             </ScrollViewer>
             <GridSplitter Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Background="#FF111214"/>
             <DockPanel Grid.Column="2" Grid.Row="2" Background="{StaticResource Panel}">
-                <TextBlock DockPanel.Dock="Top" x:Name="FindingsTitle" Text="VALIDATION" Margin="6,4" FontWeight="Bold"/>
+                <DockPanel DockPanel.Dock="Top">
+                    <CheckBox DockPanel.Dock="Right" x:Name="InfoBox" Content="show info" Checked="OnInfoToggled" Unchecked="OnInfoToggled"/>
+                    <TextBlock x:Name="FindingsTitle" Text="VALIDATION" Margin="6,4" FontWeight="Bold"/>
+                </DockPanel>
                 <ListBox x:Name="FindingsList" MouseDoubleClick="OnFindingActivated" FontFamily="Consolas" FontSize="12">
                     <ListBox.ContextMenu>
                         <ContextMenu>

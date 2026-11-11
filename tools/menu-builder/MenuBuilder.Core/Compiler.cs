@@ -34,6 +34,8 @@ public sealed class CompiledValue
     public string Source { get; init; } = "";
     public string Format { get; init; } = "{value}";
     public string Fallback { get; init; } = "N/A";
+    /// <summary>The key is a native Broker name the game maintains itself; the runtime does not write it.</summary>
+    public bool Direct { get; init; }
 }
 
 /// <summary>Raised while applying one element; becomes an ERROR finding with its code, operation and fix.</summary>
@@ -80,6 +82,8 @@ public sealed class CompiledLayout
 public sealed class Compiler
 {
     public const int FirstCustomScreenId = 64;
+    /// <summary>X of an author-hidden egg in the compiled page (far outside every aspect's visible range).</summary>
+    public const float HiddenX = -10000f;
     public const string HostScreen = "GraphicsMain", HostAi = "gaFEScreenGraphicsMainAI";
     readonly GameData _data;
     readonly LayoutEngine _layout;
@@ -336,14 +340,14 @@ public sealed class Compiler
         if (!ActionCatalog.IsValidId(p.ValueSource))
             throw new BuildException("VALUE_ID", "bind value", $"'{p.ValueSource}' is not a valid value ID", "use a catalog ID such as vehicle.model_source");
         var t = egg.TextAi ?? throw new BuildException("VALUE_NO_TEXT", "bind value", $"{egg.Kind} element has no text to show a value", "bind values to text or label elements");
-        var key = ValueKey(scene, el.Name);
+        var info = ActionCatalog.Find(p.ValueSource);
+        var key = info?.BrokerName ?? ValueKey(scene, el.Name);
         t.Set("Text*", key, "String");
         t.Set("Text String", "Null", "String");
-        var info = ActionCatalog.Find(p.ValueSource);
         // Preview: an example value for implemented providers, the fallback for planned/unknown ones (as in game).
         var shown = info != null && info.Owner != ActionOwner.Planned ? info.ValueExample : null;
         _layout.PreviewValues[key] = FormatValue(p.ValueFormat, shown ?? p.ValueFallback ?? "N/A");
-        return new CompiledValue { Egg = el.Name, Key = key, Source = ActionCatalog.Canonical(p.ValueSource), Format = p.ValueFormat ?? "{value}", Fallback = p.ValueFallback ?? "N/A" };
+        return new CompiledValue { Egg = el.Name, Key = key, Source = ActionCatalog.Canonical(p.ValueSource), Format = p.ValueFormat ?? "{value}", Fallback = p.ValueFallback ?? "N/A", Direct = info?.BrokerName != null };
     }
 
     /// <summary>Merged style+patch for an element (used for anchors).</summary>
@@ -436,6 +440,16 @@ public sealed class Compiler
                 }
             }
             var retailIds = screen.IsCustom ? new HashSet<int>() : Base(screen.Base).Focusables.Select(e => e.ButtonId ?? 0).ToHashSet();
+            // Hidden by the author: native button AIs redraw their eggs whatever "en2d Visible" says (verified in game,
+            // MainMenu Progress), so the compiled page also parks the egg outside the screen. The egg, its name, Button ID
+            // and native links stay; the runtime gives it no hitbox and swallows its command.
+            foreach (var (a, vdoc) in cs.Variants)
+                foreach (var e in vdoc.Eggs.ToList())
+                    if (e.Kind is not (ElementKind.Screen or ElementKind.Camera) && AuthorFlag(project, screen, e.Name, a, p => p.Visible) == false)
+                    {
+                        e.Visible = false;
+                        e.X = HiddenX;
+                    }
             foreach (var egg in doc.Focusables)
             {
                 int id = egg.ButtonId ?? 0;

@@ -229,7 +229,9 @@ public sealed class Validator
             r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_NOT_IMPLEMENTED", $"'{v.Source}' has no provider yet; the element shows '{Compiler.FormatValue(v.Format, v.Fallback)}'"));
         else if (info == null)
             r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_EXTERNAL", $"'{v.Source}' must be registered by another module (MRMenuRegisterValueV1); until then the element shows '{Compiler.FormatValue(v.Format, v.Fallback)}'"));
-        if (!v.Format.Contains("{value}")) r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_FORMAT", "the format has no {value} placeholder"));
+        if (v.Direct && v.Format != "{value}")
+            r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_FORMAT_IGNORED", $"'{v.Source}' is a native name shown as is; the format '{v.Format}' is not applied") { Fix = "put the caption in a separate text element" });
+        else if (!v.Format.Contains("{value}")) r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_FORMAT", "the format has no {value} placeholder"));
         if ((v.Format + v.Fallback).Any(c => c > '~' || c < ' '))
             r.Add(new(Severity.Error, screen, v.Egg, "VALUE_TEXT", "value format/fallback must be printable ASCII (native Name text)") { Operation = "bind value" });
     }

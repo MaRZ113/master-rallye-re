@@ -22,7 +22,7 @@ public sealed class GameData : IDisposable
         var sma = Path.Combine(Root, "Data.sma");
         if (File.Exists(sma))
         {
-            _sma = new ZipArchive(File.OpenRead(sma), ZipArchiveMode.Read);
+            _sma = new ZipArchive(SmaStream.Open(sma), ZipArchiveMode.Read);
             foreach (var e in _sma.Entries)
                 if (e.Length > 0 || !e.FullName.EndsWith('/')) _entries[Normalize(e.FullName)] = e;
         }
@@ -85,4 +85,60 @@ public sealed class GameData : IDisposable
     public void Dispose() => _sma?.Dispose();
 
     public static string Sha256(byte[] data) => Convert.ToHexString(SHA256.HashData(data)).ToLowerInvariant();
+}
+
+/// <summary>
+/// Read-only view of Data.sma for System.IO.Compression. The retail archive is a ZIP whose end-of-central-directory
+/// signature is "SM" instead of "PK" (the game's VFS checks its own signature); the file on disk is
+/// never modified, the two signature bytes are presented as "PK" while reading. Re-packed archives with the standard
+/// signature are read unchanged.
+/// </summary>
+public sealed class SmaStream : Stream
+{
+    readonly FileStream _f;
+    readonly long _patchAt;   // offset of the 'S' of "SM", or -1
+
+    SmaStream(FileStream f, long patchAt) { _f = f; _patchAt = patchAt; }
+
+    public static Stream Open(string path)
+    {
+        var f = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        // The EOCD record is in the last 22 + 65535 bytes (maximum comment length).
+        long start = Math.Max(0, f.Length - (22 + 65535));
+        var tail = new byte[f.Length - start];
+        f.Position = start;
+        f.ReadExactly(tail);
+        f.Position = 0;
+        for (int i = tail.Length - 22; i >= 0; i--)
+        {
+            if (tail[i + 2] != 5 || tail[i + 3] != 6) continue;
+            if (tail[i] == (byte)'P' && tail[i + 1] == (byte)'K') return f;                 // standard ZIP
+            if (tail[i] == (byte)'S' && tail[i + 1] == (byte)'M') return new SmaStream(f, start + i);
+        }
+        return f;   // let ZipArchive report the problem
+    }
+
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+        long pos = _f.Position;
+        int n = _f.Read(buffer, offset, count);
+        if (_patchAt >= 0)
+            for (int k = 0; k < 2; k++)
+            {
+                long at = _patchAt + k - pos;
+                if (at >= 0 && at < n) buffer[offset + at] = k == 0 ? (byte)'P' : (byte)'K';
+            }
+        return n;
+    }
+
+    public override bool CanRead => true;
+    public override bool CanSeek => true;
+    public override bool CanWrite => false;
+    public override long Length => _f.Length;
+    public override long Position { get => _f.Position; set => _f.Position = value; }
+    public override long Seek(long offset, SeekOrigin origin) => _f.Seek(offset, origin);
+    public override void Flush() { }
+    public override void SetLength(long value) => throw new NotSupportedException();
+    public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+    protected override void Dispose(bool disposing) { if (disposing) _f.Dispose(); base.Dispose(disposing); }
 }

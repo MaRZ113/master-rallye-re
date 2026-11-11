@@ -38,6 +38,7 @@ static class Program
                 "fix-margins" => FixMargins(a),
                 "live" => Live(a),
                 "deps" => Deps(a),
+                "edit" => Edit(a),
                 "actions" => Emit(new { ok = true, actions = ActionCatalog.All }),
                 "api" => Api(),
                 _ => Fail($"unknown command '{cmd}'"),
@@ -71,6 +72,9 @@ static class Program
           fix-margins   --game DIR --project P --screen S              quick fix for renderer PreserveMargins matches
           live          --game DIR                                     latest runtime live dumps (in-game eggs/focus/hitboxes)
           deps          --game DIR --project P --screen S [--element E] native dependency class of elements
+          edit          --game DIR --project P --screen S (--hide E,.. | --show E,.. | --disable E,.. | --enable E,..
+                        | --delete E,.. [--force] | --rename E --to N [--force])  safe element operations (dependency
+                        guard, focus rerouting); a blocked operation exits 1 with the dependencies
           actions                                                      typed action/value catalog
           api                                                          machine-readable description of this API
         """;
@@ -286,6 +290,39 @@ static class Program
 
     static int Uninstall(Args a) => Emit(new { ok = Installer.Uninstall(a.Req("game"), a.Req("layout")) });
 
+    static int Edit(Args a)
+    {
+        using var ws = Ws(a);
+        var path = a.Req("project");
+        var p = MenuProject.Load(path);
+        var screen = a.Req("screen");
+        var session = new EditorSession(ws, p, path);
+        session.OpenScreen(screen);
+        List<string> L(string k) => a.Req(k).Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        string op;
+        try
+        {
+            if (a.Has("hide")) { session.Hide(L("hide")); op = "hide"; }
+            else if (a.Has("show")) { session.Show(L("show")); op = "show"; }
+            else if (a.Has("disable")) { session.SetEnabled(L("disable"), false); op = "disable"; }
+            else if (a.Has("enable")) { session.SetEnabled(L("enable"), true); op = "enable"; }
+            else if (a.Has("delete")) { session.Delete(L("delete"), a.Has("force")); op = "delete"; }
+            else if (a.Has("rename")) { session.Rename(a.Req("rename"), a.Req("to"), a.Has("force")); op = "rename"; }
+            else throw new ArgumentException("one of --hide/--show/--disable/--enable/--delete/--rename is required");
+        }
+        catch (DependencyException dex)
+        {
+            return Emit(new
+            {
+                ok = false, error = dex.Message,
+                blocked = dex.Reports.Select(r => new { element = r.Element, @class = DependencyReport.Label(r.Class), canHide = r.CanHide, dependencies = r.Dependencies.Select(d => d.Detail) }),
+            }, 1);
+        }
+        session.Save();
+        var (_, findings) = ws.Build(session.Project);
+        return Emit(new { ok = true, op, screen, errors = findings.Count(f => f.Severity == Severity.Error), findings = Report(findings.Where(f => f.Screen == screen && f.Severity != Severity.Info).ToList()) });
+    }
+
     static int Deps(Args a)
     {
         using var ws = Ws(a);
@@ -399,6 +436,6 @@ static class Program
         exitCodes = new { ok = 0, validationFailed = 1, usageOrIo = 2, installationFailedOrRolledBack = 3 },
         interfaceModes = Enum.GetNames<InterfaceMode>(), aspects = Aspect.Standard.Select(x => x.Key),
         elementPatch = ElementPatch.Fields.Select(p => new { name = JsonNamingPolicy.CamelCase.ConvertName(p.Name), type = (Nullable.GetUnderlyingType(p.PropertyType) ?? p.PropertyType).Name }),
-        commands = new[] { "screens", "inspect", "render", "compare", "validate", "compile", "install", "activate", "uninstall", "status", "new-project", "add-screen", "export-screen", "import-screen", "texts", "fix-margins", "live", "deps", "actions", "api" },
+        commands = new[] { "screens", "inspect", "render", "compare", "validate", "compile", "install", "activate", "uninstall", "status", "new-project", "add-screen", "export-screen", "import-screen", "texts", "fix-margins", "live", "deps", "edit", "actions", "api" },
     });
 }

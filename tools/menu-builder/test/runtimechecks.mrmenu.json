@@ -1,0 +1,84 @@
+{
+  "format": "mr-menu-project",
+  "version": 1,
+  "name": "RuntimeChecks",
+  "id": "6e4f2745f70b482ba8e172112680d229",
+  "settings": {
+    "mouse": true,
+    "aspects": [
+      "4:3",
+      "16:10",
+      "16:9",
+      "21:9"
+    ],
+    "language": 0
+  },
+  "styles": {},
+  "components": {},
+  "screens": [
+    {
+      "name": "MainMenu",
+      "kind": "retail",
+      "base": "MainMenu",
+      "baseSha256": "96a565f8ded691e5d4df159de41d99c28e2cbb9e7a048e9ab323c28dfcefb227",
+      "elements": [
+        {
+          "name": "Options",
+          "base": "Options",
+          "deleted": false,
+          "patch": {
+            "down": 5
+          }
+        },
+        {
+          "name": "Quit",
+          "base": "Quit",
+          "deleted": false,
+          "patch": {
+            "up": 3
+          }
+        },
+        {
+          "name": "Progress",
+          "base": "Progress",
+          "deleted": false,
+          "patch": {
+            "visible": false,
+            "enabled": false
+          }
+        },
+        {
+          "name": "Multiplayer",
+          "base": "Multiplayer",
+          "deleted": false,
+          "patch": {
+            "enabled": false
+          }
+        },
+        {
+          "name": "MB_Paint",
+          "template": "MainMenu/OnePlayer",
+          "patch": {
+            "x": 140,
+            "y": 30,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "buttonId": 10,
+            "up": 0,
+            "down": 0,
+            "left": 0,
+            "right": 0,
+            "text": "PAINT"
+          },
+          "action": {
+            "type": "extension",
+            "extension": "vehicle.paint"
+          },
+          "note": "planned action: must be served disabled"
+        }
+      ],
+      "aspects": {}
+    }
+  ],
+  "description": "Runtime state checks: hidden Progress (focus rerouted, no hitbox), disabled Multiplayer, planned PAINT action served disabled"
+}

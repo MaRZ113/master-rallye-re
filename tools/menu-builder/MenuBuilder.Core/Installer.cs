@@ -84,7 +84,7 @@ public static class Installer
                 sb.Append($"button\t{s.SceneName}\t{b.Id}\t{b.Egg}\t{(b.Blocked ? 0 : 1)}\t{I(b.Local.X0)} {I(b.Local.Y0)} {I(b.Local.X1)} {I(b.Local.Y1)}\t{ActionTokens(action, Resolve)}\n");
                 foreach (var (a, r) in b.Hit) sb.Append($"hit\t{s.SceneName}\t{b.Id}\t{a}\t{I(r.X0)} {I(r.Y0)} {I(r.X1)} {I(r.Y1)}\n");
             }
-            foreach (var v in s.Values)
+            foreach (var v in s.Values.Where(v => !v.Direct))
                 sb.Append($"value\t{s.SceneName}\t{v.Egg}\t{v.Key}\t{v.Source}\t{Clean(v.Fallback)}\t{Clean(v.Format)}\n");
         }
         sb.Append("end\n");
@@ -104,7 +104,7 @@ public static class Installer
     }
 
     public sealed record InstallResult(Outcome Outcome, string? Directory, List<string> Files, string? RuntimeTable, string Message,
-                                       List<Finding> Findings, string? KeptBackup = null)
+                                       List<Finding> Findings, string? KeptBackup = null, bool NameTaken = false)
     {
         public bool Ok => Outcome is Outcome.Installed or Outcome.Updated;
         public string Title => Outcome switch
@@ -163,7 +163,7 @@ public static class Installer
             if (!SameOwner(owner, project))
                 return new(Outcome.ValidationFailed, live, new(), null,
                     $"a layout named '{layout.Name}' is already installed by another project ({owner.name ?? "unknown"}{(owner.id != null ? ", id " + owner.id : "")}); " +
-                    "rename this project or replace that layout explicitly", all);
+                    "rename this project or replace that layout explicitly", all, NameTaken: true);
         }
 
         var id = Guid.NewGuid().ToString("N")[..8];

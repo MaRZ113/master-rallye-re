@@ -314,21 +314,6 @@
           "patch": {}
         },
         {
-          "name": "VC_CarName",
-          "template": "QuickRace/ModeText",
-          "deleted": false,
-          "patch": {
-            "x": 360.0,
-            "y": 70,
-            "font": 2,
-            "hJustify": 0,
-            "valueSource": "vehicle.name",
-            "valueFormat": "CAR: {value}",
-            "valueFallback": "NO CAR SELECTED"
-          },
-          "note": "live: car selected in Vehicle Select (native Broker names)"
-        },
-        {
           "name": "VC_Model",
           "template": "component:LongButton",
           "deleted": false,

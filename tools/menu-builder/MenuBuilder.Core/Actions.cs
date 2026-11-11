@@ -16,8 +16,10 @@ public enum ActionOwner
 }
 
 /// <summary>A typed action/value ID that elements can bind to. IDs are names, never addresses.</summary>
+/// <param name="BrokerName">Value that already exists as a native Broker Name: the text element shows that key directly
+/// (no runtime formatting, the format must be "{value}").</param>
 public sealed record ActionInfo(string Id, string Title, ActionOwner Owner, bool IsAction, bool HasValue, string Description,
-                                string? ValueExample = null, string? Args = null, string? LegacyId = null);
+                                string? ValueExample = null, string? Args = null, string? LegacyId = null, string? BrokerName = null);
 
 /// <summary>
 /// Catalog of the game actions and values known to this builder version. The runtime implements the same table
@@ -36,8 +38,6 @@ public static class ActionCatalog
         new("vehicle.tyres", "TYRES", ActionOwner.ExtraOptions, true, true,
             "Steps the tyre compound of the car selected in Vehicle Select (same state as the GENERAL page TYRE TYPE row).",
             "STANDARD", "1 = next, -1 = previous"),
-        new("vehicle.name", "VEHICLE NAME", ActionOwner.BuiltIn, false, true,
-            "Manufacturer and model of the car selected in Vehicle Select (native Broker names).", "TOYOTA COROLLA"),
         new("vehicle.build", "BUILD", ActionOwner.Planned, true, true,
             "Preparation level of the selected car (V-CONFIG1, not implemented).", "LEVEL 2"),
         new("vehicle.paint", "PAINT / LIVERY", ActionOwner.Planned, true, true,

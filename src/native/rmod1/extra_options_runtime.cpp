@@ -496,6 +496,36 @@ bool appearance_step(int direction,char* label,size_t size) noexcept {try{
  return true;
  }catch(...){return false;}}
 
+bool appearance_label(char* label,size_t size) noexcept {try{
+ if(!appearance_available()||!label||!size)return false;
+ const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
+ if(!valid_car(car))return false;
+ const unsigned n=paint_count(car),v=paints[player][car].load()%n;
+ std::snprintf(label,size,"%s",paint_label(car,v));return true;
+ }catch(...){return false;}}
+
+// Menu Builder "vehicle.tyres": the TYRE TYPE compound of the Vehicle Select car (the GENERAL page reads the same
+// per-car state when it opens: tyre_sync(true) in general_init).
+bool tyre_available() noexcept {return installed&&options.enabled&&options.tires;}
+bool tyre_label(char* label,size_t size) noexcept {try{
+ if(!tyre_available()||!label||!size)return false;
+ const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
+ if(!valid_car(car))return false;
+ const unsigned v=tires[player][car].load();
+ std::snprintf(label,size,"%s",extra_options::kTireLabels[v<extra_options::kTireCount?v:0]);return true;
+ }catch(...){return false;}}
+bool tyre_step(int direction,char* label,size_t size) noexcept {try{
+ if(!tyre_available())return false;
+ const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
+ if(!valid_car(car))return false;
+ const unsigned n=extra_options::kTireCount,old=tires[player][car].load()%n;
+ const unsigned v=direction<0?(old+n-1)%n:(old+1)%n;
+ tires[player][car]=v;save(player,car);
+ if(label&&size)std::snprintf(label,size,"%s",extra_options::kTireLabels[v]);
+ char line[180]{};std::snprintf(line,sizeof(line),"TIRE_SELECTED player=%d CarID=%d compound=%s source=menu-builder",player+1,car,extra_options::kTireLabels[v]);log(line);
+ return true;
+ }catch(...){return false;}}
+
 } // namespace extra_runtime
 
 namespace {

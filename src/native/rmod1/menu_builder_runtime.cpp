@@ -2,7 +2,10 @@
 #define NOMINMAX
 #include <windows.h>
 #include "menu_builder_runtime.hpp"
+#include "vehicle_roster.hpp"
 #include <array>
+#include <cctype>
+#include <climits>
 #include <cmath>
 #include <cstdarg>
 #include <cstdint>
@@ -30,6 +33,7 @@ constexpr uintptr_t kCreateFileSite = 0x64d573;   // FF 15 [0x68F1E0] CALL Creat
 constexpr uintptr_t kScreenNameSite = 0x45d865;   // CALL 0x449CF0 in the screen change 0x45D6C0
 constexpr uintptr_t kHostInitSlot = 0x690540;     // gaFEScreenGraphicsMainAI vtable 0x69052C [5] = init
 constexpr int kRetailScreens = 0x36, kHostScreen = 0x33, kFirstCustom = 64;
+constexpr const char* kRuntimeVersion = "1.1.0";
 
 struct Api { uintptr_t va; std::array<unsigned char, 8> bytes; };
 constexpr Api kApis[] = {
@@ -54,11 +58,15 @@ struct Action {
     int num(const char* k, int fallback = 0) const { auto it = args.find(k); return it == args.end() ? fallback : std::atoi(it->second.c_str()); }
     std::string str(const char* k) const { auto it = args.find(k); return it == args.end() ? std::string() : it->second; }
 };
+// enabled = false: hidden or disabled by the author (format 2): no hitbox, never focused by the runtime, command swallowed.
 struct Button { int id = 0; std::string egg; bool enabled = true; Rect local; Action action; std::map<std::string, Rect> hit; };
+// Dynamic text: the runtime writes format(value) into the Broker Name the text egg displays.
+struct Value { std::string egg, key, source, fallback, format; std::string shown; };
 struct Screen {
     std::string scene; int id = -1; bool custom = false; std::string source; unsigned long long fnv = 0;
     std::map<std::string, std::string> variants; int focus = 0; bool has_back = false; Action back;
     std::vector<Button> buttons;
+    std::vector<Value> values;
     int base_state = 0; // 0 unknown, 1 ok, -1 base changed (redirect disabled)
     const Button* find(int bid) const { for (auto& b : buttons) if (b.id == bid) return &b; return nullptr; }
 };
@@ -77,9 +85,15 @@ Helper* g_last_helper = nullptr;
 std::vector<int> g_stack;           // navigate.screen return stack
 int g_forward_screen = -1, g_forward_command = 0;  // native.forward: command delivered on the target's first tick
 POINT g_last_mouse{-1, -1};
+// A click on a button that is not focused yet: focus it now, confirm it on the next frame (the native button
+// reader only accepts a confirm for a focus that was already active when it ran).
+int g_deferred_accept = 0;
 bool g_lbutton = false, g_rbutton = false;
 HWND g_window = nullptr;
+// Run-time registrations of other modules (names only; callbacks verified to live in a loaded module image).
 std::map<std::string, MRMenuActionV1> g_extensions;
+std::map<std::string, MRMenuValueV1> g_values;
+int g_format = 0;
 // Diagnostics: scripted frontend test (MenuBuilder.ini [Diagnostics] AutoTest=<file>), run on the game thread.
 struct Step { std::string op; std::vector<std::string> args; };
 std::vector<Step> g_steps;
@@ -167,7 +181,11 @@ bool load_layout(const fs::path& dir) {
         auto t = split(line, '\t');
         if (t.empty() || t[0].empty()) continue;
         const auto& k = t[0];
-        if (k == "MRMENU") { header = t.size() > 1 && t[1] == "1"; if (!header) { log("LAYOUT_FORMAT unsupported"); return false; } }
+        if (k == "MRMENU") {
+            header = t.size() > 1 && (t[1] == "1" || t[1] == "2");
+            if (!header) { log("LAYOUT_FORMAT unsupported (this runtime reads formats 1 and 2)"); return false; }
+            g_format = std::atoi(t[1].c_str());
+        }
         else if (!header) { log("LAYOUT_FORMAT missing header"); return false; }
         else if (k == "layout" && t.size() > 1) g_layout.name = t[1];
         else if (k == "mouse" && t.size() > 1) g_layout.mouse = t[1] == "1";
@@ -188,6 +206,10 @@ bool load_layout(const fs::path& dir) {
                 s->buttons.push_back(b);
             } else if (k == "hit" && t.size() >= 5) {
                 for (auto& b : s->buttons) if (b.id == std::atoi(t[2].c_str())) b.hit[t[3]] = parse_rect(t[4]);
+            } else if (k == "value" && t.size() >= 7) {
+                Value v; v.egg = t[2]; v.key = t[3]; v.source = t[4]; v.fallback = t[5]; v.format = t[6];
+                if (v.key.compare(0, 12, "MenuBuilder/") != 0) { log(fmt("LAYOUT_VALUE rejected key=%s (must be MenuBuilder/...)", v.key.c_str())); return false; }
+                s->values.push_back(v);
             }
         } else if (k == "end") end = true;
     }
@@ -288,21 +310,29 @@ unsigned long long fnv64_file(const char* path) {
     return h;
 }
 
+// The page the game would load without Menu Builder: the Vehicle Manager roster overlay (same dinput8, CreateFileA
+// import redirection) wins over a loose file, which wins over Data.sma. The layout is served only when that page is
+// the one it was compiled against; otherwise the native (or roster) page is kept.
 bool base_ok(Screen& s, const char* request_path) {
     if (s.custom) return true;
     if (s.base_state != 0) return s.base_state > 0;
+    char overlay[MAX_PATH]{};
+    const bool roster = vehicle_roster::redirect(request_path, overlay, sizeof(overlay));
     const DWORD attr = GetFileAttributesA(request_path);
     const bool loose = attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY);
-    if (s.source == "archive") s.base_state = loose ? -1 : 1;
-    else if (s.source == "loose") s.base_state = loose && fnv64_file(request_path) == s.fnv ? 1 : -1;
+    const char* now = roster ? "overlay" : loose ? "loose" : "archive";
+    if (s.source == "archive") s.base_state = !roster && !loose ? 1 : -1;
+    else if (s.source == "loose") s.base_state = !roster && loose && fnv64_file(request_path) == s.fnv ? 1 : -1;
+    else if (s.source == "overlay") s.base_state = roster && fnv64_file(overlay) == s.fnv ? 1 : -1;
     else s.base_state = -1;
     if (s.base_state < 0)
-        log(fmt("BASE_CHANGED scene=%s compiled_from=%s now=%s: layout page disabled, native page kept", s.scene.c_str(), s.source.c_str(), loose ? "loose" : "archive"));
+        log(fmt("BASE_CHANGED scene=%s compiled_from=%s now=%s: layout page disabled, native page kept", s.scene.c_str(), s.source.c_str(), now));
     return s.base_state > 0;
 }
 
 // Extension availability decides whether a button is served enabled.
 bool extension_available(const std::string& name);
+void update_values(Screen& s, bool force);
 
 std::string serve_xml(const Screen& s, const std::string& variant) {
     auto it = s.variants.find(variant);
@@ -310,7 +340,10 @@ std::string serve_xml(const Screen& s, const std::string& variant) {
     fs::path file = g_dir / fs::path(it->second);
     std::vector<std::string> disable;
     for (auto& b : s.buttons)
-        if (b.action.type == "extension" && !extension_available(b.action.str("ext"))) disable.push_back(b.egg);
+        if (b.action.type == "extension" && !extension_available(b.action.str("ext"))) {
+            disable.push_back(b.egg);
+            log(fmt("ACTION_UNAVAILABLE_SERVED scene=%s egg=%s action=%s: button served disabled", s.scene.c_str(), b.egg.c_str(), b.action.str("ext").c_str()));
+        }
     if (disable.empty()) return file.string();
     // Unavailable providers: serve a cached copy with the button's Enabled flag cleared, so the native
     // StandardButton draws it greyed and GetCommand refuses it (UI/Enabled) instead of a dead button.
@@ -352,6 +385,7 @@ HANDLE WINAPI create_file_hook(LPCSTR path, DWORD access, DWORD share, LPSECURIT
                     if (!_stricmp(ext.c_str(), "xml") && base_ok(*s, path)) {
                         refresh_view();
                         g_variant = choose_variant(*s);
+                        update_values(*s, true);
                         const auto target = serve_xml(*s, g_variant);
                         if (!target.empty()) {
                             HANDLE h = g_create_file(target.c_str(), access, share, sa, disposition, flags, templ);
@@ -399,27 +433,93 @@ void __fastcall host_init(void* self, void*, void* argument) {
 }
 
 // ---- actions -------------------------------------------------------------------------------------------
-bool extension_available(const std::string& name) {
+// Typed action/value IDs owned by this module (tools/menu-builder/MenuBuilder.Core/Actions.cs, ActionCatalog).
+// Built-in and Extra Options IDs can never be taken over by a registration; planned IDs (vehicle.build/paint/apply)
+// are free for the module that implements them.
+std::string canonical(const std::string& id) { return id == "extra_options.model_source" ? "vehicle.model_source" : id; }
+bool owned_id(const std::string& id) {
+    const auto c = canonical(id);
+    return c == "vehicle.model_source" || c == "vehicle.tyres" || c == "game.quit";
+}
+bool valid_id(const char* id) {
+    if (!id) return false;
+    const size_t n = std::strlen(id);
+    if (n == 0 || n > 63 || !std::islower(static_cast<unsigned char>(id[0]))) return false;
+    bool dot = false, after_dot = false;
+    for (size_t i = 0; i < n; ++i) {
+        const char c = id[i];
+        if (c == '.') { if (after_dot || i + 1 == n) return false; dot = true; after_dot = true; continue; }
+        if (after_dot && !std::islower(static_cast<unsigned char>(c))) return false;
+        after_dot = false;
+        if (!(std::islower(static_cast<unsigned char>(c)) || std::isdigit(static_cast<unsigned char>(c)) || c == '_')) return false;
+    }
+    return dot;
+}
+// A callback must be code inside a module image loaded in this process (never an arbitrary address).
+bool callback_in_image(const void* p) {
+    MEMORY_BASIC_INFORMATION m{};
+    if (!p || VirtualQuery(p, &m, sizeof(m)) != sizeof(m) || m.State != MEM_COMMIT || m.Type != MEM_IMAGE) return false;
+    const DWORD prot = m.Protect & 0xff;
+    if (!(prot == PAGE_EXECUTE || prot == PAGE_EXECUTE_READ || prot == PAGE_EXECUTE_READWRITE || prot == PAGE_EXECUTE_WRITECOPY)) return false;
+    HMODULE owner = nullptr;
+    return GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, static_cast<LPCWSTR>(p), &owner) && owner;
+}
+
+bool extension_available(const std::string& id) {
+    const auto name = canonical(id);
     if (g_extensions.count(name)) return true;
     if (name == "game.quit") return true;
 #if defined(RMOD_EXTRA_OPTIONS)
-    if (name == "extra_options.model_source") return extra_runtime::appearance_available();
+    if (name == "vehicle.model_source") return extra_runtime::appearance_available();
+    if (name == "vehicle.tyres") return extra_runtime::tyre_available();
 #endif
     return false;
 }
 
-bool run_extension(const std::string& name, const std::string& args, int screen, int button) {
+bool run_extension(const std::string& id, const std::string& args, int screen, int button) {
+    const auto name = canonical(id);
     if (auto it = g_extensions.find(name); it != g_extensions.end()) return it->second(args.c_str(), screen, button) != 0;
     if (name == "game.quit") { put_bool("Game/Quit", true); return true; }
 #if defined(RMOD_EXTRA_OPTIONS)
-    if (name == "extra_options.model_source") {
-        char label[64]{};
-        const bool ok = extra_runtime::appearance_step(args == "-1" ? -1 : 1, label, sizeof(label));
-        if (ok) log(fmt("EXTENSION extra_options.model_source -> %s", label));
-        return ok;
-    }
+    char label[64]{};
+    const int direction = args == "-1" ? -1 : 1;
+    if (name == "vehicle.model_source" && extra_runtime::appearance_step(direction, label, sizeof(label))) { log(fmt("ACTION vehicle.model_source -> %s", label)); return true; }
+    if (name == "vehicle.tyres" && extra_runtime::tyre_step(direction, label, sizeof(label))) { log(fmt("ACTION vehicle.tyres -> %s", label)); return true; }
 #endif
     return false;
+}
+
+// Current value of a value ID, or false when no provider can answer (the fallback is shown).
+bool value_of(const std::string& id, int screen, std::string& out) {
+    const auto name = canonical(id);
+    char text[128]{};
+    if (auto it = g_values.find(name); it != g_values.end()) {
+        const int n = it->second(text, int(sizeof(text)), screen);
+        if (n <= 0) return false;
+        text[sizeof(text) - 1] = 0; out = text; return true;
+    }
+#if defined(RMOD_EXTRA_OPTIONS)
+    if (name == "vehicle.model_source" && extra_runtime::appearance_label(text, sizeof(text))) { out = text; return true; }
+    if (name == "vehicle.tyres" && extra_runtime::tyre_label(text, sizeof(text))) { out = text; return true; }
+#endif
+    (void)screen;
+    return false;
+}
+
+// Native Name text (upper case, printable ASCII) of every dynamic value of the screen; written only on a change.
+void update_values(Screen& s, bool force) {
+    for (auto& v : s.values) {
+        std::string value;
+        if (!value_of(v.source, s.id, value)) value = v.fallback;
+        std::string text = v.format;
+        const auto at = text.find("{value}");
+        if (at != std::string::npos) text.replace(at, 7, value);
+        for (auto& c : text) { c = (c < 32 || c > 126) ? ' ' : char(std::toupper(static_cast<unsigned char>(c))); }
+        if (!force && text == v.shown) continue;
+        put_name(v.key.c_str(), text.c_str());
+        if (text != v.shown) log(fmt("VALUE scene=%s egg=%s source=%s text=\"%s\"", s.scene.c_str(), v.egg.c_str(), v.source.c_str(), text.c_str()));
+        v.shown = text;
+    }
 }
 
 int screen_index(const Helper* h) {
@@ -493,7 +593,7 @@ const Button* hit_test(const Screen& s, double ux, double uy) {
     for (auto& b : s.buttons) {
         bool live = false;
         const Rect r = live_rect(b, live);
-        if (!live || r.empty()) continue;  // eggs that do not exist in the live scene are not clickable
+        if (!b.enabled || !live || r.empty()) continue;  // blocked (hidden/disabled) or absent eggs are not clickable
         if (ux >= r.x0 && ux < r.x1 && uy >= r.y0 && uy < r.y1) best = &b;  // later (drawn on top) wins
     }
     return best;
@@ -508,6 +608,9 @@ void mouse(const Screen& s) {
     g_ratio = double(r.right) / r.bottom;
     const double vw = g_mode == 0 ? 640.0 : 480.0 * g_ratio;
     const double ux = p.x * vw / r.right - half_extra(), uy = 480.0 - p.y * 480.0 / r.bottom;
+    // A cursor that has not moved since the screen became active never takes the focus (it may simply rest over a
+    // button when the screen loads); hover applies only after a real movement on this screen.
+    if (g_last_mouse.x == LONG_MIN) g_last_mouse = p;
     const bool moved = p.x != g_last_mouse.x || p.y != g_last_mouse.y;
     g_last_mouse = p;
     const bool l = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0, rb = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
@@ -516,7 +619,11 @@ void mouse(const Screen& s) {
     if (!inside) return;
     const Button* b = hit_test(s, ux, uy);
     if (b && (moved || lclick) && get_int("UI/Active") != b->id) put_int("UI/Active", b->id);
-    if (b && lclick) { put_int("UI/Control", 4); log(fmt("MOUSE_CLICK scene=%s button=%d egg=%s ui=(%.1f,%.1f)", s.scene.c_str(), b->id, b->egg.c_str(), ux, uy)); }
+    if (b && lclick) {
+        if (get_int("UI/Active") != b->id) { put_int("UI/Active", b->id); g_deferred_accept = b->id; }
+        else put_int("UI/Control", 4);
+        log(fmt("MOUSE_CLICK scene=%s button=%d egg=%s ui=(%.1f,%.1f)", s.scene.c_str(), b->id, b->egg.c_str(), ux, uy));
+    }
     if (rclick) put_int("UI/Control", 5);
 }
 
@@ -578,12 +685,43 @@ void autotest(Screen* s, int sid) {
     else if (st.op == "click" || st.op == "hover") {
         const double ux = std::atof(arg(0).c_str()), uy = std::atof(arg(1).c_str());
         const Button* b = s ? hit_test(*s, ux, uy) : nullptr;
-        if (b) { put_int("UI/Active", b->id); if (st.op == "click") put_int("UI/Control", 4); }
+        if (b) {
+            const bool focused = get_int("UI/Active") == b->id;
+            put_int("UI/Active", b->id);
+            if (st.op == "click") { if (focused) put_int("UI/Control", 4); else g_deferred_accept = b->id; }
+        }
         log(fmt("TEST %s ui=(%.1f,%.1f) scene=%s -> %s", st.op.c_str(), ux, uy, scene, b ? b->egg.c_str() : "nothing"));
     }
     else if (st.op == "expect-screen") check(s ? !_stricmp(s->scene.c_str(), arg(0).c_str()) : std::atoi(arg(0).c_str()) == sid && sid >= 0,
                                              fmt("screen %s (now %s/%d)", arg(0).c_str(), scene, sid));
     else if (st.op == "expect-focus") check(get_int("UI/Active") == std::atoi(arg(0).c_str()), fmt("focus %s (now %d) on %s", arg(0).c_str(), get_int("UI/Active"), scene));
+    else if (st.op == "expect-value") {
+        // expect-value <egg> <text with _ for spaces>
+        std::string want = arg(1); for (auto& c : want) if (c == '_') c = ' ';
+        std::string shown = "(none)";
+        if (s) for (auto& v : s->values) if (v.egg == arg(0)) shown = v.shown;
+        check(shown == want, fmt("value %s = \"%s\" (now \"%s\")", arg(0).c_str(), want.c_str(), shown.c_str()));
+    }
+    else if (st.op == "note-value" || st.op == "expect-value-changed" || st.op == "expect-value-prefix") {
+        // note-value <egg> | expect-value-changed <egg> | expect-value-prefix <egg> <prefix with _ for spaces>
+        static std::map<std::string, std::string> noted;
+        std::string shown = "(none)";
+        if (s) for (auto& v : s->values) if (v.egg == arg(0)) shown = v.shown;
+        if (st.op == "note-value") { noted[arg(0)] = shown; log(fmt("TEST note value %s = \"%s\"", arg(0).c_str(), shown.c_str())); }
+        else if (st.op == "expect-value-changed") check(noted.count(arg(0)) && noted[arg(0)] != shown && shown != "(none)",
+                                                         fmt("value %s changed (\"%s\" -> \"%s\")", arg(0).c_str(), noted[arg(0)].c_str(), shown.c_str()));
+        else { std::string want = arg(1); for (auto& c : want) if (c == '_') c = ' ';
+               check(shown.compare(0, want.size(), want) == 0, fmt("value %s starts with \"%s\" (now \"%s\")", arg(0).c_str(), want.c_str(), shown.c_str())); }
+    }
+    else if (st.op == "expect-blocked") {
+        const Button* b = s ? s->find(std::atoi(arg(0).c_str())) : nullptr;
+        check(b && !b->enabled, fmt("button %s blocked", arg(0).c_str()));
+    }
+    else if (st.op == "expect-served-disabled") {
+        bool found = false;
+        if (s) for (auto& b : s->buttons) if (b.egg == arg(0)) found = b.action.type == "extension" && !extension_available(b.action.str("ext"));
+        check(found, fmt("button %s served disabled (no handler)", arg(0).c_str()));
+    }
     else if (st.op == "expect-hit") {
         const Button* b = s ? hit_test(*s, std::atof(arg(0).c_str()), std::atof(arg(1).c_str())) : nullptr;
         check(arg(2) == "none" ? b == nullptr : (b && b->egg == arg(2)), fmt("hit (%s,%s) = %s (now %s)", arg(0).c_str(), arg(1).c_str(), arg(2).c_str(), b ? b->egg.c_str() : "nothing"));
@@ -608,10 +746,19 @@ int __fastcall get_command(Helper* h, void*, int sound) {
         if (s && h != g_last_helper) {
             g_last_helper = h;
             if (!s->custom && s->focus && !s->find(get_int("UI/Active"))) put_int("UI/Active", s->focus);
+            // Focus never rests on a hidden/disabled button: move it to the first enabled one.
+            if (const Button* f = s->find(get_int("UI/Active")); f && !f->enabled)
+                for (auto& b : s->buttons) if (b.enabled) { put_int("UI/Active", b.id); log(fmt("FOCUS_MOVED from blocked %d to %d", f->id, b.id)); break; }
+            g_last_mouse = {LONG_MIN, LONG_MIN};
+            g_lbutton = g_rbutton = false;
             log(fmt("SCREEN_ACTIVE scene=%s id=%d variant=%s focus=%d", s->scene.c_str(), sid, g_variant.c_str(), get_int("UI/Active")));
             live_dump(*s, sid);
         }
-        if (s && g_layout.mouse) mouse(*s);
+        if (g_deferred_accept) {
+            if (s && get_int("UI/Active") == g_deferred_accept) put_int("UI/Control", 4);
+            g_deferred_accept = 0;
+        } else if (s && g_layout.mouse) mouse(*s);
+        if (s && !s->values.empty()) update_values(*s, false);
         if (!g_steps.empty()) autotest(s, sid);
     } catch (...) { s = nullptr; }
     // native.forward: the target screen's own AI receives the command as if its button was pressed.
@@ -626,6 +773,7 @@ int __fastcall get_command(Helper* h, void*, int sound) {
     try {
         if (result > 0) {
             if (const Button* b = s->find(result)) {
+                if (!b->enabled) { log(fmt("BLOCKED scene=%s button=%d egg=%s: hidden/disabled, command ignored", s->scene.c_str(), result, b->egg.c_str())); return -1; }
                 if (b->action.type == "native" && !b->action.args.count("command")) return result;  // retail command, native AI owns it
                 return execute(h, sid, result, b->action);
             }
@@ -733,8 +881,16 @@ bool initialize() noexcept {
         g_installed = true;
         size_t buttons = 0, custom = 0;
         for (auto& s : g_layout.screens) { buttons += s.buttons.size(); custom += s.custom; }
-        log(fmt("READY MENU-BUILDER layout=%s screens=%u custom=%u buttons=%u mouse=%d hooks=%u", g_layout.name.c_str(),
-                unsigned(g_layout.screens.size()), unsigned(custom), unsigned(buttons), g_layout.mouse ? 1 : 0, unsigned(writes.size())));
+        size_t values = 0; for (auto& s : g_layout.screens) values += s.values.size();
+        log(fmt("READY MENU-BUILDER %s layout=%s format=%d screens=%u custom=%u buttons=%u values=%u mouse=%d hooks=%u roster_overlay=%u extra_options=%d", kRuntimeVersion,
+                g_layout.name.c_str(), g_format, unsigned(g_layout.screens.size()), unsigned(custom), unsigned(buttons), unsigned(values), g_layout.mouse ? 1 : 0,
+                unsigned(writes.size()), unsigned(vehicle_roster::state().overlay.size()),
+#if defined(RMOD_EXTRA_OPTIONS)
+                1
+#else
+                0
+#endif
+                ));
         return true;
     } catch (...) {
         log("INITIALIZATION_FAILED");
@@ -746,15 +902,39 @@ bool initialize() noexcept {
 
 extern "C" unsigned WINAPI MRMenuAbiV1() { return 0x4d4d0001u; }
 
+extern "C" unsigned WINAPI MRMenuAbiV2() { return 0x4d4d0002u; }
+
+// One owner per ID: the first valid registration wins; IDs of this module (built in / Extra Options) are refused.
 extern "C" BOOL WINAPI MRMenuRegisterActionV1(const char* name, MRMenuActionV1 action) {
-    if (!name || !*name || !action) return FALSE;
-    try { menu_builder::g_extensions[name] = action; menu_builder::log(menu_builder::fmt("EXTENSION_REGISTERED %s", name)); return TRUE; } catch (...) { return FALSE; }
+    using namespace menu_builder;
+    try {
+        if (!valid_id(name)) { log(fmt("EXTENSION_REJECTED invalid id '%s'", name ? name : "(null)")); return FALSE; }
+        if (owned_id(name)) { log(fmt("EXTENSION_REJECTED %s: owned by Menu Builder/Extra Options", name)); return FALSE; }
+        if (!callback_in_image(reinterpret_cast<const void*>(action))) { log(fmt("EXTENSION_REJECTED %s: callback is not code of a loaded module", name)); return FALSE; }
+        if (!g_extensions.emplace(name, action).second) { log(fmt("EXTENSION_CONFLICT %s: already registered by another module", name)); return FALSE; }
+        log(fmt("EXTENSION_REGISTERED %s", name));
+        return TRUE;
+    } catch (...) { return FALSE; }
+}
+
+extern "C" BOOL WINAPI MRMenuRegisterValueV1(const char* name, MRMenuValueV1 provider) {
+    using namespace menu_builder;
+    try {
+        if (!valid_id(name)) { log(fmt("VALUE_PROVIDER_REJECTED invalid id '%s'", name ? name : "(null)")); return FALSE; }
+        if (owned_id(name)) { log(fmt("VALUE_PROVIDER_REJECTED %s: owned by Menu Builder/Extra Options", name)); return FALSE; }
+        if (!callback_in_image(reinterpret_cast<const void*>(provider))) { log(fmt("VALUE_PROVIDER_REJECTED %s: callback is not code of a loaded module", name)); return FALSE; }
+        if (!g_values.emplace(name, provider).second) { log(fmt("VALUE_PROVIDER_CONFLICT %s: already registered", name)); return FALSE; }
+        log(fmt("VALUE_PROVIDER_REGISTERED %s", name));
+        return TRUE;
+    } catch (...) { return FALSE; }
 }
 
 extern "C" int WINAPI MRMenuQueryV1(char* buffer, int size) {
     if (!buffer || size <= 0) return 0;
-    const auto text = menu_builder::fmt("installed=%d layout=%s screen=%d variant=%s mode=%d", menu_builder::g_installed ? 1 : 0,
-                                        menu_builder::g_layout.name.c_str(), menu_builder::g_current, menu_builder::g_variant.c_str(), menu_builder::g_mode);
+    const auto text = menu_builder::fmt("abi=2 version=%s installed=%d layout=%s format=%d screen=%d variant=%s mode=%d actions=%u values=%u",
+                                        menu_builder::kRuntimeVersion, menu_builder::g_installed ? 1 : 0, menu_builder::g_layout.name.c_str(), menu_builder::g_format,
+                                        menu_builder::g_current, menu_builder::g_variant.c_str(), menu_builder::g_mode,
+                                        unsigned(menu_builder::g_extensions.size()), unsigned(menu_builder::g_values.size()));
     std::snprintf(buffer, size_t(size), "%s", text.c_str());
     return int(text.size());
 }
