@@ -381,6 +381,13 @@ bool IsUserEditableOptions(const fs::path& relative) {
     return Lower(relative.generic_wstring()) == L"datagame/options.xml";
 }
 
+// Clean retail archive (tools/addon_collection_runtime.py RETAIL_DATA_SMA_*).
+constexpr uint64_t kRetailDataSmaSize = 282396172ull;
+constexpr const char* kRetailDataSmaSha256 = "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f";
+bool IsRootArchive(const fs::path& relative) {
+    return Lower(relative.generic_wstring()) == L"data.sma";
+}
+
 void VerifyResourceRoot(const fs::path& root, const fs::path& indexPath) {
     FileHashEquals(indexPath, MR_RESOURCE_INDEX_SHA256, "resource index");
     const fs::path manifestPath = indexPath.parent_path() / L"resource-manifest.json";
@@ -430,6 +437,12 @@ void VerifyResourceRoot(const fs::path& root, const fs::path& indexPath) {
             // closed before the game parses it.
             if (actualSize == 0 || actualSize > kMaxMutableOptionsBytes)
                 Fail("editable DataGame/options.xml is empty or exceeds 64 KiB");
+        } else if (IsRootArchive(rel) && actualSize == kRetailDataSmaSize && HashFile(full) == kRetailDataSmaSha256) {
+            // The packaged Data.sma differs from retail only in archive entries the
+            // indexed loose root overrides (vehicles.xml, Modifications.xml,
+            // VehicleSelect.xml). The exact retail archive is an accepted substitute;
+            // any other archive still fails closed.
+            std::cout << "RESOURCE_ARCHIVE_RETAIL_SUBSTITUTE sha256=" << kRetailDataSmaSha256 << "\n";
         } else {
             if (actualSize != expectedSize) Fail("resource size mismatch: " + relative);
             if (HashFile(full) != digest) Fail("resource SHA256 mismatch: " + relative);
