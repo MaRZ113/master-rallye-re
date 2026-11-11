@@ -48,6 +48,8 @@ struct State {
     std::vector<std::string> overlay; // sorted, lower case, forward slashes, game-relative
     FARPROC create_file = nullptr, get_attributes = nullptr;
     bool installed = false;
+    // Save guard: class of every physical ID the running roster offers (-1 = not offered), first ID per class.
+    std::vector<int> id_class; int class_first[4]{0, 7, 14, -1}; bool save_guard = false; const char* class_source = "retail";
 };
 inline State& state() { static State s; return s; }
 
@@ -138,13 +140,123 @@ inline bool redirect(const char* path, char* out, size_t size) {
     return std::snprintf(out, size, "%s%s", s.overlay_dir, rel.c_str()) > 0;
 }
 
+// ---- save guard (ROSTER_FALLBACK_ID0) -----------------------------------------------------------------------------
+// The owner's decision: a saved car the installed roster does not offer must never crash the game. PlayerState.xml
+// is served through a sanitized private copy whenever it holds such an ID; the save itself is not rewritten (the
+// game's next normal save stores the replacement). Class-scoped keys (PlayerT<c>Car<n>) get the first car of their
+// class, because a car of another class breaks that class list; every other key gets ID0.
+inline bool memory_readable(uint32_t va, size_t n) {
+    MEMORY_BASIC_INFORMATION m{};
+    return va && VirtualQuery(reinterpret_cast<void*>(uintptr_t(va)), &m, sizeof(m)) == sizeof(m) && m.State == MEM_COMMIT &&
+           !(m.Protect & (PAGE_GUARD | PAGE_NOACCESS)) && uintptr_t(va) + n <= uintptr_t(m.BaseAddress) + m.RegionSize;
+}
+inline void load_classes() {
+    auto& s = state();
+    s.id_class.assign(25, -1);
+    for (int id = 0; id < 25; ++id) s.id_class[size_t(id)] = id < 7 ? 0 : id < 14 ? 1 : 2;   // retail: T1 0..6, T2 7..13, T3 14..24
+    s.class_first[0] = 0; s.class_first[1] = 7; s.class_first[2] = 14; s.class_first[3] = -1; s.class_source = "retail";
+    char value[32]{};
+    const DWORD n = GetEnvironmentVariableA("MR_VEHICLE_REGISTRY_DESCRIPTOR", value, sizeof(value));
+    if (!n || n >= sizeof(value)) return;
+    const uint32_t va = uint32_t(std::strtoul(value, nullptr, 16));
+    uint32_t d[11]{};
+    if (!memory_readable(va, sizeof(d))) return;
+    std::memcpy(d, reinterpret_cast<void*>(uintptr_t(va)), sizeof(d));
+    if (std::memcmp(d, "MRVC", 4) || d[1] != 1 || !d[3] || d[3] > 4096 || !d[5] || d[5] > 4) return;
+    uint32_t counts[4]{}, tables[4]{};
+    if (!memory_readable(d[7], d[5] * 4) || !memory_readable(d[8], d[5] * 4)) return;
+    std::memcpy(counts, reinterpret_cast<void*>(uintptr_t(d[7])), d[5] * 4);
+    std::memcpy(tables, reinterpret_cast<void*>(uintptr_t(d[8])), d[5] * 4);
+    std::vector<int> classes(d[3], -1); int first[4]{-1, -1, -1, -1};
+    for (uint32_t c = 0; c < d[5]; ++c) {
+        if (counts[c] > d[3] || !memory_readable(tables[c], counts[c] * 4)) return;
+        for (uint32_t i = 0; i < counts[c]; ++i) {
+            uint32_t id = 0; std::memcpy(&id, reinterpret_cast<void*>(uintptr_t(tables[c] + i * 4)), 4);
+            if (id >= d[3]) return;
+            classes[id] = int(c); if (first[c] < 0) first[c] = int(id);
+        }
+    }
+    s.id_class = std::move(classes);
+    for (int c = 0; c < 4; ++c) s.class_first[c] = first[c];
+    s.class_source = "registry";
+}
+// Integer value of `Name="key"` lines; returns the class scope (0..3) of PlayerT<c>Car keys, 4 for unscoped car keys,
+// -1 for anything that is not a car ID.
+inline int car_key_scope(const std::string& name) {
+    auto ends = [&](const char* tail) { const size_t n = std::strlen(tail); return name.size() > n && !name.compare(name.size() - n, n, tail); };
+    for (const char* prefix : {"RallyeCup/PlayerT", "MasterRallye/PlayerT"}) {
+        const size_t n = std::strlen(prefix);
+        if (!name.compare(0, n, prefix) && name.size() > n + 4 && name[n] >= '1' && name[n] <= '4' && !name.compare(n + 1, 3, "Car") &&
+            name.find_first_not_of("0123456789", n + 4) == std::string::npos) return name[n] - '1';
+    }
+    auto starts = [&](const char* head) { return !name.compare(0, std::strlen(head), head); };
+    auto digits_after = [&](const char* head) { const size_t n = std::strlen(head); if (!starts(head) || name.size() == n) return false;
+        for (size_t i = n; i < name.size(); ++i) if (name[i] < '0' || name[i] > '9') return false; return true; };
+    if (digits_after("Frontend/QuickRace/Car") || digits_after("Frontend/Network/Car")) return 4;
+    if (starts("MasterRallye/Car") && ends("/CarID")) return 4;
+    return -1;
+}
+inline bool sanitize_save(const char* original, char* out, size_t out_size) {
+    auto& s = state();
+    std::vector<uint8_t> raw;
+    if (!read_file(original, raw, 16ull * 1024 * 1024)) return false;
+    std::string text(raw.begin(), raw.end()), fixed;
+    fixed.reserve(text.size());
+    unsigned changes = 0; size_t at = 0;
+    while (at < text.size()) {
+        size_t end = text.find('\n', at); if (end == std::string::npos) end = text.size(); else ++end;
+        std::string line = text.substr(at, end - at); at = end;
+        const size_t name_at = line.find("Name=\"");
+        const size_t type_at = line.find("Type=\"Int\" Value=\"");
+        if (name_at != std::string::npos && type_at != std::string::npos) {
+            const size_t name_end = line.find('"', name_at + 6);
+            const std::string name = line.substr(name_at + 6, name_end - name_at - 6);
+            const int scope = car_key_scope(name);
+            if (scope >= 0) {
+                const size_t v = type_at + 18, v_end = line.find('"', v);
+                const long id = std::strtol(line.substr(v, v_end - v).c_str(), nullptr, 10);
+                const bool offered = id >= 0 && size_t(id) < s.id_class.size() && s.id_class[size_t(id)] >= 0;
+                const bool in_class = scope == 4 || (offered && s.id_class[size_t(id)] == scope);
+                if (!offered || !in_class) {
+                    const int replacement = scope < 4 && s.class_first[scope] >= 0 ? s.class_first[scope] : 0;
+                    line.replace(v, v_end - v, std::to_string(replacement));
+                    char note[200]{};
+                    std::snprintf(note, sizeof(note), "ROSTER_FALLBACK_ID0 key=%s id=%ld -> %d (%s)", name.c_str(), id, replacement,
+                                  offered ? "other class" : "not in the installed roster");
+                    log(note); ++changes;
+                }
+            }
+        }
+        fixed += line;
+    }
+    if (!changes) return false;
+    char dir[MAX_PATH]{}, file[MAX_PATH]{};
+    std::snprintf(dir, sizeof(dir), "%sMRMods", s.game_dir); CreateDirectoryA(dir, nullptr);
+    std::snprintf(dir, sizeof(dir), "%sMRMods\\Vehicles", s.game_dir); CreateDirectoryA(dir, nullptr);
+    std::snprintf(file, sizeof(file), "%sMRMods\\Vehicles\\PlayerState.read.xml", s.game_dir);
+    HANDLE h = CreateFileA(file, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (h == INVALID_HANDLE_VALUE) return false;
+    DWORD written = 0;
+    const bool ok = WriteFile(h, fixed.data(), DWORD(fixed.size()), &written, nullptr) && written == fixed.size();
+    CloseHandle(h);
+    if (!ok) return false;
+    char note[160]{};
+    std::snprintf(note, sizeof(note), "SAVE_GUARD served a corrected copy of PlayerState.xml (%u car IDs, classes from %s); the save file is unchanged", changes, s.class_source);
+    log(note);
+    return std::snprintf(out, out_size, "%s", file) > 0;
+}
+
 using CreateFileAFn = HANDLE(WINAPI*)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
 using GetFileAttributesAFn = DWORD(WINAPI*)(LPCSTR);
 inline HANDLE WINAPI create_file(LPCSTR path, DWORD access, DWORD share, LPSECURITY_ATTRIBUTES sa, DWORD disposition, DWORD flags, HANDLE templ) {
     const auto real = reinterpret_cast<CreateFileAFn>(state().create_file);
     if (!(access & (GENERIC_WRITE | FILE_WRITE_DATA | FILE_APPEND_DATA | DELETE)) && disposition == OPEN_EXISTING) {
         char target[MAX_PATH * 2]{};
-        try { if (redirect(path, target, sizeof(target))) return real(target, access, share, sa, disposition, flags, templ); } catch (...) {}
+        try {
+            if (state().save_guard && overlay_key(path) == "datagame/playerstate.xml") {
+                if (sanitize_save(path, target, sizeof(target))) return real(target, access, share, sa, disposition, flags, templ);
+            } else if (redirect(path, target, sizeof(target))) return real(target, access, share, sa, disposition, flags, templ);
+        } catch (...) {}
     }
     return real(path, access, share, sa, disposition, flags, templ);
 }
@@ -262,27 +374,36 @@ inline void attach(HINSTANCE self) {
         if (!slash) return;
         slash[1] = 0;
         std::snprintf(s.game_dir, sizeof(s.game_dir), "%s", module);
+        // The executable must be the one this DLL serves (a static importer at the retail base).
+        if (reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr)) != kImageBase) return;
         char roster[MAX_PATH]{};
         std::snprintf(roster, sizeof(roster), "%sMRMods\\Vehicles\\active\\roster.mrvr", s.game_dir);
-        if (GetFileAttributesA(roster) == INVALID_FILE_ATTRIBUTES) return;   // no Vehicle Manager roster: stock, silent
-        // The executable must be the one this DLL serves (a static importer at the retail base).
-        if (reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr)) != kImageBase) { log("ROSTER_SKIPPED executable is not at the retail image base"); return; }
-        std::vector<uint8_t> bytes;
-        if (!read_file(roster, bytes, 64ull * 1024 * 1024)) { log("ROSTER_SKIPPED roster.mrvr unreadable"); return; }
-        char why[256]{};
-        if (!install_native(bytes, why, sizeof(why))) { char line[320]{}; std::snprintf(line, sizeof(line), "ROSTER_NOT_INSTALLED %s; stock game", why); log(line); return; }
-        log(why);
-        s.installed = true;
-        std::snprintf(s.overlay_dir, sizeof(s.overlay_dir), "%sMRMods\\Vehicles\\active\\resources\\", s.game_dir);
-        collect(s.overlay_dir, "", s.overlay, 0);
-        std::sort(s.overlay.begin(), s.overlay.end());
-        s.overlay.erase(std::unique(s.overlay.begin(), s.overlay.end()), s.overlay.end());
-        const bool files = s.overlay.empty() ||
-            (hook_slot(kIatCreateFileA, reinterpret_cast<void*>(&create_file), s.create_file) &&
-             hook_slot(kIatGetFileAttributesA, reinterpret_cast<void*>(&get_attributes), s.get_attributes));
-        char line[200]{};
-        std::snprintf(line, sizeof(line), "RESOURCE_OVERLAY files=%u import_hooks=%s", unsigned(s.overlay.size()), files ? "installed" : "FAILED");
-        log(line);
+        if (GetFileAttributesA(roster) != INVALID_FILE_ATTRIBUTES) {
+            std::vector<uint8_t> bytes;
+            char why[256]{};
+            if (!read_file(roster, bytes, 64ull * 1024 * 1024)) log("ROSTER_SKIPPED roster.mrvr unreadable");
+            else if (!install_native(bytes, why, sizeof(why))) { char line[320]{}; std::snprintf(line, sizeof(line), "ROSTER_NOT_INSTALLED %s; stock game", why); log(line); }
+            else {
+                log(why);
+                s.installed = true;
+                std::snprintf(s.overlay_dir, sizeof(s.overlay_dir), "%sMRMods\\Vehicles\\active\\resources\\", s.game_dir);
+                collect(s.overlay_dir, "", s.overlay, 0);
+                std::sort(s.overlay.begin(), s.overlay.end());
+                s.overlay.erase(std::unique(s.overlay.begin(), s.overlay.end()), s.overlay.end());
+            }
+        }
+        // The save guard always runs: with this roster, with a launcher-installed registry (descriptor already
+        // published), or for the retail roster when no vehicle package is installed at all.
+        load_classes();
+        s.save_guard = true;
+        const bool files = hook_slot(kIatCreateFileA, reinterpret_cast<void*>(&create_file), s.create_file) &&
+            (s.overlay.empty() || hook_slot(kIatGetFileAttributesA, reinterpret_cast<void*>(&get_attributes), s.get_attributes));
+        if (s.installed || !files) {
+            char line[200]{};
+            std::snprintf(line, sizeof(line), "RESOURCE_OVERLAY files=%u import_hooks=%s save_guard_classes=%s", unsigned(s.overlay.size()),
+                          files ? "installed" : "FAILED", s.class_source);
+            log(line);
+        }
     } catch (...) { log("ROSTER_EXCEPTION stock game"); }
 }
 

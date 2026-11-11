@@ -103,8 +103,15 @@ Vehicle Manager (Vehicle SDK tool)          dinput8.dll (generic, no car data)
    through the overlay without patching the site twice). Log `MRallyeVehicleRoster.log`.
    Still pending in this phase: the SDK/G1 Challenge composition is compiled into the
    loader (`extra_sdk_profile.hpp`) and must move into the roster file; the
-   competition/save guard and `ROSTER_FALLBACK_ID0` read-time mapping are not yet
-   implemented.
+   competition guard is not yet implemented.
+   **Save guard (2026-11-11):** whenever the EXE opens `DataGame/PlayerState.xml` for reading,
+   car-ID keys (`Frontend/QuickRace/Car<n>`, `Frontend/Network/Car<n>`,
+   `RallyeCup|MasterRallye/PlayerT<c>Car<n>`, `MasterRallye/Car<n>/CarID`) are checked against
+   the running roster (MRVC class tables; launcher-installed registries included; retail
+   T1 0..6 / T2 7..13 / T3 14..24 without one). An ID the roster does not offer becomes ID0
+   (`ROSTER_FALLBACK_ID0`), a class-scoped key whose car is of another class gets the first
+   car of its class (ID0 would break that class list). The corrected copy is served from
+   `MRMods/Vehicles/PlayerState.read.xml`; the save file is never rewritten by the module.
 3. **Manager:** package format, install/remove/order UI in Workshop, atomic apply,
    tombstones, save guard.
 4. Owner tests: stock fallback, add/remove/reorder, T4, Extra Options AI, renderer.
