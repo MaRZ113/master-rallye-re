@@ -8,7 +8,7 @@ from build_extra_options_candidate import ROOT, RETAIL, package_header, build_co
 from build_extra_sdk_binding import build as build_proxy
 
 
-def build(output: Path, sdk_runtime: Path, sdk_root: Path):
+def build(output: Path, sdk_runtime: Path, sdk_root: Path, menu_builder: bool = False):
     output=output.resolve();sdk_runtime=sdk_runtime.resolve();sdk_root=sdk_root.resolve()
     allowed=(ROOT/'.research-output/extra-set1').resolve()
     if not output.is_relative_to(allowed) or output==allowed or output.exists():
@@ -17,7 +17,7 @@ def build(output: Path, sdk_runtime: Path, sdk_root: Path):
     header,_,_=package_header(sdk_runtime)
     core=build_core(output)
     result=build_proxy(output/'proxy',RETAIL,sdk_runtime/'native-patch-manifest.json',core,sdk_root,
-                       checkpoint='g1',extra_header=header)
+                       checkpoint='g1',extra_header=header,menu_builder=menu_builder)
     plan=json.loads((sdk_runtime/'addon-plan.json').read_text())
     source_files=[*sorted((ROOT/'src/native/rmod1').glob('*.cpp')),*sorted((ROOT/'src/native/rmod1').glob('*.hpp')),
                   ROOT/'tools/build_extra_capacity_candidate.py',ROOT/'tools/build_extra_sdk_binding.py',
@@ -37,5 +37,6 @@ def build(output: Path, sdk_runtime: Path, sdk_root: Path):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('output','sdk-runtime','sdk-root'):parser.add_argument('--'+name,type=Path,required=True)
+    parser.add_argument('--menu-builder',action='store_true',help='also link the Menu Builder runtime (exports @14..16)')
     args=parser.parse_args()
-    print(json.dumps(build(args.output,args.sdk_runtime,args.sdk_root),indent=2))
+    print(json.dumps(build(args.output,args.sdk_runtime,args.sdk_root,args.menu_builder),indent=2))

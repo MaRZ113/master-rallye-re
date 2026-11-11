@@ -346,7 +346,7 @@ bool appearance_available() noexcept {return installed&&options.enabled&&options
 bool appearance_step(int direction,char* label,size_t size) noexcept {try{
  if(!appearance_available())return false;
  const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
- if(car<0||car>=int(kCars))return false;
+ if(!valid_car(car))return false; // V-CAP2: per-car state is sized from the live registry
  family(car);
  const unsigned n=paint_count(car),old=paints[player][car].load()%n;
  const unsigned v=direction<0?(old+n-1)%n:(old+1)%n;

@@ -22,7 +22,7 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', extra_header=None):
+def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', extra_header=None, menu_builder=False):
     output = Path(output).resolve()
     allowed = (ROOT / '.research-output/extra-set1').resolve()
     if not output.is_relative_to(allowed) or output == allowed or output.exists():
@@ -70,7 +70,11 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
                      '    MRExtraTextureV1=_MRExtraTextureV1@36 @11\n'
                      '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n'
                      '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n') if extra_header is not None else ''
-    proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra, encoding='ascii')
+    # Menu Builder exports follow the registry marker (@13); all consumers bind by name.
+    exports_menu = ('    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n'
+                    '    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n'
+                    '    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n') if menu_builder else ''
+    proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra + exports_menu, encoding='ascii')
     write_proposal(output / 'binding-proposal.json', proposal)
     (output / 'preimage-audit.json').write_text(json.dumps(evidence, indent=2) + '\n')
 
@@ -88,6 +92,10 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
         command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_options_runtime.cpp'))
         command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_ghost.cpp'))
         command.insert(1, '/DRMOD_EXTRA_OPTIONS=1')
+    if menu_builder:
+        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/menu_builder_runtime.cpp'))
+        command.insert(command.index('/NOIMPLIB'), 'gdi32.lib')
+        command.insert(1, '/DRMOD_MENU_BUILDER=1')
     subprocess.run(command, cwd=output, env=env, check=True)
     exports = audit(dll)
     if not exports.get('required_match') or exports['observed'].get('MRExtraSdkBindingAbi') != 7:
@@ -98,7 +106,7 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
               'sdk_operations_verified': len(proposal['sdk_checks']),
               'sdk_extension': extension,
               'composed_challenge_hooks': len(proposal['challenge']),
-              'checkpoint': checkpoint, 'native_extra_options': extra_header is not None,
+              'checkpoint': checkpoint, 'native_extra_options': extra_header is not None, 'menu_builder': menu_builder,
               'runtime_qualified': False, 'gameplay_qualified': False}
     (output / 'build-manifest.json').write_text(json.dumps(result, indent=2) + '\n')
     return result

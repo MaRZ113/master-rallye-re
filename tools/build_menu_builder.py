@@ -29,9 +29,10 @@ from build_r_mod1_candidate import compiler_environment, locate_toolchain  # noq
 NATIVE = ROOT / "src/native/rmod1"
 SOLUTION = ROOT / "tools/menu-builder"
 DEFAULT_INCLUDE = Path(r"D:\Game\Master Rallye\master-rallye-re-rmod1\.research-output\extra-set1\extra-set2-03\proxy\include")
-MENU_EXPORTS = ("    MRMenuAbiV1=_MRMenuAbiV1@0 @13\n"
-                "    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @14\n"
-                "    MRMenuQueryV1=_MRMenuQueryV1@8 @15\n")
+# @13 belongs to MRExtraVehicleRegistryAbi (V-CAP2 loader); consumers bind by name.
+MENU_EXPORTS = ("    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n"
+                "    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n"
+                "    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n")
 EXTRA_EXPORTS = ("    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n"
                  "    MRExtraOptionsAbi=_MRExtraOptionsAbi@0 @8\n"
                  "    MRExtraVisualV1=_MRExtraVisualV1@12 @9\n"
