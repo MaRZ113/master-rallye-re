@@ -1,0 +1,27 @@
+{
+ "schema": "mr-roster-v4-spec/1",
+ "retail_exe": "D:/Game/Master Rallye/master-rallye-re-base/.research-output/hosts/host-roster-01/MRallye.exe",
+ "classes": {
+  "T1": [0, 1, 2, 3, 4, 5, 6, 26],
+  "T2": [7, 29, 8, 30, 9, 10, 11, 12, 31, 13, 27, 28, 33],
+  "T3": [14, 32, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+ },
+ "renames": {
+  "Trooper": "Forklift",
+  "HeritageTrooper": "Trooper",
+  "DefForester": "ForesterSTI",
+  "DefRav4": "Rav4",
+  "DefTomcat": "Tomcat"
+ },
+ "strings": [
+  {"old": "TEST DRIVER", "new": "TOMMI MAKINEN", "va": "0x100465ac", "why": "Lancer Evo IV 1997: Mitsubishi works driver and 1997 WRC champion (was a dev placeholder)"},
+  {"old": "MR DEMO", "new": "ISUZU", "va": "0x100465c8", "why": "Trooper: PC Demo 8.4.1 / 9.3.1 ISUZU TROOPER"},
+  {"old": "TROOPER 9.3.1", "new": "TROOPER"},
+  {"old": "MR DEMO TROOPER 9.3.1", "new": "ISUZU TROOPER"},
+  {"old": "DEMO TROOPER", "new": "ISUZU TROOPER"},
+  {"old": "DARREN SUTHERLAND", "new": "VLADIMIR STRAKHOV", "why": "PC Demo driver list position 8 (Forester); PS2 binds Darren Sutherland to the PS2 Forester"},
+  {"old": "TOYOTA 4RUNNER EVO2 SOURCE FIDELITY", "new": "TOYOTA 4RUNNER"},
+  {"old": "JEAN-PIERRE STRUGO", "new": "JOSE MARIA SERVIA", "why": "PC Demo 8.4.1 driver list position 2 (Mercedes ML-320) reads JOSE MARIA SERCIA, a misspelling of the real driver"},
+  {"old": "TEST DRIVER", "new": "COLIN MCRAE", "va": "0x68eb3f", "why": "Subaru Impreza prototype: Subaru works driver (was a dev placeholder)"}
+ ]
+}
