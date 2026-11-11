@@ -87,3 +87,23 @@ from 26 to the registry end, while the profile left out the retired ID34; Extra 
 successful F3 boot. The profile now registers every ID from 26 (retired/removed IDs with mode mask 0 = never
 eligible, class from the reverse table). Separately the Ghost module looked for QuickModeSelect.xml only as a loose
 file, not in the roster overlay the game actually reads (`GHOST_UNAVAILABLE`); it now resolves the overlay first.
+
+## Fix 02 (owner test 2026-11-11)
+
+* **ForesterSTI raced with its Demo model.** SDK cars render from a private (deformable) mesh tree from the start, and
+  a family without an eligible fleet damage profile falls back (`ps2_fleet_car_fallback gate=2`).
+  `tools/ps2_fleet_damage_new.py` runs the accepted PORT3 generator for the two new families: forklift 1891/1891 exact,
+  ForesterSTI 0 exact, 1392 surface-bound (<= 4.9 cm), 1596 rigid, 0 unresolved -> both eligible; rows appended to
+  `renderer/fleet_damage_registry.hpp`.
+* **DEMO artwork.** Variant packages may carry `art` (CarSheet, small icon). `apply` appends them to the carsheet /
+  smallcarsheet banks (`CarSheetFrame`, `SmallFrame` in variants.ini). Extra Options swaps the race small icon with the
+  folder (registry row +0x1C, initializer 0x45A0B0) and sets the Vehicle Select widget `T<c>_Car<n>` frame (egg
+  manager 0x6F96FC, find 0x4F5EB0, en2d +0x4C, frame +0x38; gaFrontendDisablerAI 0x450DE0 rewrites it only on unlock
+  changes). LandCruiser: Demo 8.4.1 CarSheet 3 (also contained as small icon, 8.4.1 has no small bank); NewRav: Demo
+  9.3.1 CarSheet 17 and smallcarsheet 17.
+* **Menu height.** Demo LandCruiser/megane/Tata complete.dx stood 0.51/0.42/0.38 m low; lifted to y = 0.
+* **Broken glass.** Generated cracked textures were composed over the windscreen with the red strip;
+  `tools/vehicle_glass_band_fix.py` replaces the strip by the glass under it, cracks kept by brightness.
+* **ForesterSTI lit tail lights** use the PS2 BREAKLIGHTSON / BREAKLIGHTSONGLOW art on the Demo lamp geometry (alpha
+  of the PC textures kept).
+All resource fixes: `tools/roster_v4_fix02.py --game <host>` then `vehicle_manager.py apply`.

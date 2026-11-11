@@ -59,7 +59,12 @@ bool valid_car(int id){return id>=0 && unsigned(id)<car_count;}
 // (row +0x24, the string every model/physics loader reads) at the variant folder; the roster ships the folder's
 // resources and a physics block cloned from the family. The registry row is global, so the latest choice of
 // the player in Vehicle Select applies to every car with that CarID (opponents included).
-struct Variant {std::string base,folder,manufacturer,model;};
+struct Variant {std::string base,folder,manufacturer,model;int carsheet=-1,small=-1;};
+// Per CarID: original race small-icon frame (registry row +0x1C) and the live Vehicle Select widget whose
+// carousel frame (en2d +0x38) DEMO overrides, with that widget's scene frame.
+struct VariantArt {uint32_t small=0;uintptr_t egg=0;int egg_frame=-1;};
+std::unique_ptr<VariantArt[]> variant_art;
+uint32_t reverse_classes_va=0,reverse_locals_va=0;
 std::vector<Variant> variants;
 std::unique_ptr<int[]> variant_of;            // per CarID: index into variants, -1 none, -2 not resolved yet
 std::unique_ptr<uintptr_t[]> original_folder; // registry folder pointer as constructed
@@ -71,6 +76,7 @@ void allocate_state(unsigned count){
   for(unsigned i=0;i<count;++i){next_paints[p][i]=0;next_tires[p][i]=0;}}
  auto next_families=std::make_unique<std::array<char,65>[]>(count);
  auto next_variants=std::make_unique<int[]>(count);auto next_original=std::make_unique<uintptr_t[]>(count);
+ variant_art=std::make_unique<VariantArt[]>(count);
  for(unsigned i=0;i<count;++i){next_variants[i]=variants.empty()?-1:-2;next_original[i]=0;}
  paints=std::move(next_paints);tires=std::move(next_tires);families=std::move(next_families);car_count=count;
  variant_of=std::move(next_variants);original_folder=std::move(next_original);
@@ -134,6 +140,7 @@ int variant_index(int id){
  if(!row||!read(row,&text,4)||!text||!read(text,copy,sizeof(copy)-1))return -1; // registry not readable yet: retry later
  for(size_t i=0;i<variants.size();++i)if(!_stricmp(copy,variants[i].base.c_str())){found=int(i);break;}
  original_folder[id]=text;variant_of[id]=found;
+ if(variant_art)read(row-4,&variant_art[id].small,4);   // small-icon frame, the field before the folder
  if(found>=0){char line[200]{};std::snprintf(line,sizeof(line),"VARIANT_BOUND CarID=%d family=%s DEMO=%s",id,copy,variants[size_t(found)].folder.c_str());log(line);}
  return found;
 }
@@ -148,7 +155,10 @@ bool apply_variant(int player,int id){
  std::memcpy(reinterpret_cast<void*>(row),&want,4);
  VirtualProtect(reinterpret_cast<void*>(row),4,previous,&ignored);
  {std::lock_guard<std::mutex> lock(family_mutex);families[id][0]=0;}
- char line[200]{};std::snprintf(line,sizeof(line),"VARIANT_APPLIED player=%d CarID=%d folder=%s",player+1,id,want==original_folder[id]?"original":variants[size_t(v)].folder.c_str());log(line);
+ const auto& var=variants[size_t(v)];
+ if(var.small>=0&&variant_art){const uint32_t small=want==original_folder[id]?variant_art[id].small:uint32_t(var.small);
+  if(VirtualProtect(reinterpret_cast<void*>(row-4),4,PAGE_READWRITE,&previous)){std::memcpy(reinterpret_cast<void*>(row-4),&small,4);VirtualProtect(reinterpret_cast<void*>(row-4),4,previous,&ignored);}}
+ char line[200]{};std::snprintf(line,sizeof(line),"VARIANT_APPLIED player=%d CarID=%d folder=%s",player+1,id,want==original_folder[id]?"original":var.folder.c_str());log(line);
  return true;
 }
 void apply_all_variants(int player){if(!variants.empty())for(unsigned id=0;id<car_count;++id)apply_variant(player,int(id));}
@@ -177,6 +187,7 @@ void load_variants(){
   wchar_t section[24]{};std::swprintf(section,24,L"Variant%u",i);
   auto get=[&](const wchar_t* key){wchar_t w[128]{};GetPrivateProfileStringW(section,key,L"",w,128,path.c_str());std::string out;for(const wchar_t* c=w;*c;++c)out.push_back(*c<128?char(*c):'?');return out;};
   Variant v{get(L"Base"),get(L"Folder"),get(L"Manufacturer"),get(L"Model")};
+  {const auto c=get(L"CarSheetFrame"),m=get(L"SmallFrame");if(!c.empty())v.carsheet=std::atoi(c.c_str());if(!m.empty())v.small=std::atoi(m.c_str());}
   if(v.base.empty())break;
   if(v.folder.empty()||v.folder.find_first_of("/\\.")!=std::string::npos||v.folder.size()>48)continue;
   variants.push_back(v);
@@ -267,12 +278,34 @@ void look_sync(bool force){
 // Vehicle Select names follow the model: the native publisher 0x4819b0 writes ManufacturerName/ModelName
 // (localization groups 0x33/0x34 by CarID) only when the car changes; DEMO overrides them afterwards, and leaving
 // DEMO re-runs the publisher. Folder swaps happen here too, so every path that changes MODEL is covered.
+// Vehicle Select carousel: widget T<class>_Car<local+1> draws en2d image-bank frame +0x38 (set from "en2d Image Bank
+// Index"; gaFrontendDisablerAI rewrites it only when the unlock state changes). DEMO shows the variant CarSheet.
+void sync_carousel_art(int player){
+ if(!variant_art||!reverse_classes_va)return;
+ uintptr_t manager=0;
+ for(unsigned id=0;id<car_count;++id){
+  const int v=variant_index(int(id));if(v<0||variants[size_t(v)].carsheet<0)continue;
+  uint32_t cls=0,local=0;
+  if(!read(reverse_classes_va+id*4,&cls,4)||!read(reverse_locals_va+id*4,&local,4)||cls>2)continue;
+  if(!manager){fn<void(__cdecl*)()>(0x4f6310)();if(!read(0x6f96fc,&manager,4)||!manager)return;}
+  char name[32]{};std::snprintf(name,sizeof(name),"T%u_Car%u",cls+1,local+1);
+  uint32_t k=key(name);
+  const auto egg=reinterpret_cast<uintptr_t>(fn<void*(__thiscall*)(void*,uint32_t*)>(0x4f5eb0)(reinterpret_cast<void*>(manager),&k));
+  uintptr_t en2d=0;int frame=0;
+  if(!egg||!read(egg+0x4c,&en2d,4)||!en2d||!read(en2d+0x38,&frame,4))continue;
+  auto& art=variant_art[id];
+  if(art.egg!=egg){art.egg=egg;art.egg_frame=frame==variants[size_t(v)].carsheet?art.egg_frame:frame;}
+  const int want=demo_selected(player,int(id))?variants[size_t(v)].carsheet:art.egg_frame;
+  if(want>=0&&frame!=want)std::memcpy(reinterpret_cast<void*>(en2d+0x38),&want,4);
+ }
+}
 struct NameState {int car=-1;bool demo=false;} names;
 void variant_sync(void* screen){
  if(variants.empty())return;
  const int player=clamp_player(integer("Frontend/VehicleSelect/PlayerID")),car=integer("Frontend/VehicleSelect/CarModel");
  if(!valid_car(car)){names={};return;}
  if(apply_variant(player,car))++display_refresh;
+ sync_carousel_art(player);
  const bool demo=demo_selected(player,car);
  if(car==names.car&&demo==names.demo)return;
  if(demo){const auto& v=variants[size_t(variant_index(car))];
@@ -391,7 +424,7 @@ bool configure_registry(){
     first+=n;
    }
   }
-  count=d.record_count;registry_getter=d.registry_getter_va;
+  count=d.record_count;registry_getter=d.registry_getter_va;reverse_classes_va=d.reverse_classes_va;reverse_locals_va=d.reverse_locals_va;
  }else{
   if(GetLastError()!=ERROR_ENVVAR_NOT_FOUND)return false;
   // Retail and accepted SDK33 keep this PUSH imm32 allocation operand.

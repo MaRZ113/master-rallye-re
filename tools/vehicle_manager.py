@@ -233,7 +233,10 @@ class Manager:
             vtext = clone_block(vtext, m["physics_block"], m["folder"])
             mtext = clone_block(mtext, m["physics_block"], m["folder"])
             ini += [f"[Variant{n}]", f"Base={m['base']}", f"Folder={m['folder']}", f"Manufacturer={m['manufacturer']}",
-                    f"Model={m['model']}", f"; package {name}"]
+                    f"Model={m['model']}"]
+            for role, data in m["_art"].items():
+                ini.append(f"{ART_KEYS[role]}={append_art(res, role, data, self.game)}")
+            ini.append(f"; package {name}")
             n += 1
         vehicles_xml.write_bytes(vtext.encode("latin-1"))
         mods_xml.write_bytes(mtext.encode("latin-1"))
@@ -300,6 +303,44 @@ def rebuild_classes(v1: bytes, old: dict, new: dict, exe: bytes) -> bytes:
     return bytes(header) + body
 
 
+# Frame banks the variant artwork is appended to: (bank, template frame giving size/format, variants.ini key).
+ART_BANKS = {"carsheet": ("DataGx/Frontend/VehicleSelect/carsheet", 3), "smallcarsheet": ("DataGx/Frontend/RaceResults/smallcarsheet", 9)}
+ART_KEYS = {"carsheet": "CarSheetFrame", "smallcarsheet": "SmallFrame"}
+
+
+def game_file(res: Path, game: Path, rel: str) -> bytes:
+    """A file as the game resolves it: roster overlay, loose game file, then Data.sma."""
+    for root in (res, game):
+        if (root / rel).is_file():
+            return (root / rel).read_bytes()
+    import zlib
+    from vehicle_roster_build import archive_index, norm
+    blob, members = archive_index(game / "Data.sma")
+    method, start, cs, _us = members[norm(rel)]
+    raw = blob[start:start + cs]
+    return raw if method == 0 else zlib.decompress(raw, -15)
+
+
+def append_art(res: Path, role: str, data: bytes, game: Path) -> int:
+    """Append one frame to a staged bank (template frame size/format, car contained like SDK icons); returns its index."""
+    sys.path.insert(0, str(HERE.parents[1] / "master-rallye-re-v-cap" / "src"))
+    from master_rallye.addon_sdk.ui_assets import parse_bank, append_frame, fit_rgba
+    from master_rallye.dxt import parse_dxt_bytes, decode_rgba_pixels, encode_dxt_pixels
+    bank_rel, template = ART_BANKS[role]
+    folder = res / bank_rel.rsplit("/", 1)[0]
+    bank_path = res / (bank_rel + ".dxb")
+    bank, name = append_frame(bank_path.read_bytes(), template)
+    tname = parse_bank(bank)["names"][template]
+    tmpl = parse_dxt_bytes(game_file(res, game, bank_rel.rsplit("/", 1)[0] + "/" + tname + ".dxt"))
+    art = parse_dxt_bytes(data)
+    rgba = decode_rgba_pixels(art)
+    if (art.width, art.height) != (tmpl.width, tmpl.height):
+        rgba = bytes(fit_rgba((art.width, art.height, rgba), tmpl.width, tmpl.height, 1))
+    (folder / (name + ".dxt")).write_bytes(encode_dxt_pixels(tmpl, rgba, tmpl.width, tmpl.height))
+    bank_path.write_bytes(bank)
+    return parse_bank(bank)["count"] - 1
+
+
 # ---- packages ---------------------------------------------------------------------------------------------------
 def parse_variants(path: Path) -> list[dict]:
     out, cur = [], None
@@ -350,6 +391,16 @@ def read_package(path: Path):
             files[rel] = data
         if f"DataGx/Vehicles/{folder}/car.dx" not in files or f"DataGx/Vehicles/{folder}/complete.dx" not in files:
             raise ValueError(f"{path.name}: car.dx and complete.dx are required")
+        # Optional artwork (any DXT size): Vehicle Select CarSheet and race SIDE/Results small icon of the variant.
+        art = {}
+        for role, item in (m.get("art") or {}).items():
+            if role not in ART_BANKS or not re.fullmatch(r"art/[A-Za-z0-9_.-]{1,64}\.dxt", item["path"]):
+                raise ValueError(f"{path.name}: invalid art entry {role}")
+            data = z.read(item["path"])
+            if sha(data) != item["sha256"]:
+                raise ValueError(f"{path.name}: {item['path']} hash mismatch")
+            art[role] = data
+        m["_art"] = art
         return m, files
 
 

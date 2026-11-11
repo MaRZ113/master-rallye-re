@@ -95,7 +95,7 @@ def main():
             profile["family"], ident, profile["filename"], profile["sha256"], profile["bytes"], profile["vertices"],
             profile["indices"], profile["textures"], profile["ps2_meshes"], len(profile["pc_sources"]),
             profile["native_root_count_candidate"], ident, ident, ident)
-        out.append(dict(family=pc_family, ps2_family=family, pc_car=str(car), profile={k: v for k, v in profile.items() if k != "pc_sources"},
+        out.append(dict(family=pc_family, ps2_family=family, pc_car=str(car), profile=profile,
                         pc_sources=len(profile["pc_sources"]), unique_sources=sum(s["unique_family_in_paired_car_corpus"] for s in profile["pc_sources"]),
                         suppressed=row["native_suppression_record_paths"], kept_native=row["native_conditional_record_paths"],
                         source_conditional_roots=row["source_conditional_root_paths"], header_arrays=lines, header_entry=entry))
