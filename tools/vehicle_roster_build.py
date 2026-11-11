@@ -132,11 +132,42 @@ def build(runtime: Path, game: Path, label: str) -> dict:
         "roster_mrvr_sha256": hashlib.sha256(roster).hexdigest(),
     }
     (staging / "catalog.json").write_text(json.dumps(catalog, indent=1) + "\n", encoding="utf-8")
+    def retry(action, *args):
+        # Explorer/antivirus can hold a folder handle for a moment; the swap is retried, never forced.
+        import time
+        for attempt in range(4):
+            try:
+                return action(*args)
+            except PermissionError:
+                if attempt == 3:
+                    raise
+                time.sleep(0.5)
+    def sync_in_place():
+        # A held directory handle (an Explorer window, the indexer) blocks renaming the folder but not its files:
+        # copy the new files over, drop stale ones, and replace roster.mrvr last so the loader never sees a mix.
+        new_files = {p.relative_to(staging) for p in staging.rglob("*") if p.is_file()}
+        for p in sorted(active.rglob("*"), reverse=True):
+            rel = p.relative_to(active)
+            if p.is_file() and rel not in new_files:
+                p.unlink()
+            elif p.is_dir() and not any(p.iterdir()):
+                try: p.rmdir()
+                except OSError: pass
+        for rel in sorted(new_files, key=lambda r: r.name == "roster.mrvr"):
+            dst = active / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            tmp = dst.with_name(dst.name + ".new")
+            shutil.copyfile(staging / rel, tmp)
+            os.replace(tmp, dst)
+        shutil.rmtree(staging, ignore_errors=True)
     if previous.exists():
-        shutil.rmtree(previous)
-    if active.exists():
-        os.replace(active, previous)
-    os.replace(staging, active)
+        retry(shutil.rmtree, previous)
+    try:
+        if active.exists():
+            retry(os.replace, active, previous)
+        retry(os.replace, staging, active)
+    except PermissionError:
+        sync_in_place()
     return {k: catalog[k] for k in ("label", "record_count", "resources_provided_by_game", "roster_mrvr_sha256")} | {
         "resources": len(resources), "active": str(active)}
 
