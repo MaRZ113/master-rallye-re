@@ -113,6 +113,7 @@ class Editor(W.QMainWindow):
         self.textures=TextureStudio(self);self.workspaces.addTab(self.textures,'TEXTURES')
         textures_action=self.menuBar().addMenu('Vehicle')
         textures_action.addAction('Open in Texture Studio…',self.open_textures)
+        textures_action.addAction('Vehicle Manager / native roster…',self.open_roster)
         footer=W.QHBoxLayout();self.progress=W.QProgressBar();self.progress.setRange(0,1);footer.addWidget(self.progress)
         self.status=W.QLabel('Ready — original files stay immutable');footer.addWidget(self.status,1)
         cancel=W.QPushButton('Cancel');cancel.clicked.connect(self.cancel);footer.addWidget(cancel);layout.addLayout(footer)
@@ -151,6 +152,11 @@ class Editor(W.QMainWindow):
         if self.task:self.status.setText(self.label+f' · {time.perf_counter()-self.started:.1f}s')
     def cancel(self):
         if self.task:self.task.cancelled.set()
+    def open_roster(self):
+        from .qt_roster import RosterDialog
+        if not hasattr(self,'roster_dialog'):self.roster_dialog=RosterDialog(self)
+        self.roster_dialog.show();self.roster_dialog.raise_()
+
     def open_source(self):
         path,_=W.QFileDialog.getOpenFileName(self,'Immutable UVS scene','','Source scene (scene.json)')
         if path:self.load_path(Path(path))

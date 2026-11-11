@@ -78,6 +78,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         self.buttons={}
         for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Heritage Garage',self.open_heritage),('Save',self.save),('Undo',self.undo),('Redo',self.redo),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
             button=ttk.Button(top,text=label,command=command,style='Accent.TButton' if label=='Build' else 'TButton');button.pack(side='left',padx=3);self.buttons[label]=button
+        ttk.Button(top,text='Vehicle Manager',command=self.open_roster).pack(side='left',padx=3)
         ttk.Button(top,text='Vehicle Studios',command=self.open_vehicle_studios).pack(side='left',padx=3)
         ttk.Button(top,text='Shadow Studio',command=self.open_shadow_studio).pack(side='left',padx=3)
         self.outer=ttk.Panedwindow(self.root,orient='vertical');self.outer.pack(fill='both',expand=True,padx=10)
@@ -697,6 +698,12 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
                 self.open_source_garage();self.source_garage_window._open(Path(record['scene_path']))
             ttk.Button(window,text='Open original neutral source scene',command=open_neutral).pack(pady=8)
         self.run('Verify immutable source provenance',lambda:inspect_source(record),done)
+
+    def open_roster(self):
+        from .roster import Manager
+        from .roster.legacy_ui import run
+        folder=filedialog.askdirectory(parent=self.root,title='Game or private candidate folder')
+        if folder:run(Manager(Path(folder)),parent=self.root)
 
     def close(self):
         if self.busy:self.status.set('Operation still running. Close after it finishes.');return
