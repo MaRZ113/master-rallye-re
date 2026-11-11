@@ -32,12 +32,13 @@ Base: V-CAP3 35-record roster, installed by the dinput8 VehicleRoster module (ow
    * ID30 `DefForester` -> `ForesterSTI`; its PS2 variant is the PS2 `FORESTER` model (not `WOOLDAND`).
    * ID31 `DefRav4` -> `Rav4`, ID32 `DefTomcat` -> `Tomcat`.
    * ID34 `HeritageNewRav` retired (tombstone); it becomes the DEMO variant of retail NewRav (ID12).
-   * New Demo LandCruiser record in T1 directly after ID0, physics copied from ID0.
-   * Per-vehicle Vehicle Select height (several SDK cars stand lower than retail ones); driver names from
-     the demos (or real Master Rallye / Dakar drivers, never dev/debug strings), stat bars, CarSheet icons,
-     display names; Vehicle Select icon order audit (Mercedes in particular).
-3. **DEMO display mode.** MODEL row PS2 / PC / DEMO for families with a demo variant (megane, Tata, NewRav):
-   the loader serves the demo resource set for that family through the roster overlay when DEMO is selected.
+   * For every added vehicle (Mercedes has the least data and comes first): Vehicle Select height (several
+     SDK cars stand lower than retail ones), driver names from the demos (or real Master Rallye / Dakar
+     drivers, never dev/debug strings), stat bars, CarSheet icons, display names, Vehicle Select icon order.
+3. **DEMO display mode.** MODEL row PS2 / PC / DEMO for families with a demo variant (megane, Tata, NewRav
+   = former HeritageNewRav, LandCruiser = Demo LandCruiser on ID0, owner decision 2026-11-11: no new ID):
+   the loader serves the demo resource set for that family through the roster overlay when DEMO is selected,
+   and the displayed vehicle name follows the selected model (e.g. the demo name of the NewRav variant).
 4. **Loader independence.** Move the SDK/G1 Challenge composition (`extra_sdk_profile.hpp`) into
    `roster.mrvr`, so one dinput8 build serves every roster.
 5. **Vehicle Manager (Vehicle SDK).** Packages, install/remove/order UI, atomic apply; the V-CAP3 cars and the
