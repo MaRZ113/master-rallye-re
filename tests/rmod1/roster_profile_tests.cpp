@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
     CHECK(p.valid && p.registry_count == 35 && p.extension_va == 0x10000000u && p.hooks.size() == 2 && p.checks.size() > 200);
     CHECK(p.challenge_human_offset == 1860 && !std::strcmp(p.hooks[0].id, "challenge-preview-identity"));
     for (const auto& h : p.hooks) CHECK(h.mapped[0] == 0x8b && h.mapped[3] == 0x48 && h.mapped[4] == 0x07);
-    bool retired = false; for (const auto& v : p.vehicles) retired = retired || v.physical_id == 34;
-    CHECK(!retired && p.vehicles.size() == 8);
+    // Every ID from 26 is registered (F3 core contract); the retired ID34 with mode mask 0 (never eligible).
+    CHECK(p.vehicles.size() == 9 && p.vehicles.back().physical_id == 34 && p.vehicles.back().mode_mask == 0);
     // Fail closed: truncation, wrong size field, trailing bytes, bad hook count.
     const std::vector<std::uint8_t> profile(roster.begin() + at, roster.end());
     roster_profile::Profile bad;

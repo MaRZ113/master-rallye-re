@@ -5,6 +5,7 @@
 #include "extra_ghost_plan.hpp"
 #include "extra_options.hpp"
 #include "rmod2_inprocess.hpp"
+#include "vehicle_roster.hpp"
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
@@ -37,7 +38,12 @@ std::vector<std::uint8_t> hex(const char* text) {
 bool ghost_frontend_present(const fs::path& dir) {
     // The game opens loose scenes relative to its working directory (the SDK launcher's
     // resource root); a plain install has the same folder as the EXE.
-    std::ifstream f("DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
+    // The Vehicle Manager roster overlay is served before both (VehicleRoster import hook), so read what the
+    // game will actually open.
+    std::ifstream f;
+    char served[MAX_PATH * 2]{};
+    if (vehicle_roster::redirect("DataScene/FrontendScreens/QuickModeSelect.xml", served, sizeof(served))) f.open(served, std::ios::binary);
+    if (!f) f.open("DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
     if (!f) f.open(dir / "DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
     if (!f) return false;
     const std::string xml((std::istreambuf_iterator<char>(f)), {});

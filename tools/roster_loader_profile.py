@@ -119,7 +119,11 @@ def build_profile(roster: bytes, retail: bytes, core: bytes, addon_plan: dict | 
     code = b"".join(r["payload"][x["offset"]:x["offset"] + x["size"]] for x in immutable)
     count, classes = class_map(r)
     masks = masks if masks is not None else masks_from_plan(addon_plan)
-    vehicles = [(pid, classes[pid], masks[pid]) for pid in sorted(classes) if pid > 24 and pid in masks]
+    # The F3 core (MRRegisterSdkRosterV1) requires every physical ID from 26 to the registry end, each with the class
+    # of the registry's reverse table. A retired / removed ID stays registered with mode mask 0: never eligible.
+    d, base = r["descriptor"], r["ext_address"]
+    reverse = struct.unpack_from(f"<{count}I", r["payload"], d[9] - base)
+    vehicles = [(pid, classes.get(pid, reverse[pid]), masks.get(pid, 0) if pid in classes else 0) for pid in range(26, count)]
     out = bytearray(b"MRLP" + struct.pack("<IIIIIII", 1, 0, count, r["ext_address"], r["ext_size"], len(immutable), 0))
     out += hashlib.sha256(code).digest()
     out += struct.pack("<IIII", len(proposal["sdk_checks"]), len(proposal["challenge"]), len(vehicles), identity - 4)

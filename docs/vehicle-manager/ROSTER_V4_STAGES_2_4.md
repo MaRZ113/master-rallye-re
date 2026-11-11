@@ -6,7 +6,7 @@ owner-tested `host-roster-fix-03` by `tools/roster_v4_host.py`. Saves, options a
 | File | SHA-256 (8) | Built from |
 |---|---|---|
 | d3d8.dll | 12d69d47 | integration/base + two PS2 fleet families (`tools/ps2_fleet_new_families.py --apply`) |
-| dinput8.dll | 97d5ad63 | roster-independent loader (`build_extra_capacity_candidate.py --menu-builder`, no `--sdk-runtime`) |
+| dinput8.dll | 232704df | roster-independent loader (`build_extra_capacity_candidate.py --menu-builder`, no `--sdk-runtime`) |
 | MRallyeRandomizerRuntime.dll | 9146493e | unchanged |
 | roster.mrvr | c93f3aac | fix-03 transaction, MRVR v2 with the MRLP loader profile |
 
@@ -78,3 +78,12 @@ profile the composition is refused as before. Tests: `tests/rmod1/roster_profile
 3. ForesterSTI: MODEL = PS2 shows the PS2 FORESTER in menu and race, brake lamps still work.
 4. megane, LandCruiser, Tata, NewRav: MODEL row has DEMO; the menu car changes at once; LandCruiser and NewRav names
    change to TOYOTA LANDCRUISER / TOYOTA RAV4 PICKUP and back; a race with DEMO uses the Demo model.
+
+## Fix 01 (owner test 2026-11-11)
+
+Owner: MODEL row empty ("N"), TYRE TYPE not working, Ghost panel overlaps. Cause: the F3 boot still failed, now at
+`SDK roster provider rejected qualified registration` - the core (`MRRegisterSdkRosterV1`) requires every physical ID
+from 26 to the registry end, while the profile left out the retired ID34; Extra Options starts only after a
+successful F3 boot. The profile now registers every ID from 26 (retired/removed IDs with mode mask 0 = never
+eligible, class from the reverse table). Separately the Ghost module looked for QuickModeSelect.xml only as a loose
+file, not in the roster overlay the game actually reads (`GHOST_UNAVAILABLE`); it now resolves the overlay first.
