@@ -53,6 +53,26 @@ public sealed class ExeTables
         _texts = TextTables.Select(ReadTexts).ToArray();
     }
 
+    HashSet<string>? _strings;
+    /// <summary>NUL-terminated printable ASCII strings (3+ chars) of the image: names the code looks up at run time.</summary>
+    public HashSet<string> Strings
+    {
+        get
+        {
+            if (_strings != null) return _strings;
+            var set = new HashSet<string>(StringComparer.Ordinal);
+            int start = -1;
+            for (int i = 0; i < _image.Length; i++)
+            {
+                byte b = _image[i];
+                if (b >= 0x20 && b < 0x7F) { if (start < 0) start = i; continue; }
+                if (b == 0 && start >= 0 && i - start >= 3) set.Add(System.Text.Encoding.ASCII.GetString(_image, start, i - start));
+                start = -1;
+            }
+            return _strings = set;
+        }
+    }
+
     int Offset(uint va)
     {
         foreach (var s in _sections)

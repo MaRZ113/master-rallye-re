@@ -25,9 +25,12 @@ public sealed class ActionBinding
     public int? Min { get; set; }
     public int? Max { get; set; }
     public int? Step { get; set; }
-    /// <summary>extension: provider name, e.g. "extra_options.model_source".</summary>
+    /// <summary>extension: typed action ID from <see cref="ActionCatalog"/> or registered by a module, e.g. "vehicle.model_source".</summary>
     public string? Extension { get; set; }
     public string? Args { get; set; }
+    /// <summary>extension: false = the screen cannot work without this action, a missing handler blocks the build.
+    /// Default (null/true): optional, the button is served disabled while no handler is registered.</summary>
+    public bool? Optional { get; set; }
 
     public ActionBinding Clone() => (ActionBinding)MemberwiseClone();
     public override string ToString() => Type switch
@@ -76,6 +79,12 @@ public sealed class ElementPatch
     public int? VJustify { get; set; }
     /// <summary>Horizontal anchor for widescreen variants: none | left | right | center.</summary>
     public string? Anchor { get; set; }
+    /// <summary>Dynamic text: value ID (<see cref="ActionCatalog"/> or a registered module value) shown by this text element.</summary>
+    public string? ValueSource { get; set; }
+    /// <summary>Dynamic text format; {value} is replaced (default "{value}"), e.g. "MODEL: {value}".</summary>
+    public string? ValueFormat { get; set; }
+    /// <summary>Text shown for {value} while the provider is unavailable (default "N/A").</summary>
+    public string? ValueFallback { get; set; }
     /// <summary>Raw value edits: "AIName/Value Name" → value. Kept for advanced users and unknown AIs.</summary>
     public Dictionary<string, string>? Raw { get; set; }
 
@@ -181,6 +190,8 @@ public sealed class MenuProject
     public string Format { get; set; } = FormatName;
     public int Version { get; set; } = CurrentVersion;
     public string Name { get; set; } = "Untitled";
+    /// <summary>Stable identity of the project; an installed layout of the same name from another project is never replaced silently.</summary>
+    public string? Id { get; set; }
     public string? Description { get; set; }
     public string? Author { get; set; }
     public ProjectSettings Settings { get; set; } = new();
@@ -210,4 +221,5 @@ public sealed class MenuProject
     public static MenuProject Load(string path) => FromJson(File.ReadAllText(path));
     public void Save(string path) => File.WriteAllText(path, ToJson());
     public MenuProject Clone() => FromJson(ToJson());
+    public static string NewId() => Guid.NewGuid().ToString("N");
 }

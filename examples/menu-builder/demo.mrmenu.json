@@ -2,7 +2,7 @@
   "format": "mr-menu-project",
   "version": 1,
   "name": "Demo",
-  "description": "Qualification layout: edited MAIN MENU, a new MENU BUILDER screen from OPTIONS, and the VEHICLE CONFIGURATION demo opened from QUICK RACE.",
+  "description": "Qualification layout: MAIN MENU edit, OPTIONS > MENU BUILDER, QUICK RACE > VEHICLE CONFIG (typed actions with live values), GEARBOX widescreen fix",
   "author": "Menu Builder",
   "settings": {
     "mouse": true,
@@ -295,7 +295,7 @@
       "name": "VehicleConfig",
       "kind": "custom",
       "base": "GraphicsMain",
-      "title": "VEHICLE CONFIGURATION",
+      "title": "VEHICLE CONFIG",
       "defaultFocus": 1,
       "back": {
         "type": "navigate.back"
@@ -314,69 +314,174 @@
           "patch": {}
         },
         {
+          "name": "VC_CarName",
+          "template": "QuickRace/ModeText",
+          "deleted": false,
+          "patch": {
+            "x": 360.0,
+            "y": 70,
+            "font": 2,
+            "hJustify": 0,
+            "valueSource": "vehicle.name",
+            "valueFormat": "CAR: {value}",
+            "valueFallback": "NO CAR SELECTED"
+          },
+          "note": "live: car selected in Vehicle Select (native Broker names)"
+        },
+        {
+          "name": "VC_Model",
+          "template": "component:LongButton",
+          "deleted": false,
+          "patch": {
+            "x": 20.0,
+            "y": 372,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 1,
+            "up": 7,
+            "down": 2,
+            "text": "MODEL SOURCE"
+          },
+          "action": {
+            "type": "extension",
+            "extension": "vehicle.model_source",
+            "args": "1"
+          }
+        },
+        {
+          "name": "VC_ModelValue",
+          "template": "QuickRace/ModeText",
+          "deleted": false,
+          "patch": {
+            "x": 360.0,
+            "y": 386,
+            "font": 2,
+            "hJustify": 0,
+            "valueSource": "vehicle.model_source",
+            "valueFormat": "MODEL: {value}",
+            "valueFallback": "N/A"
+          }
+        },
+        {
+          "name": "VC_Tyres",
+          "template": "component:LongButton",
+          "deleted": false,
+          "patch": {
+            "x": 20.0,
+            "y": 326,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 2,
+            "up": 1,
+            "down": 3,
+            "text": "TYRES"
+          },
+          "action": {
+            "type": "extension",
+            "extension": "vehicle.tyres",
+            "args": "1"
+          }
+        },
+        {
+          "name": "VC_TyresValue",
+          "template": "QuickRace/ModeText",
+          "deleted": false,
+          "patch": {
+            "x": 360.0,
+            "y": 340,
+            "font": 2,
+            "hJustify": 0,
+            "valueSource": "vehicle.tyres",
+            "valueFormat": "TYRES: {value}",
+            "valueFallback": "N/A"
+          }
+        },
+        {
           "name": "VC_Build",
           "template": "component:LongButton",
           "deleted": false,
           "patch": {
-            "x": 245,
-            "y": 341,
-            "buttonId": 1,
-            "up": 4,
-            "down": 2,
+            "x": 20.0,
+            "y": 280,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 3,
+            "up": 2,
+            "down": 4,
             "text": "BUILD"
           },
           "action": {
-            "type": "native.forward",
-            "command": 5,
-            "screen": "QuickRace"
-          },
-          "note": "native Vehicle Setup pages via the Quick Race command 5 (setup preparation stays native)"
+            "type": "extension",
+            "extension": "vehicle.build",
+            "args": "1"
+          }
+        },
+        {
+          "name": "VC_BuildValue",
+          "template": "QuickRace/ModeText",
+          "deleted": false,
+          "patch": {
+            "x": 360.0,
+            "y": 294,
+            "font": 2,
+            "hJustify": 0,
+            "valueSource": "vehicle.build",
+            "valueFormat": "BUILD: {value}",
+            "valueFallback": "NOT AVAILABLE"
+          }
         },
         {
           "name": "VC_Paint",
           "template": "component:LongButton",
           "deleted": false,
           "patch": {
-            "x": 270,
-            "y": 280,
-            "buttonId": 2,
-            "up": 1,
-            "down": 3,
+            "x": 20.0,
+            "y": 234,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 4,
+            "up": 3,
+            "down": 5,
             "text": "PAINT"
           },
           "action": {
             "type": "extension",
-            "extension": "vehicle.paint"
-          },
-          "note": "typed binding for a future paint provider; disabled until a module registers vehicle.paint"
-        },
-        {
-          "name": "VC_ModelSource",
-          "template": "component:LongButton",
-          "deleted": false,
-          "patch": {
-            "x": 277,
-            "y": 219,
-            "buttonId": 3,
-            "up": 2,
-            "down": 4,
-            "text": "MODEL SOURCE"
-          },
-          "action": {
-            "type": "extension",
-            "extension": "extra_options.model_source",
+            "extension": "vehicle.paint",
             "args": "1"
           }
         },
         {
-          "name": "VC_ModelSourceValue",
+          "name": "VC_PaintValue",
           "template": "QuickRace/ModeText",
           "deleted": false,
           "patch": {
-            "x": 470,
-            "y": 246,
-            "textKey": "Frontend/ExtraOptions/PaintText",
-            "font": 2
+            "x": 360.0,
+            "y": 248,
+            "font": 2,
+            "hJustify": 0,
+            "valueSource": "vehicle.paint",
+            "valueFormat": "PAINT: {value}",
+            "valueFallback": "NOT AVAILABLE"
+          }
+        },
+        {
+          "name": "VC_Setup",
+          "template": "component:LongButton",
+          "deleted": false,
+          "patch": {
+            "x": 20.0,
+            "y": 188,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 5,
+            "up": 4,
+            "down": 6,
+            "text": "VEHICLE SETUP"
+          },
+          "action": {
+            "type": "native.forward",
+            "command": 5,
+            "screen": "QuickRace"
           }
         },
         {
@@ -384,12 +489,33 @@
           "template": "component:LongButton",
           "deleted": false,
           "patch": {
-            "x": 266,
-            "y": 158,
-            "buttonId": 4,
-            "up": 3,
-            "down": 1,
+            "x": 20.0,
+            "y": 142,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 6,
+            "up": 5,
+            "down": 7,
             "text": "APPLY"
+          },
+          "action": {
+            "type": "extension",
+            "extension": "vehicle.apply"
+          }
+        },
+        {
+          "name": "VC_Back",
+          "template": "component:LongButton",
+          "deleted": false,
+          "patch": {
+            "x": 20.0,
+            "y": 96,
+            "scaleX": 0.8,
+            "scaleY": 0.8,
+            "buttonId": 7,
+            "up": 6,
+            "down": 1,
+            "text": "BACK"
           },
           "action": {
             "type": "navigate.back"
@@ -423,5 +549,6 @@
       ],
       "aspects": {}
     }
-  ]
+  ],
+  "id": "5f0c1d1e6a8b4e0c9a7d3b2a1c0e9f01"
 }

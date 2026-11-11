@@ -1,9 +1,10 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.Json;
 using MenuBuilder.Core;
 
 // mrmenu — command line and machine API of the Master Rallye Menu Builder.
-// Every command prints one JSON document to stdout (except --help); exit code 0 = ok, 1 = validation errors, 2 = usage/IO error.
+// Every command prints one JSON document to stdout (except --help); exit code 0 = ok, 1 = validation failed,
+// 2 = usage/IO error, 3 = installation failed or rolled back (the previously installed layout is kept).
 static class Program
 {
     static readonly JsonSerializerOptions Out = new() { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
@@ -36,6 +37,8 @@ static class Program
                 "texts" => Texts(a),
                 "fix-margins" => FixMargins(a),
                 "live" => Live(a),
+                "deps" => Deps(a),
+                "actions" => Emit(new { ok = true, actions = ActionCatalog.All }),
                 "api" => Api(),
                 _ => Fail($"unknown command '{cmd}'"),
             };
@@ -52,9 +55,11 @@ static class Program
                         [--size WxH] [--focus ID] [--hitboxes] [--nav] [--safe] [--original]
           compare       --game DIR --project P --screen S --out F.png [--aspect A] [--mode M]   original | modified side by side
           validate      --game DIR --project P                         findings (exit 1 on errors)
-          compile       --game DIR --project P --out DIR               write the layout folder somewhere else (dry run)
-          install       --game DIR --project P [--target EXEDIR] [--no-activate] [--force]
-                                                                       write <game|target>/MenuBuilder/Layouts/<name>, select it
+          compile       --game DIR --project P --out DIR               publish the layout under DIR/MenuBuilder/Layouts (dry run, not activated)
+          install       --game DIR --project P [--target EXEDIR] [--no-activate] [--replace-foreign]
+                                                                       transactional publish to <game|target>/MenuBuilder/Layouts/<name>;
+                                                                       errors block it; outcome Installed|Updated|ValidationFailed|
+                                                                       RollbackCompleted|InstallationFailed
           activate      --game DIR (--layout NAME | --classic)         switch layout / back to the Classic frontend
           uninstall     --game DIR --layout NAME                       remove an installed layout
           status        --game DIR                                     installed layouts, active selection, runtime log tail
@@ -65,6 +70,8 @@ static class Program
           texts         --game DIR [--group G] [--language L]          native localized text table
           fix-margins   --game DIR --project P --screen S              quick fix for renderer PreserveMargins matches
           live          --game DIR                                     latest runtime live dumps (in-game eggs/focus/hitboxes)
+          deps          --game DIR --project P --screen S [--element E] native dependency class of elements
+          actions                                                      typed action/value catalog
           api                                                          machine-readable description of this API
         """;
 
@@ -214,7 +221,19 @@ static class Program
         return Emit(new { ok = true, @out = Path.GetFullPath(a.Req("out")) });
     }
 
-    static object Report(List<Finding> f) => f.Select(x => new { severity = x.Severity.ToString(), screen = x.Screen, element = x.Element, code = x.Code, message = x.Message, aspect = x.Aspect });
+    static object Report(List<Finding> f) => f.Select(x => new
+    {
+        severity = x.Severity.ToString(), screen = x.Screen, element = x.Element, elementType = x.ElementType, code = x.Code,
+        message = x.Message, operation = x.Operation, fix = x.Fix, aspect = x.Aspect,
+    });
+
+    static int Outcome(Installer.InstallResult res) => Emit(new
+    {
+        ok = res.Ok, outcome = res.Outcome.ToString(), title = res.Title, message = res.Message, directory = res.Directory,
+        files = res.Files, keptBackup = res.KeptBackup,
+        errors = res.Findings.Count(f => f.Severity == Severity.Error), warnings = res.Findings.Count(f => f.Severity == Severity.Warning),
+        findings = Report(res.Findings),
+    }, res.Ok ? 0 : res.Outcome == Installer.Outcome.ValidationFailed ? 1 : 3);
 
     static int Validate(Args a)
     {
@@ -238,21 +257,17 @@ static class Program
     {
         using var ws = Ws(a);
         var project = Project(a) ?? throw new ArgumentException("--project is required");
-        var (layout, findings) = ws.Build(project);
         var outDir = Path.GetFullPath(a.Req("out"));
-        var res = Installer.Install(project, layout, ws.Data, ws.Exe, activate: false, targetRoot: outDir);
-        return Emit(new { ok = true, directory = res.Directory, files = res.Files, findings = Report(findings) });
+        Directory.CreateDirectory(outDir);
+        return Outcome(ws.Install(project, new Installer.Options { Activate = false, TargetRoot = outDir }));
     }
 
     static int Install(Args a)
     {
         using var ws = Ws(a);
         var project = Project(a) ?? throw new ArgumentException("--project is required");
-        var (layout, findings) = ws.Build(project);
-        int errors = findings.Count(f => f.Severity == Severity.Error);
-        if (errors > 0 && !a.Has("force")) return Emit(new { ok = false, error = "validation errors; fix them or pass --force", findings = Report(findings) }, 1);
-        var res = Installer.Install(project, layout, ws.Data, ws.Exe, activate: !a.Has("no-activate"), targetRoot: a.Opt("target"));
-        return Emit(new { ok = true, directory = res.Directory, files = res.Files, active = !a.Has("no-activate"), findings = Report(findings) });
+        if (a.Has("force")) throw new ArgumentException("--force was removed: validation errors always block installation (use --replace-foreign only to replace another project's layout of the same name)");
+        return Outcome(ws.Install(project, new Installer.Options { Activate = !a.Has("no-activate"), TargetRoot = a.Opt("target"), ReplaceForeign = a.Has("replace-foreign") }));
     }
 
     static int Activate(Args a)
@@ -271,6 +286,25 @@ static class Program
 
     static int Uninstall(Args a) => Emit(new { ok = Installer.Uninstall(a.Req("game"), a.Req("layout")) });
 
+    static int Deps(Args a)
+    {
+        using var ws = Ws(a);
+        var project = Project(a) ?? new MenuProject();
+        var screen = ScreenOf(ws, project, a.Req("screen"));
+        if (project.Screen(screen.Name) == null) project.Screens.Add(screen);
+        var analyzer = new DependencyAnalyzer(ws);
+        var names = a.Opt("element") is { } e ? new List<string> { e } : ws.Compiler.BuildScene(project, screen).Eggs.Select(x => x.Name).ToList();
+        return Emit(new
+        {
+            ok = true, screen = screen.Name,
+            elements = names.Select(n => analyzer.Analyze(project, screen, n)).Select(r => new
+            {
+                element = r.Element, @class = DependencyReport.Label(r.Class), blocksDelete = r.BlocksDelete, blocksRename = r.BlocksRename, canHide = r.CanHide,
+                dependencies = r.Dependencies.Select(d => new { d.Kind, d.Detail }),
+            }),
+        });
+    }
+
     static int Status(Args a)
     {
         var root = a.Req("game");
@@ -287,7 +321,7 @@ static class Program
     static int NewProject(Args a)
     {
         using var ws = Ws(a);
-        var p = new MenuProject { Name = a.Req("name") };
+        var p = new MenuProject { Name = LayoutName.Validate(a.Req("name")), Id = MenuProject.NewId() };
         foreach (var s in (a.Opt("screens") ?? "MainMenu").Split(',', StringSplitOptions.RemoveEmptyEntries)) p.Screens.Add(ws.NewRetailScreen(s.Trim()));
         p.Save(a.Req("out"));
         return Emit(new { ok = true, project = Path.GetFullPath(a.Req("out")), screens = p.Screens.Select(s => s.Name) });
@@ -300,6 +334,7 @@ static class Program
         var p = MenuProject.Load(path);
         var name = a.Req("screen");
         if (p.Screen(name) != null) throw new ArgumentException($"screen {name} already in project");
+        if (a.Has("custom") && !Ids.IsScreenName(name)) throw new ArgumentException($"'{name}' is not a valid custom screen name (letters and digits, first a letter)");
         p.Screens.Add(a.Has("custom") ? ws.NewCustomScreen(name, a.Opt("title"), a.Opt("base") ?? Compiler.HostScreen) : ws.NewRetailScreen(name));
         p.Save(path);
         return Emit(new { ok = true, screens = p.Screens.Select(s => new { s.Name, s.Kind, s.Base }) });
@@ -359,9 +394,11 @@ static class Program
     {
         ok = true, format = MenuProject.FormatName, version = MenuProject.CurrentVersion,
         actions = ActionBinding.Types,
-        builtinExtensions = new[] { "extra_options.model_source", "game.quit" },
+        actionCatalog = ActionCatalog.All.Select(x => new { x.Id, x.Title, owner = x.Owner.ToString(), x.IsAction, x.HasValue, x.Description, x.ValueExample, x.Args, x.LegacyId }),
+        installOutcomes = Enum.GetNames<Installer.Outcome>(),
+        exitCodes = new { ok = 0, validationFailed = 1, usageOrIo = 2, installationFailedOrRolledBack = 3 },
         interfaceModes = Enum.GetNames<InterfaceMode>(), aspects = Aspect.Standard.Select(x => x.Key),
         elementPatch = ElementPatch.Fields.Select(p => new { name = JsonNamingPolicy.CamelCase.ConvertName(p.Name), type = (Nullable.GetUnderlyingType(p.PropertyType) ?? p.PropertyType).Name }),
-        commands = new[] { "screens", "inspect", "render", "compare", "validate", "compile", "install", "activate", "uninstall", "status", "new-project", "add-screen", "export-screen", "import-screen", "texts", "live", "api" },
+        commands = new[] { "screens", "inspect", "render", "compare", "validate", "compile", "install", "activate", "uninstall", "status", "new-project", "add-screen", "export-screen", "import-screen", "texts", "fix-margins", "live", "deps", "actions", "api" },
     });
 }

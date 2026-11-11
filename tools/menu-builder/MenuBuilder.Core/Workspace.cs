@@ -68,6 +68,20 @@ public sealed class Workspace : IDisposable
         return (compiled, Validator.Validate(project, compiled));
     }
 
+    /// <summary>Validate, compile and publish transactionally (see <see cref="Installer.Install"/>). Errors block it.</summary>
+    public Installer.InstallResult Install(MenuProject project, Installer.Options? options = null)
+    {
+        CompiledLayout layout;
+        List<Finding> findings;
+        try { (layout, findings) = Build(project); }
+        catch (Exception ex)
+        {
+            return new Installer.InstallResult(Installer.Outcome.ValidationFailed, null, new(), null, "Compilation failed: " + ex.Message,
+                new() { new Finding(Severity.Error, "*", null, "COMPILE_FAILED", ex.Message) { Operation = "compile project" } });
+        }
+        return Installer.Install(project, layout, findings, Data, Exe, options);
+    }
+
     // ---- screen exchange (*.mrscreen.json) -------------------------------------------------------
 
     public sealed class ScreenPackage
