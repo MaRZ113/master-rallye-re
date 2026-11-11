@@ -12,10 +12,14 @@ inline bool fleet_participant_race(bool single,const RaceCertificate& race,const
  return a.active&&single&&race.valid&&race.race_generation&&race.race_generation==a.race_generation&&
   race.owner_lifetime==a.owner_lifetime&&race.participant_count>=1&&race.participant_count<=kFleetMaxCars&&a.index<race.participant_count;
 }
+inline bool fleet_choice_allows(const FleetActive& a=fleet_active)noexcept{
+ return a.active?mrextra::ps2_allowed(a.folder.data(),int(a.index),1,a.local):mrextra::user_policy().race.load();
+}
 inline bool fleet_single_car_race(bool single,const RaceCertificate& race,const FleetActive& a=fleet_active)noexcept{
- // Only the proven current participant may request native PC presentation.
- // Atmosphere/native lighting is independent of this PS2 replacement gate.
- if(a.active&&mrextra::native(a.folder.data(),int(a.index),1))return false;
+ // VEHICLE-FIX2: the MODEL choice of the proven current participant decides (PC/PS2);
+ // without one the owner's INI switches do (mrextra::ps2_allowed). The classic
+ // single-car path (no participant identity) follows RaceFleet.
+ if(!fleet_choice_allows(a))return false;
  return (single&&race.valid&&race.single_human_car_race&&race.participant_count==1)||fleet_participant_race(single,race,a);
 }
 // Cheap per-draw shape test for the frontend model path: the active profile's

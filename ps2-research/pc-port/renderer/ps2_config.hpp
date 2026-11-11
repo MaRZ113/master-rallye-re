@@ -157,6 +157,15 @@ inline bool value(const wchar_t* legacy, const wchar_t* ini, std::wstring& out) 
     if (auto fo = forced().find(n.key); fo != forced().end()) { out = fo->second; return true; }
     auto it = f.values.find(n.key);
     if (it == f.values.end()) it = f.values.find(historical);  // a historical name written into a v3 file
+    // VEHICLE-FIX2 [Vehicles] ModelChoice=1 (default): the PS2 vehicle pipeline is always loaded; the Extra Options
+    // MODEL row (or, without a selection, the owner's value read through user_on) decides per car at draw time.
+    // XtrailFidelityMode keeps the owner's RaceFleet value (it has no per-car gate).
+    if ((n.key == L"RaceFleet" || n.key == L"FleetAllCars" || n.key == L"FrontendModel") && std::wcscmp(legacy, L"XtrailFidelityMode") &&
+        (it == f.values.end() || it->second != L"1")) {
+        const auto choice = f.values.find(L"ModelChoice");
+        if (choice == f.values.end() || choice->second != L"0") {
+            out = n.kind == Kind::ReflectionOn4 ? L"4" : n.kind == Kind::FrontendOn2 ? L"2" : L"1"; return true; }
+    }
     if (it == f.values.end()) { if (const auto* d = default_value(historical)) { out = d; return true; } return false; }
     const bool on = it->second == L"1";
     switch (n.kind) {
@@ -170,6 +179,11 @@ inline bool value(const wchar_t* legacy, const wchar_t* ini, std::wstring& out) 
 }  // namespace v3
 
 inline bool is_v3(const wchar_t* ini) noexcept { try { return v3::files(ini).v3; } catch (...) { return false; } }
+// The owner's own on/off value of a v3 key (before the ModelChoice expansion above); legacy INIs are never expanded.
+inline bool user_on(const wchar_t* key, const wchar_t* ini) noexcept {
+    try { if (!is_v3(ini)) return true; const auto& f = v3::files(ini); const auto it = f.values.find(key); return it != f.values.end() && it->second == L"1"; }
+    catch (...) { return true; }
+}
 
 inline DWORD read_string(const wchar_t* legacy, const wchar_t* fallback, wchar_t* out, DWORD size, const wchar_t* ini) noexcept {
     if (is_v3(ini)) {

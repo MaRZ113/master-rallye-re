@@ -2,6 +2,7 @@
 #include "ps2_race_certificate.hpp"
 #include "ps2_perf_timing.hpp"
 #include "ps2_config.hpp"
+#include "extra_options_bridge.hpp"
 #include "race_epoch.hpp"
 #include "reflection_pilot.hpp"
 #include "course_objects.hpp"
@@ -237,6 +238,10 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
                 diag_override_ = path;
             }
         }
+        // VEHICLE-FIX2 ModelChoice: the owner's own switches decide for cars without a MODEL selection.
+        mrextra::user_policy().race = ::gfx2::ps2port::config::user_on(L"RaceFleet", ini.c_str());
+        mrextra::user_policy().all_cars = ::gfx2::ps2port::config::user_on(L"FleetAllCars", ini.c_str());
+        mrextra::user_policy().menu = ::gfx2::ps2port::config::user_on(L"FrontendModel", ini.c_str());
         frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         race_model_=std::make_unique<FrontendModel>(build_valid_,ini,true);
         wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);

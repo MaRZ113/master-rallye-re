@@ -67,7 +67,7 @@ inline dipintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min,UIN
    const unsigned slot=table.assign(instance,d.trace.frame_number(),e->frontend_slot_count());if(slot==UINT32_MAX)return {};
    slot_scope.emplace(slot);p=e->frontend_model();if(!p||!p->requested())return {};}}
  if(!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};
- if(mrextra::native(p->profile()?p->profile()->family:"Xtrail",-1,0))return {};
+ if(!mrextra::ps2_allowed(p->profile()?p->profile()->family:"Xtrail",-1,0,true))return {};
  const auto* profile=p->profile();const auto* sources=profile?profile->source:ps2port::kXtrailCompleteSources;const unsigned source_count=profile?profile->pcDrawCount:24u,mesh_count=unsigned(p->asset().meshes.size());const uint32_t complete_mask=(uint32_t(1)<<source_count)-1;
  bool candidate=false;for(unsigned i=0;i<source_count;++i){const auto& s=sources[i];candidate=candidate||(s.vertices==vertices&&s.triangles==count);}
  if(!candidate||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};

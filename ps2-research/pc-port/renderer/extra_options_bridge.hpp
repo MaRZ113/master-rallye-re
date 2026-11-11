@@ -9,6 +9,8 @@
 #include <tlhelp32.h>
 #include <atomic>
 #include <cstdint>
+#include <cstring>
+#include <cstdlib>
 
 // Optional, query-only Extra Options ABI. Never LoadLibrary a gameplay proxy:
 // dinput8 owns selection/persistence; absence keeps the renderer's own policy.
@@ -94,6 +96,30 @@ public:
 inline API api() noexcept {static Cache cache;return cache.get(GetTickCount64(),discover);}
 inline unsigned variant(const char* family,int participant,unsigned phase) noexcept {return api().variant(family,participant,phase);}
 inline bool native(const char* family,int participant,unsigned phase) noexcept {return api().native(family,participant,phase);}
+
+// VEHICLE-FIX2: per-draw gates ask for the same (family, participant, phase)
+// thousands of times a frame. One answer per key is reused for 50 ms; a MODEL
+// change in the menu is visible on the next refresh.
+inline unsigned cached_variant(const char* family,int participant,unsigned phase) noexcept {
+ struct Entry{char family[48]{};int participant=-2;unsigned phase=~0u,value=0;uint64_t tick=0;};
+ static thread_local Entry entries[8];static thread_local unsigned next=0;
+ if(!family)return 0;const uint64_t now=GetTickCount64();
+ for(auto& e:entries)if(e.participant==participant&&e.phase==phase&&now-e.tick<50&&!strncmp(e.family,family,sizeof(e.family)-1))return e.value;
+ auto& e=entries[next++%8];strncpy_s(e.family,family,_TRUNCATE);e.participant=participant;e.phase=phase;e.tick=now;
+ const auto a=api();e.value=a.variant(family,participant,phase);
+ if(!e.value&&a.complete()&&!a.visual_v2)e.value=a.visual(family,participant,phase)==1?1u:0u;   // V1-only provider: PC or nothing
+ return e.value;
+}
+// ModelChoice=1 (PS2Port.ini [Vehicles], default): the PS2 vehicle pipeline is
+// always loaded and the MODEL row decides per car (1 = PC, 2 = PS2). Without a
+// selection (AI cars, no Extra Options dinput8) the owner's INI switches decide.
+struct UserPolicy{std::atomic_bool race{true},all_cars{true},menu{true};};
+inline UserPolicy& user_policy() noexcept {static UserPolicy p;return p;}
+// human = a local driver's car in a race; phase 0 = the menu car.
+inline bool ps2_allowed(const char* family,int participant,unsigned phase,bool human) noexcept {
+ const auto v=cached_variant(family,participant,phase);if(v==1)return false;if(v==2||v==3)return true;
+ auto& u=user_policy();return phase?u.race.load()&&(human||u.all_cars.load()):u.menu.load();
+}
 
 // A FrontendModel is reused across menu/race participants. Selection revision
 // alone cannot identify a texture upload: phase and participant matter too.

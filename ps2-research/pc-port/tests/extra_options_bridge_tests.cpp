@@ -47,7 +47,8 @@ int main(int argc,char** argv){
  gfx2::ps2port::FleetActive active{};active.active=true;strcpy_s(active.folder.data(),active.folder.size(),"Tata");active.index=0;
  CHECK(!gfx2::ps2port::fleet_single_car_race(true,race,active));
  active.index=1;CHECK(gfx2::ps2port::fleet_single_car_race(true,race,active));
- active.index=0;set(mrextra::kAbi,2,3);CHECK(gfx2::ps2port::fleet_single_car_race(true,race,active));
+ // VEHICLE-FIX2: per-draw answers are cached for 50 ms; a MODEL change is seen after that window.
+ active.index=0;set(mrextra::kAbi,2,3);Sleep(60);CHECK(gfx2::ps2port::fleet_single_car_race(true,race,active));
  set(mrextra::kAbi,3,4);const auto key=mrextra::upload_key(api,"Tata",0,1);
  CHECK(key.variant==3&&key.generation==4&&key.phase==1&&key.participant==0);
  CHECK(key!=mrextra::upload_key(api,"Tata",-1,0));

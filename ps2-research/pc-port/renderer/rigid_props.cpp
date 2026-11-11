@@ -402,19 +402,25 @@ bool RigidPropsPilot::select_course(std::string_view id,uint64_t race) noexcept 
         if(stock_courses_&&std::strncmp(guard_reason_,"stock_pc_course",15)==0)guard_reason_="stock_pc_course_allowed_by_ini";
         course_log_pending_=true;
     }
-    if(std::strcmp(guard_reason_,"ps2_course_package")&&std::strcmp(guard_reason_,"stock_pc_course_allowed_by_ini")){runtime_.stop();return false;}
+    // VEHICLE-FIX2: on a stock PC course the checkpoint barrels (PS2CheckpointBarrels=1) still replace the PC boards;
+    // hay bales/tumbleweeds stay PS2-package only. The landscape is then the retail course DX (loose or Data.sma).
+    RigidSelection selection=selection_;
+    if(selection_.barrels&&std::strncmp(guard_reason_,"stock_pc_course",15)==0&&std::strcmp(guard_reason_,"stock_pc_course_allowed_by_ini")){
+        selection.props=false;if(rigid_members(asset_,course,selection).empty()){runtime_.stop();return false;}
+        if(std::strcmp(guard_reason_,"stock_pc_course_barrels_only")){guard_reason_="stock_pc_course_barrels_only";course_log_pending_=true;}}
+    else if(std::strcmp(guard_reason_,"ps2_course_package")&&std::strcmp(guard_reason_,"stock_pc_course_allowed_by_ini")){runtime_.stop();return false;}
     // Landscape of this course: loaded once on a worker thread, kept while the course stays the same.
     if(terrain_path_!=def.dx_path||terrain_.empty()){
         if(loading_)return false;
         if(terrain_path_==def.dx_path&&std::strcmp(terrain_reason_,"loaded"))return false;  // failed before: stay off
         try{
             job_=TerrainJob{};job_.dx_path=def.dx_path;job_done_=false;loading_=true;terrain_reason_="loading";
-            std::wstring path=file.wstring();
-            worker_=std::thread([this,path]() noexcept {
+            std::wstring path=file.wstring();const std::string rel=def.dx_path;ensure_roots();
+            worker_=std::thread([this,path,rel]() noexcept {
                 const auto t0=std::chrono::steady_clock::now();
                 try{
                     std::vector<uint8_t> bytes;
-                    if(!read_file(path,bytes,512ull*1024*1024))job_.reason="course_dx_unreadable";
+                    if(!read_file(path,bytes,512ull*1024*1024)&&!read_game_file(rel,bytes,512ull*1024*1024))job_.reason="course_dx_unreadable";
                     else job_.reason=rigid_terrain_from_course_dx(bytes.data(),bytes.size(),job_.terrain,job_.records)?"loaded":"course_collision_not_parsed";
                 }catch(...){job_.reason="course_collision_load_failed";}
                 job_.ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-t0).count();
@@ -423,7 +429,7 @@ bool RigidPropsPilot::select_course(std::string_view id,uint64_t race) noexcept 
         }catch(...){loading_=false;terrain_reason_="worker_not_started";}
         return false;
     }
-    if(!runtime_.start(asset_,course,terrain_,race,selection_)){guard_reason_="rigid_world_start_failed";runtime_.stop();return false;}
+    if(!runtime_.start(asset_,course,terrain_,race,selection)){guard_reason_="rigid_world_start_failed";runtime_.stop();return false;}
     barrel_race_=runtime_.barrels()?race:0;
     last_qpc_=0;last_state_log_=0;advanced_frame_=UINT64_MAX;course_log_pending_=true;
     return true;
