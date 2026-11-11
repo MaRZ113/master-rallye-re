@@ -67,7 +67,38 @@ def class_map(r):
     return count, out
 
 
-def build_profile(roster: bytes, retail: bytes, core: bytes, addon_plan: dict):
+def masks_from_plan(addon_plan: dict) -> dict:
+    return {a["physical_id"]: sum(1 << i for i, m in enumerate(MODES) if a["ai_eligibility"].get(m, {}).get("enabled", False))
+            for a in addon_plan["addons"]}
+
+
+def read_profile_masks(roster_v2: bytes) -> dict:
+    """AI masks by physical ID from an existing MRLP section (the Vehicle Manager keeps them with its base roster)."""
+    at, size = struct.unpack_from("<II", roster_v2, 248)
+    p = roster_v2[at:at + size]
+    if p[:4] != b"MRLP":
+        raise ValueError("no MRLP section")
+    ranges, checks, hooks, vehicles = struct.unpack_from("<I", p, 24)[0], *struct.unpack_from("<III", p, 64)
+    o = 80 + ranges * 8
+    for _ in range(checks):
+        o += 8 + struct.unpack_from("<H", p, o + 4)[0]
+    o += hooks * 15
+    return {pid: mask for pid, _cls, mask in (struct.unpack_from("<iiI", p, o + 12 * i) for i in range(vehicles))}
+
+
+def strip_v2(roster: bytes) -> bytes:
+    """roster.mrvr v2 -> the v1 roster it was made from (profile removed, digest recomputed)."""
+    if struct.unpack_from("<I", roster, 4)[0] == 1:
+        return roster
+    at = struct.unpack_from("<I", roster, 248)[0]
+    header = bytearray(roster[:HEADER])
+    struct.pack_into("<I", header, 4, 1)
+    header[248:256] = bytes(8)
+    struct.pack_into("<Q", header, 160, fnv64(roster[HEADER:at]))
+    return bytes(header) + roster[HEADER:at]
+
+
+def build_profile(roster: bytes, retail: bytes, core: bytes, addon_plan: dict | None = None, masks: dict | None = None):
     r = parse_roster(roster)
     native = [op for op in r["ops"] if op["flags"] != 1]
     sdk = {"operations": [{"rva": op["rva"], "expected_original_bytes": op["before"].hex(),
@@ -87,8 +118,7 @@ def build_profile(roster: bytes, retail: bytes, core: bytes, addon_plan: dict):
                                              "writable_ranges": r["writable"], "code_sha256": "0" * 64})
     code = b"".join(r["payload"][x["offset"]:x["offset"] + x["size"]] for x in immutable)
     count, classes = class_map(r)
-    masks = {a["physical_id"]: sum(1 << i for i, m in enumerate(MODES) if a["ai_eligibility"].get(m, {}).get("enabled", False))
-             for a in addon_plan["addons"]}
+    masks = masks if masks is not None else masks_from_plan(addon_plan)
     vehicles = [(pid, classes[pid], masks[pid]) for pid in sorted(classes) if pid > 24 and pid in masks]
     out = bytearray(b"MRLP" + struct.pack("<IIIIIII", 1, 0, count, r["ext_address"], r["ext_size"], len(immutable), 0))
     out += hashlib.sha256(code).digest()

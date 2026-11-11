@@ -43,3 +43,9 @@ Base: V-CAP3 35-record roster, installed by the dinput8 VehicleRoster module (ow
    `roster.mrvr`, so one dinput8 build serves every roster.
 5. **Vehicle Manager (Vehicle SDK).** Packages, install/remove/order UI, atomic apply; the V-CAP3 cars and the
    V4 changes become packages.
+
+## Status (2026-11-11)
+
+Stages 2-5 implemented as candidates: ROSTER_V4_STAGES_2_4.md (Forklift from PS2, PS2 models of Forklift and
+ForesterSTI, MODEL = PS2/PC/DEMO with Demo names, roster-carried loader profile) and VEHICLE_MANAGER.md (Manager v1).
+Test host: `.research-output/hosts/host-roster-v4-01`. Owner test pending.

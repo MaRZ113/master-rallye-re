@@ -112,6 +112,9 @@ Vehicle Manager (Vehicle SDK tool)          dinput8.dll (generic, no car data)
    (`ROSTER_FALLBACK_ID0`), a class-scoped key whose car is of another class gets the first
    car of its class (ID0 would break that class list). The corrected copy is served from
    `MRMods/Vehicles/PlayerState.read.xml`; the save file is never rewritten by the module.
-3. **Manager:** package format, install/remove/order UI in Workshop, atomic apply,
-   tombstones, save guard.
+3. **Manager (v1, 2026-11-11):** `tools/vehicle_manager.py` + window, see VEHICLE_MANAGER.md: base roster,
+   in-class order, remove/restore SDK vehicles (tombstones + save guard), `.mrcar` variant packages, atomic apply,
+   stock switch. The SDK/G1 composition profile now travels in roster.mrvr v2 (MRLP, ROSTER_V4_STAGES_2_4.md), so
+   one dinput8 build serves every roster. Open: native vehicle packages / class moves / T4 via the registry
+   builder, Workshop integration.
 4. Owner tests: stock fallback, add/remove/reorder, T4, Extra Options AI, renderer.
