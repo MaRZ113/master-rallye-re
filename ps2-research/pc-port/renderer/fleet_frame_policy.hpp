@@ -1,6 +1,7 @@
 #pragma once
 #include "race_epoch.hpp"
 #include "fleet_participants.hpp"
+#include "extra_options_bridge.hpp"
 namespace gfx2::ps2port {
 // Every race-fleet CAR, wheel and lamp effect requires a live single-human-car
 // race with exactly one participant, or (PS2FleetAllCars=1) a live single-camera
@@ -12,6 +13,9 @@ inline bool fleet_participant_race(bool single,const RaceCertificate& race,const
   race.owner_lifetime==a.owner_lifetime&&race.participant_count>=1&&race.participant_count<=kFleetMaxCars&&a.index<race.participant_count;
 }
 inline bool fleet_single_car_race(bool single,const RaceCertificate& race,const FleetActive& a=fleet_active)noexcept{
+ // Only the proven current participant may request native PC presentation.
+ // Atmosphere/native lighting is independent of this PS2 replacement gate.
+ if(a.active&&mrextra::native(a.folder.data(),int(a.index),1))return false;
  return (single&&race.valid&&race.single_human_car_race&&race.participant_count==1)||fleet_participant_race(single,race,a);
 }
 // Cheap per-draw shape test for the frontend model path: the active profile's

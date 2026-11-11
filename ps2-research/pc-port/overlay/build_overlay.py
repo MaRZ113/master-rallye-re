@@ -385,7 +385,7 @@ def build_locked() -> int:
             path.relative_to(PORT).as_posix(): file_sha(path)
             for folder in (PORT / "renderer", PORT / "tests")
             for path in sorted(folder.rglob("*"))
-            if path.is_file() and path.suffix in {".cpp", ".hpp", ".py"}
+            if path.is_file() and path.suffix in {".cpp", ".hpp", ".py", ".def"}
         },
         "generator": {},
         "builds": {},

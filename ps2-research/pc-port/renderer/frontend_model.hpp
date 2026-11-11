@@ -1,5 +1,6 @@
 #pragma once
 #include "ps2_diag.hpp"
+#include "extra_options_bridge.hpp"
 #include <cmath>
 #include "ps2_port_extension.hpp"
 #include "ps2_content_fixes.hpp"
@@ -55,6 +56,7 @@ class FrontendModel {
  const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;bool flip_lamp_chrome_=false;IDirect3DTexture8* static_env_=nullptr;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
  std::unique_ptr<FrontendModel> off_child_;const FleetProfile* off_failed_=nullptr;
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false,crew_=false;uint32_t logs_=0;
+ mrextra::UploadKey extra_upload_{};
  float source_radius_sq_=0;FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
  std::vector<std::vector<FrontendVertex>> kia_deformed_;uint64_t kia_revision_=UINT64_MAX;
  std::array<std::vector<FrontendVertex>,5> trim_;

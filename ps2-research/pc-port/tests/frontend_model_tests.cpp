@@ -179,6 +179,45 @@ void source_reflection_flip_contract(){
  auto baseline_env=source_environment_matrix(env,false,0);CHECK(!std::memcmp(&env,&baseline_env,64));
  for(float y:{-1.f,0.f,1.f})CHECK(std::fabs((y*env._22+env._42)+(y*flipped._22+flipped._42)-1.f)<.00001f);
 }
-int main(){source_reflection_flip_contract();ps2_prepared_lighting_contract();content_fix_assets();untextured_record_certificate();damage_transfer_contract();private_off_assets();fleet_wheel_all_assets();kia_damage_actual_replay();fleet_damage_capture_budget();original_car_certificates();car_queue_tests();car_child_lifetime();front_lamp_replay();fleet_car_assets();headlight_replay();alpha_secondary();weighted_glass();CHECK(complete_tread_u_mask("ba1cee9a21c2a2ae2935158136ae80b587eca7dc9a6701afc573e069818d772b")==0x80000);CHECK(complete_tread_u_mask("unknown")==0);CHECK(complete_tread_u_mask(nullptr)==0);descriptor_bounds();transition_budget();private_list_selection();caralpha_state();damage_replay();textureless_position_adapter();fleet_policy();tread_address();wheel_policy();race_policy();primary_orientation();queue_owner();transactions();effective_shadow();assets();return failures?1:0;}
+
+// Real qualified PS2 texture bytes through production FrontendModel upload;
+// D3D device is instrumented, not an original-game/GPU run.
+int extra_upload_contract(const char* fixture){
+ const auto* directory=std::getenv("MRR_EXTRA_FIXTURE_ASSET_DIR");
+ if(!directory){std::cout<<"NOT_PERFORMED: MRR_EXTRA_FIXTURE_ASSET_DIR missing\n";return 77;}
+ const FleetProfile* profile=nullptr;for(const auto& f:kFrontendFleetProfiles)if(!std::strcmp(f.family,"Tata"))profile=&f;
+ CHECK(profile);if(!profile)return 2;
+ auto ini=std::filesystem::temp_directory_path()/"mrr-extra-upload-test.ini";
+ {std::ofstream f(ini);f<<"[PS2Port]\nFrontendModelMode=2\nFrontendModelAssetDirectory="<<directory<<"\n";}
+ FrontendModel model(true,ini.wstring(),0,profile);CHECK(model.requested());if(!model.requested())return 2;
+ const auto originals=model.asset().textures;CHECK(!originals.empty());if(originals.empty())return 2;
+ Native device;CHECK(model.initialize(device));const auto count=int(originals.size());CHECK(device.creates==count);
+ CHECK(device.allocated[0]->pixels==originals[0].pixels);
+ const auto module=LoadLibraryA(fixture);CHECK(module);if(!module)return 2;
+ const auto set=reinterpret_cast<void(WINAPI*)(unsigned,unsigned,unsigned)>(GetProcAddress(module,"ExtraFixtureSet"));
+ const auto bind=reinterpret_cast<void(WINAPI*)(unsigned,unsigned,unsigned,const void*,unsigned)>(GetProcAddress(module,"ExtraFixtureTemplate"));
+ CHECK(set&&bind);if(!set||!bind)return 2;
+ const auto& first=originals[0];bind(0,first.width,first.height,first.pixels.data(),unsigned(first.pixels.size()*4));
+ set(mrextra::kAbi,3,2);Sleep(260);CHECK(model.initialize(device));CHECK(device.creates==2*count);
+ CHECK(device.allocated[count]->pixels[0]==(first.pixels[0]^0x55u));
+ CHECK((device.allocated[count]->pixels[0]&0xff000000)==(first.pixels[0]&0xff000000));
+ CHECK(model.asset().textures[0].pixels==first.pixels);CHECK(model.initialize(device)&&device.creates==2*count);
+ for(int i=0;i<count;++i)CHECK(device.allocated[i]->refs==0);
+ set(mrextra::kAbi,3,3);CHECK(model.initialize(device)&&device.creates==3*count);
+ {FleetActive ai{};ai.active=true;ai.index=1;FleetActiveScope scope(ai);
+  CHECK(model.initialize(device)&&device.creates==4*count);CHECK(device.allocated[3*count]->pixels==first.pixels);}
+ CHECK(model.initialize(device)&&device.creates==5*count);
+ set(mrextra::kAbi,2,4);CHECK(model.initialize(device)&&device.creates==6*count);CHECK(device.allocated[5*count]->pixels==first.pixels);
+ // No re-upload for ordinary PS2 AI/menu contexts or revision-only changes.
+ {FleetActive ai{};ai.active=true;ai.index=1;FleetActiveScope scope(ai);CHECK(model.initialize(device)&&device.creates==6*count);}
+ set(mrextra::kAbi,2,5);CHECK(model.initialize(device)&&device.creates==6*count);
+ model.reset();for(const auto& t:device.allocated)CHECK(t->refs==0);
+ CHECK(model.initialize(device)&&device.creates==7*count);CHECK(device.allocated[6*count]->pixels==first.pixels);
+ model.reset();FreeLibrary(module);std::filesystem::remove(ini);
+ std::cout<<"Production texture upload, late provider, revision/reset and AI isolation: "<<(failures?"FAIL":"PASS")<<"; instrumented D3D, NOT GAMEPLAY\n";
+ return failures?1:0;
+}
+
+int main(int argc,char** argv){if(argc==2)return extra_upload_contract(argv[1]);source_reflection_flip_contract();ps2_prepared_lighting_contract();content_fix_assets();untextured_record_certificate();damage_transfer_contract();private_off_assets();fleet_wheel_all_assets();kia_damage_actual_replay();fleet_damage_capture_budget();original_car_certificates();car_queue_tests();car_child_lifetime();front_lamp_replay();fleet_car_assets();headlight_replay();alpha_secondary();weighted_glass();CHECK(complete_tread_u_mask("ba1cee9a21c2a2ae2935158136ae80b587eca7dc9a6701afc573e069818d772b")==0x80000);CHECK(complete_tread_u_mask("unknown")==0);CHECK(complete_tread_u_mask(nullptr)==0);descriptor_bounds();transition_budget();private_list_selection();caralpha_state();damage_replay();textureless_position_adapter();fleet_policy();tread_address();wheel_policy();race_policy();primary_orientation();queue_owner();transactions();effective_shadow();assets();return failures?1:0;}
 
 

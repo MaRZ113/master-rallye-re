@@ -1,0 +1,9 @@
+LIBRARY dinput8
+EXPORTS
+    MRExtraOptionsAbi=_MRExtraOptionsAbi@0
+    MRExtraVisualV1=_MRExtraVisualV1@12
+    MRExtraVisualV2=_MRExtraVisualV2@12
+    MRExtraRevisionV1=_MRExtraRevisionV1@12
+    MRExtraTextureV1=_MRExtraTextureV1@36
+    ExtraFixtureSet=_ExtraFixtureSet@12
+    ExtraFixtureTemplate=_ExtraFixtureTemplate@20
