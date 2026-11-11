@@ -15,7 +15,9 @@ Example::
     p.save("my.mrmenu.json")
     report = mb.validate("my.mrmenu.json")
     if report["ok"]:
-        mb.install("my.mrmenu.json")
+        result = mb.install("my.mrmenu.json")      # transactional; errors always block
+        print(result["outcome"], result["message"])  # Installed | Updated | ValidationFailed | RollbackCompleted | InstallationFailed
+    mb.edit("my.mrmenu.json", "MainMenu", hide=["Progress"])   # dependency-safe edit (raises MenuBuilderError if blocked)
 
 The executable is found via ``MRMENU_EXE``, next to this file (packaged layout) or in the build output.
 """
@@ -23,6 +25,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -31,6 +34,9 @@ FORMAT = "mr-menu-project"
 VERSION = 1
 ACTION_TYPES = ("native", "navigate.screen", "navigate.back", "native.forward", "broker.set_int",
                 "broker.toggle_bool", "broker.cycle_int", "extension", "none")
+INSTALL_OUTCOMES = ("Installed", "Updated", "ValidationFailed", "RollbackCompleted", "InstallationFailed")
+_LAYOUT_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,47}$")
+_ACTION_ID = re.compile(r"^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$")
 
 
 class MenuBuilderError(RuntimeError):
@@ -121,12 +127,38 @@ class MenuBuilder:
     def compile(self, project: str, out: str) -> dict:
         return self.run("compile", *self._g(), "--project", str(project), "--out", str(out))
 
-    def install(self, project: str, target: str | None = None, activate: bool = True, force: bool = False) -> dict:
+    def install(self, project: str, target: str | None = None, activate: bool = True, replace_foreign: bool = False) -> dict:
+        """Transactional install. Returns {"ok", "outcome", "message", "findings", ...}; validation errors always block
+        (there is no force). ``replace_foreign`` replaces a layout of the same name installed by another project."""
         a = [*self._g(), "--project", str(project)]
         if target: a += ["--target", str(target)]
         if not activate: a.append("--no-activate")
-        if force: a.append("--force")
+        if replace_foreign: a.append("--replace-foreign")
         return self.run("install", *a, check=False)
+
+    def edit(self, project: str, screen: str, *, hide: list[str] | None = None, show: list[str] | None = None,
+             disable: list[str] | None = None, enable: list[str] | None = None, delete: list[str] | None = None,
+             rename: tuple[str, str] | None = None, force: bool = False) -> dict:
+        """Dependency-safe element operation (same rules as the editor). Raises MenuBuilderError with the blocking
+        dependencies when a native element would be deleted/renamed without ``force``."""
+        a = [*self._g(), "--project", str(project), "--screen", screen]
+        for flag, names in (("--hide", hide), ("--show", show), ("--disable", disable), ("--enable", enable), ("--delete", delete)):
+            if names: a += [flag, ",".join(names)]
+        if rename: a += ["--rename", rename[0], "--to", rename[1]]
+        if force: a.append("--force")
+        r = self.run("edit", *a, check=False)
+        if not r.get("ok"):
+            raise MenuBuilderError(r.get("error", "edit failed"), r)
+        return r
+
+    def deps(self, project: str, screen: str, element: str | None = None) -> dict:
+        a = [*self._g(), "--project", str(project), "--screen", screen]
+        if element: a += ["--element", element]
+        return self.run("deps", *a)
+
+    def actions(self) -> list[dict]:
+        """Typed action/value catalog (IDs, owner: BuiltIn | ExtraOptions | Planned)."""
+        return self.run("actions")["actions"]
 
     def activate(self, layout: str) -> dict:
         return self.run("activate", "--game", self.game, "--layout", layout)
@@ -171,7 +203,10 @@ class Project:
 
     @classmethod
     def new(cls, name: str, screens: list[str] | None = None) -> "Project":
-        d = {"format": FORMAT, "version": VERSION, "name": name,
+        if not _LAYOUT_NAME.match(name):
+            raise MenuBuilderError(f"invalid project/layout name {name!r}: letters, digits, '-' and '_' only (max 48)")
+        import uuid
+        d = {"format": FORMAT, "version": VERSION, "name": name, "id": uuid.uuid4().hex,
              "settings": {"mouse": True, "aspects": ["4:3", "16:10", "16:9", "21:9"], "language": 0},
              "styles": {}, "components": {}, "screens": []}
         p = cls(d)
@@ -253,7 +288,20 @@ class Project:
         else:
             if action.get("type") not in ACTION_TYPES:
                 raise MenuBuilderError(f"unknown action type {action.get('type')}")
+            if action.get("type") == "extension" and not _ACTION_ID.match(action.get("extension") or ""):
+                raise MenuBuilderError(f"invalid action ID {action.get('extension')!r} (lower-case dotted name, e.g. vehicle.paint)")
             e["action"] = action
+
+    def bind_value(self, screen: str, egg: str, source: str | None, fmt: str = "{value}", fallback: str = "N/A") -> None:
+        """Dynamic text: the runtime writes the provider value (e.g. vehicle.model_source) into this text element."""
+        e = self.element(screen, egg)
+        patch = e.setdefault("patch", {})
+        if source is None:
+            for k in ("valueSource", "valueFormat", "valueFallback"): patch.pop(k, None)
+            return
+        if not _ACTION_ID.match(source):
+            raise MenuBuilderError(f"invalid value ID {source!r}")
+        patch.update({"valueSource": source, "valueFormat": fmt, "valueFallback": fallback})
 
     def style(self, name: str, **fields: Any) -> None:
         self.data.setdefault("styles", {})[name] = fields

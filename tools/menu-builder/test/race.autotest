@@ -1,0 +1,13 @@
+# Starts a Quick Race from the Menu Builder frontend; the runner lingers in the race (Randomizer/AI/Extra Options logs).
+wait 3000
+expect-screen MainMenu
+key accept
+wait 3000
+expect-screen 2
+key accept
+wait 4000
+expect-screen QuickRace
+expect-focus 1
+dump
+shot q01-quickrace
+final-key accept

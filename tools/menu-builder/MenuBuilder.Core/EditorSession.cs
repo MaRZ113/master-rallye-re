@@ -91,24 +91,7 @@ public sealed class EditorSession
 
     // ---- scene views -------------------------------------------------------------------------
     public SceneDocument Scene() => Screen == null ? throw new InvalidOperationException("no screen") : Ws.Compiler.BuildScene(Project, Screen);
-    public SceneDocument Variant() => PreviewStates(Ws.Compiler.Variant(Project, Screen!, Scene(), Aspect));
-
-    /// <summary>
-    /// Preview of run-time states: buttons bound to an action that has no handler yet (planned or external module) are
-    /// served disabled by the runtime, so the preview greys them the same way. The compiled scene keeps them enabled;
-    /// the runtime decides when the screen is loaded.
-    /// </summary>
-    SceneDocument PreviewStates(SceneDocument doc)
-    {
-        foreach (var egg in doc.Focusables)
-        {
-            var def = Screen!.Element(egg.Name) ?? Screen.ForBase(egg.Name);
-            if (def?.Action is not { Type: ActionBinding.Ext } a) continue;
-            var info = ActionCatalog.Find(a.Extension);
-            if ((info == null || info.Owner == ActionOwner.Planned) && egg.Focusable!.Has("Enabled")) egg.Focusable.Set("Enabled", "False", "Bool");
-        }
-        return doc;
-    }
+    public SceneDocument Variant() => Workspace.PreviewStates(Screen!, Ws.Compiler.Variant(Project, Screen!, Scene(), Aspect));
     public SceneDocument Original() => Ws.Compiler.Base(Screen!.Base);
 
     // ---- undo ----------------------------------------------------------------------------------

@@ -45,6 +45,7 @@ static class SafetyTests
         Deps(ws, demo);
         Snapping();
         Overlay();
+        RetailArchive();
     }
 
     static void Names()
@@ -365,6 +366,26 @@ static class SafetyTests
         Check(!none.SnappedX && !none.SnappedY && none.Dx == 20, "no snap outside the threshold");
         var (ddx, _, g) = Snapper.Edges(moving, new[] { 297.0 }, Array.Empty<double>(), others, screen, 6);
         Check(Math.Abs(ddx - 3) < 1e-9 && g.Count > 0, "resized edge snaps");
+    }
+
+    static void RetailArchive()
+    {
+        // The retail Data.sma ends with "SM" instead of the ZIP "PK" signature.
+        var root = Temp("sma");
+        File.WriteAllBytes(Path.Combine(root, "MRallye.exe"), new byte[] { 0x4D, 0x5A });
+        var sma = Path.Combine(root, "Data.sma");
+        using (var z = new System.IO.Compression.ZipArchive(File.Create(sma), System.IO.Compression.ZipArchiveMode.Create))
+        using (var w = new StreamWriter(z.CreateEntry("DataScene/FrontendScreens/X.xml").Open())) w.Write("retail page");
+        var bytes = File.ReadAllBytes(sma);
+        int eocd = bytes.Length - 22;
+        Check(bytes[eocd] == (byte)'P' && bytes[eocd + 1] == (byte)'K', "test archive has a standard EOCD");
+        bytes[eocd] = (byte)'S'; bytes[eocd + 1] = (byte)'M';
+        File.WriteAllBytes(sma, bytes);
+        var before = GameData.Sha256(File.ReadAllBytes(sma));
+        using (var d = new GameData(root))
+            Check(d.Source("DataScene/FrontendScreens/X.xml") == "archive" && System.Text.Encoding.ASCII.GetString(d.Read("DataScene/FrontendScreens/X.xml")!) == "retail page",
+                  "retail Data.sma with the SM end-of-directory signature is read");
+        Check(GameData.Sha256(File.ReadAllBytes(sma)) == before, "Data.sma is never modified");
     }
 
     static void Overlay()

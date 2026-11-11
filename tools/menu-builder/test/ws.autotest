@@ -1,0 +1,25 @@
+# Widescreen matrix: demo layout screens per renderer mode/aspect; the runner clicks VC MODEL SOURCE with the real
+# OS mouse while the script waits on Vehicle Configuration.
+wait 3000
+expect-screen MainMenu
+dump
+shot w01-mainmenu
+key accept
+wait 3000
+key accept
+wait 4000
+expect-screen QuickRace
+dump
+shot w02-quickrace
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+dump
+shot w03-vehicleconfig
+expect-hit 150 392 VC_Model
+expect-hit 150 116 VC_Back
+expect-hit 500 200 none
+log ready-for-os-mouse
+wait 9000
+shot w04-after-os-click
+end

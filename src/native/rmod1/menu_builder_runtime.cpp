@@ -729,6 +729,25 @@ void autotest(Screen* s, int sid) {
     else if (st.op == "shot") { const bool ok = request_shot(arg(0)); g_step_due = now + 900; log(fmt("TEST shot %s %s", arg(0).c_str(), ok ? "requested" : "FAILED")); }
     else if (st.op == "dump") { if (s) live_dump(*s, sid); }
     else if (st.op == "log") log("TEST note " + arg(0));
+    else if (st.op == "wait-screen") {
+        // wait-screen <scene|id> <timeout ms> [key]: repeats until the screen is shown, pressing [key] every 1.5 s
+        // (e.g. to skip the intro movie of a plain install); fails at the timeout.
+        static ULONGLONG started = 0;
+        if (!started) started = now;
+        const bool here = s ? !_stricmp(s->scene.c_str(), arg(0).c_str()) : std::atoi(arg(0).c_str()) == sid && sid >= 0;
+        if (here || now - started > std::strtoull(arg(1).c_str(), nullptr, 10)) {
+            check(here, fmt("reached screen %s after %llu ms (now %s/%d)", arg(0).c_str(), now - started, scene, sid));
+            started = 0;
+        } else {
+            if (!arg(2).empty()) put_int("UI/Control", control_code(arg(2)));
+            --g_step; g_step_due = now + 1500;
+        }
+    }
+    else if (st.op == "final-key") {  // last step: a key that leaves the frontend (e.g. starts a race)
+        put_int("UI/Control", control_code(arg(0)));
+        log(fmt("TEST_DONE pass=%d fail=%d (final key %s)", g_test_pass, g_test_fail, arg(0).c_str()));
+        g_step = g_steps.size();
+    }
     else if (st.op == "end") { log(fmt("TEST_DONE pass=%d fail=%d", g_test_pass, g_test_fail)); g_step = g_steps.size(); }
     else log("TEST unknown step " + st.op);
 }

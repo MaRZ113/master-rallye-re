@@ -1,0 +1,34 @@
+# Standalone runtime (no Extra Options): Extra Options actions are served disabled and their values show the fallback.
+wait-screen MainMenu 30000 accept
+expect-screen MainMenu
+dump
+shot a01-mainmenu
+key accept
+wait 3000
+key accept
+wait 4000
+expect-screen QuickRace
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+dump
+expect-value VC_ModelValue MODEL:_N/A
+expect-value VC_TyresValue TYRES:_N/A
+expect-value VC_BuildValue BUILD:_NOT_AVAILABLE
+expect-served-disabled VC_Model
+expect-served-disabled VC_Tyres
+expect-served-disabled VC_Build
+shot a02-vehicleconfig-no-extra-options
+click 150 116
+wait 3500
+expect-screen QuickRace
+key back
+wait 3000
+key back
+wait 3000
+expect-screen MainMenu
+click 400 150
+wait 3500
+expect-screen 44
+shot a03-credits
+end

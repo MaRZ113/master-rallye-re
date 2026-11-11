@@ -58,7 +58,24 @@ public sealed class Workspace : IDisposable
     public SceneDocument Scene(MenuProject project, ScreenDef screen) => Compiler.BuildScene(project, screen);
 
     public SceneDocument SceneVariant(MenuProject project, ScreenDef screen, string aspect) =>
-        Compiler.Variant(project, screen, Compiler.BuildScene(project, screen), aspect);
+        PreviewStates(screen, Compiler.Variant(project, screen, Compiler.BuildScene(project, screen), aspect));
+
+    /// <summary>
+    /// Preview of run-time states: buttons bound to an action that has no handler yet (planned or another module) are
+    /// served disabled by the runtime, so previews grey them the same way. Compiled pages keep them enabled; the
+    /// runtime decides when the screen is loaded.
+    /// </summary>
+    public static SceneDocument PreviewStates(ScreenDef screen, SceneDocument doc)
+    {
+        foreach (var egg in doc.Focusables)
+        {
+            var def = screen.Element(egg.Name) ?? screen.ForBase(egg.Name);
+            if (def?.Action is not { Type: ActionBinding.Ext } a) continue;
+            var info = ActionCatalog.Find(a.Extension);
+            if ((info == null || info.Owner == ActionOwner.Planned) && egg.Focusable!.Has("Enabled")) egg.Focusable.Set("Enabled", "False", "Bool");
+        }
+        return doc;
+    }
 
     public (CompiledLayout layout, List<Finding> findings) Build(MenuProject project)
     {
