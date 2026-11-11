@@ -1,0 +1,447 @@
+HEX 6083ec0889eb6a016a3ee88400000089fb6a016870ec6800e8b50000006a006880ec6800e8a90000006a10e8f438f3ff83c40485c0744a89c331c9890b894b04894b08894b0c6a006a3fe8440000006a016a3fe83b0000006a026a3fe8320000006800ec68008d4c2404e88121e4ff538d44240450e8b6aae4ff89c1e86fa4e4ff83c408618d4c241468a8686b00e9a6bbdeff83ec04e8c578dfff8b10ff74240cff74240c89c1ff520c508d4c2404e88c2de4ff8d0c24516a01ff730889d9e8dc96d7ffff3424e8a467f2ff83c408c2080083ec04ff7424088d4c2404e85e2de4ff8b4308837c240c0074038b43048d0c24516a015089d9e8a396d7ffff3424e86b67f2ff83c408c208006890ec6800ff1538f2680085c0742768a0ec680050ff15c0f0680085c0741768c0ec6800ff74240cff74240c68e0ec6800ffd0c208008b442408c208008b44240485c07508b870ec6800c2040083f8047c08b880ec6800c204004850e8f477dfff8b106a4189c1ff520cc2040053565781ec000100008bb42414010000bb20ed6800bf70ed680081fee86e6e00740abb40ed6800bf80ed68006a016810ed6800e85bffffff85c07424ffb42418010000538d44240850e8643bf3ff83c40c8d042450ff1500f1680083f8ff750789bc241401000081c4000100005f5e5be93d3bf3ffe80efbe1ff83f801753283ec046850ec68008d4c2404e8e81fe4ff8d042450e81fa9e4ff89c1e8b881e4ff83c40485c0b8010000007405b804000000c3515383ec0431db837c2410047547c744241001000000436830ec68008d4c2404e8a11fe4ff8d042450e8d8a8e4ff89c1e87181e4ff5068b4586e008d4c2408e8821fe4ff8d44240450e8b8a8e4ff89c1e8f199e4ff6850ec68008d4c2404e8631fe4ff538d44240450e898a8e4ff89c1e8d199e4ff83c4045b59e927fae1ff51535683ec046850ec68008d4c2404e8331fe4ff8d042450e86aa8e4ff89c1e80381e4ff31db85c00f95c37522e89500e2ff89c1e81efae1ff83f80275116a0068f0ec6800e818feffff85c00f95c389de85f675156a006800ed6800e801feffff85c00f95c389de31db68d41d6b008d4c2404e8cf1ee4ff538d44240450e804a8e4ff89c1e8dd93e4ff68bc1d6b008d4c2404e8af1ee4ff568d44240450e8e4a7e4ff89c1e8bd93e4ff83c4045e5b59e902fae1ffe80d71e9ff53565083ec0468e86a6b008d4c2404e8791ee4ff8d042450e8b0a7e4ff89c1e84980e4ff31db83f8030f94c36830ec68008d4c2404e8531ee4ff8d042450e88aa7e4ff89c1e82380e4ff89c631c085f60f9fc021d85068a0ed68008d4c2408e8291ee4ff8d44240450e85fa7e4ff89c1e89898e4ff31c083fe020f9cc021d85068d0ed68008d4c2408e8ff1de4ff8d44240450e835a7e4ff89c1e86e98e4ff83c4045883f80a7505b80100000083f80b7505b8030000005e5bc36a016a006a04e8587be6ff89c1e8b178e6ff6a016a006a05e8467be6ff89c1e89f78e6ffc36a04e8377be6ff89c1e85078e6ff6a05e8297be6ff89c1e84278e6ffc35383ec046850ec68008d4c2404e87f1de4ff8d042450e8b6a6e4ff89c1e84f7fe4ff31db85c00f95c383c404e8d074dfff8b1089d95bc3515283ec046850ec68008d4c2404e8471de4ff8d042450e87ea6e4ff89c1e8177fe4ff85c0b800596f00745b68b4586e008d4c2404e8201de4ff8d042450e857a6e4ff89c1e8f07ee4ff50e87a74dfff8b106a3f89c1ff520c50689c576b006a02e86474dfff8b106a1c89c1ff520c506800ee68006800cc7000e81538f3ff83c414b800cc700083c4045a59870424ffe0
+modes_lbl:
+0068e390  60                       PUSHAD
+0068e391  83ec08                   SUB ESP,0x8
+0068e394  89eb                     MOV EBX,EBP
+0068e396  6a01                     PUSH 0x1
+0068e398  6a3e                     PUSH 0x3e
+0068e39a  e884000000               CALL append_lbl
+0068e39f  89fb                     MOV EBX,EDI
+0068e3a1  6a01                     PUSH 0x1
+0068e3a3  6870ec6800               PUSH 0x68ec70
+0068e3a8  e8b5000000               CALL insert_lbl
+0068e3ad  6a00                     PUSH 0x0
+0068e3af  6880ec6800               PUSH 0x68ec80
+0068e3b4  e8a9000000               CALL insert_lbl
+0068e3b9  6a10                     PUSH 0x10
+0068e3bb  e8f438f3ff               CALL 0x005c1cb4
+0068e3c0  83c404                   ADD ESP,0x4
+0068e3c3  85c0                     TEST EAX,EAX
+0068e3c5  744a                     JZ modes_out_lbl
+0068e3c7  89c3                     MOV EBX,EAX
+0068e3c9  31c9                     XOR ECX,ECX
+0068e3cb  890b                     MOV dword ptr [EBX],ECX
+0068e3cd  894b04                   MOV dword ptr [EBX + 0x4],ECX
+0068e3d0  894b08                   MOV dword ptr [EBX + 0x8],ECX
+0068e3d3  894b0c                   MOV dword ptr [EBX + 0xc],ECX
+0068e3d6  6a00                     PUSH 0x0
+0068e3d8  6a3f                     PUSH 0x3f
+0068e3da  e844000000               CALL append_lbl
+0068e3df  6a01                     PUSH 0x1
+0068e3e1  6a3f                     PUSH 0x3f
+0068e3e3  e83b000000               CALL append_lbl
+0068e3e8  6a02                     PUSH 0x2
+0068e3ea  6a3f                     PUSH 0x3f
+0068e3ec  e832000000               CALL append_lbl
+0068e3f1  6800ec6800               PUSH 0x68ec00
+0068e3f6  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e3fa  e88121e4ff               CALL 0x004d0580
+0068e3ff  53                       PUSH EBX
+0068e400  8d442404                 LEA EAX,[ESP + 0x4]
+0068e404  50                       PUSH EAX
+0068e405  e8b6aae4ff               CALL 0x004d8ec0
+0068e40a  89c1                     MOV ECX,EAX
+0068e40c  e86fa4e4ff               CALL 0x004d8880
+modes_out_lbl:
+0068e411  83c408                   ADD ESP,0x8
+0068e414  61                       POPAD
+0068e415  8d4c2414                 LEA ECX,[ESP + 0x14]
+0068e419  68a8686b00               PUSH 0x6b68a8
+0068e41e  e9a6bbdeff               JMP 0x00479fc9
+append_lbl:
+0068e423  83ec04                   SUB ESP,0x4
+0068e426  e8c578dfff               CALL 0x00485cf0
+0068e42b  8b10                     MOV EDX,dword ptr [EAX]
+0068e42d  ff74240c                 PUSH dword ptr [ESP + 0xc]
+0068e431  ff74240c                 PUSH dword ptr [ESP + 0xc]
+0068e435  89c1                     MOV ECX,EAX
+0068e437  ff520c                   CALL dword ptr [EDX + 0xc]
+0068e43a  50                       PUSH EAX
+0068e43b  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e43f  e88c2de4ff               CALL 0x004d11d0
+0068e444  8d0c24                   LEA ECX,[ESP]
+0068e447  51                       PUSH ECX
+0068e448  6a01                     PUSH 0x1
+0068e44a  ff7308                   PUSH dword ptr [EBX + 0x8]
+0068e44d  89d9                     MOV ECX,EBX
+0068e44f  e8dc96d7ff               CALL 0x00407b30
+0068e454  ff3424                   PUSH dword ptr [ESP]
+0068e457  e8a467f2ff               CALL 0x005b4c00
+0068e45c  83c408                   ADD ESP,0x8
+0068e45f  c20800                   RET 0x8
+insert_lbl:
+0068e462  83ec04                   SUB ESP,0x4
+0068e465  ff742408                 PUSH dword ptr [ESP + 0x8]
+0068e469  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e46d  e85e2de4ff               CALL 0x004d11d0
+0068e472  8b4308                   MOV EAX,dword ptr [EBX + 0x8]
+0068e475  837c240c00               CMP dword ptr [ESP + 0xc],0x0
+0068e47a  7403                     JZ insert_pos_lbl
+0068e47c  8b4304                   MOV EAX,dword ptr [EBX + 0x4]
+insert_pos_lbl:
+0068e47f  8d0c24                   LEA ECX,[ESP]
+0068e482  51                       PUSH ECX
+0068e483  6a01                     PUSH 0x1
+0068e485  50                       PUSH EAX
+0068e486  89d9                     MOV ECX,EBX
+0068e488  e8a396d7ff               CALL 0x00407b30
+0068e48d  ff3424                   PUSH dword ptr [ESP]
+0068e490  e86b67f2ff               CALL 0x005b4c00
+0068e495  83c408                   ADD ESP,0x8
+0068e498  c20800                   RET 0x8
+ini_lbl:
+0068e49b  6890ec6800               PUSH 0x68ec90
+0068e4a0  ff1538f26800             CALL dword ptr [0x0068f238]
+0068e4a6  85c0                     TEST EAX,EAX
+0068e4a8  7427                     JZ ini_default_lbl
+0068e4aa  68a0ec6800               PUSH 0x68eca0
+0068e4af  50                       PUSH EAX
+0068e4b0  ff15c0f06800             CALL dword ptr [0x0068f0c0]
+0068e4b6  85c0                     TEST EAX,EAX
+0068e4b8  7417                     JZ ini_default_lbl
+0068e4ba  68c0ec6800               PUSH 0x68ecc0
+0068e4bf  ff74240c                 PUSH dword ptr [ESP + 0xc]
+0068e4c3  ff74240c                 PUSH dword ptr [ESP + 0xc]
+0068e4c7  68e0ec6800               PUSH 0x68ece0
+0068e4cc  ffd0                     CALL EAX
+0068e4ce  c20800                   RET 0x8
+ini_default_lbl:
+0068e4d1  8b442408                 MOV EAX,dword ptr [ESP + 0x8]
+0068e4d5  c20800                   RET 0x8
+diff_lbl:
+0068e4d8  8b442404                 MOV EAX,dword ptr [ESP + 0x4]
+0068e4dc  85c0                     TEST EAX,EAX
+0068e4de  7508                     JNZ diff_hi_lbl
+0068e4e0  b870ec6800               MOV EAX,0x68ec70
+0068e4e5  c20400                   RET 0x4
+diff_hi_lbl:
+0068e4e8  83f804                   CMP EAX,0x4
+0068e4eb  7c08                     JL diff_mid_lbl
+0068e4ed  b880ec6800               MOV EAX,0x68ec80
+0068e4f2  c20400                   RET 0x4
+diff_mid_lbl:
+0068e4f5  48                       DEC EAX
+0068e4f6  50                       PUSH EAX
+0068e4f7  e8f477dfff               CALL 0x00485cf0
+0068e4fc  8b10                     MOV EDX,dword ptr [EAX]
+0068e4fe  6a41                     PUSH 0x41
+0068e500  89c1                     MOV ECX,EAX
+0068e502  ff520c                   CALL dword ptr [EDX + 0xc]
+0068e505  c20400                   RET 0x4
+fmt_lbl:
+0068e508  53                       PUSH EBX
+0068e509  56                       PUSH ESI
+0068e50a  57                       PUSH EDI
+0068e50b  81ec00010000             SUB ESP,0x100
+0068e511  8bb42414010000           MOV ESI,dword ptr [ESP + 0x114]
+0068e518  bb20ed6800               MOV EBX,0x68ed20
+0068e51d  bf70ed6800               MOV EDI,0x68ed70
+0068e522  81fee86e6e00             CMP ESI,0x6e6ee8
+0068e528  740a                     JZ fmt_check_lbl
+0068e52a  bb40ed6800               MOV EBX,0x68ed40
+0068e52f  bf80ed6800               MOV EDI,0x68ed80
+fmt_check_lbl:
+0068e534  6a01                     PUSH 0x1
+0068e536  6810ed6800               PUSH 0x68ed10
+0068e53b  e85bffffff               CALL ini_lbl
+0068e540  85c0                     TEST EAX,EAX
+0068e542  7424                     JZ fmt_plain_lbl
+0068e544  ffb42418010000           PUSH dword ptr [ESP + 0x118]
+0068e54b  53                       PUSH EBX
+0068e54c  8d442408                 LEA EAX,[ESP + 0x8]
+0068e550  50                       PUSH EAX
+0068e551  e8643bf3ff               CALL 0x005c20ba
+0068e556  83c40c                   ADD ESP,0xc
+0068e559  8d0424                   LEA EAX,[ESP]
+0068e55c  50                       PUSH EAX
+0068e55d  ff1500f16800             CALL dword ptr [0x0068f100]
+0068e563  83f8ff                   CMP EAX,-0x1
+0068e566  7507                     JNZ fmt_keep_lbl
+fmt_plain_lbl:
+0068e568  89bc2414010000           MOV dword ptr [ESP + 0x114],EDI
+fmt_keep_lbl:
+0068e56f  81c400010000             ADD ESP,0x100
+0068e575  5f                       POP EDI
+0068e576  5e                       POP ESI
+0068e577  5b                       POP EBX
+0068e578  e93d3bf3ff               JMP 0x005c20ba
+init_lbl:
+0068e57d  e80efbe1ff               CALL 0x004ae090
+0068e582  83f801                   CMP EAX,0x1
+0068e585  7532                     JNZ init_ret_lbl
+0068e587  83ec04                   SUB ESP,0x4
+0068e58a  6850ec6800               PUSH 0x68ec50
+0068e58f  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e593  e8e81fe4ff               CALL 0x004d0580
+0068e598  8d0424                   LEA EAX,[ESP]
+0068e59b  50                       PUSH EAX
+0068e59c  e81fa9e4ff               CALL 0x004d8ec0
+0068e5a1  89c1                     MOV ECX,EAX
+0068e5a3  e8b881e4ff               CALL 0x004d6760
+0068e5a8  83c404                   ADD ESP,0x4
+0068e5ab  85c0                     TEST EAX,EAX
+0068e5ad  b801000000               MOV EAX,0x1
+0068e5b2  7405                     JZ init_ret_lbl
+0068e5b4  b804000000               MOV EAX,0x4
+init_ret_lbl:
+0068e5b9  c3                       RET
+accept_lbl:
+0068e5ba  51                       PUSH ECX
+0068e5bb  53                       PUSH EBX
+0068e5bc  83ec04                   SUB ESP,0x4
+0068e5bf  31db                     XOR EBX,EBX
+0068e5c1  837c241004               CMP dword ptr [ESP + 0x10],0x4
+0068e5c6  7547                     JNZ accept_flag_lbl
+0068e5c8  c744241001000000         MOV dword ptr [ESP + 0x10],0x1
+0068e5d0  43                       INC EBX
+0068e5d1  6830ec6800               PUSH 0x68ec30
+0068e5d6  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e5da  e8a11fe4ff               CALL 0x004d0580
+0068e5df  8d0424                   LEA EAX,[ESP]
+0068e5e2  50                       PUSH EAX
+0068e5e3  e8d8a8e4ff               CALL 0x004d8ec0
+0068e5e8  89c1                     MOV ECX,EAX
+0068e5ea  e87181e4ff               CALL 0x004d6760
+0068e5ef  50                       PUSH EAX
+0068e5f0  68b4586e00               PUSH 0x6e58b4
+0068e5f5  8d4c2408                 LEA ECX,[ESP + 0x8]
+0068e5f9  e8821fe4ff               CALL 0x004d0580
+0068e5fe  8d442404                 LEA EAX,[ESP + 0x4]
+0068e602  50                       PUSH EAX
+0068e603  e8b8a8e4ff               CALL 0x004d8ec0
+0068e608  89c1                     MOV ECX,EAX
+0068e60a  e8f199e4ff               CALL 0x004d8000
+accept_flag_lbl:
+0068e60f  6850ec6800               PUSH 0x68ec50
+0068e614  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e618  e8631fe4ff               CALL 0x004d0580
+0068e61d  53                       PUSH EBX
+0068e61e  8d442404                 LEA EAX,[ESP + 0x4]
+0068e622  50                       PUSH EAX
+0068e623  e898a8e4ff               CALL 0x004d8ec0
+0068e628  89c1                     MOV ECX,EAX
+0068e62a  e8d199e4ff               CALL 0x004d8000
+0068e62f  83c404                   ADD ESP,0x4
+0068e632  5b                       POP EBX
+0068e633  59                       POP ECX
+0068e634  e927fae1ff               JMP 0x004ae060
+start_lbl:
+0068e639  51                       PUSH ECX
+0068e63a  53                       PUSH EBX
+0068e63b  56                       PUSH ESI
+0068e63c  83ec04                   SUB ESP,0x4
+0068e63f  6850ec6800               PUSH 0x68ec50
+0068e644  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e648  e8331fe4ff               CALL 0x004d0580
+0068e64d  8d0424                   LEA EAX,[ESP]
+0068e650  50                       PUSH EAX
+0068e651  e86aa8e4ff               CALL 0x004d8ec0
+0068e656  89c1                     MOV ECX,EAX
+0068e658  e80381e4ff               CALL 0x004d6760
+0068e65d  31db                     XOR EBX,EBX
+0068e65f  85c0                     TEST EAX,EAX
+0068e661  0f95c3                   SETNZ BL
+0068e664  7522                     JNZ start_rec_lbl
+0068e666  e89500e2ff               CALL 0x004ae700
+0068e66b  89c1                     MOV ECX,EAX
+0068e66d  e81efae1ff               CALL 0x004ae090
+0068e672  83f802                   CMP EAX,0x2
+0068e675  7511                     JNZ start_rec_lbl
+0068e677  6a00                     PUSH 0x0
+0068e679  68f0ec6800               PUSH 0x68ecf0
+0068e67e  e818feffff               CALL ini_lbl
+0068e683  85c0                     TEST EAX,EAX
+0068e685  0f95c3                   SETNZ BL
+start_rec_lbl:
+0068e688  89de                     MOV ESI,EBX
+0068e68a  85f6                     TEST ESI,ESI
+0068e68c  7515                     JNZ start_set_lbl
+0068e68e  6a00                     PUSH 0x0
+0068e690  6800ed6800               PUSH 0x68ed00
+0068e695  e801feffff               CALL ini_lbl
+0068e69a  85c0                     TEST EAX,EAX
+0068e69c  0f95c3                   SETNZ BL
+0068e69f  89de                     MOV ESI,EBX
+0068e6a1  31db                     XOR EBX,EBX
+start_set_lbl:
+0068e6a3  68d41d6b00               PUSH 0x6b1dd4
+0068e6a8  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e6ac  e8cf1ee4ff               CALL 0x004d0580
+0068e6b1  53                       PUSH EBX
+0068e6b2  8d442404                 LEA EAX,[ESP + 0x4]
+0068e6b6  50                       PUSH EAX
+0068e6b7  e804a8e4ff               CALL 0x004d8ec0
+0068e6bc  89c1                     MOV ECX,EAX
+0068e6be  e8dd93e4ff               CALL 0x004d7aa0
+0068e6c3  68bc1d6b00               PUSH 0x6b1dbc
+0068e6c8  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e6cc  e8af1ee4ff               CALL 0x004d0580
+0068e6d1  56                       PUSH ESI
+0068e6d2  8d442404                 LEA EAX,[ESP + 0x4]
+0068e6d6  50                       PUSH EAX
+0068e6d7  e8e4a7e4ff               CALL 0x004d8ec0
+0068e6dc  89c1                     MOV ECX,EAX
+0068e6de  e8bd93e4ff               CALL 0x004d7aa0
+0068e6e3  83c404                   ADD ESP,0x4
+0068e6e6  5e                       POP ESI
+0068e6e7  5b                       POP EBX
+0068e6e8  59                       POP ECX
+0068e6e9  e902fae1ff               JMP 0x004ae0f0
+focus_lbl:
+0068e6ee  e80d71e9ff               CALL 0x00525800
+0068e6f3  53                       PUSH EBX
+0068e6f4  56                       PUSH ESI
+0068e6f5  50                       PUSH EAX
+0068e6f6  83ec04                   SUB ESP,0x4
+0068e6f9  68e86a6b00               PUSH 0x6b6ae8
+0068e6fe  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e702  e8791ee4ff               CALL 0x004d0580
+0068e707  8d0424                   LEA EAX,[ESP]
+0068e70a  50                       PUSH EAX
+0068e70b  e8b0a7e4ff               CALL 0x004d8ec0
+0068e710  89c1                     MOV ECX,EAX
+0068e712  e84980e4ff               CALL 0x004d6760
+0068e717  31db                     XOR EBX,EBX
+0068e719  83f803                   CMP EAX,0x3
+0068e71c  0f94c3                   SETZ BL
+0068e71f  6830ec6800               PUSH 0x68ec30
+0068e724  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e728  e8531ee4ff               CALL 0x004d0580
+0068e72d  8d0424                   LEA EAX,[ESP]
+0068e730  50                       PUSH EAX
+0068e731  e88aa7e4ff               CALL 0x004d8ec0
+0068e736  89c1                     MOV ECX,EAX
+0068e738  e82380e4ff               CALL 0x004d6760
+0068e73d  89c6                     MOV ESI,EAX
+0068e73f  31c0                     XOR EAX,EAX
+0068e741  85f6                     TEST ESI,ESI
+0068e743  0f9fc0                   SETG AL
+0068e746  21d8                     AND EAX,EBX
+0068e748  50                       PUSH EAX
+0068e749  68a0ed6800               PUSH 0x68eda0
+0068e74e  8d4c2408                 LEA ECX,[ESP + 0x8]
+0068e752  e8291ee4ff               CALL 0x004d0580
+0068e757  8d442404                 LEA EAX,[ESP + 0x4]
+0068e75b  50                       PUSH EAX
+0068e75c  e85fa7e4ff               CALL 0x004d8ec0
+0068e761  89c1                     MOV ECX,EAX
+0068e763  e89898e4ff               CALL 0x004d8000
+0068e768  31c0                     XOR EAX,EAX
+0068e76a  83fe02                   CMP ESI,0x2
+0068e76d  0f9cc0                   SETL AL
+0068e770  21d8                     AND EAX,EBX
+0068e772  50                       PUSH EAX
+0068e773  68d0ed6800               PUSH 0x68edd0
+0068e778  8d4c2408                 LEA ECX,[ESP + 0x8]
+0068e77c  e8ff1de4ff               CALL 0x004d0580
+0068e781  8d442404                 LEA EAX,[ESP + 0x4]
+0068e785  50                       PUSH EAX
+0068e786  e835a7e4ff               CALL 0x004d8ec0
+0068e78b  89c1                     MOV ECX,EAX
+0068e78d  e86e98e4ff               CALL 0x004d8000
+0068e792  83c404                   ADD ESP,0x4
+0068e795  58                       POP EAX
+0068e796  83f80a                   CMP EAX,0xa
+0068e799  7505                     JNZ focus_11_lbl
+0068e79b  b801000000               MOV EAX,0x1
+focus_11_lbl:
+0068e7a0  83f80b                   CMP EAX,0xb
+0068e7a3  7505                     JNZ focus_ret_lbl
+0068e7a5  b803000000               MOV EAX,0x3
+focus_ret_lbl:
+0068e7aa  5e                       POP ESI
+0068e7ab  5b                       POP EBX
+0068e7ac  c3                       RET
+initshow_lbl:
+0068e7ad  6a01                     PUSH 0x1
+0068e7af  6a00                     PUSH 0x0
+0068e7b1  6a04                     PUSH 0x4
+0068e7b3  e8587be6ff               CALL 0x004f6310
+0068e7b8  89c1                     MOV ECX,EAX
+0068e7ba  e8b178e6ff               CALL 0x004f6070
+0068e7bf  6a01                     PUSH 0x1
+0068e7c1  6a00                     PUSH 0x0
+0068e7c3  6a05                     PUSH 0x5
+0068e7c5  e8467be6ff               CALL 0x004f6310
+0068e7ca  89c1                     MOV ECX,EAX
+0068e7cc  e89f78e6ff               CALL 0x004f6070
+0068e7d1  c3                       RET
+exithide_lbl:
+0068e7d2  6a04                     PUSH 0x4
+0068e7d4  e8377be6ff               CALL 0x004f6310
+0068e7d9  89c1                     MOV ECX,EAX
+0068e7db  e85078e6ff               CALL 0x004f6030
+0068e7e0  6a05                     PUSH 0x5
+0068e7e2  e8297be6ff               CALL 0x004f6310
+0068e7e7  89c1                     MOV ECX,EAX
+0068e7e9  e84278e6ff               CALL 0x004f6030
+0068e7ee  c3                       RET
+modeidx_lbl:
+0068e7ef  53                       PUSH EBX
+0068e7f0  83ec04                   SUB ESP,0x4
+0068e7f3  6850ec6800               PUSH 0x68ec50
+0068e7f8  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e7fc  e87f1de4ff               CALL 0x004d0580
+0068e801  8d0424                   LEA EAX,[ESP]
+0068e804  50                       PUSH EAX
+0068e805  e8b6a6e4ff               CALL 0x004d8ec0
+0068e80a  89c1                     MOV ECX,EAX
+0068e80c  e84f7fe4ff               CALL 0x004d6760
+0068e811  31db                     XOR EBX,EBX
+0068e813  85c0                     TEST EAX,EAX
+0068e815  0f95c3                   SETNZ BL
+0068e818  83c404                   ADD ESP,0x4
+0068e81b  e8d074dfff               CALL 0x00485cf0
+0068e820  8b10                     MOV EDX,dword ptr [EAX]
+0068e822  89d9                     MOV ECX,EBX
+0068e824  5b                       POP EBX
+0068e825  c3                       RET
+gtype_lbl:
+0068e826  51                       PUSH ECX
+0068e827  52                       PUSH EDX
+0068e828  83ec04                   SUB ESP,0x4
+0068e82b  6850ec6800               PUSH 0x68ec50
+0068e830  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e834  e8471de4ff               CALL 0x004d0580
+0068e839  8d0424                   LEA EAX,[ESP]
+0068e83c  50                       PUSH EAX
+0068e83d  e87ea6e4ff               CALL 0x004d8ec0
+0068e842  89c1                     MOV ECX,EAX
+0068e844  e8177fe4ff               CALL 0x004d6760
+0068e849  85c0                     TEST EAX,EAX
+0068e84b  b800596f00               MOV EAX,0x6f5900
+0068e850  745b                     JZ gtype_done_lbl
+0068e852  68b4586e00               PUSH 0x6e58b4
+0068e857  8d4c2404                 LEA ECX,[ESP + 0x4]
+0068e85b  e8201de4ff               CALL 0x004d0580
+0068e860  8d0424                   LEA EAX,[ESP]
+0068e863  50                       PUSH EAX
+0068e864  e857a6e4ff               CALL 0x004d8ec0
+0068e869  89c1                     MOV ECX,EAX
+0068e86b  e8f07ee4ff               CALL 0x004d6760
+0068e870  50                       PUSH EAX
+0068e871  e87a74dfff               CALL 0x00485cf0
+0068e876  8b10                     MOV EDX,dword ptr [EAX]
+0068e878  6a3f                     PUSH 0x3f
+0068e87a  89c1                     MOV ECX,EAX
+0068e87c  ff520c                   CALL dword ptr [EDX + 0xc]
+0068e87f  50                       PUSH EAX
+0068e880  689c576b00               PUSH 0x6b579c
+0068e885  6a02                     PUSH 0x2
+0068e887  e86474dfff               CALL 0x00485cf0
+0068e88c  8b10                     MOV EDX,dword ptr [EAX]
+0068e88e  6a1c                     PUSH 0x1c
+0068e890  89c1                     MOV ECX,EAX
+0068e892  ff520c                   CALL dword ptr [EDX + 0xc]
+0068e895  50                       PUSH EAX
+0068e896  6800ee6800               PUSH 0x68ee00
+0068e89b  6800cc7000               PUSH 0x70cc00
+0068e8a0  e81538f3ff               CALL 0x005c20ba
+0068e8a5  83c414                   ADD ESP,0x14
+0068e8a8  b800cc7000               MOV EAX,0x70cc00
+gtype_done_lbl:
+0068e8ad  83c404                   ADD ESP,0x4
+0068e8b0  5a                       POP EDX
+0068e8b1  59                       POP ECX
+0068e8b2  870424                   XCHG dword ptr [ESP],EAX
+0068e8b5  ffe0                     JMP EAX

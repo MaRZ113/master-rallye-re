@@ -1,0 +1,10 @@
+=== --verify ===
+VERIFY_PASS retail_sha256=bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 runtime_core_sha256=01c4b01618af44f105e24635c669848537ea7dddd6c9f8c5afb09ac6d79ba451 plan_sha256=f15447ebb2cc8921be5eda11726391868e91b97cfda7b905dfcf2ca7433ea944
+configuration=INI accepted.
+effective_numeric_config=randomizer=0,quickrace=0:Stock,duplicates=1:WhenNeeded,opponents=0,max_ai=3,experimental_extended_ai=0,addons=0:StockOnly,logging=0
+features=randomizer:off,opponents:off,max_ai=3
+
+=== --preflight ===
+mapped_image=verified base=0x400000 size=3215360 type=MEM_IMAGE state=MEM_COMMIT allocation_base=verified executable_sections=retail-match
+suspended_process_preflight=verified native_writes=0 child_terminated_before_resume=1 on_disk_exe=unchanged
+SUSPENDED_PREFLIGHT_PASS base=0x400000 size=3215360

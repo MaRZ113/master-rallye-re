@@ -1,0 +1,31 @@
+{
+  "base": "0x70020000",
+  "caves": {
+    "progress": {
+      "offset": "0x2a0",
+      "size": 231,
+      "relocated_instructions": 7,
+      "sha256": "a118bf76186f8a08e340f8b0344d6d547ced7242b26968c171c064d579c08fd0"
+    },
+    "menu": {
+      "offset": "0x390",
+      "size": 1319,
+      "relocated_instructions": 103,
+      "sha256": "96f7ee47ff5e8a2d0329def6ad4042b2ceebd80e20210f53005093b181e2caef"
+    }
+  },
+  "nops": [
+    {
+      "id": "ghost-mode-entry",
+      "offset": "0x396",
+      "size": 9
+    },
+    {
+      "id": "difficulty-list-entries",
+      "offset": "0x39f",
+      "size": 26
+    }
+  ],
+  "page_sha256": "024c0ac80cda24102bf5d5bf45b3a35139b0df4693f11952a85935670f7246e4",
+  "hooks": 19
+}

@@ -1,0 +1,8 @@
+LIBRARY MRallyeRandomizerRuntime
+EXPORTS
+    MRConfigureBlobV1=_MRConfigureBlobV1@4
+    MRChooseClassV1=_MRChooseClassV1@16
+    MROpponentLimitV1=_MROpponentLimitV1@0
+    MRCanStartQuickRaceV1=_MRCanStartQuickRaceV1@0
+    MRSetStartPhaseV1=_MRSetStartPhaseV1@4
+    MRChallengeV1=_MRChallengeV1@16

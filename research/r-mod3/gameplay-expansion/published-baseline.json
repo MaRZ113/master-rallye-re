@@ -1,0 +1,29 @@
+{
+  "product": "Master Rallye Randomizer & AI Extender",
+  "release_name": "Master Rallye Randomizer & AI Extender",
+  "release_tag": "v0.1.0-beta.1",
+  "release_commit": "40e96a879d81dbe8fece1af65f8ccec3ec1334fd",
+  "release_id": 409301092,
+  "published_at_utc": "2026-10-11T01:00:51Z",
+  "asset_name": "MasterRallye-Randomizer-v0.1.0-beta.1.zip",
+  "asset_size": 170004,
+  "asset_sha256": "11f40dd716998539ed0885b7c4ade4d4601597727ced02a26cd1753b9ce84892",
+  "release_url": "https://github.com/MaRZ113/master-rallye-re/releases/tag/v0.1.0-beta.1",
+  "retail_executable": {
+    "name": "MRallye.exe",
+    "size": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "local_research_snapshot": {
+    "branch": "research/r-mod1",
+    "head": "ea3012a1481cf1d2f8ed3401eedc995c96dbcfb9",
+    "working_tree_was_dirty_at_start": true,
+    "policy": "preserve all pre-existing modifications; R-MOD3 adds only its research directory"
+  },
+  "notes": [
+    "The release tag and asset metadata were checked against GitHub on 2026-10-11.",
+    "The release is a prerelease beta. The repository's latest release endpoint may refer to another product; this pinned tag is the Randomizer release.",
+    "The published README states that seven-AI T1/T2 player setups have shown instability and the cause is unknown.",
+    "This research snapshot does not alter the release tag, asset, DLL, INI, or launcher."
+  ]
+}

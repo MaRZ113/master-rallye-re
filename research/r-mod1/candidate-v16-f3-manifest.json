@@ -1,0 +1,122 @@
+{
+  "candidate_id": "first-integrated-candidate-v16-f3",
+  "change_summary": "adds a Challenge preview identity cache consumed by the matching race construction path",
+  "checkpoint": "f3",
+  "extended_ai_capability": {
+    "actual_human_topology_source": "RACE_NUMPLAYERS_AND_PARTICIPANT_PLAYERTYPE_AFTER_SETUP",
+    "higher_counts": "PENDING_HUMAN_RUNTIME",
+    "maximum_total_participants": 8,
+    "native_physical_chooser": "CLASS_POLICY_SEAMS_ONLY_PHYSICAL_ID_DRIVER_ID_REFILL_BODY_RETAIL",
+    "one_human_qualification_oracle": "experimental_extended_roster_matches",
+    "post_setup_start_veto": "NONE; no observer hook installed",
+    "raw_frontend_split_authoritative": false,
+    "runtime_qualified_maximum_ai": 4,
+    "static_maximum_ai": 7,
+    "static_minimum_ai": 4
+  },
+  "files": [
+    {
+      "path": "MRallyeRandomizerLauncher.exe",
+      "sha256": "3849d57dcf57532b8ac9ca74c214f8643fec2bbe24d31ae9e77531dc4eab978a",
+      "size": 395264
+    },
+    {
+      "path": "MRallyeRandomizerRuntime.dll",
+      "sha256": "cf743e356e3198cadd68ce750ff9f8c2cce5cb7caa965a4ee64d40c75f442da3",
+      "size": 150528
+    },
+    {
+      "path": "MRallyeRandomizer.ini",
+      "sha256": "b47affdffa4748f337c405169d46b3b3763e1946931c0fdbd87bb5dc5b6eaacd",
+      "size": 1112
+    },
+    {
+      "path": "native-patch-plan.json",
+      "sha256": "8d03c12e1f50779da43b185865f95acb0ddd2c6a67961fe3e402297ad1a3ddf4",
+      "size": 13598
+    },
+    {
+      "path": "README.txt",
+      "sha256": "5cb8e8dec7108bfb38319517b9c246106e625ce027a6a31ed04250a7c947651b",
+      "size": 1938
+    },
+    {
+      "path": "MRallyeRandomizerCrashDecode.py",
+      "sha256": "ae994d7efdf474b6ab984051477e70cd0f425bd0e8e196a3a0fdf574ae4486f0",
+      "size": 3577
+    },
+    {
+      "path": "exception-capture-self-test.txt",
+      "sha256": "93660a040081704ddf309fe8f9dd822d03b333c460c9a6138dad997584c0f3c2",
+      "size": 92
+    },
+    {
+      "path": "runtime-log-self-test.txt",
+      "sha256": "6b89684d7e3d66436d0b9e45cc364de9968af6596c516dad3b0294b6838c65fa",
+      "size": 57
+    },
+    {
+      "path": "profiles/safe-stock-v2.ini",
+      "sha256": "0c9c64c83f8c16fa2f7e7c0dc49c8b4d551616accc5c362024ca7ac936860d4b",
+      "size": 206
+    },
+    {
+      "path": "profiles/quickrace-t1-v2.ini",
+      "sha256": "ce7eda7d828f8b48c27e7600c079ec4f7fb4fa3289e4c492707f1a41e209873e",
+      "size": 206
+    },
+    {
+      "path": "profiles/quickrace-full-v2.ini",
+      "sha256": "fb48f27d63af1aa743e3ea4679d25b193108ff93a52b98e13882e990756227de",
+      "size": 206
+    },
+    {
+      "path": "profiles/cup-mixed-v2.ini",
+      "sha256": "dde86dad23f5f4a942fff618dcd1b55c7256a56ae89a1c81b805d37535730c87",
+      "size": 206
+    },
+    {
+      "path": "profiles/master-diverse-v2.ini",
+      "sha256": "2040e77d00c0ad63182b25f93c0449ef211af1f0c0fce67cdf1e6e06f1263ea7",
+      "size": 206
+    },
+    {
+      "path": "profiles/invitation-t3-v2.ini",
+      "sha256": "e40855fdbcd960b47334d03f764c59274d3714fd51470508e871f7b52bb14395",
+      "size": 206
+    },
+    {
+      "path": "profiles/challenge-full-v2.ini",
+      "sha256": "e8a2f8b5f9a48ae0c523ed60c341e03468acd8c3198765f2892da9e4d5082bbf",
+      "size": 206
+    },
+    {
+      "path": "profiles/extended-seven-menu-only-v2.ini",
+      "sha256": "527f8dca88b0c3b6497cca823266b276d4f0389335b882031b6d0c1ba5b3ba81",
+      "size": 206
+    },
+    {
+      "path": "self-verification.txt",
+      "sha256": "bf0ebe8c5d3f281adffaadd9e665d293f6d937084d2a49846ea8d85016a5bca1",
+      "size": 884
+    }
+  ],
+  "mode_scope": [
+    "QuickRace",
+    "RallyeCup",
+    "Invitation",
+    "MasterRallye",
+    "ChallengePreviewSync"
+  ],
+  "on_disk_executable_modified": false,
+  "operation_count": 17,
+  "phase": "R-MOD1-F",
+  "product": "Master Rallye Randomizer & AI Extender",
+  "qualification": "STATIC_CANDIDATE_NOT_HUMAN_RUNTIME_QUALIFIED",
+  "renderer_proxy_modified": false,
+  "runtime_plan_sha256": "3c760a475b854fd1435584f04450eada4dd90647ed7bbb7144fbf101e375d89d",
+  "schema_version": 1,
+  "source_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "source_executable_size": 3121214,
+  "suspended_image_preflight": "WINDOWS_PASS_BEFORE_NATIVE_WRITES"
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://master-rallye.example/schemas/r-mod1-native-patch-plan-v1.json",
+  "title": "R-MOD1 verified native runtime patch plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "required_build",
+    "install_phase",
+    "regions",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_type": { "const": "r-mod1-native-patch-plan" },
+    "required_build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filename", "sha256", "file_size", "machine"],
+      "properties": {
+        "filename": { "const": "MRallye.exe" },
+        "sha256": { "const": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4" },
+        "file_size": { "const": 3121214 },
+        "machine": { "const": "I386_PE32" }
+      }
+    },
+    "install_phase": { "const": "before_game_entry" },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "size", "purpose", "allocation_phase", "initial_protection", "final_protection"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "size": { "type": "integer", "minimum": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "allocation_phase": { "const": "before_game_entry" },
+          "initial_protection": { "const": "RW" },
+          "final_protection": { "enum": ["R", "RX"] }
+        }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "owner", "semantic", "source_evidence", "target", "expected_hex", "replacement_hex", "dependencies", "post_install"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "minLength": 1 },
+          "semantic": { "type": "string", "minLength": 1 },
+          "source_evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "target": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "module", "rva"],
+                "properties": {
+                  "kind": { "const": "image_rva" },
+                  "module": { "const": "MRallye.exe" },
+                  "rva": { "type": "integer", "minimum": 0 }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "region", "offset"],
+                "properties": {
+                  "kind": { "const": "allocated_region" },
+                  "region": { "type": "string", "minLength": 1 },
+                  "offset": { "type": "integer", "minimum": 0 }
+                }
+              }
+            ]
+          },
+          "expected_hex": { "type": "string", "pattern": "^(?:[0-9a-fA-F]{2})+$" },
+          "replacement_hex": { "type": "string", "pattern": "^(?:[0-9a-fA-F]{2})+$" },
+          "dependencies": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "fixups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "displacement_offset", "instruction_end_offset", "target"],
+              "properties": {
+                "type": { "const": "relative32" },
+                "displacement_offset": { "type": "integer", "minimum": 0 },
+                "instruction_end_offset": { "type": "integer", "minimum": 1 },
+                "target": { "type": "object" }
+              }
+            }
+          },
+          "post_install": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["verification", "expected_materialized_hex"],
+            "properties": {
+              "verification": { "const": "read_back_exact_bytes" },
+              "expected_materialized_hex": { "type": "string", "pattern": "^(?:[0-9a-fA-F]{2})+$" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
