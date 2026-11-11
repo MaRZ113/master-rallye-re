@@ -8,6 +8,8 @@
 param([Parameter(Mandatory)][string]$GameHost, [Parameter(Mandatory)][string]$Out, [string]$Cli = "", [string]$Project = "")
 $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
+$GameHost = (Resolve-Path $GameHost).Path
+New-Item -ItemType Directory -Force $Out | Out-Null; $Out = (Resolve-Path $Out).Path
 if (-not $Cli) { $Cli = Join-Path $here "..\MenuBuilder.Cli\bin\Release\net8.0\mrmenu.exe" }
 if (-not $Project) { $Project = Join-Path $here "..\..\..\examples\menu-builder\demo.mrmenu.json" }
 $ini = Join-Path $GameHost "MRRRenderer.ini"

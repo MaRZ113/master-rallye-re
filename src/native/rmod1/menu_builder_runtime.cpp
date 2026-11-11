@@ -88,6 +88,9 @@ POINT g_last_mouse{-1, -1};
 // A click on a button that is not focused yet: focus it now, confirm it on the next frame (the native button
 // reader only accepts a confirm for a focus that was already active when it ran).
 int g_deferred_accept = 0;
+// Scripted checks ignore the real OS mouse (a person moving it must not change the result) unless the script
+// switches it on ("os-mouse on", used by the widescreen matrix to verify real clicks).
+bool g_os_mouse = true;
 bool g_lbutton = false, g_rbutton = false;
 HWND g_window = nullptr;
 // Run-time registrations of other modules (names only; callbacks verified to live in a loaded module image).
@@ -729,6 +732,7 @@ void autotest(Screen* s, int sid) {
     else if (st.op == "shot") { const bool ok = request_shot(arg(0)); g_step_due = now + 900; log(fmt("TEST shot %s %s", arg(0).c_str(), ok ? "requested" : "FAILED")); }
     else if (st.op == "dump") { if (s) live_dump(*s, sid); }
     else if (st.op == "log") log("TEST note " + arg(0));
+    else if (st.op == "os-mouse") { g_os_mouse = arg(0) == "on"; log(fmt("TEST os-mouse %s", g_os_mouse ? "on" : "off")); }
     else if (st.op == "wait-screen") {
         // wait-screen <scene|id> <timeout ms> [key]: repeats until the screen is shown, pressing [key] every 1.5 s
         // (e.g. to skip the intro movie of a plain install); fails at the timeout.
@@ -776,7 +780,7 @@ int __fastcall get_command(Helper* h, void*, int sound) {
         if (g_deferred_accept) {
             if (s && get_int("UI/Active") == g_deferred_accept) put_int("UI/Control", 4);
             g_deferred_accept = 0;
-        } else if (s && g_layout.mouse) mouse(*s);
+        } else if (s && g_layout.mouse && g_os_mouse) mouse(*s);
         if (s && !s->values.empty()) update_values(*s, false);
         if (!g_steps.empty()) autotest(s, sid);
     } catch (...) { s = nullptr; }
@@ -848,7 +852,8 @@ bool initialize() noexcept {
                 std::istringstream in(line); Step st; in >> st.op; std::string a; while (in >> a) st.args.push_back(a);
                 g_steps.push_back(st);
             }
-            log(fmt("AUTOTEST loaded %u steps", unsigned(g_steps.size())));
+            g_os_mouse = false;
+            log(fmt("AUTOTEST loaded %u steps (OS mouse ignored unless the script enables it)", unsigned(g_steps.size())));
         }
         if (!load_layout(g_dir)) { log("LAYOUT_REJECTED native frontend unchanged"); return false; }
         for (const auto& api : kApis) {

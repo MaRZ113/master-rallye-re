@@ -19,6 +19,7 @@ shot w03-vehicleconfig
 expect-hit 150 392 VC_Model
 expect-hit 150 116 VC_Back
 expect-hit 500 200 none
+os-mouse on
 log ready-for-os-mouse
 wait 9000
 shot w04-after-os-click

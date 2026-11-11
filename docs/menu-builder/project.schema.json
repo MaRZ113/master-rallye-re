@@ -3,100 +3,350 @@
   "$id": "mr-menu-project-1",
   "title": "Master Rallye Menu Builder project",
   "type": "object",
-  "required": ["format", "version", "name", "screens"],
+  "required": [
+    "format",
+    "version",
+    "name",
+    "screens"
+  ],
   "properties": {
-    "format": { "const": "mr-menu-project" },
-    "version": { "const": 1 },
-    "name": { "type": "string", "description": "Layout name; installed as MenuBuilder/Layouts/<name>" },
-    "description": { "type": "string" },
-    "author": { "type": "string" },
+    "format": {
+      "const": "mr-menu-project"
+    },
+    "version": {
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Project and layout name (folder MenuBuilder/Layouts/<name>): letters, digits, '-', '_'; not a reserved device name",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,47}$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
     "settings": {
       "type": "object",
       "properties": {
-        "mouse": { "type": "boolean", "default": true },
-        "aspects": { "type": "array", "items": { "type": "string", "pattern": "^[0-9.]+[:x][0-9.]+$" }, "default": ["4:3", "16:10", "16:9", "21:9"] },
-        "language": { "type": "integer", "minimum": 0, "maximum": 5 }
+        "mouse": {
+          "type": "boolean",
+          "default": true
+        },
+        "aspects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9.]+[:x][0-9.]+$"
+          },
+          "default": [
+            "4:3",
+            "16:10",
+            "16:9",
+            "21:9"
+          ]
+        },
+        "language": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        }
       }
     },
-    "styles": { "type": "object", "additionalProperties": { "$ref": "#/$defs/patch" } },
+    "styles": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/patch"
+      }
+    },
     "components": {
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["template"],
+        "required": [
+          "template"
+        ],
         "properties": {
-          "template": { "type": "string", "description": "Screen/Egg of a retail screen" },
-          "style": { "type": "string" },
-          "patch": { "$ref": "#/$defs/patch" },
-          "description": { "type": "string" }
+          "template": {
+            "type": "string",
+            "description": "Screen/Egg of a retail screen"
+          },
+          "style": {
+            "type": "string"
+          },
+          "patch": {
+            "$ref": "#/$defs/patch"
+          },
+          "description": {
+            "type": "string"
+          }
         }
       }
     },
-    "screens": { "type": "array", "items": { "$ref": "#/$defs/screen" } }
+    "screens": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/screen"
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "Stable project identity; an installed layout of the same name from another project is never replaced silently"
+    }
   },
   "$defs": {
     "action": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "properties": {
-        "type": { "enum": ["native", "navigate.screen", "navigate.back", "native.forward", "broker.set_int", "broker.toggle_bool", "broker.cycle_int", "extension", "none"] },
-        "command": { "type": "integer" },
-        "screen": { "type": "string" },
-        "key": { "type": "string" },
-        "value": { "type": "integer" },
-        "min": { "type": "integer" },
-        "max": { "type": "integer" },
-        "step": { "type": "integer" },
-        "extension": { "type": "string" },
-        "args": { "type": "string" }
+        "type": {
+          "enum": [
+            "native",
+            "navigate.screen",
+            "navigate.back",
+            "native.forward",
+            "broker.set_int",
+            "broker.toggle_bool",
+            "broker.cycle_int",
+            "extension",
+            "none"
+          ]
+        },
+        "command": {
+          "type": "integer"
+        },
+        "screen": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "step": {
+          "type": "integer"
+        },
+        "extension": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "description": "Typed action ID (catalog: vehicle.model_source, vehicle.tyres, vehicle.build, vehicle.paint, vehicle.apply, game.quit; legacy extra_options.model_source) or an ID registered by another module"
+        },
+        "args": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "false = required: a missing handler blocks installation; default optional: served disabled while no handler is registered"
+        }
       }
     },
     "patch": {
       "type": "object",
       "properties": {
-        "x": { "type": "number" }, "y": { "type": "number" },
-        "scaleX": { "type": "number" }, "scaleY": { "type": "number" },
-        "model": { "type": "string" }, "bankIndex": { "type": "integer" },
-        "drawPriority": { "type": "integer" }, "visible": { "type": "boolean" },
-        "buttonId": { "type": "integer" },
-        "up": { "type": "integer" }, "down": { "type": "integer" }, "left": { "type": "integer" }, "right": { "type": "integer" },
-        "enabled": { "type": "boolean" },
-        "text": { "type": "string" }, "textId": { "type": "integer" }, "textIndex": { "type": "integer" }, "textKey": { "type": "string" },
-        "font": { "type": "integer" }, "icon": { "type": "integer" },
-        "textOffsetX": { "type": "integer" }, "textOffsetY": { "type": "integer" },
-        "hJustify": { "enum": [0, 1, 2] }, "vJustify": { "enum": [0, 1, 2] },
-        "anchor": { "enum": ["left", "right", "center"] },
-        "raw": { "type": "object", "additionalProperties": { "type": "string" }, "description": "\"AIName/Value Name\" -> value" }
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "scaleX": {
+          "type": "number"
+        },
+        "scaleY": {
+          "type": "number"
+        },
+        "model": {
+          "type": "string"
+        },
+        "bankIndex": {
+          "type": "integer"
+        },
+        "drawPriority": {
+          "type": "integer"
+        },
+        "visible": {
+          "type": "boolean",
+          "description": "false = Hide: kept in the scene with its name and links, parked outside the screen in compiled pages, no hitbox, not focusable, command ignored"
+        },
+        "buttonId": {
+          "type": "integer"
+        },
+        "up": {
+          "type": "integer"
+        },
+        "down": {
+          "type": "integer"
+        },
+        "left": {
+          "type": "integer"
+        },
+        "right": {
+          "type": "integer"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "false = Disable: drawn (greyed where the native button supports it), command ignored"
+        },
+        "text": {
+          "type": "string"
+        },
+        "textId": {
+          "type": "integer"
+        },
+        "textIndex": {
+          "type": "integer"
+        },
+        "textKey": {
+          "type": "string"
+        },
+        "font": {
+          "type": "integer"
+        },
+        "icon": {
+          "type": "integer"
+        },
+        "textOffsetX": {
+          "type": "integer"
+        },
+        "textOffsetY": {
+          "type": "integer"
+        },
+        "hJustify": {
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "vJustify": {
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "anchor": {
+          "enum": [
+            "left",
+            "right",
+            "center"
+          ]
+        },
+        "raw": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "\"AIName/Value Name\" -> value"
+        },
+        "valueSource": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "description": "Dynamic text: value ID whose current game value the runtime shows (vehicle.model_source, vehicle.tyres, ...)"
+        },
+        "valueFormat": {
+          "type": "string",
+          "description": "Dynamic text format; {value} is replaced (printable ASCII)"
+        },
+        "valueFallback": {
+          "type": "string",
+          "description": "Text for {value} while the provider is unavailable (default N/A)"
+        }
       },
       "additionalProperties": false
     },
     "element": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "base": { "type": "string", "description": "existing egg of the base screen" },
-        "template": { "type": "string", "description": "Egg | Screen/Egg | component:Name (new elements)" },
-        "style": { "type": "string" },
-        "deleted": { "type": "boolean" },
-        "patch": { "$ref": "#/$defs/patch" },
-        "action": { "$ref": "#/$defs/action" },
-        "note": { "type": "string" }
+        "name": {
+          "type": "string",
+          "description": "Egg name; new and renamed elements: ^[A-Za-z_][A-Za-z0-9_]{0,62}$"
+        },
+        "base": {
+          "type": "string",
+          "description": "existing egg of the base screen"
+        },
+        "template": {
+          "type": "string",
+          "description": "Egg | Screen/Egg | component:Name (new elements)"
+        },
+        "style": {
+          "type": "string"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "patch": {
+          "$ref": "#/$defs/patch"
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "screen": {
       "type": "object",
-      "required": ["name", "kind", "base"],
+      "required": [
+        "name",
+        "kind",
+        "base"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "kind": { "enum": ["retail", "custom"] },
-        "base": { "type": "string" },
-        "baseSha256": { "type": "string" },
-        "title": { "type": "string" },
-        "defaultFocus": { "type": "integer" },
-        "back": { "$ref": "#/$defs/action" },
-        "elements": { "type": "array", "items": { "$ref": "#/$defs/element" } },
-        "aspects": { "type": "object", "additionalProperties": { "type": "object", "additionalProperties": { "$ref": "#/$defs/patch" } } }
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "retail",
+            "custom"
+          ]
+        },
+        "base": {
+          "type": "string"
+        },
+        "baseSha256": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "defaultFocus": {
+          "type": "integer"
+        },
+        "back": {
+          "$ref": "#/$defs/action"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/element"
+          }
+        },
+        "aspects": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/$defs/patch"
+            }
+          }
+        }
       }
     }
   }

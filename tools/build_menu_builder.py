@@ -62,7 +62,7 @@ def build_standalone(out: Path) -> Path:
     return dll
 
 
-def build_integrated(out: Path, name: str) -> dict:
+def build_integrated(out: Path, name: str, core: Path | None) -> dict:
     """The current Extra Options loader pipeline with --menu-builder (fresh isolated output under extra-set1)."""
     from build_extra_capacity_candidate import build as capacity_build  # noqa: E402
     work = ROOT / ".research-output/extra-set1" / f"menu-{name}"
@@ -71,7 +71,9 @@ def build_integrated(out: Path, name: str) -> dict:
     report = capacity_build(work, None, None, menu_builder=True)
     out.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(work / "proxy/dinput8.dll", out / "dinput8.dll")
-    shutil.copyfile(work / "core/MRallyeRandomizerRuntime.dll", out / "MRallyeRandomizerRuntime.dll")
+    # The runtime core is a separate product of the same pipeline; --core ships an already published, owner-tested
+    # binary of the same sources instead of this build's copy (the loader does not pin the core hash with Extra Options).
+    shutil.copyfile(core or work / "core/MRallyeRandomizerRuntime.dll", out / "MRallyeRandomizerRuntime.dll")
     shutil.copyfile(work / "capacity-build.json", out / "capacity-build.json")
     return report
 
@@ -143,6 +145,7 @@ def main() -> None:
     ap.add_argument("--skip-native", action="store_true")
     ap.add_argument("--package", action="store_true", help="assemble package/ (editor, runtimes, example, docs, tests, evidence)")
     ap.add_argument("--evidence", type=Path, default=ROOT / ".research-output/menu-evidence")
+    ap.add_argument("--core", type=Path, help="MRallyeRandomizerRuntime.dll to ship with the integrated loader (default: rebuilt)")
     a = ap.parse_args()
     out = a.output or ROOT / ".research-output/menu-builder" / a.name
     if out.exists():
@@ -153,11 +156,14 @@ def main() -> None:
     if not a.skip_native:
         dll = build_standalone(out / "native/standalone")
         manifest["products"]["native/standalone/dinput8.dll"] = sha(dll)
-        report = build_integrated(out / "native/integrated", a.name)
+        report = build_integrated(out / "native/integrated", a.name, a.core)
         for f in ("dinput8.dll", "MRallyeRandomizerRuntime.dll"):
             manifest["products"][f"native/integrated/{f}"] = sha(out / "native/integrated" / f)
         manifest["integrated_pipeline"] = {"tool": "tools/build_extra_capacity_candidate.py --menu-builder (roster-independent)",
-                                           "sdk_binding": report.get("sdk_binding")}
+                                           "sdk_binding": report.get("sdk_binding"),
+                                           "runtime_core": {"source": str(a.core) if a.core else "rebuilt by the pipeline",
+                                                            "rebuilt_sha256": report.get("sdk_binding", {}).get("runtime_core_sha256"),
+                                                            "shipped_sha256": sha(out / "native/integrated/MRallyeRandomizerRuntime.dll")}}
     if not a.skip_editor:
         for f in build_editor(out / "editor"):
             if f.suffix.lower() in (".exe", ".dll"):
