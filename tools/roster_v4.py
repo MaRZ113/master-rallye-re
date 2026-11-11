@@ -220,6 +220,58 @@ def rename_keys(text: str, renames: dict) -> str:
     return text
 
 
+def record_pushes(img: "Image", cid: int):
+    """The seven initializer pushes of record cid (smallcarsheet, stats[3..0], class, id) before
+    LEA ECX,[ESI+4+cid*52]: [(store, offset, width)], in push order."""
+    pat = b"\x8d\x8e" + struct.pack("<I", 4 + cid * 52)
+    found = []
+    for store, data in (("payload", img.payload), ("file", img.recon)):
+        at = bytes(data).find(pat)
+        while at != -1:
+            for width, opcode in ((5, 0x68), (2, 0x6A)):
+                pos, pushes = at, []
+                for _ in range(7):
+                    pos -= width
+                    if data[pos] != opcode:
+                        break
+                    pushes.append((store, pos + 1, width - 1))
+                else:
+                    value = lambda s: struct.unpack_from("<I", data, s[1])[0] if s[2] == 4 else data[s[1]]
+                    if value(pushes[0]) == cid:
+                        found.append(list(reversed(pushes)))
+            at = bytes(data).find(pat, at + 1)
+    if len(found) != 1:
+        raise ValueError(f"record {cid}: expected one initializer, found {len(found)}")
+    return found[0]
+
+
+def write_push(img: "Image", slot, value: int):
+    store, at, size = slot
+    if size == 1 and not 0 <= value <= 0x7F:
+        raise ValueError("push imm8 value out of range")
+    raw = struct.pack("<I", value) if size == 4 else bytes([value])
+    if store == "payload":
+        img.payload[at:at + size] = raw
+    else:
+        for i, byte in enumerate(raw):
+            if img.recon[at + i] != byte:
+                img.set_file_byte(at + i, byte)
+
+
+def lift_complete(raw: bytes) -> tuple[bytes, float]:
+    """Raise a complete.dx so its lowest vertex stands on y = 0 (Vehicle Select height)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "master-rallye-re-v-cap" / "src"))
+    from master_rallye.dx import parse_dx_bytes
+    v = parse_dx_bytes(raw).vertices
+    ys = [p[1] for p in v.positions]
+    dy = -min(ys)
+    out = bytearray(raw)
+    for i in range(len(v.positions)):
+        at = v.position_offset + i * v.position_stride + 4
+        struct.pack_into("<f", out, at, struct.unpack_from("<f", out, at)[0] + dy)
+    return bytes(out), dy
+
+
 def transform(src: Path, out: Path, spec: dict) -> dict:
     src = src.resolve(); out = out.resolve()
     if out.exists():
@@ -267,6 +319,49 @@ def transform(src: Path, out: Path, spec: dict) -> dict:
     for item in spec.get("strings", []):
         img.replace_string(item["old"], item["new"], only_va=int(str(item["va"]), 0) if "va" in item else None)
     report["strings"] = img.log
+
+    # ---- records: stats (Speed, Acceleration, Handling, Endurance) ---------------------------------------
+    records = {}
+    for cid, stats in spec.get("stats", {}).items():
+        slots = record_pushes(img, int(cid))
+        for i, value in enumerate(stats):
+            write_push(img, slots[4 - i], int(value))   # pushed as stats[3], stats[2], stats[1], stats[0]
+        records.setdefault(cid, {})["stats"] = stats
+
+    # ---- artwork: new bank frames from historical art, widget/Results bindings ---------------------------
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "master-rallye-re-v-cap" / "src"))
+    from master_rallye.addon_sdk.ui_assets import parse_bank, append_frame
+    from master_rallye.dxt import parse_dxt_bytes, decode_rgba_pixels, encode_dxt_pixels
+    overrides, frames = {}, {}
+    root_files = {}
+    for frame in spec.get("frames", []):
+        bank_rel = frame["bank"] + ".dxb"
+        bank = overrides.get(bank_rel) or (src / "resource-root" / bank_rel).read_bytes()
+        bank, name = append_frame(bank, int(frame["template"]))
+        overrides[bank_rel] = bank
+        source = Path(frame["source"])
+        template = parse_dxt_bytes((src / "resource-root" / (frame["bank"].rsplit("/", 1)[0] + "/" + parse_bank(bank)["names"][int(frame["template"])] + ".dxt")).read_bytes())
+        if source.suffix.lower() == ".png":           # e.g. Vehicle SDK compose_live artwork (upright RGBA)
+            from PIL import Image as PILImage
+            with PILImage.open(source) as im:
+                im = im.convert("RGBA"); rgba, w, h = im.tobytes(), im.width, im.height
+        else:
+            art = parse_dxt_bytes(source.read_bytes())
+            rgba, w, h = decode_rgba_pixels(art), art.width, art.height
+        if (w, h) != (template.width, template.height):
+            # Crop the visible car and contain it like the SDK icons (one native pixel guard).
+            from master_rallye.addon_sdk.ui_assets import fit_rgba
+            rgba = bytes(fit_rgba((w, h, rgba), template.width, template.height, 1))
+            w, h = template.width, template.height
+        overrides[frame["bank"].rsplit("/", 1)[0] + "/" + name + ".dxt"] = encode_dxt_pixels(template, rgba, w, h)
+        frames[frame["id"]] = parse_bank(bank)["count"] - 1
+    resolve = lambda v: frames[v] if isinstance(v, str) else int(v)
+    for cid, value in spec.get("smallcarsheet", {}).items():
+        write_push(img, record_pushes(img, int(cid))[0], resolve(value))
+        records.setdefault(cid, {})["smallcarsheet"] = resolve(value)
+    report["records"] = records
+    report["frames"] = frames
+
     for r in img.writable:
         if r["offset"] < len(img.payload) <= r["offset"] + r["size"]:
             raise ValueError("payload growth reached a writable data page")
@@ -283,12 +378,21 @@ def transform(src: Path, out: Path, spec: dict) -> dict:
                 target = repl + rel[len(prefix):]
         data = None
         low = rel.lower()
+        if rel in overrides:
+            data = overrides.pop(rel)
+        elif any(low == f"datagx/vehicles/{f.lower()}/complete.dx" for f in spec.get("menu_lift", [])):
+            data, dy = lift_complete((root / rel).read_bytes())
+            report.setdefault("menu_lift", {})[rel] = round(dy, 4)
         if low in ("datagame/vehicles.xml", "datagame/modifications.xml"):
             data = rename_keys((root / rel).read_text(encoding="utf-8-sig"), renames).encode("utf-8")
         elif low == "datascene/frontendscreens/vehiclesselect.xml" or low == "datascene/frontendscreens/vehicleselect.xml":
             raw = (root / rel).read_bytes()
             bom = raw.startswith(b"\xef\xbb\xbf")
             xml = reorder_scene(raw.decode("utf-8-sig"), old, new)
+            for cid, value in spec.get("widgets", {}).items():
+                cls = next(c for c in CLASSES if int(cid) in new[c])
+                a, z = egg_span(xml, f"{cls}_Car{new[cls].index(int(cid)) + 1}")
+                xml = xml[:a] + set_value(xml[a:z], "en2d Image Bank Index", str(resolve(value))) + xml[z:]
             data = (b"\xef\xbb\xbf" if bom else b"") + xml.encode("utf-8")
         dst = new_root / target
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -298,6 +402,11 @@ def transform(src: Path, out: Path, spec: dict) -> dict:
         else:
             dst.write_bytes(data)
             rows.append((hashlib.sha256(data).hexdigest(), str(len(data)), target))
+    for rel, data in overrides.items():          # new files (appended bank frames)
+        dst = new_root / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_bytes(data)
+        rows.append((hashlib.sha256(data).hexdigest(), str(len(data)), rel))
     (out / "resource-index.tsv").write_text("".join(f"{d}\t{s}\t{p}\n" for d, s, p in rows), encoding="utf-8")
 
     # ---- native files and profile ---------------------------------------------------------------------------
