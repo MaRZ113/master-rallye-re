@@ -374,7 +374,8 @@ bool configure_registry(){
   if(length>=32||!extra_registry::address(env,location)||!read(location,&d,sizeof(d))||!extra_registry::descriptor(d))return false;
   std::array<uint32_t,3> counts{},tables{};
   if(!read(d.class_counts_va,counts.data(),sizeof(counts))||!read(d.class_tables_va,tables.data(),sizeof(tables)))return false;
-  if(uint64_t(counts[0])+counts[1]+counts[2]!=d.record_count)return false;
+  // Retired IDs (Vehicle Manager tombstones) stay in the registry but are offered by no class.
+  if(uint64_t(counts[0])+counts[1]+counts[2]>d.record_count)return false;
   // Verify every mapping in bounded chunks, without allocating from untrusted counts.
   std::array<uint32_t,256> ids{};
   for(unsigned c=0;c<3;++c){
