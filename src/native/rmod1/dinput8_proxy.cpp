@@ -12,6 +12,9 @@
 #include "extra_options_runtime.hpp"
 #include "extra_ghost.hpp"
 #endif
+#if defined(RMOD_MENU_BUILDER)
+#include "menu_builder_runtime.hpp"
+#endif
 
 namespace {
 
@@ -80,6 +83,11 @@ BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
 #if defined(RMOD_EXTRA_OPTIONS)
     // Ghost/difficulty hooks are disjoint from the Randomizer plan and need no runtime core.
     extra_ghost::initialize();
+#endif
+#if defined(RMOD_MENU_BUILDER)
+    // Frontend layouts are independent of the Randomizer boot result and of Extra Options;
+    // they run after both so a shared provider (Extra Options appearance) is already initialized.
+    menu_builder::initialize();
 #endif
     return TRUE; // failure is final for this process; DirectInput still forwards.
 }

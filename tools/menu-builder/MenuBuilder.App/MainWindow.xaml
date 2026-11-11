@@ -1,0 +1,157 @@
+﻿<Window x:Class="MenuBuilder.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Master Rallye Menu Builder" Height="900" Width="1500" Background="#FF1E1F22"
+        WindowStartupLocation="CenterScreen" KeyDown="OnKeyDown" Closing="OnClosing">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Panel" Color="#FF2B2D31"/>
+        <SolidColorBrush x:Key="Text" Color="#FFE6E6E6"/>
+        <Style TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource Text}"/></Style>
+        <Style TargetType="CheckBox"><Setter Property="Foreground" Value="{StaticResource Text}"/><Setter Property="Margin" Value="4,2"/></Style>
+        <Style TargetType="GroupBox"><Setter Property="Foreground" Value="{StaticResource Text}"/><Setter Property="Margin" Value="2"/></Style>
+        <Style TargetType="ListBox"><Setter Property="Background" Value="#FF232428"/><Setter Property="Foreground" Value="{StaticResource Text}"/><Setter Property="BorderThickness" Value="0"/></Style>
+        <Style TargetType="ToolBar"><Setter Property="Background" Value="#FFDADCE0"/></Style>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="#FF2B2D31" Foreground="Black">
+            <MenuItem Header="_File" Foreground="{StaticResource Text}">
+                <MenuItem Header="_New project…" Click="OnNewProject" Foreground="Black"/>
+                <MenuItem Header="_Open project…" Click="OnOpenProject" Foreground="Black"/>
+                <MenuItem Header="_Save" Click="OnSave" InputGestureText="Ctrl+S" Foreground="Black"/>
+                <MenuItem Header="Save _as…" Click="OnSaveAs" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="_Import screen…" Click="OnImportScreen" Foreground="Black"/>
+                <MenuItem Header="_Export screen…" Click="OnExportScreen" Foreground="Black"/>
+                <MenuItem Header="Export preview _PNG…" Click="OnExportPng" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Game _folder…" Click="OnGameFolder" Foreground="Black"/>
+                <MenuItem Header="E_xit" Click="OnExit" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Edit" Foreground="{StaticResource Text}">
+                <MenuItem Header="_Undo" Click="OnUndo" InputGestureText="Ctrl+Z" Foreground="Black"/>
+                <MenuItem Header="_Redo" Click="OnRedo" InputGestureText="Ctrl+Y" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="_Copy" Click="OnCopy" InputGestureText="Ctrl+C" Foreground="Black"/>
+                <MenuItem Header="_Paste" Click="OnPaste" InputGestureText="Ctrl+V" Foreground="Black"/>
+                <MenuItem Header="_Duplicate" Click="OnDuplicate" InputGestureText="Ctrl+D" Foreground="Black"/>
+                <MenuItem Header="Re_name…" Click="OnRename" InputGestureText="F2" Foreground="Black"/>
+                <MenuItem Header="De_lete" Click="OnDelete" InputGestureText="Del" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Apply _style…" Click="OnApplyStyle" Foreground="Black"/>
+                <MenuItem Header="Style from selection…" Click="OnStyleFromSelection" Foreground="Black"/>
+                <MenuItem Header="Component from selection…" Click="OnComponentFromSelection" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Insert" Foreground="{StaticResource Text}" x:Name="InsertMenu"/>
+            <MenuItem Header="_Arrange" Foreground="{StaticResource Text}">
+                <MenuItem Header="Align left" Tag="left" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Align centre (horizontal)" Tag="hcenter" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Align right" Tag="right" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Align top" Tag="top" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Align middle (vertical)" Tag="vcenter" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Align bottom" Tag="bottom" Click="OnAlign" Foreground="Black"/>
+                <MenuItem Header="Distribute vertically" Click="OnDistribute" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Bring forward" Click="OnBringForward" InputGestureText="Ctrl+]" Foreground="Black"/>
+                <MenuItem Header="Send backward" Click="OnSendBackward" InputGestureText="Ctrl+[" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Link navigation top→bottom" Click="OnAutoLink" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Screen" Foreground="{StaticResource Text}">
+                <MenuItem Header="Add _retail screen…" Click="OnAddRetailScreen" Foreground="Black"/>
+                <MenuItem Header="New _custom screen…" Click="OnAddCustomScreen" Foreground="Black"/>
+                <MenuItem Header="Screen _settings…" Click="OnScreenSettings" Foreground="Black"/>
+                <MenuItem Header="Remove screen from project" Click="OnRemoveScreen" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Game" Foreground="{StaticResource Text}">
+                <MenuItem Header="_Validate" Click="OnValidate" InputGestureText="F7" Foreground="Black"/>
+                <MenuItem Header="_Install &amp; activate layout" Click="OnInstall" InputGestureText="F8" Foreground="Black"/>
+                <MenuItem Header="Switch to _Classic menus" Click="OnClassic" Foreground="Black"/>
+                <MenuItem Header="_Launch game" Click="OnLaunch" Foreground="Black"/>
+                <MenuItem Header="Load in-game _live dump (compare)" Click="OnLoadLive" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Help" Foreground="{StaticResource Text}">
+                <MenuItem Header="_About / API" Click="OnAbout" Foreground="Black"/>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray DockPanel.Dock="Top" Background="#FFDADCE0">
+            <ToolBarTray.Resources>
+                <Style TargetType="TextBlock"><Setter Property="Foreground" Value="Black"/></Style>
+                <Style x:Key="{x:Static ToolBar.CheckBoxStyleKey}" TargetType="CheckBox"><Setter Property="Foreground" Value="Black"/><Setter Property="Margin" Value="6,2"/></Style>
+            </ToolBarTray.Resources>
+            <ToolBar>
+                <TextBlock Text=" Aspect " VerticalAlignment="Center"/>
+                <ComboBox x:Name="AspectBox" Width="110" SelectionChanged="OnViewChanged"/>
+                <TextBlock Text=" UI mode " VerticalAlignment="Center"/>
+                <ComboBox x:Name="ModeBox" Width="150" SelectionChanged="OnViewChanged"/>
+                <TextBlock Text=" Compare " VerticalAlignment="Center"/>
+                <ComboBox x:Name="CompareBox" Width="120" SelectionChanged="OnViewChanged"/>
+                <CheckBox x:Name="AspectOverrideBox" Content="Edit this aspect only" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+            </ToolBar>
+            <ToolBar>
+                <CheckBox x:Name="GridBox" Content="Grid" IsChecked="True" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <TextBlock Text=" snap " VerticalAlignment="Center"/>
+                <ComboBox x:Name="SnapBox" Width="55" SelectionChanged="OnViewChanged"/>
+                <CheckBox x:Name="GuidesBox" Content="Guides" IsChecked="True" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <CheckBox x:Name="HitboxBox" Content="Hitboxes" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <CheckBox x:Name="NavBox" Content="Navigation" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <CheckBox x:Name="SafeBox" Content="Safe area" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <CheckBox x:Name="HiddenBox" Content="Hidden/state eggs" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+                <CheckBox x:Name="InteractBox" Content="Interact (keys/mouse)" Checked="OnViewChanged" Unchecked="OnViewChanged"/>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar DockPanel.Dock="Bottom" Background="#FF2B2D31">
+            <TextBlock x:Name="StatusText" Text="Ready"/>
+            <Separator/>
+            <TextBlock x:Name="CursorText" Text=""/>
+        </StatusBar>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="340"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="170"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.RowSpan="3" Background="{StaticResource Panel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="SCREENS" Margin="6,6,6,2" FontWeight="Bold"/>
+                <ListBox x:Name="ScreenList" Grid.Row="1" SelectionChanged="OnScreenSelected"/>
+                <TextBlock Grid.Row="2" Text="ELEMENTS (draw order)" Margin="6,8,6,2" FontWeight="Bold"/>
+                <ListBox x:Name="ElementList" Grid.Row="3" SelectionMode="Extended" SelectionChanged="OnElementSelected"/>
+            </Grid>
+            <GridSplitter Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" Background="#FF111214"/>
+            <Border Grid.Column="2" Background="#FF111214" x:Name="ViewHost" SizeChanged="OnViewSizeChanged" ClipToBounds="True">
+                <Grid x:Name="Stage" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="View" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                    <Canvas x:Name="Overlay" Background="Transparent" MouseLeftButtonDown="OnCanvasDown" MouseMove="OnCanvasMove"
+                            MouseLeftButtonUp="OnCanvasUp" MouseRightButtonUp="OnCanvasRightUp" Focusable="True"/>
+                </Grid>
+            </Border>
+            <GridSplitter Grid.Column="3" Grid.RowSpan="3" HorizontalAlignment="Stretch" Background="#FF111214"/>
+            <ScrollViewer Grid.Column="4" Grid.RowSpan="3" Background="{StaticResource Panel}" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="Props" Margin="6"/>
+            </ScrollViewer>
+            <GridSplitter Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Background="#FF111214"/>
+            <DockPanel Grid.Column="2" Grid.Row="2" Background="{StaticResource Panel}">
+                <TextBlock DockPanel.Dock="Top" x:Name="FindingsTitle" Text="VALIDATION" Margin="6,4" FontWeight="Bold"/>
+                <ListBox x:Name="FindingsList" MouseDoubleClick="OnFindingActivated" FontFamily="Consolas" FontSize="12">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Quick fix (widescreen margin rule)" Click="OnQuickFix"/>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</Window>
