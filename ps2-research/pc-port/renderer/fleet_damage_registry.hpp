@@ -138,6 +138,6 @@ inline constexpr Profile profiles[]={
 {"Forester","WOOLDAND",3235u,16u,WOOLDAND_candidates,9670u,WOOLDAND_mapping,3235u,WOOLDAND_static,0u,true,WOOLDAND_transfers,4u,0.028122900226665165f},
 {"Xtrail","XTRAIL",3292u,23u,nullptr,0,nullptr,0,nullptr,0,false,nullptr,0,0.f},
 {"forklift","FORKLIFT",1901u,10u,FORKLIFT_candidates,6747u,FORKLIFT_mapping,1901u,FORKLIFT_static,0u,true,FORKLIFT_transfers,0u,0.0f},
-{"ForesterSTI","FORESTER",3306u,16u,FORESTER_candidates,0u,FORESTER_mapping,3306u,FORESTER_static,1790u,true,FORESTER_transfers,1392u,0.04947361032038954f},
+{"ForesterSTI","FORESTER",3306u,14u,FORESTER_candidates,0u,FORESTER_mapping,3306u,FORESTER_static,1790u,true,FORESTER_transfers,1392u,0.04947361032038954f},
 };
 }

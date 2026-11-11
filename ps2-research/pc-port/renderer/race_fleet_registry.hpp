@@ -690,8 +690,6 @@ inline constexpr FleetRaceSource kRaceFleetSourceFORESTER[]={
  {"cbb68c8f1976f196ad9885c9e7a44eba9169506df79e52c1441df45f0f79ae54","6920ccf343acdb4fc7dd67344553f9549b98697e37632e6f9b4e4b58e80af357","1b628a6790880fe9c6512c30f75bf40cf16c43ff00b240bbc996aa5ef2409535","36e09961bd98ca3e00845d5eea00270e909c50ac5b7bd803e4913867ff07c540",833u,645u,true},
  {"c13bd17bc07e0f9468930824ec8f769f3bd2fef7a923e1bd718243434acc3e2d","faee989b2014c394a3d1d83213e169be2dff45fb2a33649cbfed76ecd098c946","7e4fd0859eabfc62e37060cfbaf8a89f359a85d89b226cf083187424bb0c6938","5eb9f9703bc2a1908f168636b9ce68373135b7f3166f16f2c9611fd628e831b4",32u,22u,true},
  {"1cdd6e9f12e7a0930cb0503d3d42e140da173f608f6cef03f08238561120b6dc","c70b2cd41ac5a13a0a64ba61f8e83ea276aeb402cb89646caa0bbaa965ec14f4","da4b99837ddd28f8bf6b217ee7c3ed64ba3ffc2927aec5272c2a837816fb9ff7","90f3e8af7b39127abadcabd8ba89a532502043ca0700b6fc8438edbc2e9c2c53",112u,89u,true},
- {"7780d07918e7055836b4e2e4bffd33774ed3de059d2fa500b5b1085c4bb91cb0","9c235f202c4f2bd97afa74fc4715d28cd6fb445fa5a767f9b0718b7039fe47ff","f1e34d9dc0e7eb22e96bd6835aff48ab336bf93a43d25c6a2f50ab53719e2b11","02398b516866d5c57ef9fc338af4c3b3ec8735b03a2b9f3254d323fbf8d0755f",14u,10u,true},
- {"a634b866a153ddcd544cbefd8adbf1cbf256db1097bd224323983cdcf372c972","bb3f971a15bba97733966f60133e3bb1a9163125a3d86e41924763329ab9784c","c17a5166f9a78fc94d500a23c391caf949e885d4b1b3ede98b4f30ebbce69124","1a33df38844dc85f221af259fdd61ef5807e85f5df59e604e6624bb4c9809fb6",28u,28u,true},
 };
 inline constexpr bool kRaceFleetMixedFORESTER[]={false,false,true,true,true,false,true,true,false,true,false};
 inline constexpr bool kRaceFleetWrapUFORESTER[]={false,false,false,false,false,false,false,false,false,false,false};
@@ -722,6 +720,6 @@ inline constexpr FleetRaceProfile kRaceFleetProfiles[]={
  {"Forester","WOOLDAND","WOOLDAND-CAR-FLEET.ps2model","3fc949daf8df678be73e6c9110470fc1a8b926f1cd681a864946ac1c53e721c4",426695u,3235u,5355u,16u,16u,16u,21u,kRaceFleetSourceWOOLDAND,kRaceFleetMixedWOOLDAND,kRaceFleetWrapUWOOLDAND},
  {"Xtrail","XTRAIL","XTRAIL-CAR-FLEET.ps2model","16932a447a459e4fd198ef34232118def5491070714e48e4b4691a2e9fc8bd67",460112u,3292u,5940u,23u,20u,23u,27u,kRaceFleetSourceXTRAIL,kRaceFleetMixedXTRAIL,kRaceFleetWrapUXTRAIL},
  {"forklift","FORKLIFT","FORKLIFT-CAR-FLEET.ps2model","ca0b796d665458d08aaef5157bc151fac04be21db39ab9fd4f6ccde0258308db",247536u,1901u,3099u,10u,12u,10u,10u,kRaceFleetSourceFORKLIFT,kRaceFleetMixedFORKLIFT,kRaceFleetWrapUFORKLIFT},
- {"ForesterSTI","FORESTER","FORESTER-CAR-FLEET.ps2model","49f528315904113b96c08fc10963d94dd17dbcc2b12aa1d4cc4cfb8556e5f8a6",362266u,3306u,5556u,13u,11u,16u,18u,kRaceFleetSourceFORESTER,kRaceFleetMixedFORESTER,kRaceFleetWrapUFORESTER},
+ {"ForesterSTI","FORESTER","FORESTER-CAR-FLEET.ps2model","b17b595cad918bef604ddf38bb71e7e1e796650814d87b85bd32b4d37baa1577",362256u,3306u,5556u,13u,11u,14u,18u,kRaceFleetSourceFORESTER,kRaceFleetMixedFORESTER,kRaceFleetWrapUFORESTER},
 };
 }

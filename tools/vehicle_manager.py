@@ -236,6 +236,9 @@ class Manager:
                     f"Model={m['model']}"]
             for role, data in m["_art"].items():
                 ini.append(f"{ART_KEYS[role]}={append_art(res, role, data, self.game)}")
+            widget = carousel_widget(scene.read_bytes().decode("latin-1"), plan, native["names"], m["base"])
+            if widget:
+                ini += [f"Widget={widget[0]}", f"WidgetFrame={widget[1]}"]
             ini.append(f"; package {name}")
             n += 1
         vehicles_xml.write_bytes(vtext.encode("latin-1"))
@@ -321,6 +324,20 @@ def game_file(res: Path, game: Path, rel: str) -> bytes:
     return raw if method == 0 else zlib.decompress(raw, -15)
 
 
+def carousel_widget(scene: str, plan: dict, names: dict, base: str):
+    """Vehicle Select widget of the family's physical ID in the applied order and its scene frame
+    ("en2d Image Bank Index"), so the loader can show the DEMO CarSheet there and restore the original."""
+    ids = [i for i, n in names.items() if n.lower() == base.lower()]
+    for cls in CLASSES:
+        for local, vid in enumerate(plan[cls]):
+            if vid in ids:
+                name = f"{cls}_Car{local + 1}"
+                at = scene.find(f'<Egg Name="{name}">')
+                m = re.search(r'en2d Image Bank Index" Type="Int" Value="(\d+)"', scene[at:at + 4000]) if at >= 0 else None
+                return (name, int(m.group(1))) if m else None
+    return None
+
+
 def append_art(res: Path, role: str, data: bytes, game: Path) -> int:
     """Append one frame to a staged bank (template frame size/format, car contained like SDK icons); returns its index."""
     sys.path.insert(0, str(HERE.parents[1] / "master-rallye-re-v-cap" / "src"))
@@ -332,10 +349,15 @@ def append_art(res: Path, role: str, data: bytes, game: Path) -> int:
     bank, name = append_frame(bank_path.read_bytes(), template)
     tname = parse_bank(bank)["names"][template]
     tmpl = parse_dxt_bytes(game_file(res, game, bank_rel.rsplit("/", 1)[0] + "/" + tname + ".dxt"))
-    art = parse_dxt_bytes(data)
-    rgba = decode_rgba_pixels(art)
-    if (art.width, art.height) != (tmpl.width, tmpl.height):
-        rgba = bytes(fit_rgba((art.width, art.height, rgba), tmpl.width, tmpl.height, 1))
+    if data[:4] == bytes((0x89, 0x50, 0x4E, 0x47)):         # PNG: composed artwork (e.g. tools/vehicle_side_icon.py)
+        from PIL import Image
+        im = Image.open(io.BytesIO(data)).convert("RGBA")
+        width, height, rgba = im.width, im.height, im.tobytes()
+    else:
+        art = parse_dxt_bytes(data)
+        width, height, rgba = art.width, art.height, decode_rgba_pixels(art)
+    if (width, height) != (tmpl.width, tmpl.height):
+        rgba = bytes(fit_rgba((width, height, rgba), tmpl.width, tmpl.height, 1))
     (folder / (name + ".dxt")).write_bytes(encode_dxt_pixels(tmpl, rgba, tmpl.width, tmpl.height))
     bank_path.write_bytes(bank)
     return parse_bank(bank)["count"] - 1
@@ -394,7 +416,7 @@ def read_package(path: Path):
         # Optional artwork (any DXT size): Vehicle Select CarSheet and race SIDE/Results small icon of the variant.
         art = {}
         for role, item in (m.get("art") or {}).items():
-            if role not in ART_BANKS or not re.fullmatch(r"art/[A-Za-z0-9_.-]{1,64}\.dxt", item["path"]):
+            if role not in ART_BANKS or not re.fullmatch(r"art/[A-Za-z0-9_.-]{1,64}\.(dxt|png)", item["path"]):
                 raise ValueError(f"{path.name}: invalid art entry {role}")
             data = z.read(item["path"])
             if sha(data) != item["sha256"]:

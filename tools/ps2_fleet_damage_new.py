@@ -54,7 +54,8 @@ def apply(out: Path, families: list[str]):
     """Append the new families' arrays and profile rows to renderer/fleet_damage_registry.hpp."""
     generated = (out / "runtime_damage_registry.hpp").read_text().splitlines()
     registry = PORT / "renderer/fleet_damage_registry.hpp"
-    text = registry.read_text()
+    from ps2_fleet_new_families import strip_v4
+    text = strip_v4(registry.read_text())
     marker = "inline constexpr Profile profiles[]={"
     arrays, rows = [], []
     for fam in families:

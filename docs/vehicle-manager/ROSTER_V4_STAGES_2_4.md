@@ -107,3 +107,20 @@ file, not in the roster overlay the game actually reads (`GHOST_UNAVAILABLE`); i
 * **ForesterSTI lit tail lights** use the PS2 BREAKLIGHTSON / BREAKLIGHTSONGLOW art on the Demo lamp geometry (alpha
   of the PC textures kept).
 All resource fixes: `tools/roster_v4_fix02.py --game <host>` then `vehicle_manager.py apply`.
+
+## Fix 03 (owner test 2026-11-11)
+
+* **ForesterSTI still raced with the Demo model.** F10 capture: `fleet_car_certificate_failure matched_mask 16383 /
+  65535` - the profile counted the Demo lit-brake records 18/19 (breaklightson/glow) as chassis; they are drawn only
+  while braking, so the certificate never completed. Records with lit-brake textures now stay native (as the accepted
+  families' glow/ON proofs do): 14 suppressed PC records. The renderer logs the first certificate failure of each
+  family (`ps2_fleet_car_certificate_failure` with a reason) without F10.
+* **DEMO CarSheet did not change.** en2d +0x38 is not the frame; the widget frame is changed like gaFrontendDisablerAI
+  0x450E70 does it: 0x4E23E0 then 0x4E1FF0(frame) on egg+0x4C. The Manager writes `Widget` / `WidgetFrame` (applied
+  order, scene frame) into variants.ini; the loader queues a frame only on a change.
+* **Artwork.** RAV4 Pickup CarSheet = Demo 9.3.1 frame 9 (full-size twin of smallcarsheet 1, owner choice). Race
+  small icons are flat SIDE views rendered from the variant's complete.dx (`tools/vehicle_side_icon.py`, the SDK
+  camera azimuth -90 / ortho + the unchanged SDK smallcarsheet composition; checked against the SDK Mercedes icon).
+* **ForesterSTI lamps.** Owner: keep the Demo BRAKE ON geometry with the PC texture -> the PS2 art from fix 02 is
+  reverted (retail PC breaklightson/glow again). PS2 mode currently shows the Demo BRAKE ON geometry too; the PS2
+  FORESTER BRAKE ON layer for PS2 mode is not ported yet.

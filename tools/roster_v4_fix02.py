@@ -21,11 +21,13 @@ from roster_v4 import lift_complete           # noqa: E402
 from vehicle_glass_band_fix import fix_dxt, fix_tree, NAMES   # noqa: E402
 
 DEMO = Path(__file__).resolve().parents[2] / "corpora"
+# CarSheet: the Demo frame of that model (owner 2026-11-11: NewRav = 9.3.1 frame 9, full-size twin of smallcarsheet 1).
+# Small icon: "side" = flat SDK-style SIDE view rendered from the variant's own complete.dx (tools/vehicle_side_icon.py).
 ART = {
     "landcruiser-demo.mrcar": {"carsheet": DEMO / "demo-8.4.1/DataGx/Frontend/VehicleSelect/carsheet_003_000.dxt",
-                               "smallcarsheet": DEMO / "demo-8.4.1/DataGx/Frontend/VehicleSelect/carsheet_003_000.dxt"},
-    "newrav-demo.mrcar": {"carsheet": DEMO / "demo-9.3.1/DataGx/Frontend/VehicleSelect/carsheet_017_000.dxt",
-                          "smallcarsheet": DEMO / "demo-9.3.1/DataGx/Frontend/RaceResults/smallcarsheet_017_000.dxt"},
+                               "smallcarsheet": "side"},
+    "newrav-demo.mrcar": {"carsheet": DEMO / "demo-9.3.1/DataGx/Frontend/VehicleSelect/carsheet_009_000.dxt",
+                          "smallcarsheet": "side"},
 }
 
 
@@ -67,6 +69,20 @@ def ps2_brake_textures(base_res: Path) -> dict:
     return out
 
 
+def side_icon_png(folder: str, files: dict) -> bytes:
+    import io, tempfile
+    from vehicle_side_icon import side_icon
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / folder
+        root.mkdir()
+        for key, data in files.items():
+            if key.startswith(f"files/DataGx/Vehicles/{folder}/"):
+                (root / key.rsplit("/", 1)[-1]).write_bytes(data)
+        icon, _source = side_icon(root)
+    out = io.BytesIO(); icon.save(out, "PNG")
+    return out.getvalue()
+
+
 def fix_package(path: Path) -> dict:
     with zipfile.ZipFile(path) as z:
         manifest = json.loads(z.read("manifest.json"))
@@ -84,12 +100,18 @@ def fix_package(path: Path) -> dict:
             report[leaf] = info.get("band_rows", 0)
         files[key] = data
         item["sha256"] = sha(data)
+    for name in [n for n in files if n.startswith("art/")]:
+        del files[name]                                   # replaced below
+    manifest.pop("art", None)
     for role, src in ART.get(path.name, {}).items():
-        data = src.read_bytes()
-        name = f"art/{role}.dxt"
+        if src == "side":
+            data, name = side_icon_png(manifest["folder"], files), f"art/{role}.png"
+            src = "tools/vehicle_side_icon.py (complete.dx)"
+        else:
+            data, name = src.read_bytes(), f"art/{role}.dxt"
         files[name] = data
         manifest.setdefault("art", {})[role] = {"path": name, "sha256": sha(data), "source": str(src)}
-        report[role] = src.name
+        report[role] = str(src)
     tmp = path.with_suffix(".mrcar.new")
     with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as z:
         for n, d in sorted(files.items()):
@@ -104,6 +126,6 @@ if __name__ == "__main__":
     p.add_argument("--game", type=Path, required=True)
     a = p.parse_args()
     root = a.game / "MRMods/Vehicles/manager"
-    out = {"base": fix_tree(root / "base/resources"), "foresterSTI_brake": ps2_brake_textures(root / "base/resources"),
+    out = {"base": fix_tree(root / "base/resources"),
            "packages": {pk.name: fix_package(pk) for pk in sorted((root / "packages").glob("*.mrcar"))}}
     print(json.dumps(out, indent=1))

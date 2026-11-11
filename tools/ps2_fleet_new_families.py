@@ -29,12 +29,41 @@ def load(name, path):
     return module
 
 
+V4_FAMILIES = ("FORKLIFT", "FORESTER")
+
+
+def strip_v4(text: str, families=V4_FAMILIES) -> str:
+    """Registry text without the rows this tool (and ps2_fleet_damage_new.py) add: every top-level array whose name
+    contains FORKLIFT / FORESTER (header through its closing "};") and every profile entry naming them."""
+    keep, skipping = [], False
+    for line in text.split("\n"):
+        if skipping:
+            skipping = line.strip() != "};"
+            continue
+        named = any(f"{f}[]" in line or f" {f}_" in line or f"Source{f}[" in line or f"{f}[" in line for f in families)
+        if line.startswith("inline constexpr") and named:
+            skipping = not line.rstrip().endswith("};")
+            continue
+        if line.startswith(" {\"") or line.startswith("{\""):
+            if any(f'","{f}",' in line for f in families):
+                continue
+        keep.append(line)
+    return "\n".join(keep)
+
+
 def contract(pc, entries, t, family, pc_family, pc_car: Path):
     key = t.logical_path("\\TNG\\DATAPSM\\VEHICLES\\" + family + "\\CAR.PSM").upper()
     raw, provenance = t.read_payload(entries[key], PS2 / "TNG.000")
     scene = pc.r.decode_vehicle(raw)
     model = pc.parse_dx(pc_car)
     records = [pc.pc_record(model, d) for d in model.physical_draws]
+    # Lit brake geometry is drawn only while braking (owner test 2026-11-11: ForesterSTI records 18/19, textures
+    # breaklightson/breaklightsonglow, kept the certificate from ever completing). Like the accepted families'
+    # native_glow_or_on_texture proof, such records stay native and are never part of the suppressed chassis.
+    for rec in records:
+        if any(str(t).lower().startswith(("breaklightson", "brakeon", "brakelighton")) for t in rec["ordered_texture_slots"]):
+            rec["whole_chassis_suppress_candidate"] = False
+            rec["admission"] = "KEEP_NATIVE_CONDITIONAL_GLOW_OR_ON_SOURCE_BOUNDARY"
     roots = [pc.mesh_row(scene, m) for m in scene.meshes]
     body = [m for m in roots if not m["conditional"]]
     blocks = [dict(path=m["path"], mode=m["mode"]) for m in body if m["mode"] not in (0, 1, 2, 3, 5, 20, 21)]
@@ -71,7 +100,7 @@ def main():
     if rt.c.sha(default) != rt.c.DEFAULT_SHA:
         raise ValueError("Original DEFAULT.GXI changed")
     # Uniqueness against the 25 accepted families (their PC draw identities are in the shipped registry).
-    existing = (PORT / "renderer/race_fleet_registry.hpp").read_text()
+    existing = strip_v4((PORT / "renderer/race_fleet_registry.hpp").read_text())
     out = []
     for family, pc_family, car in (("FORKLIFT", "forklift", a.forklift_car), ("FORESTER", "ForesterSTI", a.forester_car)):
         row = contract(pc, entries, t, family, pc_family, car)
@@ -124,7 +153,7 @@ def complete_profile(pc, pc_complete: Path, default: bytes):
     profile["filename"] = "FORESTER-COMPLETE-FLEET.ps2model"
     path = front.c.private_output(PORT / ".assets/vehicles" / profile["filename"])
     path.write_bytes(binary)
-    existing = (PORT / "renderer/frontend_fleet_registry.hpp").read_text()
+    existing = strip_v4((PORT / "renderer/frontend_fleet_registry.hpp").read_text(), ("FORESTER",))
     unique = [d["geometry_sha256"] not in existing for d in profile["pc_sources"]]
     lines = ["inline constexpr FrontendSource kFleetSourcesFORESTER[]={"] + \
             [' {"%s",%d,%d},' % (d["geometry_sha256"], d["vertices"], d["faces"]) for d in profile["pc_sources"]] + ["};",
@@ -143,7 +172,7 @@ def apply_registries(report_path: Path):
     """Append the generated rows to the renderer registries (idempotent: refuses if already present)."""
     report = json.loads(report_path.read_text())
     race = PORT / "renderer/race_fleet_registry.hpp"
-    text = race.read_text()
+    text = strip_v4(race.read_text())
     marker = "inline constexpr FleetRaceProfile kRaceFleetProfiles[]={"
     for fam in report["families"]:
         if "kRaceFleetSource" + fam["ps2_family"] + "[]" in text:
@@ -156,7 +185,7 @@ def apply_registries(report_path: Path):
     front = report.get("frontend")
     if front:
         path = PORT / "renderer/frontend_fleet_registry.hpp"
-        text = path.read_text()
+        text = strip_v4(path.read_text(), ("FORESTER",))
         marker = "inline constexpr FleetProfile kFrontendFleetProfiles[]={"
         if "kFleetSourcesFORESTER[]" in text:
             raise ValueError("FORESTER already in frontend registry")
