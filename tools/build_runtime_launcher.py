@@ -85,7 +85,8 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
 def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
                    retail_exe: Path | None = None,
                    generator: str = "Visual Studio 18 2026",
-                   bundle_verifier: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
+                   bundle_verifier: Callable[[], dict[str, Any]] | None = None,
+                   sdk_binding_input: bool = False) -> dict[str, Any]:
     if os.name != "nt":
         raise LauncherBuildError("the native launcher can only be built on Windows")
     bundle = Path(bundle)
@@ -111,7 +112,8 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
         shutil.copytree(include_dir, stage / 'generated')
         build_dir = Path(scratch.name) / "build"
         configure = ["cmake", "-S", str(PROJECT_ROOT / "runtime_launcher"), "-B", str(build_dir),
-                     "-G", generator, "-A", "x64", f"-DPROFILE_INCLUDE_DIR={include_dir}"]
+                     "-G", generator, "-A", "x64", f"-DPROFILE_INCLUDE_DIR={include_dir}",
+                     f"-DMR_ENABLE_SDK_BINDING_INPUT={'ON' if sdk_binding_input else 'OFF'}"]
         subprocess.run(configure, check=True)
         subprocess.run(["cmake", "--build", str(build_dir), "--config", "Release",
                         "--target", "mr-runtime-launcher"], check=True)
@@ -128,6 +130,7 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
             "artifact_kind": "native external runtime launcher build",
             "status": "STATIC_BUILD_ONLY_NOT_RUNTIME_QUALIFIED",
             "architecture": "x64 launcher / x86 target process",
+            "sdk_binding_input_abi": 1 if sdk_binding_input else None,
             "generator": generator,
             "launcher_sha256": hashlib.sha256(data).hexdigest(),
             "launcher_size": len(data),
@@ -157,10 +160,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--retail-exe", type=Path, default=addon_runtime.DEFAULT_RETAIL_EXE)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--generator", default="Visual Studio 18 2026")
+    parser.add_argument("--sdk-binding-input", action="store_true", help="Build the private SDK-binding input ABI test launcher")
     args = parser.parse_args(argv)
     try:
         result = build_launcher(bundle=args.bundle, output=args.output,
-                                retail_exe=args.retail_exe, generator=args.generator)
+                                retail_exe=args.retail_exe, generator=args.generator,
+                                sdk_binding_input=args.sdk_binding_input)
     except (LauncherBuildError, addon_runtime.RuntimeIntegrationError, OSError,
             subprocess.CalledProcessError, ValueError, KeyError, TypeError) as exc:
         print(json.dumps({"status": "FAIL_CLOSED", "error": str(exc)}, indent=2))

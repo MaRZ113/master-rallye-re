@@ -86,7 +86,7 @@ def open_setup_authoring(parent, tool_root):
             base=tool_root/'.research-output/vehicles/v-set1';base.mkdir(parents=True,exist_ok=True)
             token='workshop-'+uuid.uuid4().hex[:10];config_path=base/(token+'.json');output=base/token
             config_path.write_text(json.dumps(config,indent=2)+'\n');log_path=base/(token+'.log');stream=log_path.open('w',encoding='utf-8')
-            command=[sys.executable,str(tool_root/'tools/build_vehicle_setup_pilot.py'),'--output',str(output),'--vehicle-config',str(config_path),'--build']
+            command=[sys.executable,str(tool_root/'tools/build_vehicle_setup_pilot.py'),'--output',str(output),'--vehicle-config',str(config_path),'--build','--legacy-debug']
             for key,v in paths.items():command.extend(['--'+key,v.get()])
             try:process=subprocess.Popen(command,cwd=tool_root,stdout=stream,stderr=subprocess.STDOUT,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
             except Exception:stream.close();raise

@@ -852,3 +852,20 @@ V_DEF4_PROVENANCE.json. Tests do not promote the new model to gameplay PASS.
 | Randomizer |F3 Challenge two conflicts retained; v13 no declared byte overlap; no live coexistence claim |
 
 Current counts/hashes and private report locations: V_DEF4_1_PROVENANCE.json.
+
+## EXTRA-SET1 native G1/SDK candidate
+
+| Check | Evidence / boundary |
+|---|---|
+| Shared G1 core | 326 checks; no failures |
+| Randomizer Python | 45 tests; one optional skip |
+| SDK binding Python / compiled helpers | 4 tests; profile, partial/altered inputs, replay stubs and system forwarding pass |
+| Renderer Windows CTest | 44/44 |
+| Native callback/provider harnesses | Six tire routes, draft actions, source atlas/alpha/AI isolation, typed ABI and registration bounds pass |
+| Addon/SDK Python regression | 61 tests, zero failures |
+| Source-qualified UI authoring | 3 tests; stock font, integer paths and reachable actions |
+| Preservation | 413 accepted resources exact; editable options only deliberately adapted; SDK plans/extension exact; installed baseline hashes retained |
+| Real D3D8 evidence | Startup/G1 composition, main menu/attract, labelled native Gearbox UI fixture |
+| Normal menu input, frontend/race livery A/B, tire solver, Results/resume | OWNER TEST PENDING; fixture is not workflow/gameplay proof |
+
+See EXTRA_OPTIONS_NATIVE_RESULTS.md and private integrated-11 validation.json.

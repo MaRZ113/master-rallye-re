@@ -16,6 +16,7 @@
 #include <limits>
 
 #include "trusted_profile.hpp"
+#include "input_proxy_probe.hpp"
 
 // Legacy profiles have no allocated native payload and preserve their exact
 // resource/operation contract. New profiles pin every payload byte at build.
@@ -738,7 +739,7 @@ void InstallNativeExtension(PROCESS_INFORMATION& pi, const std::vector<uint8_t>&
     }
 }
 
-HANDLE VerifyAdjacentWrappers(const fs::path& exePath) {
+HANDLE VerifyAdjacentWrappers(const fs::path& exePath, HANDLE& pinnedInput) {
     static constexpr const wchar_t* names[] = {
         L"d3d9.dll", L"ddraw.dll", L"dinput8.dll",
         L"dsound.dll", L"winmm.dll", L"version.dll", L"dxgi.dll"
@@ -747,26 +748,46 @@ HANDLE VerifyAdjacentWrappers(const fs::path& exePath) {
     for (const auto* name : names) {
         const auto path = directory / name;
         if (fs::exists(path)) {
+#if defined(MR_ENABLE_SDK_BINDING_INPUT)
+            if (std::wcscmp(name,L"dinput8.dll")==0) {
+                const DWORD attributes=GetFileAttributesW(path.c_str());
+                if (attributes==INVALID_FILE_ATTRIBUTES || (attributes&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))
+                    Fail("SDK-binding input proxy must be a regular non-linked file");
+                pinnedInput=CreateFileW(path.c_str(),GENERIC_READ|FILE_READ_ATTRIBUTES,FILE_SHARE_READ,
+                                        nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);
+                if (pinnedInput==INVALID_HANDLE_VALUE) Fail("cannot pin SDK-binding input proxy");
+                try {
+                    if (!HasSdkBindingAbi(ReadFileBytes(path))) Fail("input proxy lacks the supported SDK-binding ABI");
+                    std::cout << "INPUT_PROXY_PINNED sdk_binding_abi=1 hash_gate=disabled\n";
+                } catch (...) {CloseHandle(pinnedInput);pinnedInput=INVALID_HANDLE_VALUE;throw;}
+                continue;
+            }
+#endif
             std::wcerr << L"UNQUALIFIED_LOCAL_WRAPPER " << path << L"\n";
             Fail("unqualified local graphics/input/audio wrapper is present");
         }
     }
     const auto graphicsProxy = directory / L"d3d8.dll";
-    if (fs::exists(graphicsProxy)) return OpenPinnedGraphicsProxy(graphicsProxy);
+    if (fs::exists(graphicsProxy)) {
+        try { return OpenPinnedGraphicsProxy(graphicsProxy); }
+        catch (...) { if(pinnedInput!=INVALID_HANDLE_VALUE){CloseHandle(pinnedInput);pinnedInput=INVALID_HANDLE_VALUE;} throw; }
+    }
     return INVALID_HANDLE_VALUE;
 }
 
 void Launch(const fs::path& exePath, const fs::path& workingDirectory,
-            const RuntimePlan* plan, const fs::path* nativeBundle = nullptr) {
+            const RuntimePlan* plan, const fs::path* nativeBundle = nullptr, bool preflightOnly = false) {
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     if (HashHandle(pinnedExe) != MR_RETAIL_SHA256) {
         CloseHandle(pinnedExe); Fail("pinned executable SHA256 mismatch");
     }
     HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    HANDLE pinnedInput = INVALID_HANDLE_VALUE;
     if (plan) {
         try {
-            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath, pinnedInput);
         } catch (...) {
+            if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
             CloseHandle(pinnedExe);
             throw;
         }
@@ -780,6 +801,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
                         CREATE_SUSPENDED | CREATE_UNICODE_ENVIRONMENT,
                         nullptr, workingDirectory.c_str(), &startup, &pi)) {
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe); Fail("CreateProcessW(CREATE_SUSPENDED) failed");
     }
     try {
@@ -804,6 +826,15 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
                 std::cout << "IN_MEMORY_PATCH_SET_VERIFIED operations=" << plan->operations.size()
                           << " reference_reconstruction_sha256=" << MR_REFERENCE_IMAGE_SHA256 << "\n";
         }
+        if (preflightOnly) {
+            if (!TerminateProcess(pi.hProcess, 0) || WaitForSingleObject(pi.hProcess, 10000) != WAIT_OBJECT_0)
+                Fail("cannot terminate suspended preflight process");
+            std::cout << "INTEGRATED_SUSPENDED_PREFLIGHT_PASS game_thread_resumed=false\n";
+            CloseHandle(pi.hThread); CloseHandle(pi.hProcess); CloseHandle(pinnedExe);
+            if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+            if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
+            return;
+        }
         if (ResumeThread(pi.hThread) != 1)
             TerminateSuspended(pi, "ResumeThread failed");
         std::cout << "PROCESS_RESUMED mode=" << (plan ? "integrated" : "bootstrap-only") << "\n";
@@ -816,6 +847,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         std::cout << "PROCESS_EXIT exit_code=" << exitCode << " retail_exe_sha256=" << MR_RETAIL_SHA256 << "\n";
         CloseHandle(pi.hThread); CloseHandle(pi.hProcess); CloseHandle(pinnedExe);
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
     } catch (...) {
         if (pi.hProcess) {
             TerminateProcess(pi.hProcess, 0xE002);
@@ -824,6 +856,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         if (pi.hThread) CloseHandle(pi.hThread);
         if (pi.hProcess) CloseHandle(pi.hProcess);
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe);
         throw;
     }
@@ -832,18 +865,21 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
 void VerifyLaunchEnvironment(const fs::path& exePath) {
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    HANDLE pinnedInput = INVALID_HANDLE_VALUE;
     try {
         if (HashHandle(pinnedExe) != MR_RETAIL_SHA256)
             Fail("pinned executable SHA256 mismatch");
-        pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+        pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath, pinnedInput);
         std::cout << "LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy="
                   << (pinnedGraphicsProxy == INVALID_HANDLE_VALUE ? "absent" : "pinned-d3d8") << "\n";
     } catch (...) {
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe);
         throw;
     }
     if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+    if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
     CloseHandle(pinnedExe);
 }
 
@@ -930,7 +966,11 @@ int wmain(int argc, wchar_t** argv) {
             VerifyLaunchEnvironment(exePath);
             return 0;
         }
-        if (mode != L"--integrated" && mode != L"--canary-only") Fail("unknown launcher mode");
+        if (mode != L"--integrated" && mode != L"--canary-only"
+#if defined(MR_ENABLE_SDK_BINDING_INPUT)
+            && mode != L"--preflight-sdk-binding"
+#endif
+            ) Fail("unknown launcher mode");
         auto plan = ParsePatchPlan(exePath, bundle / L"native-patch-ops.rvp", bundle / L"addon-plan.json");
         if (mode == L"--canary-only") {
             plan.operations.erase(std::remove_if(plan.operations.begin(), plan.operations.end(),
@@ -938,7 +978,8 @@ int wmain(int argc, wchar_t** argv) {
             if (plan.operations.size() != 1) Fail("bundle must contain exactly one approved no-op canary");
             Launch(exePath, exePath.parent_path(), &plan);
         } else {
-            Launch(exePath, bundle / L"resource-root", &plan, &bundle);
+            Launch(exePath, bundle / L"resource-root", &plan, &bundle,
+                   mode == L"--preflight-sdk-binding");
         }
         return 0;
     } catch (const std::exception& error) {

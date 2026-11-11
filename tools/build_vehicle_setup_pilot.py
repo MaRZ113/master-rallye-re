@@ -252,7 +252,7 @@ def build(output):
         subprocess.run(command,check=True)
 
 
-def package_candidate(output, baseline, game_root, ps2_assets, *, delivery_name='delivery'):
+def package_candidate(output, baseline, game_root, ps2_assets, *, delivery_name='delivery', legacy_debug=False):
     """Reuse the sealed 33-car bundle; only a tiny private EXE/DLL host is new."""
     output=Path(output).resolve();baseline=Path(baseline).resolve();game_root=Path(game_root).resolve()
     dll=output/'build/Release/d3d8.dll'
@@ -274,7 +274,7 @@ def package_candidate(output, baseline, game_root, ps2_assets, *, delivery_name=
     conflicts=[name for name in ('dinput8.dll','dsound.dll','ddraw.dll','winmm.dll') if (game_root/name).exists()]
     if conflicts:raise ValueError('Separate wrapper composition required: '+str(conflicts))
     shutil.copytree(output/'VSETAssets',host/'VSETAssets')
-    (host/'VSET1.ini').write_text('[VehicleSetup]\nEnabled=1\n',encoding='utf-8')
+    (host/'VSET1.ini').write_text('[VehicleSetup]\nEnabled=%d\nDebugDialog=%d\n' % (legacy_debug, legacy_debug),encoding='utf-8')
     shutil.copyfile(game_root/'MRRRenderer.ini',host/'MRRRenderer.ini')
     ini=(game_root/'PS2Port.ini').read_text(encoding='utf-8-sig')
     def setting(text,key,value):
@@ -327,8 +327,9 @@ if __name__=='__main__':
     parser.add_argument('--vehicle-config',type=Path)
     parser.add_argument('--candidate',type=Path)
     parser.add_argument('--game-root',type=Path)
+    parser.add_argument('--legacy-debug',action='store_true',help='Explicitly enable the obsolete V-SET1 debug dialog')
     args=parser.parse_args();prepare(args.output,args.upstream,args.ps2_assets,args.retail,args.vehicle_config)
     if args.build:build(args.output)
     if args.candidate or args.game_root:
         if not args.candidate or not args.game_root or not args.build:parser.error('Candidate packaging requires --build, --candidate and --game-root')
-        package_candidate(args.output,args.candidate,args.game_root,args.ps2_assets)
+        package_candidate(args.output,args.candidate,args.game_root,args.ps2_assets,legacy_debug=args.legacy_debug)

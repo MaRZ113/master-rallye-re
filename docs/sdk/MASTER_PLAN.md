@@ -36,48 +36,36 @@ Source-only review archives and automated tests do not prove original-game rende
 5. **Compact installed mods:** target a small, compatible runtime DLL plus external resources and manifest, using existing reversible runtime/overlay research. The **editor's** distribution size is a separate concern from the **in-game mod's** footprint. No ordinary-user dependence on a full duplicate game installation.
 6. **No unnecessary feature/research expansion:** improve the existing garage and conversion workflow before adding more donor games.
 
-## 3A. Current priority: V-SET1 owner qualification
+## 3A. Current priority: Extra Options and SDK/Randomizer binding
 
-V-DEF4.1 is **USER_RUNTIME_CONFIRMED** from the owner's successful runtime
-report. Preserve Forester30, full-Newrav-physics RAV4 31 and full-Wildcat-physics
-TOMCAT32, their historical art/stats/identities, separate flat race HUD icons,
-native glass/lights, marker authoring, per-mode addon AI and custom ordering.
-The accepted roster remains33 records,8/12/13, with physical IDs independent
-of display indices. No further vehicle import or capacity expansion is active.
-Previously documented Randomizer F3 conflicts remain a separate composition gate.
+V-DEF4.1 remains owner-confirmed: preserve the 33-car 8/12/13 roster,
+Forester30, RAV4 31, TOMCAT32, ordering, assets and accepted gameplay.
+The F6 V-SET1 dialog did not meet the requested native UI experience; its
+source now requires explicit debug opt-in. Historical evidence remains in
+`V_SET1_PILOT.md`; previously built private candidates are unchanged.
 
-V-SET1 delivers a new **offline-qualified windowed Quick Race candidate**, using
-existing PS2 SeatBuggy / CarID21. F6 on the original Gearbox page opens an owned
-in-process setup dialog with livery/tire choices, Apply, Defaults, Cancel and
-independent sidecar persistence. It is not a new MR-rendered fullscreen screen;
-controller hardware and all original-game behavior remain owner tests.
-V-SET1.1 fixes premature race-state gating: setup uses original frontend
-mode/split/player/selection fields; tire publication still requires prepared
-single-human Quick Race Car0. See V_SET1_PILOT.md.
+EXTRA-SET1 now has an isolated native implementation candidate on the installed
+G1 source line plus SDK33: native Gearbox Paint/Livery and Tires controls,
+Apply/Cancel/Defaults, per-car persistence, original five-family tire selection,
+and texture-first / compatible full-visual-bundle renderer switching. The legacy
+Randomizer INI is preserved; the core gains an SDK provider without changing its
+participant limit or grid algorithm. No installed proxy, accepted vehicle, CarID
+or native SDK extension is changed.
 
-The two visual choices are PS2 original and **RECONSTRUCTED PC sponsor panels**.
-Only two UV-witnessed maps receive authentic PC RGB; original PS2 alpha,
-geometry, UVs and other textures stay unchanged. A complete second shipped PS2
-skin is not proven. Mégane remains research-only, with9.3.1 input unavailable.
-Stock preserves native FrontTest/RearTest; the complete original gravel table
-is an alternate instance selector before wheel initialization. No shared tire
-coefficients, named vehicle profiles, AI or mid-race solver state are changed.
-
-The common versioned setup contract and Workshop authoring are implemented.
-The pilot compiles a validated package descriptor into a private staged Proxy;
-installed graphics mods and all accepted builds remain untouched. The private
-host reuses the accepted sealed CMD33-car bundle, with separate mutable saves.
-General arbitrary-package DLL installation and other version adapters remain
-separate. The proxy SHA gate is not reintroduced; relevant native structure,
-API/call/vtable preimages and hook ownership are checked explicitly.
-
-See V_SET1_PILOT.md for source evidence, exact limitations, validation and the
-owner checklist. Stop after this candidate; do not promote offline checks to
-in-game success or continue more restorations before owner review.
+G1/SDK initialization has now run in an actual game process. Native controls have
+been rendered through the actual Gearbox AI in a labelled UI fixture; automated
+callback, source, forwarding and renderer tests pass. The normal interactive
+Quick Race selection, visible frontend/race switching, tire solver effects,
+Results and other-mode regressions remain owner tests. Do not call those PASS.
+The customization pilot is player 0 in single-player Quick Race; broader mode
+customization and universal-version installation are not qualified here.
+See `EXTRA_OPTIONS_NATIVE_RESULTS.md` for the runnable candidate workflow,
+source variants, exact boundaries and the owner checklist. The earlier F3
+binding proof remains historical foundation, not the current deliverable.
 
 ## 3B. Deferred priority: Definitive Edition vehicle runtime
 
-Follow `MASTER_RALLYE_DEFINITIVE_ROADMAP.md` for the product direction. First qualify a small external-resource vehicle runtime that starts with compatible game versions, preserves installed wrappers and coexists with Randomizer. SHA is diagnostic evidence, not a universal executable allowlist: select version-specific profiles using verified PE layout, relevant code/data invariants and hook preimages. Reuse J.1/J.2 and the J.3 compiler. Retail EXE evidence supports loose-first resource reads and archive fallback; Workshop can prepare a non-installable resource draft from an existing bundle. Prove the complete original-game resource and startup path before calling it installable; installation, shutdown and conflicts must fail safely. Two Randomizer F3/J.2 Challenge instruction overlaps, a general loading seam, initialization timing and adapters for other retail variants remain unresolved. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.
+Follow `MASTER_RALLYE_DEFINITIVE_ROADMAP.md` for the product direction. First qualify a small external-resource vehicle runtime that starts with compatible game versions, preserves installed wrappers and coexists with Randomizer. SHA is diagnostic evidence, not a universal executable allowlist: select version-specific profiles using verified PE layout, relevant code/data invariants and hook preimages. Reuse J.1/J.2 and the J.3 compiler. Retail EXE evidence supports loose-first resource reads and archive fallback; Workshop can prepare a non-installable resource draft from an existing bundle. Prove the complete original-game resource and startup path before calling it installable; installation, shutdown and conflicts must fail safely. The two F3/J.2 Challenge compositions are reused by the private G1/SDK Extra Options candidate; broader version adapters and ordinary-install deployment remain unqualified. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.
 
 Forester30, RAV4 31 and TOMCAT32 now have accepted33-record CMD operation, distinct from their retail donors. Do not reuse CarID29. V-SET1 is a separate private setup extension; continue universal DLL/version/Randomizer installation only as its separately reviewed milestone.
 
@@ -157,3 +145,19 @@ Each development milestone must show a **usable owner workflow**, not just a tes
 - Keep individual milestone reports short: `changed`, `owner-tested`, `remaining`, `next`. Do not paste entire prompts or test logs here.
 - If new evidence contradicts this baseline, correct it with a citation to a repository report or a test, rather than preserving both incompatible claims.
 - Prefer clear scope and a small number of completed vertical slices over enormous all-at-once refactors.
+# Extra Options follow-up — 2026-11-02
+
+Owner confirmed the native setup controls are usable, while livery switching,
+action size and Apply navigation need correction. The isolated follow-up fixes
+DLL lookup retry, native Back routing and action layout, and adds visual-request
+and texture-match diagnostics. Full rendered livery comparison and tire solver
+consumption remain open; no gameplay qualification is inferred from offline
+tests. Keep the existing accepted roster and installations intact.
+
+# Owner-confirmed Extra Options appearance — 2026-11-02
+
+Integrated-13's native Paint/Tires interface and SeatBuggy PC, PS2 and mixed
+appearance selection were confirmed in game by the owner. Reflection-independent
+appearance, shared native/addon reflections, and addon brake-light compatibility
+are the current integrated renderer milestone and remain unqualified.
+

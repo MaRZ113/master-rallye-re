@@ -934,3 +934,13 @@ V-DEF4.1 final UI guard: derive AI class from the current configured physical
 roster entry, ahead of historical metadata. Source-free class-reassignment test
 and real Windows Tk Cup/Invitation controls/Undo PASS; final89 focused tests.
 Candidate runtime/resource bytes are unchanged by this authoring-only correction.
+
+## EXTRA-SET1 native implementation — local working tree
+
+No commit was created over the pre-existing unrelated dirty changes. Added the
+native Gearbox customization implementation, generated per-car visual mappings,
+G1 SDK roster provider and private renderer contract, source-root authoring and
+candidate/validation tools. G1 initialization and native scene rendering now have
+real-process evidence; owner interaction/gameplay remains pending. Source-only
+and changed-files archives accompany the isolated integrated-11 CMD candidate.
+See EXTRA_OPTIONS_NATIVE_RESULTS.md. No push or release.

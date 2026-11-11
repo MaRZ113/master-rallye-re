@@ -1,0 +1,15 @@
+# Extra Options: SDK / Randomizer binding proof
+
+Status: **OFFLINE PROOF; GAMEPLAY NOT TESTED; FULL EXTRA OPTIONS NOT IMPLEMENTED.**
+
+The accepted V-DEF4.1 roster (33 cars, 8/12/13) and published F3 Randomizer both patch Challenge instructions at `0x45010e` and `0x45ec35`. The opt-in binding composes the two operations: the F3 detours replay the SDK-relocated `[eax+edi+0x6e0]` read instead of the retail `[eax+edi+0x574]` read. All other detected overlaps remain unresolved rather than being silently overwritten. The production helpers and actual stub instruction behavior have synthetic and x86 process tests.
+
+A separate opt-in SDK launcher admits the matching DirectInput ABI by PE structure and exports; it does not gate input or graphics proxies by SHA. The ABI marker is an interoperability declaration, not a guarantee that an arbitrary DLL behaves correctly. The normal launcher keeps its former behavior. The binding checks the relevant SDK patch profile and patch preimages to avoid applying hooks to incompatible memory. It snapshots extension bytes and checks that they did not change during installation; it does not require a fixed extension hash. These checks only qualify the selected profile. They do not establish safe behavior with arbitrary SDK builds.
+
+Private suspended-process preflight installed the original 33-car bundle (414 resources, 264 operations), then terminated without running the game thread. The native x86 harness tested SDK profile checks, composed hooks, mutation during installation and DirectInput forwarding. Synthetic tests: 4 composition and 16 F3 source tests; SDK launcher/setup tests: 41. These are offline tests, not simultaneous in-game initialization or race tests. The public F3 core used here is not the owner's separately installed G1 core. AI, championship, Results, saves and Randomizer interaction remain unverified. No installed wrapper or game asset was changed.
+
+**Outstanding compatibility:** existing baseline F3 initialization still pins the executable and its runtime core by SHA and the SDK launcher retains its existing executable restrictions. This work does not establish compatibility with every retail edition. Removing those preexisting limits safely requires identifying version-specific hook addresses and preimages; no universal compatibility is claimed. Input/graphics proxy hash allowlists were not added.
+
+**Extra Options:** a separate disabled-by-default versioned configuration and a pure six-choice tire-selection policy exist, plus original retail table completeness evidence. There is no native customization menu, active tire-consumer hook, visible livery switch or demonstrated game effect. Old V-SET1 F6 UI is now explicitly debug-only for new builds; previous artifacts are unchanged. The prompt's full deliverables and gameplay candidate remain incomplete.
+
+Private local evidence: `.research-output/vehicles/extra-set1/binding-07/preflight.log` and the rmod1 `.research-output/extra-set1/binding-07/` build. These may contain proprietary game data and must not be published.

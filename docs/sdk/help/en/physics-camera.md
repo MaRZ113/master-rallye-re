@@ -109,3 +109,13 @@ in the game later, including exit/re-entry, Results and unrelated stock/addon ca
 
 Results Names and the separate Frontend Presentation editor are documented in
 the Results Names and Frontend Presentation help topic. They do not tune physics.
+
+## Private Extra Options tire pilot
+
+The EXTRA-SET1 CMD candidate adds TIRES and PAINT / LIVERY to the native Vehicle
+Setup GEARBOX page. Select Stock or an original native tire family, then APPLY;
+CANCEL restores the committed draft and DEFAULTS proposes Stock. Changes apply
+to the next player vehicle in single-player Quick Race, not a live solver.
+This does not replace Physics Studio or alter the accepted project physics.
+Owner driving and frontend/race livery verification remain pending. See
+`docs/sdk/EXTRA_OPTIONS_NATIVE_RESULTS.md` for the candidate checklist.

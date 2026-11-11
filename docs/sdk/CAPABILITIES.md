@@ -609,3 +609,13 @@ Native addon pools support T1/T2/T3 Quick/Cup/Master, ordinary T3 Invitation wit
 separate mode gates, preserved participant/DriverID/save boundaries. Challenge
 and Practice are not arbitrary opponent pools. Offline/Tk/native replay PASS;
 new owner D3D8 AI/handling/Results/save tests pending. See V_DEF4_1_FINALIZATION.md.
+
+## EXTRA-SET1 native candidate
+
+Native Gearbox Paint/Livery, Tires, Apply/Cancel/Defaults and per-CarID state now
+exist on the G1 + SDK33 private CMD path. Five original tire families plus Stock
+use the original pre-initialization serializers. The existing graphics proxy
+consumes versioned texture/complete-visual selection queries. Native UI rendering
+and offline callbacks pass; normal interactive livery/race/solver behavior is
+owner-pending. Scope: single-player Quick Race player 0; no new CarID, no installed
+wrapper replacement. See [native results](EXTRA_OPTIONS_NATIVE_RESULTS.md).

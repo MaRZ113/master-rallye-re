@@ -194,7 +194,7 @@ class AddonRuntimeCompilerTests(unittest.TestCase):
         self.assertIn("FILE_SHARE_READ", proxy)
         self.assertIn("GRAPHICS_PROXY_PINNED hash_gate=disabled", proxy)
         self.assertIn("LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy=", source)
-        self.assertIn("if (plan) {\n        try {\n            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);", source)
+        self.assertIn("if (plan) {\n        try {\n            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath, pinnedInput);", source)
 
 
 if __name__ == "__main__":
