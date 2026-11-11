@@ -133,11 +133,27 @@
    "template": 9,
    "source": "D:/Game/Master Rallye/master-rallye-re-v-cap/.research-output/vehicles/roster-v4/mercedes-art/smallcarsheet-1794375657806431800/image.png",
    "why": "Vehicle SDK SIDE artwork (livery_artwork.compose_live over the embedded mr-vehicle-previewer art capture of Mercedes complete.dx, default smallcarsheet preset)"
+  },
+  {
+   "id": "trooper_carsheet",
+   "bank": "DataGx/Frontend/VehicleSelect/carsheet",
+   "template": 3,
+   "source": "D:/Game/Master Rallye/corpora/demo-9.3.1/DataGx/Frontend/VehicleSelect/carsheet_014_000.dxt",
+   "why": "PC Demo Vehicle Select art of ISUZU TROOPER (8.4.1 T2_Car1 / 9.3.1 frame 14)"
+  },
+  {
+   "id": "forester_carsheet",
+   "bank": "DataGx/Frontend/VehicleSelect/carsheet",
+   "template": 3,
+   "source": "D:/Game/Master Rallye/corpora/demo-9.3.1/DataGx/Frontend/VehicleSelect/carsheet_001_000.dxt",
+   "why": "PC Demo Vehicle Select art of SUBARU FORESTER (8.4.1 T2_Car2 frame 1)"
   }
  ],
  "widgets": {
   "26": "mercedes_carsheet",
-  "25": 31
+  "25": 31,
+  "29": "trooper_carsheet",
+  "30": "forester_carsheet"
  },
  "smallcarsheet": {
   "26": "mercedes_small"
@@ -148,5 +164,6 @@
   "Evo2FourRunner",
   "LancerEvo4",
   "HeritageNewRav"
- ]
+ ],
+ "widgets_why": "Tomcat, Rav4 and the authored non-MR vehicles have no original MR art (8.4.1 shows the locked silhouette for the early Wildcat); their Vehicle SDK frames stay."
 }
