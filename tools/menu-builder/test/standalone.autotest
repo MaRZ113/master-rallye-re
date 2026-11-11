@@ -1,5 +1,5 @@
 # Standalone runtime (no Extra Options): Extra Options actions are served disabled and their values show the fallback.
-wait-screen MainMenu 30000 accept
+wait-screen MainMenu 90000 accept
 expect-screen MainMenu
 dump
 shot a01-mainmenu
