@@ -1,0 +1,209 @@
+{
+  "schema": "mr-vehicle-presentation-spec/1",
+  "trooper_id": 29,
+  "trooper_side_frame": 23,
+  "forklift_id": 25,
+  "brake_families": [
+    "ForesterSTI",
+    "Rav4",
+    "Tomcat"
+  ],
+  "side_frames": {
+    "25": 29,
+    "26": 38,
+    "27": 30,
+    "28": 31,
+    "29": 23,
+    "30": 33,
+    "31": 34,
+    "32": 35,
+    "33": 36,
+    "34": 37
+  },
+  "markers": [
+    {
+      "id": 0,
+      "family": "Landcruiser",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 1,
+      "family": "Pajero",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 2,
+      "family": "Tata",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 3,
+      "family": "Terrano",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 4,
+      "family": "Chevyblazer",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 5,
+      "family": "Xtrail",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 6,
+      "family": "Frontera",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 7,
+      "family": "Navara",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 8,
+      "family": "Forester",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 9,
+      "family": "Jump",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 10,
+      "family": "Rmonster",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 11,
+      "family": "Patrol",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 12,
+      "family": "Newrav",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 13,
+      "family": "Kiasportage",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 14,
+      "family": "Wildcat",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 15,
+      "family": "Simmbugghini",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 16,
+      "family": "Astero",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 17,
+      "family": "Kangoo",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 18,
+      "family": "Megane",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 19,
+      "family": "Mattserati",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 20,
+      "family": "Bruno",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 21,
+      "family": "SeatBuggy",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 22,
+      "family": "Kamaz",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 23,
+      "family": "Icecream",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 24,
+      "family": "Ufo",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 25,
+      "family": "Forklift",
+      "hex": "#DCC52D",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 26,
+      "family": "Mercedes",
+      "hex": "#B4B9BD",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 27,
+      "family": "ImprezaProto",
+      "hex": "#2851A5",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 28,
+      "family": "LancerEvo4",
+      "hex": "#D5D7D8",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 29,
+      "family": "Trooper",
+      "hex": "#AE9674",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 30,
+      "family": "ForesterSTI",
+      "reference": "Preserve exact active colour: owner instruction"
+    },
+    {
+      "id": 31,
+      "family": "Rav4",
+      "hex": "#3A9CC9",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 32,
+      "family": "Tomcat",
+      "hex": "#25509D",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 33,
+      "family": "Evo2FourRunner",
+      "hex": "#C7B89B",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    },
+    {
+      "id": 34,
+      "family": "HeritageNewRav",
+      "hex": "#D82C32",
+      "reference": "Active default model / SIDE artwork body colour; presentation only"
+    }
+  ]
+}
