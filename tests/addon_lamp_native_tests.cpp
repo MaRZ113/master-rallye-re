@@ -22,10 +22,11 @@ int main(int argc,char** argv){
     <<"\nBrakeGlowAsset="<<(host/"PS2Grass/PS2BrakeGlow.gxi").string()
     <<"\nAddonBrakeRegistry="<<std::filesystem::absolute(argv[1]).string()<<"\n";}
   {BrakeGlow glow(true,ini.wstring());assert(glow.requested()==bool(mode));
-   assert(glow.addon_lamps.size()==(mode?profiles.size():0));}
+   // The catalog is read without lamp art too: body-scoped sets still choose PS2/PC geometry.
+   assert(glow.addon_lamps.size()==profiles.size());}
   {BrakeGlow unsupported(false,ini.wstring());assert(!unsupported.requested()&&unsupported.addon_lamps.empty());}
  }
- std::cout<<"Actual Renderer v3 config: BrakeGlow=0 native; 1 PS2 catalog; unsupported build disabled\n";
+ std::cout<<"Actual Renderer v3 config: BrakeGlow=0 no lamp art (catalog kept for body scope); 1 PS2 art; unsupported build disabled\n";
  auto number=[&](){uint32_t value=0;fixture.read(reinterpret_cast<char*>(&value),4);assert(fixture);return value;};
  assert(number()==profiles.size());std::vector<DrawSnapshot> draws;
  for(const auto& p:profiles){

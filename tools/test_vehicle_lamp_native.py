@@ -3,6 +3,7 @@ import argparse,sys,struct,subprocess
 from pathlib import Path
 from vehicle_presentation_fix import Resources
 from build_r_mod1_candidate import locate_toolchain,compiler_environment
+from vehicle_lamp_authoring import draw_identity
 
 
 def run(candidate,sdk,out):
@@ -13,8 +14,9 @@ def run(candidate,sdk,out):
     candidate=candidate.resolve();r=Resources(candidate);registry=candidate/'MRMods/Vehicles/active/addon-brake-lamps.tsv'
     rows=registry.read_text().splitlines()[1:];data=bytearray(struct.pack('<I',len(rows)))
     for row in rows:
-        family,layer,*_=row.split();m=parse_dx_bytes(r.read(f'DataGx/Vehicles/{family}/car.dx'));cases,_=logical_cases(m)
-        d=next(d for d in m.physical_draws if cases.get(d.draw_index)==(1,2)and not d.flags_0x20[2]and bool(d.flags_0x20[0])==bool(int(layer)))
+        family,layer,_,_,geometry,position_uv,*_=row.split();m=parse_dx_bytes(r.read(f'DataGx/Vehicles/{family}/car.dx'));cases,_=logical_cases(m)
+        # A family may carry several sets (MR-ADDON-LAMPS 3): bind each row to its exact authored draw.
+        d=next(d for d in m.physical_draws if cases.get(d.draw_index) in ((1,1),(1,2))and draw_identity(m,d)==(geometry,position_uv))
         vb=b''.join(struct.pack('<3f3f2f',*m.vertices.positions[i],*m.vertices.normals[i],*m.uv_sets[0].values[i])for i in range(d.vertex_base,d.vertex_base+d.local_vertex_max+1))
         ib=struct.pack('<'+'H'*d.index_count,*m.local_indices[d.index_start:d.index_start+d.index_count])
         data+=struct.pack('<I',len(vb))+vb+struct.pack('<I',len(ib))+ib

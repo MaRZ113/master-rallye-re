@@ -14,6 +14,11 @@ int main(int argc,char** argv){
  assert(!presence.contains(1,2,1,10,20,30,"ForesterSTI"));
  presence.submitted(1,2,1,10,20,30,"ForesterSTI");
  assert(!presence.contains(1,2,2,10,20,30,"ForesterSTI"));
+ // Body-scoped lamp sets: the directly preceding frame of the same owner also counts.
+ assert(presence.recent(1,2,2,10,20,30,"ForesterSTI")&&!presence.recent(1,2,2,11,21,31,"ForesterSTI"));
+ assert(presence.recent(1,2,3,10,20,30,"ForesterSTI")==false);
+ presence.submitted(1,2,4,10,20,30,"ForesterSTI");assert(!presence.recent(1,2,6,10,20,30,"ForesterSTI"));
+ presence.submitted(1,2,7,10,20,30,"ForesterSTI");assert(!presence.recent(1,3,8,10,20,30,"ForesterSTI"));
  assert(argc==2);std::ifstream f(argv[1],std::ios::binary);
  auto word=[&](){uint32_t x=0;f.read(reinterpret_cast<char*>(&x),4);assert(f);return x;};
  const FleetRaceProfile* p=nullptr;for(const auto& c:kRaceFleetProfiles)if(!std::strcmp(c.family,"ForesterSTI"))p=&c;

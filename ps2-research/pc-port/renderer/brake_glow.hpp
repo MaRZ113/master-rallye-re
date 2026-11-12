@@ -34,7 +34,7 @@ public:
  bool initialize_brake_on(IDirect3DDevice8&)noexcept;
  IDirect3DTexture8* brake_on_texture()const noexcept{return brake_on_texture_;}
  IDirect3DTexture8* texture()const noexcept{return texture_;}
- bool requested()const noexcept{return requested_&&!disabled_;}
+ bool requested()const noexcept{return requested_&&!disabled_;} bool body_scoped()const noexcept{for(const auto& a:addon_lamps)if(a.body!=AddonLampBody::Any)return true;return false;}
  bool blocked()const noexcept{return blocked_;}
  void disable()noexcept{disabled_=true;}
  bool claim(bool success,unsigned profile=0)noexcept{if(profile>std::size(kBrakeGlowProfiles))return false;const uint64_t bit=uint64_t(1)<<(profile*2+(success?1:0));if(!diagnostics_||(logs_&bit))return false;logs_|=bit;return true;}
