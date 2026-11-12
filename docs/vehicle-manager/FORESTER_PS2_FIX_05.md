@@ -91,3 +91,20 @@ are pending (owner):
 Known limits: the ghost car and shadow/reflection passes draw the native
 records without set selection (both lamp sets / both pane halves). PS2 cracked
 panes use the PC cracked texture of that state.
+
+## Round 4 (owner test 2026-11-12, renderer a92a055a): holes when the PS2 body is damaged
+
+The PORT3 damage generator binds a PS2-only component to the nearest healthy PC
+triangle only when every vertex lies within 5 cm; otherwise the whole component
+stays rigid. The PS2 chassis is the PC (Demo) body shrunk per axis, so 1596
+vertices (the large root.4 body shells, rear and front pieces) were 5-6 cm
+inside the PC surface and stayed rigid while neighbouring panels followed the PC
+damage: the seams opened.
+
+`tools/forester_ps2_damage.py` keeps the generator's rules (surface index, 5 cm
+limit, whole-component transfer or rigid, Kia-verified static crew templates)
+and only maps the query point into PC body space with a per-axis scale fitted
+by iterative closest point over the chassis (x1.0492, y1.0149, z1.0189). Result:
+2619 surface-bound vertices (max 2.5 cm, was 1392 / 4.9 cm), 369 rigid (cabin
+interior only: root.0 dashboard/seats, root.8), 194 static crew. The Demo model
+is not changed (PC mode, collision, lamps and glass stay as authored).
