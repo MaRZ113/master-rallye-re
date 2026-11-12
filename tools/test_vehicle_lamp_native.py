@@ -16,7 +16,7 @@ def run(candidate,sdk,out):
     for row in rows:
         family,layer,_,_,geometry,position_uv,*_=row.split();m=parse_dx_bytes(r.read(f'DataGx/Vehicles/{family}/car.dx'));cases,_=logical_cases(m)
         # A family may carry several sets (MR-ADDON-LAMPS 3): bind each row to its exact authored draw.
-        d=next(d for d in m.physical_draws if cases.get(d.draw_index) in ((1,1),(1,2))and draw_identity(m,d)==(geometry,position_uv))
+        d=next(d for d in m.physical_draws if cases.get(d.draw_index) is not None and draw_identity(m,d)==(geometry,position_uv))
         vb=b''.join(struct.pack('<3f3f2f',*m.vertices.positions[i],*m.vertices.normals[i],*m.uv_sets[0].values[i])for i in range(d.vertex_base,d.vertex_base+d.local_vertex_max+1))
         ib=struct.pack('<'+'H'*d.index_count,*m.local_indices[d.index_start:d.index_start+d.index_count])
         data+=struct.pack('<I',len(vb))+vb+struct.pack('<I',len(ib))+ib

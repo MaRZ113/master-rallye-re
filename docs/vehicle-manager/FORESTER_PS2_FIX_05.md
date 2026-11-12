@@ -56,6 +56,25 @@ only in a body-scoped set; v1/v2 files read as before). Renderer:
   without lamp art and in races without a single-car fleet certificate (AI or
   multi-car: no PS2 body, PC set).
 
+## Round 2 (owner test 2026-11-12): strip winding and glass
+
+The owner confirmed the PS2 body in races. Two defects remained:
+
+- Every other triangle of the PS2 lamps was missing. PS2 strips alternate
+  winding; fix 04 and round 1 only swapped the first two corners. The tool now
+  orients each PS2 triangle by its vertex normals ((b-a)x(c-a) . n > 0, the
+  convention of every native PC record). All lamp and glass triangles of the
+  candidate pass this check.
+- PC glass panes (native conditional records) drawn over the PS2 body with an
+  offset. The PC and PS2 panes differ in shape (PC windscreen 8 vertices, PS2
+  10; best affine fit still 14-16 mm off), so a transform cannot place them.
+  Each pane state (intact/cracked, one draw per case as the native glass
+  selector requires) now holds the untouched PC triangles followed by the
+  original PS2 triangles (`root.11/12/13 .0.0` intact, `.1.0` cracked). Rows
+  `layer 3 ... SPLIT:n` let the renderer submit only `[0,n)` for a PC body or
+  `[n,count)` for a PS2 body, from the same native state and material. Glass
+  damage switching is preserved in both modes.
+
 ## Checks
 
 Overlay build (baseline + PS2 CTest), registry/native/bootstrap tests via
@@ -68,6 +87,6 @@ are pending (owner):
    PC tail lamps with PC lamp art; nothing inside or floating off the body.
 3. Optional: `BrakeGlow=0` restart, both models: same geometry, PC art only.
 
-Known limits: in PS2 mode the PC glass panes (native conditional records) are
-still drawn over the PS2 body; the ghost car and shadow/reflection passes draw
-the native records without set selection.
+Known limits: the ghost car and shadow/reflection passes draw the native
+records without set selection (both lamp sets / both pane halves). PS2 cracked
+panes use the PC cracked texture of that state.

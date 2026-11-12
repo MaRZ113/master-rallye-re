@@ -28,6 +28,9 @@ from ps2_fleet_new_families import PORT, DOCS, load
 
 LAYERS = (('breaklightson-tga', 'root.15.0.0'), ('breaklightsonglow-tga', 'root.15.0.1'))
 PS2_OFF = 'root.15.1.0'
+# PS2 glass: front, +x side, -x side; .0.0 intact, .1.0 cracked (windscreenc32).
+GLASS = {'front': ('root.11.0.0', 'root.11.1.0'), 'right': ('root.12.0.0', 'root.12.1.0'), 'left': ('root.13.0.0', 'root.13.1.0')}
+GLASS_LABELS = ('screenfront', 'screenrear', 'screenleft', 'screenright')
 
 
 def source_meshes():
@@ -49,7 +52,21 @@ def source_meshes():
                  'color': rt.c.vertex(source, i)[24:28]} for i in used]
         tris = [(local[ids[k]], local[ids[k + 1]], local[ids[k + 2]]) for k in range(0, len(ids), 3)]
         return {'path': path, 'texture': m['textures'][0]['name'], 'vertices': rows, 'triangles': tris, 'strip_diagnostics': diag}
-    return {path: mesh(path) for path in (PS2_OFF,) + tuple(p for _, p in LAYERS)}
+    return {path: mesh(path) for path in (PS2_OFF,) + tuple(p for _, p in LAYERS) + tuple(x for pair in GLASS.values() for x in pair)}
+
+
+def oriented(mesh):
+    """PS2 strips alternate winding; orient every triangle by its vertex normals like the
+    native PC records (SDK display winding: (b-a)x(c-a) . n > 0)."""
+    out = []
+    for t in mesh['triangles']:
+        a, b, c = (mesh['vertices'][i]['position'] for i in t)
+        n = [sum(mesh['vertices'][i]['normal'][k] for i in t) for k in range(3)]
+        u = [b[k] - a[k] for k in range(3)]; w = [c[k] - a[k] for k in range(3)]
+        cross = (u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0])
+        d = sum(cross[k] * n[k] for k in range(3))
+        out.append(t if d >= 0 else (t[1], t[0], t[2]))  # zero-area strip joints stay as authored
+    return out
 
 
 def blight_off(items):
@@ -105,9 +122,8 @@ def author(raw):
     sets = {'PC_BODY_ONLY': lambda p: mapped[p], 'PS2_BODY_ONLY': lambda p: p}
 
     def geometry(mesh, place):
-        # SDK display winding -> native writer swaps the first two corners.
         return DrawGeometry(tuple(CompiledVertex(tuple(place(v['position'])), v['normal'], v['color'], (tuple(v['uv']),)) for v in mesh['vertices']),
-                            tuple((b, a, c) for a, b, c in mesh['triangles']))
+                            tuple(oriented(mesh)))
     off = meshes[PS2_OFF]; assert off['texture'].lower().endswith(chr(92) + pc_off_part.textures[0])
     ps2_off_part = replace(pc_off_part, geometry=geometry(off, lambda p: p))
     lamps = []
@@ -126,11 +142,40 @@ def author(raw):
     assert {v.position for v in lamps[0].geometry.vertices} == {v.position for v in pc_off.vertices}, 'PC ON core must coincide with the PC OFF lamp'
     assert {v.position for v in lamps[2].geometry.vertices} == {v.position for v in ps2_off_part.geometry.vertices}, 'PS2 ON core must coincide with the PS2 OFF lamp'
     items = [('blight', [pc_off_part, ps2_off_part], lamps) if isinstance(i, tuple) and i[0] == 'blight' else i for i in items]
+    # Glass: one draw per pane state (native damage selector). PC triangles first, original PS2
+    # triangles after them; the renderer submits only the half of the presented body (SPLIT:n).
+    from vehicle_lamp_authoring import merge
+    glass = {}; merged_items = []
+    for item in items:
+        if not (isinstance(item, tuple) and item[0] in GLASS_LABELS):
+            merged_items.append(item); continue
+        label, intact, cracked = item
+        assert len(intact) == len(cracked) == 1
+        xs = [v.position[0] for v in intact[0].geometry.vertices]; centre = (min(xs) + max(xs)) / 2
+        zone = 'front' if abs(centre) < .3 else 'right' if centre > 0 else 'left'
+        states = []
+        for part, path in zip((intact[0], cracked[0]), GLASS[zone]):
+            mesh = meshes[path]; ps2 = geometry(mesh, lambda q: q)
+            states.append(replace(part, geometry=merge([part.geometry, ps2])))
+            glass[(label, path)] = {'pc_triangles': len(part.geometry.triangles), 'ps2_triangles': len(ps2.triangles), 'texture': part.textures[0], 'ps2_texture': mesh['texture'].split(chr(92))[-1],
+                                    'pc': part.geometry, 'ps2_vertices': len(mesh['vertices']), 'strip_diagnostics': mesh['strip_diagnostics']}
+        merged_items.append((label, [states[0]], [states[1]]))
+    assert len(glass) == 6, 'expected front/left/right intact and cracked panes'
+    items = merged_items
     output = wrap_states(raw, items)
     old, new = parse_dx_bytes(raw), parse_dx_bytes(output)
     oc, _ = logical_cases(old); nc, _ = logical_cases(new)
-    body = lambda m, c: [(d.texture_tuple, bytes(d.flags_0x20), c.get(d.draw_index), draw_identity(m, d)) for d in m.physical_draws if not (d.texture_tuple[0].startswith('breaklights') or (d.texture_tuple[0] == pc_off_part.textures[0] and d.local_vertex_max + 1 == 16))]
-    assert body(old, oc) == body(new, nc), 'body/glass draws changed'
+    glass_textures = {g['texture'] for g in glass.values()}
+    body = lambda m, c: [(d.texture_tuple, bytes(d.flags_0x20), c.get(d.draw_index), draw_identity(m, d)) for d in m.physical_draws if not (d.texture_tuple[0].startswith('breaklights') or d.texture_tuple[0] in glass_textures or (d.texture_tuple[0] == pc_off_part.textures[0] and d.local_vertex_max + 1 == 16))]
+    assert body(old, oc) == body(new, nc), 'body draws changed'
+    corners = lambda m, d: [(tuple(m.vertices.positions[i]), tuple(m.uv_sets[0].values[i])) for i in m.draw_global_indices(d)]
+    old_glass = [d for d in old.physical_draws if d.texture_tuple[0] in glass_textures]
+    new_glass = [d for d in new.physical_draws if d.texture_tuple[0] in glass_textures]
+    assert len(old_glass) == len(new_glass) == 6
+    for a, b in zip(old_glass, new_glass):
+        split = a.triangle_count; assert b.triangle_count > split and oc.get(a.draw_index) == nc.get(b.draw_index)
+        # Native writer keeps the authored triangle order: the PC half is the untouched original pane.
+        assert sorted(zip(*[iter(corners(old, a))] * 3)) == sorted(zip(*[iter(corners(new, b)[:split * 3])] * 3)), 'PC pane half changed'
     assert raw[old.collision.offset:old.collision.unparsed_offset] == output[new.collision.offset:new.collision.unparsed_offset]
     cases = nc; rows = []
     for d in new.physical_draws:
@@ -143,6 +188,11 @@ def author(raw):
             geom, uv = draw_identity(new, d)
             rows.append(f'ForesterSTI {layer} {d.local_vertex_max + 1} {d.triangle_count} {geom} {uv} {policy}')
     assert len(rows) == 6 and len({tuple(r.split()[4:6]) for r in rows}) == 6
+    for a, b in zip(old_glass, new_glass):
+        geom, uv = draw_identity(new, b)
+        rows.append(f'ForesterSTI 3 {b.local_vertex_max + 1} {b.triangle_count} {geom} {uv} SPLIT:{a.triangle_count}')
+    assert len({tuple(r.split()[4:6]) for r in rows}) == 12
+    evidence += [{'set': 'SPLIT', 'layer': 3, 'label': k[0], 'source_path': k[1], **{x: y for x, y in v.items() if x != 'pc'}} for k, v in glass.items()]
     return output, rows, {'layers': evidence, 'pc_transfer': fit}
 
 
