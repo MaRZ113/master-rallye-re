@@ -108,3 +108,16 @@ by iterative closest point over the chassis (x1.0492, y1.0149, z1.0189). Result:
 2619 surface-bound vertices (max 2.5 cm, was 1392 / 4.9 cm), 369 rigid (cabin
 interior only: root.0 dashboard/seats, root.8), 194 static crew. The Demo model
 is not changed (PC mode, collision, lamps and glass stay as authored).
+
+## Round 5 (owner test 2026-11-12): PS2 tail lamp looked lit when off
+
+The converted PS2 source carries full-white vertex colours (`ffffffff`), while
+the native PC records carry a baked shade: OFF lamp `0x71..0x7f`, panes
+`0xa9` / `0x92`. The PS2 OFF lamp (and the PS2 pane halves) were therefore drawn
+about twice as bright as the PC ones, so the PS2 tail lamp looked lit with the
+brakes off (BrakeGlow has no effect on OFF lamps). `tools/forester_ps2_lamps.py`
+now gives the PS2 OFF lamp the colour of its exact PC counterpart (same UV and
+side) and each PS2 pane vertex the shade of the nearest PC pane vertex (in PC
+body space). ON core and glow stay white like the PC records. Draw identities
+(geometry/UV hashes) are unchanged, so the registry and renderer are unchanged.
+Candidate car.dx 5c7df7f7 (from fix 04 5779b741) in `host-grime-g0-01`.

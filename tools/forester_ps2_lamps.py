@@ -8,7 +8,8 @@ the PC tail lamp: the PS2 OFF lamp root.15.1.0 and the PC OFF lamp of the blight
 group are the same 16-vertex mesh with identical UVs, so every ON vertex (which
 lies on an OFF vertex) maps one-to-one; each glow halo vertex keeps its PS2
 offset from the inner vertex it borders, scaled by the PS2->PC body scale fitted
-on those 16 pairs. Topology, UVs and vertex colours stay PS2; the PC OFF lamp's UVs
+on those 16 pairs. Topology and UVs stay PS2; vertex colours of the PS2 OFF lamp and PS2 panes
+take the PC shade (round 5), ON/glow stay white like the PC records; the PC OFF lamp's UVs
 equal the PS2 source UVs, so source UVs are used unflipped. The blight group becomes
 OFF = [PC OFF, PS2 OFF] and ON = [PC ON, PC glow, PS2 ON, PS2 glow] (the original PS2
 ON node has no OFF lamp under its opaque core). MR-ADDON-LAMPS 3 marks the sets
@@ -121,11 +122,17 @@ def author(raw):
     mapped, fit = transfer(meshes, pc_off)
     sets = {'PC_BODY_ONLY': lambda p: mapped[p], 'PS2_BODY_ONLY': lambda p: p}
 
-    def geometry(mesh, place):
-        return DrawGeometry(tuple(CompiledVertex(tuple(place(v['position'])), v['normal'], v['color'], (tuple(v['uv']),)) for v in mesh['vertices']),
+    def geometry(mesh, place, colour=None):
+        return DrawGeometry(tuple(CompiledVertex(tuple(place(v['position'])), v['normal'], colour(v) if colour else v['color'], (tuple(v['uv']),)) for v in mesh['vertices']),
                             tuple(oriented(mesh)))
     off = meshes[PS2_OFF]; assert off['texture'].lower().endswith(chr(92) + pc_off_part.textures[0])
-    ps2_off_part = replace(pc_off_part, geometry=geometry(off, lambda p: p))
+    # Round 5 (owner 2026-11-12): the converted PS2 source carries full-white vertex colours, the native PC
+    # records carry their baked shade (OFF lamp ~0x77, panes ~0xa9/0x92), so the PS2 OFF lamp and PS2 panes looked
+    # lit. The OFF lamp takes the colour of its exact PC counterpart (same UV + side); ON/glow stay white like PC.
+    def pc_off_colour(v):
+        hits = [w.color for w in pc_off.vertices if abs(w.uvs[0][0] - v['uv'][0]) < 1e-4 and abs(w.uvs[0][1] - v['uv'][1]) < 1e-4 and (w.position[0] > 0) == (v['position'][0] > 0)]
+        assert len(hits) == 1; return hits[0]
+    ps2_off_part = replace(pc_off_part, geometry=geometry(off, lambda p: p, pc_off_colour))
     lamps = []
     authored = {(pc_off_part.textures[0], tuple(sorted(v.position for v in pc_off.vertices))): ('PC_BODY_ONLY', 2),
                 (pc_off_part.textures[0], tuple(sorted(v.position for v in ps2_off_part.geometry.vertices))): ('PS2_BODY_ONLY', 2)}
@@ -155,7 +162,11 @@ def author(raw):
         zone = 'front' if abs(centre) < .3 else 'right' if centre > 0 else 'left'
         states = []
         for part, path in zip((intact[0], cracked[0]), GLASS[zone]):
-            mesh = meshes[path]; ps2 = geometry(mesh, lambda q: q)
+            mesh = meshes[path]
+            # PS2 pane vertex: shade of the nearest PC pane vertex (PS2 position in PC body space).
+            pc_pts = [(w.position, w.color) for w in part.geometry.vertices]
+            near = lambda v: min(pc_pts, key=lambda t: sum((v['position'][k] * fit['body_scale'][k] - t[0][k]) ** 2 for k in range(3)))[1]
+            ps2 = geometry(mesh, lambda q: q, near)
             states.append(replace(part, geometry=merge([part.geometry, ps2])))
             glass[(label, path)] = {'pc_triangles': len(part.geometry.triangles), 'ps2_triangles': len(ps2.triangles), 'texture': part.textures[0], 'ps2_texture': mesh['texture'].split(chr(92))[-1],
                                     'pc': part.geometry, 'ps2_vertices': len(mesh['vertices']), 'strip_diagnostics': mesh['strip_diagnostics']}
