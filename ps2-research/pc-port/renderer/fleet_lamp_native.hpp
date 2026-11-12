@@ -53,8 +53,9 @@ inline dipintegration::Result draw_fleet_lamp(Device8& d,D3DPRIMITIVETYPE type,U
     return {true,submitted};
    }
    if(ps2_body!=(body==ps2port::AddonLampBody::Ps2)){if(p->claim_addon(addon,false))session().write("{\"type\":\"addon_lamp_body_scope\",\"frame\":"+std::to_string(frame)+",\"family\":"+quote(name)+",\"set\":"+quote(body==ps2port::AddonLampBody::Ps2?"PS2":"PC")+",\"layer\":"+std::to_string(p->addon_lamps[addon].layer)+",\"ps2_body\":"+(ps2_body?"true":"false")+",\"action\":\"SUPPRESSED\"}");return {true,S_OK};}
-   // PC set keeps its native PC lamp art; the PS2 set takes PS2 art only with BrakeGlow.
-   if(body==ps2port::AddonLampBody::Pc||!lamp_art||p->addon_lamps[addon].layer==2)return {};
+   // Both sets take the PS2 lamp art with BrakeGlow (like every other car, PC body included); without it,
+   // and for OFF lamps, the native art stays. The PC set follows the ordinary lamp-race gate.
+   if(!lamp_art||p->addon_lamps[addon].layer==2||(body==ps2port::AddonLampBody::Pc&&!lamp_race))return {};
   }else if(!lamp_race)return {};
   else if(addon!=UINT_MAX&&p->addon_lamps[addon].ps2ModelOnly&&!ps2port::ps2_body_presence.contains(g.device_id,g.reset_generation,frame,owner.instance,owner.packet,owner.model,name))return {};
   const ps2port::FleetOnProfile* on=nullptr;const ps2port::BrakeGlowProfile* glow=nullptr;const ps2port::FleetOffLampProfile* off=nullptr;for(const auto& a:ps2port::kFleetOnProfiles)if(!std::strcmp(a.family,name))on=&a;for(const auto& a:ps2port::kBrakeGlowProfiles)if(!std::strcmp(a.family,name))glow=&a;for(const auto& a:ps2port::kFleetOffLampProfiles)if(!std::strcmp(a.family,name))off=&a;

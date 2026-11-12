@@ -49,9 +49,9 @@ only in a body-scoped set; v1/v2 files read as before). Renderer:
   only the set of the body presented for that owner: PS2 when the same owner
   submitted a PS2 body in this or the directly preceding frame
   (`Ps2BodyPresence::recent`), PC otherwise. The other set is suppressed.
-- PC set: native draw with ordinary PC lamp art. PS2 set ON/glow: the PS2
-  lamp art with `BrakeGlow=1`, native art with `BrakeGlow=0`. OFF lamps always
-  keep native art.
+- Lamp art (round 3, owner): like every other car, both sets' ON core and glow
+  take the PS2 lamp art with `BrakeGlow=1` and keep the native PC art with
+  `BrakeGlow=0`, on either body. OFF lamps always keep native art.
 - The catalog is read regardless of `BrakeGlow`, so the set choice also works
   without lamp art and in races without a single-car fleet certificate (AI or
   multi-car: no PS2 body, PC set).
@@ -82,10 +82,11 @@ Overlay build (baseline + PS2 CTest), registry/native/bootstrap tests via
 are pending (owner):
 
 1. ForesterSTI, MODEL = PS2, Quick Race: PS2 body visible; braking shows the PS2
-   ON core and glow on the PS2 tail lamps with PS2 lamp art.
+   ON core and glow on the PS2 tail lamps.
 2. MODEL = PC: Demo body; braking shows the transferred ON core and glow on the
-   PC tail lamps with PC lamp art; nothing inside or floating off the body.
-3. Optional: `BrakeGlow=0` restart, both models: same geometry, PC art only.
+   PC tail lamps; nothing inside or floating off the body.
+3. `BrakeGlow=0` / `1` restarts, both models: same geometry, PC art with 0,
+   PS2 art with 1.
 
 Known limits: the ghost car and shadow/reflection passes draw the native
 records without set selection (both lamp sets / both pane halves). PS2 cracked
