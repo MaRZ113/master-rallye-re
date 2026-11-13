@@ -1,7 +1,8 @@
 # Vehicle Select options per car: MODEL hide/rename, equipment kits, PAINT (design, 2026-11-13)
 
-Status: **design approved by the owner (2026-11-13); open items resolved below (revision 2); nothing
-implemented.** Branch `feature/vehicle-options` (from `integration/base` 98e83ef).
+Status: **design approved by the owner (2026-11-13); implemented on `feature/vehicle-options`
+(0936359 + follow-up), owner test pending.** Branch from `integration/base` 98e83ef. See "Implementation
+(2026-11-13)" at the end for what was built, deviations and the test host.
 
 ## Owner requirements (2026-11-13)
 
@@ -114,12 +115,14 @@ the export keeps today's behaviour (unknown names render stock).
 
 Layout `vehicle-options` (Menu Builder project, installed transactionally like other layouts):
 
-| Row | Egg | Button | Action / value | Label |
+| Row (top -> bottom) | Egg | Button | Action / value | Label |
 |---|---|---|---|---|
-| Class | retail | 2 | native | retail |
-| MODEL/KIT | `ExtraModel` | 3 | `vehicle.model_source` | live `vehicle.model_label` |
+| Class | retail | 1 | native | retail |
+| SelectCar (carousel) | retail | 2 | native | retail |
+| MODEL/KIT | `ExtraModel` | 3 | `vehicle.model_source` | Broker `Frontend/ExtraOptions/ModelLabel` |
 | PAINT | new `ExtraPaint` (+ text, arrows) | **4** | `vehicle.paint` | `PAINT` |
-| SelectCar | retail | 1 | native | retail |
+
+(Revision 1 had the retail IDs of Class and SelectCar swapped; the retail scene has Class = 1, SelectCar = 2.)
 
 **Button ID 4 is free (resolved).** The Vehicle Select tick 0x481340 (vtable 0x690B18; Ghidra had no
 function there because it is reached only through the vtable) calls GetCommand 0x45D930 and switches
@@ -227,3 +230,31 @@ R,G,B is the catalog swatch. Names come from the swatch HSV:
 4. Renderer: `family_of` normaliser at the profile lookups and the HUD reader.
 5. Vehicle Manager: `kit`/`paint` kinds, migration from `variants.ini`, Evo 2 export with kits and
    (PC trucks) paints.
+
+## Implementation (2026-11-13)
+
+| Part | Where | Notes |
+|---|---|---|
+| Option table | `src/native/rmod1/vehicle_options.hpp` | strict parser (whole file rejected on any error), virtual names, overlay candidates |
+| File overlay | `vehicle_roster.hpp` `redirect()` | `<kit>__p<n>/<file>` -> `VehiclePaints/<family>/<n>/<file>` -> `Vehicles/<kit>/<file>`, overlay files only |
+| Rows, kits, paints | `extra_options_runtime.cpp` | `Model`/`Colour` state keys (old `Paint` key migrated), Broker `ModelLabel`, `Colour*`; MODEL hidden for cars without a PS2 bundle and without DEMO (renderer fleet family list) |
+| Menu car | `display_tick` (slot 0x69021C -> 0x44C4C0) | registry row +0x24 = kit/paint folder only during the call; cache invalidated when the folder changes |
+| Race | calls 0x44A389 -> 0x44A510, 0x44A394 -> 0x44A710 | `Race/Car<N>/CarType` + `WheelType` = participant folder (humans: own choice, AI: default); attract untouched |
+| Dynamic rows | `menu_dynamic.hpp` | parking x = -10000 at en2d+0x54, focus walk in the travel direction, eggs restored on screen entry |
+| Menu Builder 1.2 | runtime `visible` lines, `VisibleWhen` (project, compiler, validator `NAV_TO_DYNAMIC`, editor) | `vehicle.paint` implemented, `vehicle.model_label` value; Extra Options keeps its own MODEL/PAINT rows (works without Menu Builder) |
+| Scene | `tools/extra_set2_frontend.py` `vehicle_options_rows` | PAINT row y=250, MODEL y=283, name/stats blocks -15 px; Vehicle Manager upgrades installed pages |
+| Vehicle Manager | `tools/vehicle_manager.py` | kinds `kit`/`paint`, `make-kit`, `make-paint`, `vehicle-options.ini`; paint names from swatch RGB |
+| Renderer | `fleet_participants.hpp` | participant folder drops `__p<n>` (kit geometry, lamps, hull); **not built yet**: renderer builds are locked to `integration/base` |
+| Evo 2 paints | `tools/evo2_paint_set.py` (research/import-exclusives) | installed 4Runner body = catalog record 1 (0,0,0, SILVER) bit-exact; 8 other records recomputed with the replayed original recolouring |
+
+Deviation from revision 2: no per-kit physics clones are needed (physics and setup screens read the registry
+family folder, which is never swapped outside the menu-car tick). `MRExtraTextureV1` stays retired.
+
+Tests: `tools/test_extra_native.py` (kits/paints per player and participant, menu-car swap, race identity,
+dynamic rows, added-car rule, family export), `tests/rmod1/vehicle_roster_tests.cpp` (virtual overlay),
+Menu Builder tests 151 PASS (VisibleWhen compile, invalid ID), `tools/test_vehicle_manager.py` ALL OK.
+
+Owner test host: `.research-output/hosts/host-vopts-01` (copy of host-roster-v4-forester-05; loader
+`_builds/loader/2026-11-13_vehicle-options-02_15cbe516`, renderer current 9c502589; Vehicle Manager applied
+with the 4Runner paint package). Smoke start: `VEHICLE_OPTIONS families=1`, Extra Options hooks=10, no conflicts.
+Kits need the GC trucks in the roster (pending roster rebuild); `make-kit` package for Calmini is ready.
