@@ -58,6 +58,7 @@ def verify_bundle(bundle,context):
                 if key not in expected:raise ValueError('Unlisted registry resource: '+relative)
                 row=expected[key]
                 if runtime.is_user_editable_resource(relative):runtime.validate_user_editable_resource(path,relative)
+                elif relative.lower()=='data.sma' and info.st_size==roster.legacy.RETAIL_DATA_SMA_SIZE and runtime.sha256_file(path)==roster.legacy.RETAIL_DATA_SMA_SHA256:pass  # retail substitute (see read_parent)
                 elif info.st_size!=row['size'] or runtime.sha256_file(path)!=row['sha256']:raise ValueError('Resource changed: '+relative)
     if seen!=set(expected):raise ValueError('Registry resource set changed')
     return {'status':'PASS_STATIC_COLLECTION_RUNTIME_BUNDLE','scope':'sdk-configurable-vehicle-registry','resource_count':len(seen),'runtime_qualified':False}
@@ -73,6 +74,8 @@ def read_parent(source,base):
     for r in json.loads(manifest)['resources']:
         p=roster.legacy._under(base/'resource-root',r['path'])
         if runtime.is_user_editable_resource(r['path']):runtime.validate_user_editable_resource(p,r['path'])
+        elif r['path'].lower()=='data.sma' and p.stat().st_size==roster.legacy.RETAIL_DATA_SMA_SIZE and runtime.sha256_file(p)==roster.legacy.RETAIL_DATA_SMA_SHA256:
+            pass  # clean retail archive in place of the packaged one: it differs only in entries the indexed loose root overrides (launcher 17ca07e)
         elif p.stat().st_size!=r['size'] or runtime.sha256_file(p)!=r['sha256']:raise ValueError('Parent sealed resource changed: '+r['path'])
         assets[r['path']]=p
     _,check,ops=j2._parse_and_reconstruct(source,(base/'native-patch-ops.rvp').read_bytes())
