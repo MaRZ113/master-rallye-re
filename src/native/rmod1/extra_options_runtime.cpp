@@ -123,24 +123,20 @@ vehicle_options::Table vopts;
 const vehicle_options::Family* declared(int id);
 constexpr const char* kLabels[]={"PS2","PC","DEMO"};
 constexpr unsigned kKinds[]={2,1,1}; // MRExtraVisualV2: 1 = PC bundle, 2 = PS2 bundle; DEMO renders as PC
-// Added cars (not one of the retail folders) with no PS2 bundle and no DEMO variant have nothing to switch: one "-"
-// choice, the row is hidden. Retail cars keep PS2/PC (owner decision). PS2 bundle = the renderer's
-// PS2Vehicles/<FAMILY>-COMPLETE-FLEET.ps2model.
-constexpr const char* kRetailFolders[]={"Astero","Bruno","ChevyBlazer","Forester","Frontera","IceCream","Jump","Kamaz","Kangoo",
- "KiaSportage","LandCruiser","Mattserati","Navara","NewRav","Pajero","Patrol","RMonster","SeatBuggy","Simmbugghini","Tata",
- "Terrano","Ufo","WildCat","Xtrail","megane","Megane","forklift"};
+// Cars with nothing to switch (no PS2 bundle, no DEMO variant: the added Heritage/SDK cars) get one "-" choice and
+// the row is hidden. Families with a PS2 bundle = the renderer's race fleet table (frontend_fleet_registry.hpp,
+// kRaceFleetProfiles: PC family -> PS2 model); keep in sync when the renderer gains a PS2 model.
+constexpr const char* kPs2Families[]={"Astero","Bruno","ChevyBlazer","Forester","ForesterSTI","Frontera","IceCream","Jump","Kamaz",
+ "Kangoo","KiaSportage","LandCruiser","Mattserati","Navara","NewRav","Pajero","Patrol","RMonster","SeatBuggy","Simmbugghini",
+ "Tata","Terrano","Ufo","WildCat","Xtrail","forklift","megane"};
 bool nothing_to_switch(int id){
  if(!no_switch||!valid_car(id))return false;
  if(no_switch[id]>=0)return no_switch[id]==1;
  const char* f=family(id);if(!f[0])return false;               // registry not readable yet: ask again later
- bool retail=false;for(const char* r:kRetailFolders)if(!_stricmp(r,f))retail=true;
- bool single=false;
- if(!retail&&variant_index(id)<0){
-  std::string upper(f);for(auto& c:upper)c=char(std::toupper(static_cast<unsigned char>(c)));
-  single=!fs::exists(directory/"PS2Vehicles"/(upper+"-COMPLETE-FLEET.ps2model"));
- }
+ bool ps2=false;for(const char* r:kPs2Families)if(!_stricmp(r,f))ps2=true;
+ const bool single=!ps2&&variant_index(id)<0;
  no_switch[id]=single?1:0;
- if(single){char line[160]{};std::snprintf(line,sizeof(line),"MODEL_ROW_NONE CarID=%d family=%s (added car without PS2 bundle or DEMO)",id,f);log(line);}
+ if(single){char line[160]{};std::snprintf(line,sizeof(line),"MODEL_ROW_NONE CarID=%d family=%s (no PS2 bundle, no DEMO)",id,f);log(line);}
  return single;
 }
 unsigned paint_count(int id){
