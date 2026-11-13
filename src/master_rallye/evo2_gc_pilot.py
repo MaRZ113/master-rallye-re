@@ -9,13 +9,15 @@ from . import txr3_classic_pilot as base
 
 OBJECT_ROLE={'BODY':'paint','BEDCOVR':'paint','GLASSE':'glass','COCKPIT':'interior','UNDBODY':'trim','MIRRORL':'trim','MIRRORR':'trim',
              'WIPERLT':'trim','WIPERRT':'trim','MUDFLPS':'trim','BUMPERF':'trim','BUMPERR':'trim','CLADRT':'trim','BIKINI':'trim',
-             'SKID':'chrome','BUSHBAR':'chrome','ROLLBR1':'chrome','SPARE':'tyre','SPARE2':'tyre',
+             'SKID':'chrome','BUSHBAR':'chrome','ROLLBR1':'chrome','ROLLBR2':'chrome','WINCH':'chrome','RFRACK':'chrome','RACK':'chrome','STEPS':'chrome','SNORKEL':'trim','FFLARES':'paint','HSCOOP':'paint','VISOR':'trim','BUGSHLD':'trim','SPARE':'tyre','SPARE2':'tyre',
              'LIGHTBL':'brake','LIGHTBR':'brake','LIGHTBC':'brake','TIRE':'tyre','WHEEL':'chrome'}
 
 
 def _role(material):
     name=material.get('object','').upper()
     if name.startswith('FOG'):return 'lamp'
+    if name=='SUSP_SHOCKS':return 'chrome'
+    if name.startswith(('SUSP_','AXLE')):return 'trim'
     return OBJECT_ROLE.get(name,'trim')
 
 

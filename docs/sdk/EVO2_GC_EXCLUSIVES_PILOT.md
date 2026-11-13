@@ -25,3 +25,22 @@ py -3 -c "from master_rallye.evo2_gc_pilot import create_pilot; create_pilot(<sc
 Monster truck: RMonster has no qualified frontend wheel correspondence and Kamaz/Navara fail the
 SDK guards, so Patrol is the template; physics needs tuning for 0.84 m wheels. Native states PASS
 for all four; gameplay not tested; not in the roster.
+
+## Suspension (2026-11-13)
+
+Evo 2 suspension is procedural (not in the SMF). `source_adapters/evo2_suspension.py` rebuilds the
+full-detail path of 4x42.exe (`FUN_005fdad0` points + `FUN_006006d0` draw; constants and layout in
+the module docstring) as static rest-pose tubes/quads textured with `ART/SUSP.RAW` + `SUSP.ACT`:
+double-wishbone arms for `SuspType 0`, shocks on every axle, leaf springs for `SpringType 2`, and
+the driveshaft for a solid rear axle. Axle beams `AxleF`/`AxleR` are now shown (SMF rest pose).
+Results: Calmini/Warn = arms + shocks + rear leafs + driveshaft; Wrangler/Stillen = axles + shocks
++ driveshaft. The adapter works on PC `TRUCK.POD` too (`truck` may be any `TRUCK/<name>.TRK`).
+Not animated: MR bodies are rigid, the parts stay at the rest pose.
+
+## Equipment kits (owner idea: three levels on the MODEL switch)
+
+`create_scene(..., kit='bare'|'stock'|'full')`: bare = body only; stock = TRK `stockPartList`
+(default, the Evo 2 showroom truck); full = every accessory present in the SMF (snorkel, winch,
+roof rack/lights, steps, flares, fogs, bars). Built and previewed for Calmini; runtime switching is
+not wired yet (MODEL PS2/PC/DEMO: DEMO swaps the vehicle folder via Extra Options `variants.ini`,
+PS2 uses renderer fleet profiles).
