@@ -474,16 +474,21 @@ std::vector<menu_dynamic::Row> select_rows;menu_dynamic::State select_rows_state
 menu_dynamic::Host select_rows_host(){
  return {row_egg,[]{return integer("UI/Active");},[](int b){put_int("UI/Active",b);},[](const std::string& s){log(s.c_str());}};
 }
-void select_rows_entered(){
+// The rows are (re)built whenever the PAINT egg's presence changes: on screen entry the scene eggs may not exist yet
+// (owner run 2026-11-13: PAINT was never registered, so a hidden MODEL row sent the focus 3 -> 1 past PAINT).
+bool select_rows_paint=false;
+void select_rows_build(bool paint_row){
  menu_dynamic::entered(select_rows,select_rows_state,select_rows_host());
- const bool paint_row=row_egg("ExtraPaint")!=0;
- select_rows.clear();
+ select_rows.clear();select_rows_paint=paint_row;
  select_rows.push_back({kModelButton,2,paint_row?kPaintButton:1,{"ExtraModel","ExtraModelText","ExtraModelLeftArrow","ExtraModelRightArrow"}});
  if(paint_row)select_rows.push_back({kPaintButton,kModelButton,1,{"ExtraPaint","ExtraPaintText","ExtraPaintLeftArrow","ExtraPaintRightArrow"}});
  select_rows_state.reset();
 }
+void select_rows_entered(){select_rows_build(row_egg("ExtraPaint")!=0);}
 void select_rows_update(){
  if(select_rows.empty())return;
+ const bool paint_row=row_egg("ExtraPaint")!=0;
+ if(paint_row!=select_rows_paint){select_rows_build(paint_row);log(paint_row?"ROWS_PAINT_REGISTERED":"ROWS_PAINT_GONE");}
  const int car=integer("Frontend/VehicleSelect/CarModel");
  std::vector<bool> available{valid_car(car)&&paint_count(car)>=2};
  if(select_rows.size()>1)available.push_back(valid_car(car)&&colour_count(car)>=2);

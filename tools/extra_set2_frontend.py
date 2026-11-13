@@ -7,7 +7,7 @@
   carousel; the car name block moves down 25 px to make room. Vehicle options (revision 2,
   docs/vehicle-manager/VEHICLE_OPTIONS_DESIGN.md): the MODEL caption comes from the Broker
   (Frontend/ExtraOptions/ModelLabel: MODEL, KIT, ...) and a PAINT row (button 4) follows MODEL;
-  the name/stats blocks move down 15 more px. Rows without choices are hidden at run time
+  revision 3 puts every button in one widescreen-safe column (SELECT_LAYOUT). Rows without choices are hidden at run time
   (Extra Options, src/native/rmod1/menu_dynamic.hpp).
 
 VehicleSetup4.xml (GEARBOX) is not produced: the stock page is used unchanged.
@@ -156,52 +156,64 @@ def select_page(original: bytes) -> bytes:
     return ET.tostring(root, encoding="utf-8") + b"\n"
 
 
-STATS = ("SpeedBar", "AccelerationBar", "HandlingBar", "EnduranceBar", "SpeedText", "AccelerationText", "HandlingText",
-         "EnduranceText")
+# Vehicle Select layout (revision 3, absolute so an installed page of any earlier revision converges). Every button
+# sits in one column at x=24: the renderer's widescreen "left_text_band" (modernization/renderer/src/ui_margins.cpp,
+# x 25..106 with y 19..100 or 259..340) pushes such eggs to the left screen edge, which split the retail column
+# (Change Vehicle at y 326) and the MODEL row away from Class/PAINT. MODEL and PAINT sit in the lower panel, under
+# the car carousel (its cards reach down to y ~287); the name and stats blocks follow them, 28 px per stat.
+BUTTON_X = 24.0
+SELECT_LAYOUT = {
+    "Class": (BUTTON_X, 381.0), "SelectCar": (BUTTON_X, 326.0),
+    "ExtraModel": (BUTTON_X, 256.0), "ExtraModelText": (None, 262.0),
+    "ExtraModelLeftArrow": (None, 265.0), "ExtraModelRightArrow": (None, 265.0),
+    "ExtraPaint": (BUTTON_X, 220.0), "ExtraPaintText": (None, 226.0),
+    "ExtraPaintLeftArrow": (None, 229.0), "ExtraPaintRightArrow": (None, 229.0),
+}
+INFO_LAYOUT = {
+    "ManufacturerName": 200.0, "CarName": 182.0,
+    "SpeedText": 160.0, "SpeedBar": 146.0, "AccelerationText": 132.0, "AccelerationBar": 118.0,
+    "HandlingText": 104.0, "HandlingBar": 90.0, "EnduranceText": 76.0, "EnduranceBar": 62.0,
+}
 
 
 def vehicle_options_rows(root) -> bool:
-    """MODEL caption from the Broker + PAINT row (button 4). Idempotent: False when the page already has it.
-    Navigation top -> bottom: Class 1 -> SelectCar 2 -> MODEL 3 -> PAINT 4 -> Class 1."""
+    """MODEL caption from the Broker + PAINT row (button 4) + the one-column layout. Idempotent: False when the page
+    already matches. Navigation top -> bottom: Class 1 -> SelectCar 2 -> MODEL 3 -> PAINT 4 -> Class 1."""
     s = section_of(root, "Class")
+    before = ET.tostring(root)
     eggs = {e.get("Name"): e for e in s.findall("Egg")}
-    if "ExtraPaint" in eggs:
-        return False
-    need = {"Class", "ExtraModel", "ExtraModelText", "ExtraModelLeftArrow", "ExtraModelRightArrow"}
+    need = {"Class", "SelectCar", "ExtraModel", "ExtraModelText", "ExtraModelLeftArrow", "ExtraModelRightArrow"}
     if not need <= eggs.keys():
         raise ValueError("Vehicle Select page has no MODEL row")
-    info = {e.get("Name"): e for e in section_of(root, "ManufacturerName").findall("Egg")}
-    for name, e in info.items():
-        if name in ("ManufacturerName", "CarName") or name in STATS:
-            move(e, y=row3(e)[1] - 15)
-    model_y = 283.0
-    for name, dy in (("ExtraModel", 0), ("ExtraModelText", 6), ("ExtraModelLeftArrow", 9), ("ExtraModelRightArrow", 9)):
-        move(eggs[name], y=model_y + dy)
     value(control(eggs["ExtraModel"], "enUITextButtonAI"), "Text*", "Frontend/ExtraOptions/ModelLabel")
     value(control(eggs["ExtraModel"], "gaFrontendMultistateAI"), "Down Path", 4)
     value(control(eggs["Class"], "gaFrontendMultistateAI"), "Up Path", 4)
-    y = 250.0
-    paint = copy.deepcopy(eggs["ExtraModel"])
-    paint.set("Name", "ExtraPaint")
-    move(paint, y=y)
-    label = control(paint, "enUITextButtonAI")
-    value(label, "Text*", "Null"), value(label, "Text String", "PAINT")
-    m = control(paint, "gaFrontendMultistateAI")
-    for n, v in (("Button ID", 4), ("Up Path", 3), ("Down Path", 1), ("StringList*", "Frontend/ExtraOptions/ColourList"),
-                 ("Value*", "Frontend/ExtraOptions/Colour"), ("CurrentText*", "Frontend/ExtraOptions/ColourText")):
-        value(m, n, v)
-    text = copy.deepcopy(eggs["ExtraModelText"])
-    text.set("Name", "ExtraPaintText")
-    move(text, y=y + 6)
-    value(control(text, "enUITextButtonAI"), "Text*", "Frontend/ExtraOptions/ColourText")
-    s.extend([paint, text])
-    for side in ("Left", "Right"):
-        arrow = copy.deepcopy(eggs[f"ExtraModel{side}Arrow"])
-        arrow.set("Name", f"ExtraPaint{side}Arrow")
-        move(arrow, y=y + 9)
-        value(control(arrow, "gaFrontendArrowAI"), "Arrow Status*", f"Frontend/ExtraOptions/Colour{side}Arrow")
-        s.append(arrow)
-    return True
+    if "ExtraPaint" not in eggs:
+        paint = copy.deepcopy(eggs["ExtraModel"])
+        paint.set("Name", "ExtraPaint")
+        label = control(paint, "enUITextButtonAI")
+        value(label, "Text*", "Null"), value(label, "Text String", "PAINT")
+        m = control(paint, "gaFrontendMultistateAI")
+        for n, v in (("Button ID", 4), ("Up Path", 3), ("Down Path", 1), ("StringList*", "Frontend/ExtraOptions/ColourList"),
+                     ("Value*", "Frontend/ExtraOptions/Colour"), ("CurrentText*", "Frontend/ExtraOptions/ColourText")):
+            value(m, n, v)
+        text = copy.deepcopy(eggs["ExtraModelText"])
+        text.set("Name", "ExtraPaintText")
+        value(control(text, "enUITextButtonAI"), "Text*", "Frontend/ExtraOptions/ColourText")
+        s.extend([paint, text])
+        for side in ("Left", "Right"):
+            arrow = copy.deepcopy(eggs[f"ExtraModel{side}Arrow"])
+            arrow.set("Name", f"ExtraPaint{side}Arrow")
+            value(control(arrow, "gaFrontendArrowAI"), "Arrow Status*", f"Frontend/ExtraOptions/Colour{side}Arrow")
+            s.append(arrow)
+        eggs = {e.get("Name"): e for e in s.findall("Egg")}
+    for name, (x, y) in SELECT_LAYOUT.items():
+        move(eggs[name], x=x, y=y)
+    info = {e.get("Name"): e for e in section_of(root, "ManufacturerName").findall("Egg")}
+    for name, y in INFO_LAYOUT.items():
+        if name in info:
+            move(info[name], y=y)
+    return ET.tostring(root) != before
 
 
 def add_vehicle_options_rows(page: bytes) -> bytes:

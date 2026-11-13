@@ -240,16 +240,16 @@ int main(int argc,char** argv){try{
  }
  const char* ini="; test\r\n[Family:CalminiFrontier]\r\nmodel_label = KIT\r\nmodel = BARE,STOCK,FULL ; three kits\r\n"
   "model_folders = CalminiFrontier_bare,CalminiFrontier,CalminiFrontier_full\r\nmodel_default = 1\r\npaint = GREY,RED,BLACK\r\n"
-  "[Family:Evo2Plain]\r\nmodel =\r\n";
+  "[Family:Evo2Plain]\r\nmodel =\r\n[Family:Evo2Painted]\r\nmodel =\r\npaint = SILVER,RED\r\n";
  {std::string error;check(vehicle_options::parse(ini,vopts,error),error.c_str());}
  {std::vector<std::string> c;
   check(vopts.candidates("DataGx/Vehicles/CalminiFrontier_full__p2/body.dxt",c)&&c.size()==2&&c[0]=="datagx/vehiclepaints/calminifrontier/2/body.dxt"&&c[1]=="datagx/vehicles/calminifrontier_full/body.dxt","paint file first, then the kit");
   check(!vopts.candidates("DataGx/Vehicles/CalminiFrontier_full__p3/body.dxt",c),"paint index past the family list refused");
   check(!vopts.candidates("DataGx/Vehicles/Pajero__p1/car.dx",c),"undeclared family never rewritten");
   check(vopts.family_of("CalminiFrontier_bare__p1")=="CalminiFrontier"&&vopts.family_of("CalminiFrontier_full")=="CalminiFrontier","family of kit/paint names");}
- static const char calmini[]="CalminiFrontier",plain_family[]="Evo2Plain",heritage[]="HeritageTrooper";
- for(auto [id,name]:{std::pair<int,const char*>{30,calmini},{31,plain_family},{32,heritage}}){const auto ptr=reinterpret_cast<uintptr_t>(name);std::memcpy(registry+0x24+id*0x34,&ptr,4);}
- for(int id:{30,31,32}){paints[0][id]=kUnset;colours[0][id]=kUnset;paints[1][id]=kUnset;colours[1][id]=kUnset;}
+ static const char calmini[]="CalminiFrontier",plain_family[]="Evo2Plain",heritage[]="HeritageTrooper",painted[]="Evo2Painted";
+ for(auto [id,name]:{std::pair<int,const char*>{30,calmini},{31,plain_family},{32,heritage},{33,painted}}){const auto ptr=reinterpret_cast<uintptr_t>(name);std::memcpy(registry+0x24+id*0x34,&ptr,4);}
+ for(int id:{30,31,32,33}){paints[0][id]=kUnset;colours[0][id]=kUnset;paints[1][id]=kUnset;colours[1][id]=kUnset;}
  numbers["Frontend/VehicleSelect/PlayerID"]=0;numbers["Frontend/VehicleSelect/CarModel"]=30;
  select_init(nullptr,nullptr,nullptr);
  check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"BARE","STOCK","FULL"},"kit choices replace PS2/PC");
@@ -295,6 +295,14 @@ int main(int argc,char** argv){try{
  numbers["Frontend/VehicleSelect/CarModel"]=2;select_tick(nullptr,nullptr,0);select_tick(nullptr,nullptr,0);
  check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"PS2","PC"}&&egg_x("ExtraModel")==36.0f&&egg_x("ExtraPaint")==menu_dynamic::kParkedX,"retail: MODEL shown, PAINT hidden");
  focused=4;select_scroll(nullptr,nullptr,1);check(scrolls==1,"Left/Right on PAINT keeps the carousel");focused=2;
+ // Owner run 2026-11-13 (4Runner: paints, no model): the PAINT egg did not exist yet on screen entry.
+ {auto saved=en2d["ExtraPaint"];en2d.erase("ExtraPaint");numbers["Frontend/VehicleSelect/CarModel"]=33;
+  select_init(nullptr,nullptr,nullptr);{const float x=36.0f;std::memcpy(saved.data()+0x54,&x,4);}en2d["ExtraPaint"]=saved;   // scene rebuilt the egg at its authored x
+  numbers["UI/Active"]=2;select_tick(nullptr,nullptr,0);
+  check(egg_x("ExtraModel")==menu_dynamic::kParkedX&&egg_x("ExtraPaint")!=menu_dynamic::kParkedX,"paint-only car: MODEL hidden, PAINT shown");
+  numbers["UI/Active"]=3;select_tick(nullptr,nullptr,0);check(numbers["UI/Active"]==4,"Down from SelectCar skips MODEL to PAINT (late PAINT egg)");
+  numbers["UI/Active"]=3;select_tick(nullptr,nullptr,0);check(numbers["UI/Active"]==2,"Up from PAINT skips MODEL to SelectCar");
+  numbers["UI/Active"]=2;numbers["Frontend/VehicleSelect/CarModel"]=2;select_tick(nullptr,nullptr,0);select_tick(nullptr,nullptr,0);}
  {char out[64]{};check(MRExtraFamilyV1("CalminiFrontier_bare__p2",out,64)&&std::string(out)=="CalminiFrontier","family export for kit/paint folders");
   check(!MRExtraFamilyV1("Pajero",out,64),"unknown names stay as they are");}
  check(model_row_available()&&!paint_row_available(),"Menu Builder rows: retail car has MODEL, no PAINT");
