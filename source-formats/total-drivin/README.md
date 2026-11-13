@@ -1,7 +1,7 @@
 # Total Drivin' / Car and Driver Presents: Grand Tour Racing '98 (PS1, Eutechnyx 1997)
 
 Owner target: **Citroën ZX Rallye Raid** (Dakar class). Status 2026-11-13: containers,
-compression and car geometry decoded; textures (VRAM records) and wheels not yet decoded;
+compression and car geometry decoded; textures decoded (td_texture.py); wheels are parameter records;
 the ZX is one of the four Dakar models (candidates DAKAR1/2 and DAKAR7/8, owner to confirm
 from previews). Not imported into Master Rallye.
 
@@ -40,7 +40,22 @@ packed `u32` (x signed 10 bits, y signed 11, z signed 11; x2 to match the follow
 u32 colour/texture id, u32 first corner`), `u32 corner count`, corners
 `(u8 vertex, u8 texture page/CLUT, u8 u, u8 v)`. DAKAR bodies: 116-140 vertices.
 
+## Textures (`tools/td_texture.py`, decoded 2026-11-13)
+
+VRAM chunk records: `u16 x, y, w, h`; h bits 14-15 = kind (2 = CLUT row, 0/1 = pixel rect);
+the records tile the chunk exactly (level 10: 679 records). Car material table follows the
+`<CLASS><n>` name: header (RGB of the flat body colour at +0x24, entry count at +0x20), then
+28-byte entries `u16 page_code, u16 clut, u32 E2 window` x2 (one per frame buffer) + `u32 type`.
+Types: 8 textured 4-bit, 0x10 textured two-state (brake lamps: buffers differ), 1 body colour,
+2 trim, 0x0a glasshouse. `clut` is the standard PS1 CLUT word (matches the CLUT records exactly);
+`page_code >> 3` = 4-bit page x index on the y = 256 row (the race code copies the material word
+straight into the GT3/GT4 tpage/clut fields: ARDONE.BIN 0x96D8); the E2 window picks the livery
+copy inside the page. Face record u32 +12 = material entry; corner u32 = vertex | lighting index
+<< 8 | u << 16 | v << 24. Record normals are not consistently outward.
+
+The 8 DAKAR cars share one body with different liveries on pages 8-11. Owner: ZX = DAKAR1 (red)
+or DAKAR2 (blue/white). Wheel records (kind 2): position + radius 54, no mesh.
+
 ## Open
 
-VRAM record format (texture pages + CLUTs), wheel records (kind 2), scale to metres,
-confirming which DAKAR model is the ZX.
+Lighting table (corner byte 1), exact scale to metres (pilot scales to the donor wheelbase).
