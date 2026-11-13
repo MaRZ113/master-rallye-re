@@ -12,9 +12,21 @@ def canonical(s):
     if s.endswith(('.dxt','.gxi')):s=s[:-4]
     if s.endswith('.tga'):s=s[:-4]+'-tga'
     return re.sub(r'^mr-ref-[0-9a-f]+-','',s)
+def env_alias(secondary):
+    """Importer env textures (GT4/classic converters: gt4-env-<hash>, classic-rubber-env-<hash>, ...) -> the retail
+    contract name with the same meaning. Retail names pass through unchanged. Mirrors BodyMaterials::env_alias (C++)."""
+    s=secondary
+    if s in ('whitepaint-tga','silverpaint-tga','perspex-tga','rubber-tga','chrome-tga','glass-tga','null'):return s
+    if 'rubber' in s or 'tyre' in s or 'tire' in s:return 'rubber-tga'
+    if 'glass' in s:return 'glass-tga'
+    if 'chrome' in s or 'metal' in s:return 'chrome-tga'
+    if 'perspex' in s or 'plastic' in s:return 'perspex-tga'
+    if '-env-' in s or s.startswith('env-') or s.endswith('-env-tga'):return 'whitepaint-tga'
+    return s
 def role_for(primary,secondary,part,opaque=True):
     if not opaque:return 0,'Native transparency / glass'
     if any(t in primary for t in ('light','lamp','glow','brake')) or any(t in secondary for t in ('light','lamp','glow')):return 0,'Native emissive / lamp policy (phase 3.0)'
+    secondary=env_alias(secondary)
     if secondary=='glass-tga':
         return (11,'Opaque glazing RGB only; native reflection/alpha retained') if policy.safe(primary,secondary,11) else (0,'Native protected glass / lamp')
     if any(t in primary for t in ('glass','window','windscreen')):return 0,'Native glass / damage transparency'

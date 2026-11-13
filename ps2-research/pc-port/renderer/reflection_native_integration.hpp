@@ -8,6 +8,8 @@
 #include "ps2_port_extension.hpp"
 #include "buffer_provenance.hpp"
 #include "camera_probe.hpp"
+#include "vehicle_grime_stateblock.hpp"
+#include "reflection_paint_authority.hpp"
 #include "provenance.hpp"
 #include <cstring>
 #include <utility>
@@ -25,9 +27,13 @@ inline bool snapshot(Device8& device, const DrawClassification& classification,
     ps2port::perf::Timer perf_timer(ps2port::perf::ReflectionSnapshot);
     auto* extension = device.ps2_port();
     if (!extension || !extension->reflection() || !extension->reflection()->active()) return false;
-    if (type != D3DPT_TRIANGLELIST || !(xtrail_glass ? (count==18&&vertices==22) : partition ? ps2port::vehicle_partition_layout(count,vertices) :
-        ps2port::reflection_layout(count,vertices,extension->reflection()->expanded()))) return false;
-    geometry = {}; out = {}; out.geometry = &geometry;
+    if (type != D3DPT_TRIANGLELIST) return false;
+    const bool table_layout = xtrail_glass ? (count==18&&vertices==22) : partition ? ps2port::vehicle_partition_layout(count,vertices) :
+        ps2port::reflection_layout(count,vertices,extension->reflection()->expanded());
+    // REFLECT-ADDON1: add-on and future cars have no table entry; a registered paint body draw qualifies instead.
+    const char* paint = !table_layout && !partition && !xtrail_glass && paint_authority_hook ? paint_authority_hook(&device,min_index,vertices,start,count) : nullptr;
+    if (!table_layout && !paint) return false;
+    geometry = {}; out = {}; out.geometry = &geometry; out.paint_family = paint;
     out.requested_mode=extension->reflection()->mode_value();
     geometry.supported_build = session().target;
     geometry.device_id = device.trace.device_id();
@@ -262,7 +268,9 @@ public:
     }
     HRESULT pre_draw_status() const noexcept { return FAILED(restore_hr_) && restore_hr_!=E_PENDING ? restore_hr_ : S_OK; }
     bool applied() const noexcept { return applied_; }
-    void draw_result(HRESULT hr) noexcept { draw_hr_=hr; }
+    void draw_result(HRESULT hr) noexcept { draw_hr_=hr;
+        // R-SURFACE1 G3.1: wet sheen while this draw's reflection (PC live reflection or PS2 reflection) is still applied.
+        if (SUCCEEDED(hr) && grimeintegration::wet_sheen_hook) grimeintegration::wet_sheen_hook(&device_); }
     ~Scope() noexcept {
         if (!pilot_) return;
         if (pilot_->transaction().changed_mask) {

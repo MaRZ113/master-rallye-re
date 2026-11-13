@@ -1,3 +1,4 @@
+#include "frame_pacer.hpp"
 #include "atmosphere.hpp"
 #include <iostream>
 #include <limits>
@@ -86,6 +87,43 @@ int main(){
     CHECK(!BodyMaterials::safe("inlights-tga","glass-tga",OpaqueGlazing));
     CHECK(!BodyMaterials::safe("windscreen32-tga","glass-tga",OpaqueGlazing));
     CHECK(!BodyMaterials::safe("body-tga","whitepaint-tga",OpaqueGlazing));
+    // Add-on naming contract (same as tools/atmosphere_vehicle_lighting.py role_for; parity checked on all 474 registry combos).
+    CHECK(BodyMaterials::derived_role("forester-tga","whitepaint-tga","car")==Paint);
+    CHECK(BodyMaterials::derived_role("decal-sticker-tga","perspex-tga","car")==OpaquePanel);
+    CHECK(BodyMaterials::derived_role("grille-tga","perspex-tga","car")==OpaqueTrim);
+    CHECK(BodyMaterials::derived_role("tread-tga","rubber-tga","wheel")==WheelRubber);
+    CHECK(BodyMaterials::derived_role("rim-tga","chrome-tga","wheel")==WheelMetal);
+    CHECK(BodyMaterials::derived_role("rim-tga","whitepaint-tga","wheel")==0);
+    CHECK(BodyMaterials::derived_role("seat-tga","null","car")==OpaqueInterior);
+    CHECK(BodyMaterials::derived_role("underbody-tga","null","car")==OpaqueFlat);
+    CHECK(BodyMaterials::derived_role("windscreen-tga","whitepaint-tga","car")==0);
+    CHECK(BodyMaterials::derived_role("brakelight-tga","whitepaint-tga","car")==0);
+    CHECK(BodyMaterials::derived_role("inlights-tga","glass-tga","car")==0);
+    // Importer env names (GT4/classic converters) mean the retail contract textures (Evo IV, 2026-11-12).
+    CHECK(BodyMaterials::env_alias("gt4-env-360035860a80879c9837-tga")=="whitepaint-tga"&&BodyMaterials::env_alias("classic-rubber-env-f95b5f1932dc01e2-tga")=="rubber-tga"&&
+          BodyMaterials::env_alias("classic-glass-env-f18690e02cad8d24-tga")=="glass-tga"&&BodyMaterials::env_alias("whitepaint-tga")=="whitepaint-tga"&&BodyMaterials::env_alias("null")=="null");
+    CHECK(BodyMaterials::safe("gt4-ad685e510aa08e4ace49-tga","gt4-env-360035860a80879c9837-tga",Paint)&&BodyMaterials::derived_role("gt4-ad685e510aa08e4ace49-tga","gt4-env-360035860a80879c9837-tga","car")==Paint);
+    CHECK(BodyMaterials::derived_role("classic-tyre-tread-0c13529c677d52f3-tga","classic-rubber-env-f95b5f1932dc01e2-tga","car")==WheelRubber);
+    CHECK(BodyMaterials::derived_role("gt4-headlight-tga","gt4-env-360035860a80879c9837-tga","car")==0);
+    {BodyMaterials m;CHECK(!m.native_capability("addon","forester-tga","whitepaint-tga"));}   // registry not loaded: nothing
+    {   // PERF-PACING1 display-locked scheduler: 180 Hz, MaxFps 100 -> every 2nd refresh (90 fps).
+        using namespace gfx2::pacing;CHECK(divisor_for(180,100)==2&&divisor_for(144,100)==2&&divisor_for(60,100)==1&&divisor_for(240,100)==3&&divisor_for(120,120)==1);
+        Core c;c.divisor=2;const int64_t P=1000;   // period 1000 ticks, vblank 0 = refresh 100
+        auto a=c.plan(50,0,100,P,50);CHECK(!a.wait&&a.refresh==100);                    // first frame seeds the cadence
+        auto b=c.plan(700,0,100,P,50);CHECK(b.wait&&b.refresh==102&&b.until==2050);     // early frame waits for refresh 102
+        auto d=c.plan(2400,2000,102,P,50);CHECK(d.wait&&d.refresh==104&&d.until==4050);  // fast frame: next slot +2
+        auto e=c.plan(4700,4000,104,P,50);CHECK(e.wait&&e.refresh==106&&e.until==6050);  // cadence holds: +2 refreshes
+        auto f=c.plan(8400,8000,108,P,50);CHECK(!f.wait&&!f.late&&f.refresh==108);      // arrived inside its slot: present now
+        auto g=c.plan(10700,10000,110,P,50);CHECK(!g.wait&&g.late&&g.refresh==110);     // missed the slot: present now, re-align
+        auto h0=c.plan(11200,11000,111,P,50);CHECK(h0.wait&&h0.refresh==112&&h0.until==12050);
+        CHECK(max_divisor_for(180,55,2)==3&&max_divisor_for(60,55,1)==1&&max_divisor_for(144,55,2)==2);   // 180 Hz never below 60 fps
+        Config cfg;cfg.min_divisor=2;cfg.max_divisor=3;Core h;h.divisor=2;bool up=false;for(unsigned i=0;i<90;++i)up=h.adapt(cfg,2.1,i%3==0)||up;CHECK(!up&&h.divisor==2);   // one busy window: hold
+        for(unsigned i=0;i<90;++i)up=h.adapt(cfg,2.1,i%3==0)||up;CHECK(up&&h.divisor==3);   // two busy windows (33 % late) -> 3
+        bool capped=false;for(unsigned w=0;w<6;++w)for(unsigned i=0;i<90;++i)capped=h.adapt(cfg,3.5,i%2==0)||capped;CHECK(!capped&&h.divisor==3);   // never past MinFps
+        bool down=false;for(unsigned w=0;w<4;++w)for(unsigned i=0;i<90;++i)down=h.adapt(cfg,1.2,false)||down;CHECK(down&&h.divisor==2);   // headroom -> back to 2
+        for(unsigned w=0;w<8;++w)for(unsigned i=0;i<90;++i)h.adapt(cfg,.3,false);CHECK(h.divisor==2);   // never above MaxFps
+        Core st;st.divisor=2;bool moved=false;for(unsigned i=0;i<90;++i)moved=st.adapt(cfg,i<20?100.:1.,i<20)||moved;CHECK(!moved&&st.divisor==2);   // loading stalls are not late frames
+    }
     CHECK(sun_layer_dither(1,.95f)>5&&sun_layer_dither(1,.95f)<6);
     CHECK(sun_layer_dither(0,1)==0&&sun_layer_dither(1,0)==0&&sun_layer_dither(2,.001f)<=16);
     for(unsigned y=0;y<16;++y)for(unsigned x=0;x<16;++x){CHECK(sun_quantize(0,x,y,16)==0);CHECK(sun_quantize(.5f,x,y,8)==sun_quantize(.5f,x+256,y+256,8));CHECK(sun_quantize(.5f,x,y,8)<=255);}

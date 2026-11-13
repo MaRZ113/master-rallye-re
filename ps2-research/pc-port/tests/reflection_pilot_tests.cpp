@@ -143,6 +143,16 @@ void identity() {
         independent.live_race_verified=true;registered.vertex_revision=0;
         CHECK(!reflection_identity_for_hash(independent,kTataBonnetGeometrySha,0).accepted);
     }
+    {   // REFLECT-ADDON1: a registered paint body of an add-on family needs no table entry; every other rule still applies.
+        DrawSnapshot geometry;auto addon=valid(geometry);addon.vehicle_body_verified=false;geometry.primitive_count=77;geometry.vertex_count=91;
+        CHECK(!reflection_identity_for_hash(addon,"addon body geometry",0).accepted);
+        static const char family[]="lancerevo4";addon.paint_family=family;
+        const auto id=reflection_identity_for_hash(addon,"addon body geometry",0);
+        CHECK(id.accepted&&!std::strcmp(id.vehicle,"lancerevo4")&&!std::strcmp(id.reason,"registered_paint_native_opaque_environment_material"));
+        auto stale=addon;stale.live_race_verified=false;CHECK(!reflection_identity_for_hash(stale,"addon body geometry",0).accepted);
+        auto blended=addon;blended.render_states[1]=TRUE;CHECK(!reflection_identity_for_hash(blended,"addon body geometry",0).accepted);
+        geometry.vertex_count=9000;CHECK(!reflection_identity_for_hash(addon,"addon body geometry",0).accepted);
+    }
     {DrawSnapshot kia;auto k=valid(kia);kia.primitive_count=206;kia.vertex_count=234;
      CHECK(!reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0).accepted);
      const auto admitted=reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0,true);
@@ -686,9 +696,76 @@ void private_off_fixtures(){
  }
 }
 void ambiguous_block_order(){DrawSnapshot g;valid(g);g.fvf=0x152;g.stride=36;g.vertex_count=6;g.primitive_count=2;g.min_index=0;g.base_vertex=0;g.vertex_byte_offset=0;g.index_format=D3DFMT_INDEX16;g.vertex_bytes.assign(6*36,0);for(unsigned v=0;v<6;++v){const float xyz[3]={float(v%3),float(v%3==1),0.f};std::memcpy(g.vertex_bytes.data()+v*36,xyz,12);}const uint16_t ids[6]={1,0,2,4,3,5};g.index_bytes.assign(reinterpret_cast<const uint8_t*>(ids),reinterpret_cast<const uint8_t*>(ids)+12);std::vector<std::array<float,3>> pts;std::string x,u;CHECK(RaceDamageState::snapshot(g,pts,x,u));CHECK(block_source_order(g,pts,x.c_str()).empty());}
+std::string g_learned_digest,g_second_digest;
+ReflectionIdentity fake_registry(const ReflectionSnapshot& s,std::string_view hash,uint64_t,bool){
+ ReflectionIdentity r;if(hash!=g_learned_digest&&(g_second_digest.empty()||hash!=g_second_digest)){r.reason="tata_bonnet_geometry_mismatch";return r;}r.vehicle="Kamaz";r.geometry_sha256=hash;
+ if(!s.live_race_verified)r.reason="live_race_owner_unverified";
+ else if(!s.vehicle_body_verified&&!s.source_material_context_verified)r.reason="vehicle_body_unverified";
+ else{r.accepted=true;r.source_material_authority=!s.vehicle_body_verified;r.reason="exact_verified_body_native_opaque_environment_material";}
+ return r;
+}
+void synthetic_body(DrawSnapshot& g){
+ g.primitive_count=176;g.vertex_count=188;g.index_format=D3DFMT_INDEX16;g.vertex_bytes.assign(188*36,0);g.index_bytes.resize(176*6);
+ for(unsigned v=0;v<188;++v){const float xyz[3]={float(v),float(v*v%17),float(v%5)},uv[2]={v*.01f,(v%7)*.1f};std::memcpy(g.vertex_bytes.data()+v*36,xyz,12);std::memcpy(g.vertex_bytes.data()+v*36+28,uv,8);}
+ for(unsigned f=0;f<176;++f)for(unsigned k=0;k<3;++k){const uint16_t i=static_cast<uint16_t>(f+k);std::memcpy(g.index_bytes.data()+(f*3+k)*2,&i,2);}
+}
+// REFLECT-DAMAGE2: collision deformation keeps the reflection while the part's UV/index topology is unchanged, wherever
+// the game draws it from (re-created VB/IB, other offsets) and when the baseline vehicle classifier lost the body;
+// every rejection after damage is attributed in the race ledger.
+void learned_deformed_body_tests(){
+ DrawSnapshot g;auto s=valid(g);s.requested_mode=4;synthetic_body(g);
+ g_learned_digest=reflection_geometry_sha(g);g_second_digest.clear();CHECK(!g_learned_digest.empty());
+ ReflectionPilot pilot(false,L"");pilot.set_identity_for_tests(&fake_registry);
+ auto healthy=pilot.classify(s,0);CHECK(healthy.accepted&&healthy.current_geometry_sha256.empty()&&pilot.learned_bodies()==1);
+ // Deformed and the baseline classifier no longer sees a vehicle body.
+ float moved=-3.5f;std::memcpy(g.vertex_bytes.data()+36*5,&moved,4);++g.vertex_revision;s.vehicle_body_verified=false;
+ auto deformed=pilot.classify(s,0);CHECK(deformed.accepted);CHECK(std::string(deformed.reason)=="learned_uv_topology_on_deformed_body");
+ CHECK(deformed.geometry_sha256==g_learned_digest&&!deformed.current_geometry_sha256.empty()&&deformed.current_geometry_sha256!=g_learned_digest);
+ CHECK(!deformed.source_material_authority&&pilot.learned_matches()==1);
+ // The game re-creates the car VB/IB after collisions: other resource, generations and offsets, same part mesh.
+ g.vertex_resource=31;g.index_resource=32;g.vertex_generation=674;g.index_generation=950;g.min_index=7087;g.base_vertex=0;g.start_index=2394;
+ g.vertex_byte_offset=uint64_t(g.min_index)*36;
+ {std::vector<uint8_t> shifted(g.index_bytes.size());for(unsigned k=0;k<176*3;++k){uint16_t i=0;std::memcpy(&i,g.index_bytes.data()+k*2,2);i=static_cast<uint16_t>(i+g.min_index);std::memcpy(shifted.data()+k*2,&i,2);}g.index_bytes=shifted;}
+ ++g.vertex_revision;++g.index_revision;auto moved_buffers=pilot.classify(s,0);
+ CHECK(moved_buffers.accepted&&std::string(moved_buffers.reason)=="learned_uv_topology_on_deformed_body");
+ // Rejections after damage keep the vehicle and a deformed_* reason (race ledger).
+ s.live_race_verified=false;++g.vertex_revision;auto owner=pilot.classify(s,0);CHECK(!owner.accepted&&std::string(owner.vehicle)=="Kamaz"&&std::string(owner.reason)=="deformed_live_race_owner_unverified");s.live_race_verified=true;
+ // Changed UVs = another mesh: never inherited; attributed when body-verified.
+ g.vertex_bytes[36*5+28]^=1;++g.vertex_revision;s.vehicle_body_verified=true;auto uv=pilot.classify(s,0);
+ CHECK(!uv.accepted&&std::string(uv.reason)=="deformed_or_unregistered_no_learned_topology");
+ s.vehicle_body_verified=false;++g.vertex_revision;CHECK(!pilot.classify(s,0).accepted);g.vertex_bytes[36*5+28]^=1;
+ // Healthy digest again (repaired), classifier still lost: the learned proof keeps it.
+ float back=5.f;std::memcpy(g.vertex_bytes.data()+36*5,&back,4);++g.vertex_revision;auto lost=pilot.classify(s,0);CHECK(lost.accepted&&std::string(lost.reason)=="learned_body_proof_while_classifier_lost_body");
+ // Mode 4 only.
+ ++g.vertex_revision;s.requested_mode=3;CHECK(!pilot.classify(s,0).accepted);s.requested_mode=4;
+ // A body first proved by source material authority is learned too and keeps that authority (own UVs: own topology).
+ DrawSnapshot h;auto t=valid(h);t.requested_mode=4;synthetic_body(h);h.vertex_resource=21;for(unsigned v=0;v<188;++v){float u=v*.02f;std::memcpy(h.vertex_bytes.data()+v*36+28,&u,4);}
+ CHECK(reflection_geometry_sha(h)==g_learned_digest);
+ t.vehicle_body_verified=false;t.source_material_context_verified=true;CHECK(pilot.classify(t,0).accepted&&pilot.learned_bodies()==2);
+ std::memcpy(h.vertex_bytes.data()+36*7,&moved,4);++h.vertex_revision;t.source_material_context_verified=false;
+ auto source=pilot.classify(t,0);CHECK(source.accepted&&source.source_material_authority&&std::string(source.reason)=="learned_uv_topology_on_deformed_body");
+ // One topology learned for two different digests is ambiguous and never inherited.
+ {DrawSnapshot a;auto sa=valid(a);sa.requested_mode=4;synthetic_body(a);DrawSnapshot b;auto sb=valid(b);sb.requested_mode=4;synthetic_body(b);b.vertex_resource=41;
+  float x=900.f;std::memcpy(b.vertex_bytes.data(),&x,4);g_second_digest=reflection_geometry_sha(b);
+  ReflectionPilot twin(false,L"");twin.set_identity_for_tests(&fake_registry);CHECK(twin.classify(sa,0).accepted&&twin.classify(sb,0).accepted);
+  float y=-77.f;std::memcpy(a.vertex_bytes.data()+36*9,&y,4);++a.vertex_revision;auto amb=twin.classify(sa,0);
+  CHECK(!amb.accepted&&std::string(amb.reason)=="deformed_ambiguous_uv_topology");g_second_digest.clear();}
+ CHECK(std::string(deformed_rejection("not_opaque_native_body"))=="deformed_not_opaque_native_body"&&std::string(deformed_rejection("x"))=="deformed_learned_identity_rejected");
+}
+// REFLECT-DAMAGE2: a deformed PC lamp keeps its fleet family by ordered UV/index topology, across re-created buffers.
+void learned_lamp_family_tests(){
+ DrawSnapshot g;valid(g);g.fvf=0x152;g.stride=36;g.vertex_count=16;g.primitive_count=16;g.index_format=D3DFMT_INDEX16;g.min_index=0;g.base_vertex=0;g.vertex_byte_offset=0;
+ g.vertex_bytes.assign(16*36,0);g.index_bytes.resize(16*6);for(unsigned v=0;v<16;++v){const float xyz[3]={float(v),1.f,2.f},uv[2]={v*.0625f,.25f};std::memcpy(g.vertex_bytes.data()+v*36,xyz,12);std::memcpy(g.vertex_bytes.data()+v*36+28,uv,8);}
+ for(unsigned k=0;k<48;++k){const uint16_t i=static_cast<uint16_t>((k*5)%16);std::memcpy(g.index_bytes.data()+k*2,&i,2);}
+ CHECK(!NativeLampContinuity::topology(g).empty());
+ CHECK(learned_lamp_family(g,UINT_MAX)==UINT_MAX);CHECK(learned_lamp_family(g,7)==7);
+ float moved=42.f;std::memcpy(g.vertex_bytes.data(),&moved,4);g.vertex_resource=99;g.vertex_generation=674;CHECK(learned_lamp_family(g,UINT_MAX)==7);
+ auto other=g;other.vertex_bytes[28]^=1;CHECK(learned_lamp_family(other,UINT_MAX)==UINT_MAX);
+ CHECK(learned_lamp_family(g,9)==9);CHECK(learned_lamp_family(g,UINT_MAX)==UINT_MAX); // ambiguous
+}
 int main() {ambiguous_block_order();fleet_frame_policy_tests();fleet_participant_tests();flat_lamp_layout_tests();private_off_fixtures();port3_lamp_corpus();kia_damage_glow_pair();fleet_off_fixtures();kia_lamp_fixtures();
     fleet_glow_fixtures();original_lamp_fixtures();
-    damage_identity_tests();
+    damage_identity_tests();learned_deformed_body_tests();learned_lamp_family_tests();
     identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();managed_reset_retention();stock_wrapper_draw();
     if(failures)return 1;
     std::cout<<"PS2 reflection identity, stock, native transactions, texture lifetime and reset: PASS\n";

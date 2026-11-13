@@ -3,6 +3,7 @@
 #include "ps2_port_extension.hpp"
 #include <array>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace gfx2::ps2port {
@@ -22,6 +23,8 @@ struct PartitionPlan {
 bool vehicle_partition_layout(uint32_t triangles,uint32_t vertices) noexcept;
 // These are exact current upload positions, not source ordinals or texture IDs.
 std::vector<std::string> vehicle_face_hashes(const DrawSnapshot&);
+// UVs + indices in submission order, relative to min_index; empty when not a complete 0x152 mirror.
+std::string partition_ordered_topology(const DrawSnapshot&);
 PartitionPlan partition_ordered_faces(const std::vector<std::string>&,
                                       const PartitionMaterial&);
 bool partition_context_valid(const ReflectionSnapshot&,uint64_t generation) noexcept;
@@ -37,6 +40,11 @@ class VehiclePartitionPilot {
     };
     std::array<Cache,64> cache_{};
     size_t next_=0;
+    // REFLECT-DAMAGE2: healthy plans keyed by ordered UV + index topology (content, not VB/IB resource): the game
+    // re-creates the car VB/IB after collisions. Bounded by the registry; ambiguous topologies are unusable.
+    struct Learned { PartitionPlan plan; bool ambiguous=false; };
+    std::unordered_map<std::string,Learned> learned_;
+    uint64_t learned_matches_=0;
     std::array<bool,10> logged_{};
     bool requested_=false, diagnostics_=false;
 public:
@@ -44,6 +52,7 @@ public:
     bool requested() const noexcept { return requested_; }
     PartitionPlan classify(const ReflectionSnapshot&,uint64_t generation) noexcept;
     bool claim_diagnostic(const PartitionMaterial*) noexcept;
+    uint64_t learned_matches() const noexcept { return learned_matches_; }
 };
 // Preserve the original IB order/ranges. There is no replay or second pass.
 // The first native failure is returned; no whole original draw may follow it.

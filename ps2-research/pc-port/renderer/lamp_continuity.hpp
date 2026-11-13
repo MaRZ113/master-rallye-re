@@ -1,6 +1,8 @@
 #pragma once
 #include "damage_identity.hpp"
 #include "provenance.hpp"
+#include <climits>
+#include <unordered_map>
 namespace gfx2::ps2port {
 // Current native queue owner + healthy exact source, never a historical pointer alone.
 struct LampOwnerContext {
@@ -33,4 +35,13 @@ public:
   reason="damaged_owned_clone_uv_index_match";return true;
  }
 };
+// REFLECT-DAMAGE2: topology -> fleet family witness. exact = family from the exact healthy lamp (learned), or
+// UINT_MAX (looked up). A topology seen for two families is ambiguous and never resolves.
+inline unsigned learned_lamp_family(const DrawSnapshot& g,unsigned exact)noexcept{try{
+ static thread_local std::unordered_map<std::string,unsigned> learned;constexpr unsigned kAmbiguous=UINT_MAX-1;
+ const auto topology=NativeLampContinuity::topology(g);if(topology.empty())return exact;
+ const auto key=topology+':'+std::to_string(g.vertex_count)+':'+std::to_string(g.primitive_count);
+ if(exact!=UINT_MAX){auto [it,inserted]=learned.try_emplace(key,exact);if(!inserted&&it->second!=exact)it->second=kAmbiguous;return exact;}
+ const auto it=learned.find(key);return it==learned.end()||it->second==kAmbiguous?UINT_MAX:it->second;
+}catch(...){return exact;}}
 }

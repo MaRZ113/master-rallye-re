@@ -71,18 +71,22 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
     if(g&&expanded&&g->primitive_count==6&&g->vertex_count==10&&hash==xtrail_off.geometry_sha&&position_uv_corner_sha(*g)==kXtrailLampOffPositionUv)material=&xtrail_off;
     static constexpr ReflectionMaterial kia_off={"KiaSportage","36c7ae35f499923af99bc317cb0402b183d9d24e162a4d2918c9981322d03f54",12,20,true};
     if(g&&expanded&&g->primitive_count==12&&g->vertex_count==20&&hash==kia_off.geometry_sha&&position_uv_corner_sha(*g)=="559102637af617f9ccbe2c9c6025d5c07189bf580d046a436c7b30317abd2edb")material=&kia_off;
+    // REFLECT-ADDON1: no exact table entry, but the native side proved a registered paint body of this family.
+    static thread_local ReflectionMaterial painted{};
+    if(!material&&s.paint_family&&g){painted={s.paint_family,"",g->primitive_count,g->vertex_count,false};material=&painted;}
     if(material)result.vehicle=material->vehicle;
     if (!g || !g->supported_build) result.reason = "unsupported_build";
     else if (!g->device_id || g->reset_generation != reset_generation) result.reason = "stale_device_or_reset";
     else if (!g->complete_mirror_coverage || !g->vertex_resource || !g->index_resource ||
              !g->vertex_generation || !g->index_generation || !g->vertex_revision || !g->index_revision)
         result.reason = "missing_current_upload_or_resource_identity";
-    else if (g->primitive_type != D3DPT_TRIANGLELIST || !reflection_layout(g->primitive_count,g->vertex_count,expanded) ||
+    else if (g->primitive_type != D3DPT_TRIANGLELIST || (material!=&painted && !reflection_layout(g->primitive_count,g->vertex_count,expanded)) ||
+             (material==&painted && (!g->vertex_count || g->vertex_count > 8192 || !g->primitive_count || g->primitive_count > 8192)) ||
              g->fvf != 0x152 || g->stride != 36) result.reason = "wrong_geometry_layout";
     else if (!material) result.reason = "tata_bonnet_geometry_mismatch";
     else if (material->mode4_only && s.requested_mode!=4) result.reason="coverage_fix_mode4_only";
     else if (!s.live_race_verified || !s.race_generation || !s.owner_lifetime) result.reason = "live_race_owner_unverified";
-    else if (!s.vehicle_body_verified && !(s.source_material_context_verified &&
+    else if (!s.vehicle_body_verified && material!=&painted && !(s.source_material_context_verified &&
         affected_source_material_vehicle(material->vehicle))) result.reason = "vehicle_body_unverified";
     else if (!s.stock_coordinate_policy) result.reason = "conflicting_viewdependent2d_policy";
     else if (!s.native_states_complete || !s.native_matches_effective || !s.texture_matrix_known)
@@ -98,7 +102,7 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
     else { result.accepted = true; result.vehicle=material->vehicle;
         result.source_material_authority=!s.vehicle_body_verified;
         result.reason = material==&kReflectionMaterials[0]?"exact_tata_bonnet_native_opaque_environment_material":
-            "exact_verified_body_native_opaque_environment_material"; }
+            material==&painted?"registered_paint_native_opaque_environment_material":"exact_verified_body_native_opaque_environment_material"; }
     return result;
 }
 
@@ -263,6 +267,21 @@ ReflectionIdentity damage_compatible_identity(const ReflectionSnapshot& s,std::s
   if(result.accepted){result.reason="exact_unique_source_uv_topology_on_deformed_native_body";result.current_geometry_sha256=geometry;result.uv_topology_sha256=stable;}
  }return result;
 }
+const char* deformed_rejection(const char* reason) noexcept {
+    // Static strings only: the race ledger keys outcomes by pointer.
+    static constexpr const char* kKnown[][2]={
+        {"live_race_owner_unverified","deformed_live_race_owner_unverified"},
+        {"conflicting_viewdependent2d_policy","deformed_conflicting_viewdependent2d_policy"},
+        {"native_state_unknown_or_diverged","deformed_native_state_unknown_or_diverged"},
+        {"missing_current_texture_identity","deformed_missing_current_texture_identity"},
+        {"not_opaque_native_body","deformed_not_opaque_native_body"},
+        {"native_material_stage_mismatch","deformed_native_material_stage_mismatch"},
+        {"vehicle_body_unverified","deformed_vehicle_body_unverified"},
+        {"stale_device_or_reset","deformed_stale_device_or_reset"},
+        {"missing_current_upload_or_resource_identity","deformed_missing_current_upload_or_resource_identity"}};
+    for(const auto& k:kKnown)if(reason&&!std::strcmp(reason,k[0]))return k[1];
+    return "deformed_learned_identity_rejected";
+}
 ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64_t generation) noexcept {
     perf::Timer perf_timer(perf::ReflectionClassify);
     try {
@@ -280,23 +299,43 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
             entry=&geometry_cache_[next_cache_++ % geometry_cache_.size()];
             *entry={key,digest,stable,true};
         }
-        auto result=damage_compatible_identity(s,entry->digest,entry->stable,generation,expanded_);
-        const std::array<uint64_t,13> layout={g.device_id,g.reset_generation,g.vertex_resource,g.index_resource,
-            g.vertex_generation,g.index_generation,g.start_index,g.base_vertex,g.min_index,g.vertex_count,
-            g.index_format,g.vertex_byte_offset,g.primitive_count};
+        auto result=identity_?identity_(s,entry->digest,generation,expanded_):damage_compatible_identity(s,entry->digest,entry->stable,generation,expanded_);
         const auto stable_now=[&]()->const std::string&{if(entry->stable.empty())entry->stable=damage_uv_topology_sha(g);return entry->stable;};
-        if(result.accepted&&result.current_geometry_sha256.empty()&&s.vehicle_body_verified){
-            bool known=false;for(const auto& body:learned_)if(body.valid&&body.key==layout){known=true;break;}
-            if(!known&&!stable_now().empty())learned_[next_learned_++ % learned_.size()]={layout,entry->digest,entry->stable,true};
-        }else if(!result.accepted&&s.requested_mode==4&&s.vehicle_body_verified){
-            for(const auto& body:learned_){
-                if(!body.valid||body.key!=layout||body.digest==entry->digest)continue;
-                if(stable_now().empty()||stable_now()!=body.stable)break;
-                auto learned=reflection_identity_for_hash(s,body.digest,generation,expanded_);
-                if(learned.accepted){++learned_matches_;learned.reason="learned_uv_topology_on_deformed_body";
-                    learned.current_geometry_sha256=entry->digest;learned.uv_topology_sha256=entry->stable;result=learned;}
-                break;
+        // REFLECT-DAMAGE2: learn every body accepted on its exact healthy digest, whichever authority proved it.
+        if(result.accepted&&result.current_geometry_sha256.empty()){
+            if(!stable_now().empty()){
+                auto [it,inserted]=learned_.try_emplace(entry->stable);
+                auto& body=it->second;
+                if(inserted)body={entry->digest,result.vehicle,g.primitive_count,g.vertex_count,s.vehicle_body_verified,false};
+                else if(body.digest!=entry->digest||body.triangles!=g.primitive_count||body.vertices!=g.vertex_count)body.ambiguous=true;
+                else if(s.vehicle_body_verified)body.body_verified=true;
             }
+        }else if(!result.accepted&&s.requested_mode==4&&!learned_.empty()&&!stable_now().empty()){
+            const auto found=learned_.find(entry->stable);
+            if(found!=learned_.end()&&found->second.triangles==g.primitive_count&&found->second.vertices==g.vertex_count){
+                const auto& body=found->second;
+                const bool deformed=body.digest!=entry->digest;
+                if(body.ambiguous){if(deformed){result.vehicle=body.vehicle;result.reason="deformed_ambiguous_uv_topology";}}
+                else{
+                    // The same part mesh (UVs + index topology) was proved healthy before. The baseline vehicle
+                    // classifier is content based and loses deformed cars, so that proof stands in for it; every other
+                    // admission rule (live race, native states, textures, opaque env material stages) still applies.
+                    auto proved=s;
+                    if(body.body_verified)proved.vehicle_body_verified=true;else proved.source_material_context_verified=true;
+                    auto learned=(identity_?identity_:reflection_identity_for_hash)(proved,body.digest,generation,expanded_);
+                    if(learned.accepted){++learned_matches_;
+                        learned.source_material_authority=!body.body_verified;
+                        if(deformed){learned.reason="learned_uv_topology_on_deformed_body";
+                            learned.current_geometry_sha256=entry->digest;learned.uv_topology_sha256=entry->stable;}
+                        else learned.reason="learned_body_proof_while_classifier_lost_body";
+                        result=learned;
+                    }else if(deformed){result.vehicle=body.vehicle;result.reason=deformed_rejection(learned.reason);}
+                }
+            }
+            // Ledger visibility: a body-verified draw on a registered layout with an unknown digest whose UV/index
+            // topology was never seen healthy (or changed with the damage).
+            if(!result.accepted&&!std::strcmp(result.vehicle,"UNKNOWN")&&s.vehicle_body_verified&&!entry->digest.empty()){
+                result.vehicle="VEHICLE_BODY";result.reason="deformed_or_unregistered_no_learned_topology";}
         }
         return result;
     } catch (...) { ReflectionIdentity result;result.reason="geometry_evaluation_failed";return result; }
@@ -305,7 +344,7 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
 std::string ReflectionPilot::status_json() const {
     size_t geometry = 0, learned = 0;
     for (const auto& e : geometry_cache_) if (e.valid) ++geometry;
-    for (const auto& e : learned_) if (e.valid) ++learned;
+    learned = learned_.size();
     const auto& c = capture_.counters();
     const auto& d = capture_.decision();
     return std::string("{\"requested\":") + (requested() ? "true" : "false") + ",\"active\":" + (active() ? "true" : "false") +

@@ -1,7 +1,10 @@
 #pragma once
 #include "atmosphere_body_common.hpp"
 #include "atmosphere_body_binding.hpp"
+#include "reflection_pilot.hpp"
+#include "reflection_paint_authority.hpp"
 #include <unordered_map>
+#include <set>
 namespace gfx2::atmospherebody {
 // Capture before private body uploads/emissive changes. Switch nodes may precede
 // their parent's verified draw: owner resolution happens once at before-UI.
@@ -386,9 +389,26 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
 }
 // PERF-ATMO2: relit copies of body draws whose source vertices, WORLD (and VIEW
 // for the rim term) and lighting are unchanged (stationary cars, menus, the
-// start grid). A hit requires byte-equal source bytes, so it is exact.
-struct BodyShadeEntry {uintptr_t stream=0;UINT min=0,vertices=0;DWORD fvf=0,stage=0;uint32_t role=0;uint64_t lighting=0;bool rim=false;D3DMATRIX world{},view{};std::vector<uint8_t> source,out;uint64_t changed=0;};
-struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0;};
+// start grid). A hit requires byte-equal source bytes.
+// PERF-ATMO3 (2026-11-12): the relight depends only on the body ROTATION (directional sun/ambient: world normals) and,
+// for the rim term, on the camera position in the body's own space. A moving car with a chase camera keeps both nearly
+// constant, so the hit test is rotation within kBodyShadeRotationTolerance and object-space camera within 2 % of its
+// distance, against the pose the entry was shaded at (no drift accumulates). Translation alone never invalidates.
+constexpr float kBodyShadeRotationTolerance=.008f;   // max |dR| element, about 0.45 degree (Lambert change <= ~2/255)
+struct BodyShadeEntry {uintptr_t stream=0;UINT min=0,vertices=0;DWORD fvf=0,stage=0;uint32_t role=0;uint64_t lighting=0;bool rim=false;D3DMATRIX world{},view{};std::array<float,3> camera_local{};std::vector<uint8_t> source,out;uint64_t changed=0;};
+// Camera position in the body's object space (rows 0..2 of WORLD are the model axes, row 3 the translation).
+inline bool body_camera_local(const D3DMATRIX& world,const D3DMATRIX& view,std::array<float,3>& out)noexcept{
+    std::array<float,16> vm{};std::memcpy(vm.data(),&view,64);std::array<float,3> eye{};if(!atmosphere::rigid_camera_position(vm,eye))return false;
+    const float d[3]{eye[0]-world._41,eye[1]-world._42,eye[2]-world._43};const float* r[3]{&world._11,&world._21,&world._31};
+    for(unsigned i=0;i<3;++i){const float l2=r[i][0]*r[i][0]+r[i][1]*r[i][1]+r[i][2]*r[i][2];if(!(l2>1e-12f))return false;out[i]=(d[0]*r[i][0]+d[1]*r[i][1]+d[2]*r[i][2])/l2;}
+    return std::isfinite(out[0]+out[1]+out[2]);}
+inline bool body_pose_close(const BodyShadeEntry& e,const D3DMATRIX& world,bool rim,const std::array<float,3>& camera_local)noexcept{
+    const float* a=&e.world._11;const float* b=&world._11;
+    for(unsigned r=0;r<3;++r)for(unsigned c=0;c<3;++c)if(std::fabs(a[r*4+c]-b[r*4+c])>kBodyShadeRotationTolerance)return false;
+    if(!rim)return true;
+    float dd=0,ll=0;for(unsigned i=0;i<3;++i){const float x=camera_local[i]-e.camera_local[i];dd+=x*x;ll+=e.camera_local[i]*e.camera_local[i];}
+    return dd<=ll*4e-4f;}
+struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0,log_at=0;};
 inline BodyShadeCache& body_shade_cache()noexcept{static BodyShadeCache c;return c;}
 // Every Lighting field the body colour reads (regional atmospheres change it without an INI reload).
 inline uint64_t lighting_key(const atmosphere::Lighting& s)noexcept{
@@ -408,11 +428,15 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     auto reject=[&](const char* why){if(!p->pending.any())p->pending.release();if(p->body_debug&&d.trace.control.active&&p->first_reason(why))atmosphereintegration::log(d,why);return S_OK;};
     DWORD fvf=0,pixel=1;
     if(FAILED(n.GetVertexShader(&fvf))||(fvf!=0x152&&fvf!=0x142&&fvf!=0x112)||FAILED(n.GetPixelShader(&pixel))||pixel||
-       !groundintegration::render(d,n,D3DRS_LIGHTING,FALSE)||!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)||!groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,FALSE)||
+       !groundintegration::render(d,n,D3DRS_LIGHTING,FALSE)||!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)||
        !groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||!groundintegration::render(d,n,D3DRS_ZWRITEENABLE,TRUE)||
        !groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG2,D3DTA_DIFFUSE)||
        !groundintegration::stage(d,n,0,D3DTSS_RESULTARG,D3DTA_CURRENT)||!groundintegration::stage(d,n,2,D3DTSS_COLOROP,D3DTOP_DISABLE)||
        !groundintegration::render(d,n,D3DRS_VERTEXBLEND,D3DVBF_DISABLE)||!groundintegration::render(d,n,D3DRS_INDEXEDVERTEXBLENDENABLE,FALSE))return S_OK;
+    // G1.5 (owner review 5): imported GT4 bodies cut panel shapes with alpha test (Lancer Evo IV: 9 paint materials). They
+    // stayed native-bright, so their grime looked too light. Alpha-tested opaque draws are now relit RGB-only for body
+    // roles: vertex alpha is never changed for them (the night env weight below would move the test threshold).
+    DWORD alpha_test=FALSE;if(FAILED(n.GetRenderState(D3DRS_ALPHATESTENABLE,&alpha_test)))return S_OK;
     DWORD stage_op=0;if(FAILED(n.GetTextureStageState(1,D3DTSS_COLOROP,&stage_op)))return S_OK;
     const bool flat=stage_op==D3DTOP_DISABLE;
     if(!flat&&((fvf!=0x152&&fvf!=0x112)||(stage_op!=D3DTOP_ADD&&stage_op!=D3DTOP_MODULATEALPHA_ADDCOLOR)||
@@ -434,12 +458,16 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     const auto family=resource.substr(9,slash-9);p->body_capabilities.load(p->body_path);
     const auto* capability=p->body_capabilities.native_capability(family,binding.names[0],binding.names[1],part);
     if(!capability)return reject("body_material_not_authorized_surface");
+    if(alpha_test&&capability->role!=atmosphere::Paint&&capability->role!=atmosphere::OpaquePanel&&capability->role!=atmosphere::OpaqueTrim&&capability->role!=atmosphere::OpaqueFlat)
+        return reject("body_material_alpha_test_non_body_role");
     const bool implicit=fvf==0x112;
     if(implicit&&(!p->native_wheel_lighting||part!="wheel"||(capability->role!=atmosphere::WheelRubber&&capability->role!=atmosphere::WheelMetal)||flat||!groundintegration::stage(d,n,3,D3DTSS_COLOROP,D3DTOP_DISABLE)))return reject("body_implicit_diffuse_not_certified_wheel");
     if(!p->body_capabilities.extended&&flat!=(capability->role==atmosphere::OpaqueFlat))return reject("body_material_flat_role_pass_mismatch");
     courseintegration::Ref<IDirect3DBaseTexture8> texture;
     if(FAILED(n.GetTexture(0,&texture.p))||reinterpret_cast<uintptr_t>(texture.p)!=binding.textures[0]||!d.trace.resources.generation(binding.textures[0]))return reject("body_material_live_texture_mismatch");
-    if(p->pending.any())return D3DERR_DEVICELOST;
+    // R-SURFACE1 G1.3: another Atmosphere route already changed this draw (the course resolver had taken the Lancer Evo IV
+    // tread for a course tyre stack). Returning an error here made the wrapper skip the draw: the tread was invisible.
+    if(p->pending.any())return reject("body_material_draw_owned_by_other_route");
     stage(ps2port::perf::AtmoBodyOwner);
     const bool normals=fvf==0x152;const unsigned stride=implicit?32u:normals?36u:24u;atmosphereintegration::Geometry g;if(!atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)||p->pending.stride!=stride)return reject("body_material_current_mirror_missing");
     ps2port::RaceDescriptors desc;uintptr_t vb=0,ib=0;
@@ -453,10 +481,11 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     auto& cache=body_shade_cache();if(cache.race!=cert.race_generation){cache.entries.clear();cache.race=cert.race_generation;}
     const uint64_t cache_key=(uint64_t(reinterpret_cast<uintptr_t>(p->pending.stream))*0x9E3779B97F4A7C15ull)^(uint64_t(min)<<40)^(uint64_t(vertices)<<20)^(uint64_t(fvf)<<8)^capability->role;
     BodyShadeEntry* cached=nullptr;const uint64_t light_key=lighting_key(p->lighting);
+    std::array<float,3> camera_local{};const bool rim_pose=have_view&&body_camera_local(world,view,camera_local);
     if(!implicit){auto it=cache.entries.find(cache_key);
         if(it!=cache.entries.end()){auto& e=it->second;
             if(e.stream==reinterpret_cast<uintptr_t>(p->pending.stream)&&e.min==min&&e.vertices==vertices&&e.fvf==fvf&&e.stage==stage_op&&e.role==capability->role&&e.lighting==light_key&&
-               e.rim==have_view&&!std::memcmp(&e.world,&world,64)&&(!have_view||!std::memcmp(&e.view,&view,64))&&e.source==g.bytes)cached=&e;}}
+               e.rim==have_view&&(have_view==rim_pose)&&body_pose_close(e,world,rim_pose,camera_local)&&e.source==g.bytes)cached=&e;}}
     if(cached){g.bytes=cached->out;changed=cached->changed;++cache.hits;}
     else if(implicit){const auto hr=atmosphere::native_wheel_energy(*p,n,[&](uint32_t slot,const Args& a,HRESULT h){atmosphereintegration::notify(d,slot,a,h);});
         if(hr!=S_OK)return FAILED(hr)?hr:reject("body_wheel_energy_unsupported");changed=vertices;}
@@ -467,16 +496,36 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     // current.alpha * env). With blending and alpha test off (checked above)
     // vertex alpha only weights the reflection, so it carries the night
     // environment energy (same factor as static reflections). Day unchanged.
-    if(normals&&!flat&&stage_op==D3DTOP_MODULATEALPHA_ADDCOLOR&&p->lighting.ambient_strength<.5f){
+    if(normals&&!flat&&!alpha_test&&stage_op==D3DTOP_MODULATEALPHA_ADDCOLOR&&p->lighting.ambient_strength<.5f){
         const float k=float((atmosphere::world_environment_factor(p->lighting)>>8)&255)/255;
         for(size_t at=27;at<g.bytes.size();at+=36)g.bytes[at]=uint8_t(std::lround(float(g.bytes[at])*k));}
     ++cache.misses;if(cache.entries.size()>=1024)cache.entries.clear();
     auto& e=cache.entries[cache_key];e.stream=reinterpret_cast<uintptr_t>(p->pending.stream);e.min=min;e.vertices=vertices;e.fvf=fvf;e.stage=stage_op;e.role=capability->role;
-    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
+    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.camera_local=camera_local;e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
     stage(ps2port::perf::AtmoBodyShade);
+    if(const auto now=GetTickCount64();now-cache.log_at>10000){if(cache.log_at)try{session().write("{\"type\":\"atmosphere_body_shade_cache\",\"hits\":"+std::to_string(cache.hits)+",\"misses\":"+std::to_string(cache.misses)+",\"entries\":"+std::to_string(cache.entries.size())+"}");}catch(...){}cache.log_at=now;cache.hits=cache.misses=0;}
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
     if(FAILED(environment_exposure(d,*p)))return atmosphereintegration::repair(d);
     applied=true;p->body_vertices+=changed;
+    // R-SURFACE1 G1: the grime pass covers paint, panels, trim, flat underbody and wheel covers of car bodies (never glass,
+    // lamps, wheels, interior or crew).
+    // G1.1: crew and cabin interior never (registry roles call suits/heads "flat" and seats "paint"); wheels and tyres get a
+    // uniform layer in wheel-local space.
+    // G1.3: every car-resource draw (crew and interior included) feeds the model's shell; the candidate keeps only the
+    // exterior triangles (vehicle_grime_shell.hpp). Wheel resources are never culled.
+    if(grimeintegration::overlay_active()){
+        const grimeintegration::Filter* gf=nullptr;
+        if(part=="car"){grimeintegration::remember_car(d.trace.frame_number(),owner.owner.instance,world,family);
+            gf=grimeintegration::shell_filter(d,cert.race_generation,grimeintegration::draw_key(p->pending.stream,p->pending.indices,p->pending.base,min,vertices,start,count),family,&g.bytes,stride,&g.indices,min,grimeoverlay::cabin_marker(binding.names[0]));}
+        if(!grimeoverlay::crew_or_interior(binding.names[0])){
+            // G2.2: metal of the car resource (bull bars, bumpers, racks) is body, not a rim (it got the faint rim layer).
+            const auto role=capability->role;const bool tyre=role==atmosphere::WheelRubber,rim=role==atmosphere::WheelMetal&&part=="wheel";
+            if(tyre||rim)   // wheel resource (wheel-local) or tyres/rims modelled inside the car resource (imported cars)
+                grimeintegration::note_body(d,owner.owner.instance,world,min,vertices,start,count,g.bytes,stride,cert.race_generation,tyre?grimeoverlay::Wheel:grimeoverlay::Rim,gf);
+            else if(part=="car"&&!implicit&&(role==atmosphere::Paint||role==atmosphere::OpaquePanel||role==atmosphere::OpaqueTrim||role==atmosphere::OpaqueFlat||role==atmosphere::OpaqueCover||role==atmosphere::WheelMetal))
+                grimeintegration::note_body(d,owner.owner.instance,world,min,vertices,start,count,g.bytes,stride,cert.race_generation,alpha_test?grimeoverlay::Decal:grimeoverlay::Body,gf);   // cut-outs stay holes
+        }
+    }
     // 6.7: this body draw receives the other cars' headlights (sun_world pass).
     if(p->headlight_style.enabled&&p->lighting.ambient_strength<.5f&&!implicit){const unsigned st=normals?36u:24u;std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
         for(size_t at=0;at+12<=g.bytes.size();at+=st){float v3[3];std::memcpy(v3,g.bytes.data()+at,12);for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v3[k]);hi[k]=std::max(hi[k],v3[k]);}}
@@ -484,7 +533,144 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
             const float bx=(lo[0]+hi[0])*.5f,by=(lo[1]+hi[1])*.5f,bz=(lo[2]+hi[2])*.5f;c.centre={bx*world._11+by*world._21+bz*world._31+world._41,bx*world._12+by*world._22+bz*world._32+world._42,bx*world._13+by*world._23+bz*world._33+world._43};
             c.radius=.5f*std::sqrt((hi[0]-lo[0])*(hi[0]-lo[0])+(hi[1]-lo[1])*(hi[1]-lo[1])+(hi[2]-lo[2])*(hi[2]-lo[2]))*std::max({std::hypot(world._11,world._12,world._13),std::hypot(world._21,world._22,world._23),std::hypot(world._31,world._32,world._33)});}}
     if(!debug_original.empty())debug_sample(d,*p,"native_owner_material",family,debug_original.data(),g.bytes.data(),vertices,world);
-    if(p->first_reason(("body_native_"+family+part+binding.names[0]).c_str()))session().write("{\"type\":\"atmosphere_body_material\",\"route\":\"native_owner_material\",\"family\":"+quote(family)+",\"primary\":"+quote(binding.names[0])+",\"secondary\":"+quote(binding.names[1])+",\"resource\":"+quote(part)+",\"metadata_payload_sha256\":"+quote(p->body_capabilities.payload_sha)+",\"surface_role\":"+quote(std::string(atmosphere::body_role_name(capability->role)))+",\"private_damage_tree\":"+(owner.owner.private_tree?"true":"false")+",\"geometry_hash_required\":false,\"changed_vertices\":"+std::to_string(changed)+",\"shared_buffer_mutated\":false,\"reflection_uv_changed\":false,\"environment_exposure_requested\":false,\"frame\":"+std::to_string(d.trace.frame_number())+"}");
+    if(p->first_reason(("body_native_"+family+part+binding.names[0]).c_str()))session().write("{\"type\":\"atmosphere_body_material\",\"route\":\"native_owner_material\",\"family\":"+quote(family)+",\"primary\":"+quote(binding.names[0])+",\"secondary\":"+quote(binding.names[1])+",\"resource\":"+quote(part)+",\"capability_source\":"+quote(std::string(p->body_capabilities.registered(family)?"registry":"addon_naming_contract"))+",\"metadata_payload_sha256\":"+quote(p->body_capabilities.payload_sha)+",\"surface_role\":"+quote(std::string(atmosphere::body_role_name(capability->role)))+",\"private_damage_tree\":"+(owner.owner.private_tree?"true":"false")+",\"geometry_hash_required\":false,\"changed_vertices\":"+std::to_string(changed)+",\"shared_buffer_mutated\":false,\"reflection_uv_changed\":false,\"environment_exposure_requested\":false,\"frame\":"+std::to_string(d.trace.frame_number())+"}");
     return S_OK;
+}
+// REFLECT-ADDON1: registered paint authority for the PS2 reflection (reflection_paint_authority.hpp). A body draw of
+// vehicles/<family>/car whose BodyMaterials role is paint, for families without an exact kReflectionMaterials entry
+// (retail cars keep their PS2-verified carshiny groups). Answers are remembered per race and draw.
+inline const char* registered_paint_authority(void* device,UINT min,UINT vertices,UINT start,UINT count)noexcept{
+    try{
+        auto& d=*static_cast<Device8*>(device);auto* p=atmosphereintegration::pilot(d);
+        if(!p||!vertices||vertices>8192||!count||count>8192||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id())return nullptr;
+        const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr)),pc=exe+0x17707e;
+        bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return nullptr;
+        if(!atmosphereintegration::vehicle_draw_probe||!atmosphereintegration::vehicle_draw_probe(d,pc,min,vertices,start,count,cert.race_generation))return nullptr;
+        auto& n=*d.native();IDirect3DVertexBuffer8* vb=nullptr;IDirect3DIndexBuffer8* ib=nullptr;UINT stride=0,base=0;n.GetStreamSource(0,&vb,&stride);n.GetIndices(&ib,&base);
+        const auto key=grimeintegration::draw_key(vb,ib,base,min,vertices,start,count);if(vb)vb->Release();if(ib)ib->Release();
+        struct Memo{uint64_t race=UINT64_MAX;std::unordered_map<uint64_t,const char*> known;};static Memo memo;static std::set<std::string> names;
+        if(memo.race!=cert.race_generation){memo.known.clear();memo.race=cert.race_generation;}
+        if(const auto it=memo.known.find(key);it!=memo.known.end())return it->second;
+        const char* answer=nullptr;
+        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;uint32_t name_id=0;std::string resource;
+        if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)&&atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding)&&
+           frontendmodelintegration::word(owner.owner.packet+0xc,name_id)&&atmosphere::native_name(exe,name_id,frontendmodelintegration::word,resource)){
+            for(auto& c:resource){c=char(std::tolower(static_cast<unsigned char>(c)));if(c=='\\')c='/';}
+            const auto slash=resource.find('/',9);
+            if(resource.rfind("vehicles/",0)==0&&slash!=std::string::npos&&resource.substr(slash+1)=="car"){
+                const auto family=resource.substr(9,slash-9);bool table=false;
+                for(const auto& m:ps2port::kReflectionMaterials){std::string v=m.vehicle;for(auto& c:v)c=char(std::tolower(static_cast<unsigned char>(c)));if(v==family){table=true;break;}}
+                p->body_capabilities.load(p->body_path);
+                const auto* capability=table?nullptr:p->body_capabilities.native_capability(family,binding.names[0],binding.names[1],"car");
+                if(capability&&capability->role==atmosphere::Paint&&!grimeoverlay::crew_or_interior(binding.names[0]))answer=names.insert(family).first->c_str();
+            }
+        }
+        if(memo.known.size()>65536)memo.known.clear();memo.known.emplace(key,answer);
+        if(answer&&p->first_reason(("reflect_addon_"+std::string(answer)).c_str()))session().write("{\"type\":\"ps2_reflection_addon_family\",\"family\":"+quote(std::string(answer))+"}");
+        return answer;
+    }catch(...){return nullptr;}
+}
+inline const bool registered_paint_authority_installed=(ps2integration::paint_authority_hook=&registered_paint_authority,true);
+// R-SURFACE1 G1.3: a car draw under a $switch node (the blight-off brake lens that the PS2 glow is built on, windows): the
+// owner walk does not reach it, but the game draws it with its car's WORLD. Matched against the cars drawn earlier this
+// frame. Opaque -> Lamp, alpha-tested -> Decal (masked), SRCALPHA glass with the env stage -> Glass; plain blended cards
+// (glow layers) never. Returns false when no car matched (the caller memoises the draw after 30 such frames).
+inline bool grime_switch_part(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,UINT min,UINT vertices,UINT start,UINT count,DWORD blend,DWORD test,DWORD fvf,uint64_t race,uint64_t key)noexcept{
+    try{
+        D3DMATRIX world{};if(FAILED(n.GetTransform(D3DTS_WORLD,&world)))return false;
+        const auto frame=d.trace.frame_number();const auto* car=grimeintegration::match_car(frame,world);if(!car)return false;
+        const uintptr_t instance=car->instance;const std::string family=car->family;
+        int kind=-1;
+        if(blend){DWORD src=0,dst=0,op1=D3DTOP_DISABLE;n.GetRenderState(D3DRS_SRCBLEND,&src);n.GetRenderState(D3DRS_DESTBLEND,&dst);n.GetTextureStageState(1,D3DTSS_COLOROP,&op1);
+            if(src==D3DBLEND_SRCALPHA&&dst==D3DBLEND_INVSRCALPHA&&op1!=D3DTOP_DISABLE&&fvf==0x152)kind=grimeoverlay::Glass;}
+        else kind=test?grimeoverlay::Decal:grimeoverlay::Lamp;
+        auto& o=grimeintegration::overlay();
+        if(o.census){const uint64_t ck=0x5157ull^(key*31)^(uint64_t(blend)<<1)^(uint64_t(test)<<2);
+            if(o.censused.size()<4096&&o.censused.insert(ck).second)session().write("{\"type\":\"grime_census\",\"family\":"+quote(family)+",\"part\":\"switch\",\"blend\":"+std::to_string(blend)+
+                ",\"test\":"+std::to_string(test)+",\"fvf\":"+std::to_string(fvf)+",\"vertices\":"+std::to_string(vertices)+",\"triangles\":"+std::to_string(count)+",\"kind\":"+std::to_string(kind)+"}");}
+        if(kind<0)return true;   // glow cards: no grime, and never an occluder of the shell
+        IDirect3DVertexBuffer8* vb=nullptr;IDirect3DIndexBuffer8* ib=nullptr;UINT vstride=0,base=0;n.GetStreamSource(0,&vb,&vstride);n.GetIndices(&ib,&base);
+        const auto fkey=grimeintegration::draw_key(vb,ib,base,min,vertices,start,count);if(vb)vb->Release();if(ib)ib->Release();
+        const auto* gf=grimeintegration::shell_filter(d,race,fkey,family,nullptr,0,nullptr,min);
+        if(!gf&&!p.pending.any()){atmosphereintegration::Geometry g;const bool ok=atmosphereintegration::geometry(d,p,min,vertices,start,count,g);const unsigned stride=p.pending.stride;
+            if(!p.pending.any())p.pending.release();if(ok&&stride>=12)gf=grimeintegration::shell_filter(d,race,fkey,family,&g.bytes,stride,&g.indices,min);}
+        if(!gf)return true;
+        const auto before=o.cand.frame;
+        grimeintegration::note_part(d,instance,world,min,vertices,start,count,unsigned(kind),race,gf);
+        if(o.cand.frame!=before)++o.switch_draws;
+        return true;
+    }catch(...){return true;}
+}
+// R-SURFACE1 G1.2: every car draw that the opaque body route did not accept: opaque lamps/logos/stickers (registry role
+// "native"), blended and alpha-tested glass/lamps/grilles/decals, rims with a paint env, and whole bodies the route rejected
+// by state (imported cars). Records a grime candidate only; car-local bounds are read once per draw from the buffer shadow.
+// VehicleGrime.ini Census=1 logs every (family, part, texture pair, state) once with the decision.
+inline void grime_blended(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+    try{
+        if(!grimeintegration::overlay_active()||type!=D3DPT_TRIANGLELIST||!vertices||!count||pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||
+           !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return;
+        auto* p=atmosphereintegration::pilot(d);if(!p||!p->enabled()||p->pending.any())return;
+        auto& n=*d.native();DWORD blend=FALSE,test=FALSE,dest=0,fvf=0;
+        if(FAILED(n.GetRenderState(D3DRS_ALPHABLENDENABLE,&blend))||FAILED(n.GetRenderState(D3DRS_ALPHATESTENABLE,&test))||FAILED(n.GetVertexShader(&fvf)))return;
+        if(blend&&(FAILED(n.GetRenderState(D3DRS_DESTBLEND,&dest))||dest==D3DBLEND_ONE))return;   // additive glow: never
+        bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
+        // PERF: most draws at this return address are course draws. Draws that proved not to be a car (static VB/IB/range)
+        // are remembered per race, so the owner stack walk runs once per such draw instead of every frame.
+        auto& og=grimeintegration::overlay();if(og.not_car_race!=cert.race_generation){og.not_car.clear();og.not_car_race=cert.race_generation;}
+        uint64_t draw_key=0;{IDirect3DVertexBuffer8* vb=nullptr;IDirect3DIndexBuffer8* ib=nullptr;UINT vstride=0,base=0;
+            if(SUCCEEDED(n.GetStreamSource(0,&vb,&vstride))&&vb){draw_key^=uint64_t(reinterpret_cast<uintptr_t>(vb))*0x9E3779B97F4A7C15ull;vb->Release();}
+            if(SUCCEEDED(n.GetIndices(&ib,&base))&&ib){draw_key^=(uint64_t(reinterpret_cast<uintptr_t>(ib))*0xC2B2AE3D27D4EB4Full)^base;ib->Release();}
+            draw_key^=(uint64_t(min)<<44)^(uint64_t(vertices)<<24)^(uint64_t(start)<<4)^count;}
+        if(og.not_car.count(draw_key))return;
+        auto not_car=[&]{if(og.not_car.size()>65536)og.not_car.clear();og.not_car.insert(draw_key);};
+        frontendmodelintegration::Context owner;if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
+            // G1.3: draws under $switch nodes (blight-off brake lens, windows) have no owner but the car's exact WORLD.
+            if(!grime_switch_part(d,*p,n,min,vertices,start,count,blend,test,fvf,cert.race_generation,draw_key)){auto& miss=og.switch_miss[draw_key];if(++miss>=30){og.switch_miss.erase(draw_key);not_car();}}
+            return;}
+        D3DMATRIX world{};if(FAILED(n.GetTransform(D3DTS_WORLD,&world))||!frontendmodelintegration::fleet_owner_world(owner,world))return;
+        const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));atmosphere::NativeMaterialBinding binding;
+        if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return;
+        uint32_t name_id=0;std::string resource;
+        if(!frontendmodelintegration::word(owner.owner.packet+0xc,name_id)||!atmosphere::native_name(exe,name_id,frontendmodelintegration::word,resource))return;
+        for(auto& c:resource){c=char(std::tolower(static_cast<unsigned char>(c)));if(c=='\\')c='/';}
+        const auto slash=resource.find('/',9);if(resource.rfind("vehicles/",0)!=0||slash==std::string::npos){not_car();return;}
+        const auto part=resource.substr(slash+1),family=resource.substr(9,slash-9);if(part!="car"&&part!="wheel"){not_car();return;}
+        const auto& primary=binding.names[0];const auto& secondary=binding.names[1];
+        // Geometry is read at most once per draw and race (bounds, shell collection).
+        atmosphereintegration::Geometry g;unsigned stride=0;int have=-1;
+        auto read=[&]()->bool{if(have<0){const bool ok=atmosphereintegration::geometry(d,*p,min,vertices,start,count,g);stride=p->pending.stride;if(!p->pending.any())p->pending.release();have=ok&&stride>=12;}return have==1;};
+        const grimeintegration::Filter* gf=nullptr;
+        // Glow / flare / shadow cards are never occluders (a brake glow card in front of the lens would hide the lens).
+        if(part=="car"&&!grimeoverlay::has_any(primary,{"glow","flare","shadow"})){grimeintegration::remember_car(d.trace.frame_number(),owner.owner.instance,world,family);
+            IDirect3DVertexBuffer8* vb=nullptr;IDirect3DIndexBuffer8* ib=nullptr;UINT vstride=0,base=0;n.GetStreamSource(0,&vb,&vstride);n.GetIndices(&ib,&base);
+            const auto fkey=grimeintegration::draw_key(vb,ib,base,min,vertices,start,count);if(vb)vb->Release();if(ib)ib->Release();
+            gf=grimeintegration::shell_filter(d,cert.race_generation,fkey,family,nullptr,0,nullptr,min);
+            if(!gf&&read())gf=grimeintegration::shell_filter(d,cert.race_generation,fkey,family,&g.bytes,stride,&g.indices,min,grimeoverlay::cabin_marker(primary));}
+        p->body_capabilities.load(p->body_path);
+        const auto* capability=p->body_capabilities.native_capability(family,primary,secondary,part);
+        const uint32_t role=capability?capability->role:0;
+        int kind=-1;const char* why="";
+        if(grimeoverlay::crew_or_interior(primary)){why="crew_or_interior";}
+        else if(role==atmosphere::WheelRubber)kind=grimeoverlay::Wheel;
+        else if(part=="wheel")kind=grimeoverlay::Rim;   // rims, also with a paint env (imported wheels)
+        else if(!blend&&!test&&(role==atmosphere::Paint||role==atmosphere::OpaquePanel||role==atmosphere::OpaqueTrim||role==atmosphere::OpaqueFlat||role==atmosphere::OpaqueCover||role==atmosphere::WheelMetal))kind=grimeoverlay::Body;
+        else{kind=grimeoverlay::blended_kind(primary,secondary);if(kind<0)why="glow_or_excluded";}
+        auto& o=grimeintegration::overlay();
+        if(o.census){const uint64_t key=std::hash<std::string>{}(family+"|"+part+"|"+primary+"|"+secondary)^(uint64_t(blend)<<1)^(uint64_t(test)<<2)^(uint64_t(fvf)<<8);
+            if(o.censused.size()<4096&&o.censused.insert(key).second){DWORD lighting=0,op1=0;n.GetRenderState(D3DRS_LIGHTING,&lighting);n.GetTextureStageState(1,D3DTSS_COLOROP,&op1);
+                session().write("{\"type\":\"grime_census\",\"family\":"+quote(family)+",\"part\":"+quote(part)+",\"primary\":"+quote(primary)+",\"secondary\":"+quote(secondary)+
+                    ",\"role\":"+std::to_string(role)+",\"blend\":"+std::to_string(blend)+",\"test\":"+std::to_string(test)+",\"fvf\":"+std::to_string(fvf)+",\"lighting\":"+std::to_string(lighting)+
+                    ",\"stage1_op\":"+std::to_string(op1)+",\"vertices\":"+std::to_string(vertices)+",\"triangles\":"+std::to_string(count)+",\"kind\":"+std::to_string(kind)+",\"shell\":"+std::to_string(gf?int(gf->state):-1)+",\"skip\":"+quote(std::string(why))+"}");}}
+        if(kind<0)return;
+        // Car-local bounds: wheels always contribute their own; body-type draws contribute when the body route never saw this car.
+        const bool wheel=grimeoverlay::kind_wheel(unsigned(kind));
+        const bool need=wheel||kind==grimeoverlay::Body||o.bounds.find(owner.owner.instance)==o.bounds.end();
+        const uint64_t bkey=(uint64_t(owner.owner.instance)*0x9E3779B97F4A7C15ull)^(uint64_t(min)<<40)^(uint64_t(vertices)<<20)^start;
+        if(need&&(o.bounds_race!=cert.race_generation||!o.bounded.count(bkey))){
+            if(read()){if(o.bounded.size()>8192)o.bounded.clear();
+                grimeintegration::note_body(d,owner.owner.instance,world,min,vertices,start,count,g.bytes,stride,cert.race_generation,unsigned(kind),gf);o.bounded.insert(bkey);return;}
+        }
+        grimeintegration::note_part(d,owner.owner.instance,world,min,vertices,start,count,unsigned(kind),cert.race_generation,gf);
+    }catch(...){}
 }
 }

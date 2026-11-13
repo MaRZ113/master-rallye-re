@@ -9,6 +9,7 @@
 #include <cstring>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace gfx2::ps2port {
@@ -284,6 +285,10 @@ struct ReflectionSnapshot {
     // Independent source-material authority. Requires exact current geometry
     // digest in the explicit registry; does not assert a private physics owner.
     bool source_material_context_verified = false;
+    // REFLECT-ADDON1: registered paint authority (interned family name, or nullptr). A fleet-owned body draw of
+    // vehicles/<family>/car whose BodyMaterials role is paint, for families that have no exact entry in
+    // kReflectionMaterials (add-on and future cars). Stands in for the geometry table; every other rule still applies.
+    const char* paint_family = nullptr;
     bool stock_coordinate_policy = false, native_states_complete = false;
     bool native_matches_effective = false, texture_matrix_known = false;
     uint64_t race_generation = 0, owner_lifetime = 0;
@@ -317,6 +322,7 @@ std::string reflection_geometry_sha(const DrawSnapshot& geometry);
 const FleetOffLampProfile* fleet_off_lamp_identity_for_hash(const DrawSnapshot&,std::string_view)noexcept;
 ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot&, std::string_view, uint64_t reset_generation, bool expanded=false);
 ReflectionIdentity classify_reflection(const ReflectionSnapshot&, uint64_t reset_generation) noexcept;
+const char* deformed_rejection(const char* reason) noexcept;
 
 struct ReflectionRequest {
     bool requested = false;
@@ -417,18 +423,25 @@ class ReflectionPilot {
     };
     std::array<CachedGeometry,256> geometry_cache_{};
     size_t next_cache_=0;
-    // Bodies first accepted on their exact healthy geometry digest, keyed by resource lifetime and draw layout
-    // (not by content revision). A later revision of the same draw keeps the identity only when its UV set and
-    // index topology still equal the learned ones (in-game deformation moves positions/normals only).
+    // REFLECT-DAMAGE2: healthy body witnesses keyed by content that collision damage does not change: the UV set
+    // and the index topology (damage_uv_topology_sha) plus the draw counts. Not by VB/IB resource or offset: after
+    // collisions the game draws every car from re-created VB/IB (owner frame 1528: VB 624/IB 625 -> VB 674/IB
+    // 670/950), so a resource-keyed witness never matches a deformed part. Bounded by the registry (only exact
+    // registered digests are learned); a topology learned for two different digests is ambiguous and unusable.
     struct LearnedBody {
-        std::array<uint64_t,13> key{};
-        std::string digest, stable;
-        bool valid=false;
+        std::string digest;
+        const char* vehicle="UNKNOWN";
+        uint32_t triangles=0, vertices=0;
+        bool body_verified=false; // false: proved by exact source material + current native context
+        bool ambiguous=false;
     };
-    std::array<LearnedBody,128> learned_{};
-    size_t next_learned_=0;
+    std::unordered_map<std::string,LearnedBody> learned_;
     uint64_t learned_matches_=0;
     uint64_t geometry_evaluations_=0;
+public:
+    using IdentityFn=ReflectionIdentity(*)(const ReflectionSnapshot&,std::string_view,uint64_t,bool);
+private:
+    IdentityFn identity_=nullptr; // tests only: registry seam for synthetic geometry; null = the real registry
     bool damage_logged_=false;
     ReflectionMode mode_ = ReflectionMode::Stock;
     bool verified_asset_ = false, disabled_ = false, blocked_ = false, suspended_ = false;
@@ -461,6 +474,8 @@ public:
     ReflectionIdentity classify(const ReflectionSnapshot&, uint64_t reset_generation) noexcept;
     uint64_t geometry_evaluations() const noexcept { return geometry_evaluations_; }
     uint64_t learned_matches() const noexcept { return learned_matches_; }
+    size_t learned_bodies() const noexcept { return learned_.size(); }
+    void set_identity_for_tests(IdentityFn fn) noexcept { identity_=fn; }
     ReflectionRequest request(const ReflectionIdentity&, IDirect3DTexture8* mixed_texture = nullptr) const noexcept;
     IDirect3DTexture8* static_texture() const noexcept { return texture_.get(); }
     bool needs_mixed_source() const noexcept { return mode_ == ReflectionMode::TataBodyPS2MixedContribution; }

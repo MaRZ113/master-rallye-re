@@ -2,6 +2,9 @@
 // draw ledger, capture-timing decision, per-race ledger, disable log and the capped stream.
 #include "ps2_diag.hpp"
 #include "render_queue_order.hpp"
+#include "vehicle_grime.hpp"
+#include "vehicle_grime_overlay.hpp"
+#include "vehicle_grime_shell.hpp"
 #include <map>
 #include <algorithm>
 #include <cstdio>
@@ -386,10 +389,186 @@ void stream_tests() {
     CHECK(write_file(dir / "b" / "x.bin", std::vector<uint8_t>{1, 2, 3}) && std::filesystem::file_size(dir / "b" / "x.bin") == 3);
     std::filesystem::remove_all(dir, error);
 }
+// R-SURFACE1 G0: vehicle grime core (renderer/vehicle_grime.hpp).
+void grime_overlay_tests() {
+    using namespace gfx2::grimeoverlay;
+    // Threshold growth needs the coverage noise in [0,.5]; the detail stays around .5 for MODULATE2X.
+    unsigned amax = 0, gmin = 255, gmax = 0;
+    for (unsigned y = 0; y < 64; ++y) for (unsigned x = 0; x < 64; ++x) { const uint32_t t = atlas_texel(x * 4, y * 4, 256);
+        amax = std::max(amax, t >> 24); gmin = std::min(gmin, t & 255); gmax = std::max(gmax, t & 255); }
+    CHECK(amax <= 128 && amax > 90 && gmin >= 100 && gmax <= 160);
+    CHECK(atlas_texel(0, 5, 256) == atlas_texel(0, 5, 256));                                       // deterministic
+    CHECK(std::fabs(coverage_noise(0.f, .3f) - coverage_noise(1.f, .3f)) < 1e-4f);                 // tiles in u
+    // Zone caps: roof <= .2, upper <= .35, lower <= .9 (ends +.08).
+    CHECK(zone_weight(.5f, 0.f) <= .2f && zone_weight(.5f, .4f) <= .36f && zone_weight(.5f, 1.f) >= .8f && zone_weight(.02f, 1.f) <= .9f);
+    Look l; l.level = .5f; l.mud = 0.f; CHECK((factor(l) >> 24) == 128u && ((factor(l) >> 16) & 255) == 173u);   // G1.4 dust .68 (owner review 4: too light)
+    l.mud = 1.f; l.level = 1.f; CHECK(factor(l) == 0xff4d3d2bu);
+    // Matrices: bounds corners map to the ramp's [0,1] and the length axis is the longer horizontal extent.
+    Bounds b; b.add({-1.f, 0.f, -2.f}, {1.f, 1.5f, 2.f}); CHECK(b.valid() && length_axis(b) == 2u);
+    const auto r = ramp_matrix(b); auto top_front = apply(r, {0.f, 1.5f, -2.f}), bottom_rear = apply(r, {0.f, 0.f, 2.f});
+    CHECK(std::fabs(top_front[0]) < 1e-5f && std::fabs(top_front[1]) < 1e-5f && std::fabs(bottom_rear[0] - 1.f) < 1e-5f && std::fabs(bottom_rear[1] - 1.f) < 1e-5f);
+    const auto a = atlas_matrix(b); CHECK(std::fabs(apply(a, {0.f, 0.f, 4.f / 3.f})[0] - 1.f) < 1e-5f);  // three tiles per car length
+    // G1.1 kinds: crew/interior never; blended car draws by texture names.
+    CHECK(crew_or_interior("whitesuit32-tga") && crew_or_interior("head-tga") && crew_or_interior("mr-crew-52d2c422abb3486ed834-tga") && crew_or_interior("seat02-tga") && !crew_or_interior("tatabon-tga"));
+    CHECK(blended_kind("whitesuit-tga", "null") == -1 && blended_kind("brakeglow-tga", "null") == -1);
+    CHECK(blended_kind("icewin-tga", "glass-tga") == Glass && blended_kind("windscreen32-tga", "null") == Glass && blended_kind("inlights-tga", "null") == Lamp);
+    CHECK(blended_kind("tergrill64-tga", "null") == Grille && blended_kind("navaralogo-tga", "whitepaint-tga") == Decal);
+    CHECK(kind_masked(Grille) && kind_masked(Decal) && !kind_masked(Glass) && kind_level(Glass) < 1.f && kind_level(Body) == 1.f);
+    CHECK(crew_or_interior("dcambell-tga") && crew_or_interior("drichard-tga") && crew_or_interior("dnissanslave3-tga") && !crew_or_interior("sus32a-tga"));
+    // G2: per-car zone texture and tint.
+    {   std::array<float, 8> za{}; CHECK(zone_amount(.5f, .9f, za) == 0.f && ((car_ramp_texel(10, 30, 64, 32, za) >> 24) == 0u));
+        za[5] = 1.f; CHECK(zone_amount(.02f, .95f, za) > .95f && zone_amount(.98f, .95f, za) < .05f);          // rear zone -> rear end only
+        za = {}; za[2] = za[3] = 1.f; CHECK(zone_amount(.5f, .95f, za) > .95f && zone_amount(.5f, .05f, za) < .05f);   // sides low, roof clean
+        za.fill(.4f); const uint32_t low = car_ramp_texel(32, 30, 64, 32, za) >> 24, top = car_ramp_texel(32, 1, 64, 32, za) >> 24; CHECK(low > 60u && top < 30u);   // light dirt: roof stays clean
+        za.fill(1.f); CHECK((car_ramp_texel(32, 1, 64, 32, za) >> 24) > 250u);   // G3.2: fully dirty -> whole car
+        Look lk; CarTone dry; dry.dust = .5f; const auto d = car_tint(lk, dry); CHECK(std::fabs(d[0] - lk.dust[0]) < 1e-5f);
+        CarTone mud; mud.mud = .5f; const auto m = car_tint(lk, mud); CHECK(std::fabs(m[0] - lk.mud_tint[0]) < 1e-5f);
+        CarTone old = mud; old.mud_age = 200.f; CHECK(car_tint(lk, old)[0] > m[0]);                       // dried mud is lighter
+        CarTone wet = mud; wet.wet = 1.f; CHECK(car_tint(lk, wet)[0] < m[0]);                             // wet is darker
+        CHECK(car_factor({1.f, 0.f, .5f}, .5f) == 0x80ff0080u);
+        // G2.1: surface tone keeps the configured brightness, opacity, tyre point, volume matrix.
+        { const Vec3 grey{.5f, .5f, .5f}, green{.2f, .6f, .2f}; const auto st = surface_tone(grey, green, 1.f);
+          CHECK(std::fabs(luma(st) - luma(grey)) < .02f && st[1] > st[0] && surface_tone(grey, Vec3{}, 1.f) == grey && surface_tone(grey, green, 0.f) == grey); }
+        { Look lo; CarTone pd; pd.dust = 1.f; CarTone pm; pm.mud = 1.f; CHECK(std::fabs(car_opacity(lo, pd) - .8f) < 1e-5f && std::fabs(car_opacity(lo, pm) - 1.f) < 1e-5f); }
+        { const auto uv = uniform_atlas_uv(); const uint32_t tx = atlas_texel(unsigned(uv[0] * 256), unsigned(uv[1] * 256), 256); CHECK(std::fabs(float(tx >> 24) / 255.f - .25f) < .03f); }
+        { Bounds bb; bb.add({-1, 0, -2}, {1, 1.5f, 2}); const auto m3 = ramp_matrix3(bb); const auto lft = apply(m3, {-1, .75f, 0}), rgt = apply(m3, {1, .75f, 2});
+          CHECK(std::fabs(lft[2]) < 1e-5f && std::fabs(rgt[2] - 1.f) < 1e-5f && std::fabs(rgt[0] - 1.f) < 1e-5f && std::fabs(lft[1] - .5f) < 1e-5f); }
+        // G3: wiper arcs, wiper frame, windscreen detection.
+        { CHECK(wiper_clean(.28f, .8f) > .99f && wiper_clean(.72f, .7f) > .99f && wiper_clean(.02f, .05f) < .01f && wiper_clean(.98f, .05f) < .01f);
+          CHECK((wiper_texel(1, 1, 64, 64, .5f) >> 24) > 120u && (wiper_texel(18, 55, 64, 64, .5f) >> 24) == 0u);
+          const auto wm = wiper_matrix(-.8f, .8f, 1.f, 1.5f); const auto tl = apply(wm, {-.8f, 1.5f, 0}), br = apply(wm, {.8f, 1.f, 0});
+          CHECK(std::fabs(tl[0]) < 1e-5f && std::fabs(tl[1]) < 1e-5f && std::fabs(br[0] - 1.f) < 1e-5f && std::fabs(br[1] - 1.f) < 1e-5f);
+          std::array<float, 8> clean{}; CHECK(windscreen_level(clean) == 0.f); clean.fill(1.f); CHECK(windscreen_level(clean) > .99f);
+          clean = {}; clean[0] = .8f; CHECK(windscreen_level(clean) > .4f && wiper_clean(kGlassFilmU, kGlassFilmV) < .01f); }
+        { using gfx2::grimeshell::Tri; using gfx2::grimeshell::glass_frame; using gfx2::grimeshell::outward;
+          auto oriented = [](Tri t, gfx2::grimeshell::Vec3 n) { if (gfx2::grimeshell::dot(outward(t), n) < 0) std::swap(t.b, t.c); return t; };
+          // Raked windscreen facing +z and up; a side window facing +x.
+          const std::vector<Tri> front{oriented({{-.8f, 1.f, 1.f}, {.8f, 1.f, 1.f}, {0, 1.5f, .5f}}, {0, .7f, .7f}), oriented({{-.8f, 1.5f, .5f}, {.8f, 1.5f, .5f}, {.8f, 1.f, 1.f}}, {0, .7f, .7f})};
+          const std::vector<Tri> side{oriented({{.9f, 1.f, -.5f}, {.9f, 1.f, .5f}, {.9f, 1.4f, 0}}, {1, 0, 0})};
+          const auto ff = glass_frame(front); CHECK(ff.windscreen && std::fabs(ff.x0 + .8f) < 1e-5f && std::fabs(ff.y1 - 1.5f) < 1e-5f);
+          CHECK(!glass_frame(side).windscreen && !glass_frame({}).windscreen); }
+        // G3.3: eased wetness and the sheen curve.
+        { float w = 0; w = ease_wet(w, 1.f, .5); CHECK(w > .15f && w < .2f); for (int i = 0; i < 20; ++i) w = ease_wet(w, 1.f, .5); CHECK(w > .95f);
+          const float dry = ease_wet(1.f, 0.f, .5); CHECK(dry > .85f && dry < .9f); CHECK(ease_wet(.3f, .7f, 0) == .7f);
+          CHECK(sheen_curve(0.f) == 0.f && sheen_curve(1.f) == 1.f && sheen_curve(.2f) < .11f && std::fabs(sheen_curve(.5f) - .5f) < 1e-5f); }
+        const auto g = grime::start_state(.5f); CHECK(std::fabs(g.dust[0] - .5f) < 1e-6f && g.dust[7] < .11f && g.mud[0] == 0.f && grime::start_state(0.f).clean()); }
+    CHECK(kind_wheel(Wheel) && kind_wheel(Rim) && !kind_wheel(Body) && kind_level(Rim) < kind_level(Wheel) && kind_tone(Wheel) < 1.f && kind_tiles(Wheel) < kind_tiles(Body));
+    // G1.3: "head" no longer swallows headlamps / headlights.
+    CHECK(!crew_or_interior("headlamp-tga") && !crew_or_interior("headlight64-tga") && crew_or_interior("head-tga") && crew_or_interior("headlamp-head-tga"));
+    CHECK(blended_kind("headlamp-tga", "glass-tga") == Lamp);
+    // G1.3 shell: an open-top box (cabin) inside a larger closed box with one wall missing. Outer faces see the sky, the
+    // inner box (crew) does not; the floor of the open side stays exterior.
+    {   using namespace gfx2::grimeshell;
+        std::vector<Tri> tris;
+        // Quad a-b-c-d wound so that outward(cross(c-a, b-a)) points along n.
+        auto quad = [&](Vec3 a, Vec3 b, Vec3 c, Vec3 d, Vec3 n) { Tri t{a, b, c}; if (dot(outward(t), n) < 0) std::swap(t.b, t.c); tris.push_back(t);
+            Tri u{a, c, d}; if (dot(outward(u), n) < 0) std::swap(u.b, u.c); tris.push_back(u); };
+        auto box = [&](Vec3 lo, Vec3 hi, float sign, bool skip_top) {
+            const float x0 = lo[0], y0 = lo[1], z0 = lo[2], x1 = hi[0], y1 = hi[1], z1 = hi[2];
+            quad({x0, y0, z0}, {x1, y0, z0}, {x1, y0, z1}, {x0, y0, z1}, {0, -sign, 0});
+            if (!skip_top) quad({x0, y1, z0}, {x1, y1, z0}, {x1, y1, z1}, {x0, y1, z1}, {0, sign, 0});
+            quad({x0, y0, z0}, {x0, y1, z0}, {x0, y1, z1}, {x0, y0, z1}, {-sign, 0, 0}); quad({x1, y0, z0}, {x1, y1, z0}, {x1, y1, z1}, {x1, y0, z1}, {sign, 0, 0});
+            quad({x0, y0, z0}, {x1, y0, z0}, {x1, y1, z0}, {x0, y1, z0}, {0, 0, -sign}); quad({x0, y0, z1}, {x1, y0, z1}, {x1, y1, z1}, {x0, y1, z1}, {0, 0, sign}); };
+        box({-1, 0, -2}, {1, 1.5f, 2}, 1, false);          // closed body, outward faces
+        const size_t body = tris.size();
+        box({-.3f, .3f, -.3f}, {.3f, .9f, .3f}, 1, false); // crew block inside
+        const auto g = build(tris);
+        CHECK(g.valid() && g.dims[2] > g.dims[0]);
+        unsigned outer = 0, inner = 0; for (size_t i = 0; i < tris.size(); ++i) (i < body ? outer : inner) += exterior(g, tris[i]);
+        CHECK(outer == body && inner == 0);
+        CHECK(visibility(g, tris[0]) > .9f && visibility(g, tris[body]) < .01f);
+        CHECK(exterior(Grid{}, tris[body]));                // no grid: never culled
+        Tri flat{{0, 0, 0}, {0, 0, 0}, {1, 0, 0}}; CHECK(visibility(g, flat) == 1.f);   // degenerate
+        Tri reversed = tris[0]; std::swap(reversed.b, reversed.c); CHECK(exterior(g, reversed));   // G1.4: reversed winding stays exterior
+        { Tri back = tris[body]; std::swap(back.b, back.c); CHECK(!exterior(g, back)); }
+        // G1.5: culling only inside the cabin box (crew/seat bounds; z +-0.9 m, from 0.5 m below, full width).
+        Cabin cab; CHECK(!cabin_contains(cab, tris[body])); for (size_t i = body; i < tris.size(); ++i) cabin_add(cab, tris[i]);
+        CHECK(cab.valid() && cabin_contains(cab, tris[body]));
+        Tri tail{{-.5f, .5f, -1.9f}, {.5f, .5f, -1.9f}, {0, 1, -1.9f}}; Tri floor{{-.5f, -.4f, 0}, {.5f, -.4f, 0}, {0, -.4f, .5f}}; Tri side{{.95f, .5f, 0}, {.95f, 1, 0}, {.95f, .5f, .5f}};
+        CHECK(!cabin_contains(cab, tail) && !cabin_contains(cab, floor) && cabin_contains(cab, side));
+        CHECK(gfx2::grimeoverlay::cabin_marker("whitesuit32-tga") && gfx2::grimeoverlay::cabin_marker("chair2-tga") && !gfx2::grimeoverlay::cabin_marker("underdash-tga") && !gfx2::grimeoverlay::cabin_marker("headlamp-tga"));
+    }
+}
+void grime_tests() {
+    using namespace grime;
+    // G2.1: side and direction of particles, deposit colour.
+    {   CarTrack car; car.now.ok = true; car.now.position = {0, 0, 0}; car.heading = {0, 1};   // heading +z: right = +x
+        add(car, Family::Dust, {2, -1, -1}, 1.f, {.8f, .6f, .4f}); add(car, Family::Dust, {2, -1, -1}, 1.f, {.8f, .6f, .4f});
+        CHECK(car.window.right[0] == 2 && car.window.left[0] == 0 && car.window.rear[0] == 2 && car.window.front[0] == 0);
+        const auto w = direction_weights(car.window); CHECK(w[3] > w[2] && w[5] > w[0] && w[7] == 1.f);
+        CarGrime g; accumulate(g, car.window, 1.0, 1.0); CHECK(g.dust[3] > g.dust[2] && g.dust[5] > g.dust[0] && std::fabs(g.dust_rgb[0] - .8f) < 1e-4f && g.mud_rgb[0] == 0.f);
+        CHECK(direction_weights(Exposure{})[0] == 1.f); }
+    {   CarTrack car; car.now.ok = true; car.heading = {0, 1}; for (int i = 0; i < 50; ++i) add(car, Family::Grass, {0, -1, -1}, 1.f, {.5f, .4f, .3f});   // brown particles
+        CarGrime g; accumulate(g, car.window, 1.0, 1.0); CHECK(g.mud[0] > 0.f && g.mud_rgb[1] > g.mud_rgb[0] && g.mud_rgb[1] > g.mud_rgb[2]); }   // G2.2: grass deposits green
+    CHECK(identify("294d44ef9e880c274d37b2d55fb6d3fde2aca90846f6b8ee2dc3d2e65ff32c0f")->family == Family::Mud);
+    CHECK(identify("de99dad6bc7df5371a004630c511741c7beffba3f8a18bb2243b6739df082ec4")->family == Family::Water);
+    CHECK(identify("6915b27bbcdfea7f9d41944c79d317cbee7b39bd21de7bfd28d79a81bc742817")->family == Family::Dust);
+    CHECK(identify("00") == nullptr);
+    for (size_t i = 0; i < kTextures.size(); ++i) for (size_t j = i + 1; j < kTextures.size(); ++j) CHECK(std::string(kTextures[i].sha) != kTextures[j].sha);
+    // Attribution and motion.
+    std::array<CarTrack, 8> cars{};
+    update_motion(cars[0], CarSample{true, {0, 0, 0}}, 1.0); update_motion(cars[0], CarSample{true, {0, 0, 10}}, 2.0);
+    update_motion(cars[1], CarSample{true, {50, 0, 0}}, 2.0);
+    CHECK(std::abs(cars[0].speed - 10) < 1e-3 && cars[0].heading[1] > .99f);
+    { CarTrack c; update_motion(c, CarSample{true, {0, 0, 0}}, 1.0); update_motion(c, CarSample{true, {0, 0, 10}}, 2.0);
+      update_motion(c, CarSample{true, {0, 0, 10}}, 2.01); CHECK(std::abs(c.speed - 10) < 1e-3);   // repeated physics sample is not new
+      update_motion(c, CarSample{true, {0, 0, 20}}, 3.0); CHECK(std::abs(c.speed - 10) < 1e-3); }
+    CHECK(attribute(cars, 8, {1, -.5f, 8}, 4) == 0 && attribute(cars, 8, {49, 0, 1}, 4) == 1 && attribute(cars, 8, {25, 0, 0}, 4) == -1);
+    add(cars[0], Family::Mud, {0, -.5f, 8}, .5f); add(cars[0], Family::Mud, {0, .5f, 12}, .5f);
+    const auto m = static_cast<size_t>(Family::Mud);
+    CHECK(cars[0].window.triangles[m] == 2 && cars[0].window.rear[m] == 1 && cars[0].window.front[m] == 1 && cars[0].window.low[m] == 1 && cars[0].race.triangles[m] == 2);
+    CHECK(valid_json(exposure_json(cars[0].window)) && valid_json(exposure_json(Exposure{})));
+    // Accumulation: mud grows on the lower body first, water rinses and wets, drying decays wetness.
+    CarGrime g; Exposure e; e.triangles[m] = 8000; e.low[m] = 6400;   // 200 triangles/frame over 40 frames
+    for (int i = 0; i < 20; ++i) accumulate(g, e, .5, 40);
+    CHECK(g.mud[0] < 1 && g.mud[0] > .5f && g.mud[0] > g.mud[7] && g.mud[0] > 0 && g.mud[0] <= 1);
+    const float before = g.mud[0];
+    Exposure w; w.triangles[static_cast<size_t>(Family::Water)] = 4000; for (int i = 0; i < 4; ++i) accumulate(g, w, .5, 40);
+    CHECK(g.mud[0] < before && g.wet[0] > .5f);
+    const float wet = g.wet[0]; accumulate(g, Exposure{}, 2, 80); for (int i = 0; i < 20; ++i) accumulate(g, Exposure{}, 2, 80); CHECK(g.wet[0] < wet * .5f);
+    CHECK(valid_json(grime_json(g)));
+    // Service Park wash entry point.
+    CarGrime washed = g; washed.wash(1); CHECK(washed.mud[0] == 0 && washed.dust[0] == 0 && washed.wet[0] == 1);
+    CarGrime half = g; half.wash(.5f); CHECK(std::abs(half.mud[0] - g.mud[0] * .5f) < 1e-6f);
+    // Master Rallye mode campaign identity.
+    MasterState s; s.ok = true; s.stage = 2; s.vehicle_class = 0; s.difficulty = 2; s.saved = true;
+    for (int i = 0; i < 6; ++i) { s.cars[i].ok = true; s.cars[i].car_id = i; s.cars[i].driver_id = 30 + i; s.cars[i].player = i == 0; float tt = 100.f * (i + 1); std::memcpy(&s.cars[i].total_time_bits, &tt, 4); }
+    CHECK(valid_json(s.json()) && !s.campaign().empty() && s.campaign() != s.checkpoint());
+    MasterState next = s; next.stage = 3; float tt = 250.f; std::memcpy(&next.cars[0].total_time_bits, &tt, 4);
+    CHECK(next.campaign() == s.campaign() && next.checkpoint() != s.checkpoint() && next != s);
+    // Race field <-> campaign field (order may differ; attract/quick race fields do not match).
+    std::array<RaceCar, 8> field{}; for (int i = 0; i < 6; ++i) field[size_t(i)] = RaceCar{true, 5 - i, 35 - i, i == 5};
+    const auto mm = match_master(field, 6, s); CHECK(mm.ok && mm.master_of_race[0] == 5 && mm.master_of_race[5] == 0);
+    CHECK(!match_master(field, 4, s).ok);                                   // no human car among the first four
+    { auto four = field; four[0] = RaceCar{true, 0, 30, true}; four[4] = four[5] = RaceCar{}; CHECK(match_master(four, 6, s).ok); }   // 4-car field, unused slots
+    { auto wrong = field; wrong[5].human = false; wrong[4].human = true; CHECK(!match_master(wrong, 6, s).ok); }                      // human mismatch
+    field[2].driver_id = 77; CHECK(!match_master(field, 6, s).ok);
+    // Persistence: finish stage 2 -> game saves stage 3 checkpoint -> quit -> reload stage 3 -> still dirty.
+    Store store; CampaignTracker tracker;
+    CHECK(tracker.start(s, store) == nullptr);
+    Snapshot end; end.campaign = s.campaign(); end.checkpoint = s.checkpoint(); end.cars[0] = g; end.present[0] = true;
+    tracker.race_finished(s, end);
+    CHECK(tracker.observe(s, store).kind == nullptr && tracker.pending());       // menu, nothing saved yet
+    CHECK(std::string(tracker.observe(next, store).kind) == "checkpoint_bound" && !tracker.pending());
+    const auto* restored = tracker.start(next, store);
+    CHECK(restored && restored->present[0] && std::abs(restored->cars[0].mud[0] - g.mud[0]) < 1e-6f);
+    // Restart of stage 3 without a new save: same checkpoint, same stored grime; a different campaign starts clean.
+    CampaignTracker reloaded; CHECK(reloaded.start(next, store) == restored);
+    MasterState other = next; other.cars[1].driver_id = 99; CHECK(reloaded.start(other, store) == nullptr);
+    // A quit without save never binds the pending state to the old checkpoint.
+    CampaignTracker quit; quit.race_finished(next, end); CHECK(quit.observe(next, store).kind == nullptr && quit.pending());
+    // Store text round trip; malformed lines are skipped, values clamped.
+    const auto text = store.serialize();
+    Store copy; CHECK(copy.parse(text) == 1 && copy.find(next.campaign(), next.checkpoint()) && copy.serialize() == text);
+    Store bad; CHECK(bad.parse(std::string(Store::kHeader) + "\nx|y|0|1,2|3\nx|y|9|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0\n"
+                                "a|b|1|9,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0\n") == 1);
+    CHECK(bad.find("a", "b")->cars[1].dust[0] == 1.f);
+    Store headerless; CHECK(headerless.parse("a|b|1|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0\n") == 0);
+}
 }
 
 int main() {
-    json_helper_tests(); render_queue_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests();
+    json_helper_tests(); render_queue_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests(); grime_tests(); grime_overlay_tests();
     if (failures) std::cerr << failures << " failures\n";
     else std::cout << "ps2_diag contracts ok\n";
     return failures ? 1 : 0;

@@ -431,6 +431,9 @@ void map_extra_tests(){
     auto s=m.frame(in,1);
     // background + 7+7 route + split + finish + chevron shadow + 2 shadow X + 2 X + chevron + 2 frame
     CHECK(s.size()==1+7+7+1+1+1+2+2+1+2);
+    CHECK(s[22][0].color==map_colour(38,78,160,125));                                  // no player colour: PS2 blue chevron
+    in.player_colour=true;in.pr=.24f;in.pg=.33f;in.pb=.61f;m.note_pc_draw(0,pc_placement(65.f,60.f));auto c=m.frame(in,1);
+    CHECK(c.size()==s.size()&&c[22][0].color==map_colour(60,82,152,125));             // chevron = player car colour (progress bar arrow)
 }
 void template_defer_tests(){
     CHECK(hud_template_deferred(6)&&hud_template_deferred(5)&&hud_template_deferred(4)&&!hud_template_deferred(0)&&!hud_template_deferred(3));

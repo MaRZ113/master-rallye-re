@@ -23,6 +23,8 @@
 
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
+#include "frame_pacer_native.hpp"
+#include "vehicle_grime_stateblock.hpp"
 
 #include <algorithm>
 #include <array>
@@ -332,6 +334,7 @@ bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pi
                   (birds_ && birds_->identity_requested()) || (rigid_props_ && rigid_props_->identity_requested()))); }
 
 void PS2PortExtension::fleet_before_reset() noexcept {
+    grimeintegration::grime_blocks_before_reset();   // R-SURFACE1: D3D8 state blocks must not survive Reset
     for (auto& m : fleet_race_) if (m) m->reset();
     for (auto& m : fleet_wheel_) if (m) m->reset();
     for (auto& m : frontend_extra_) if (m) m->reset();
@@ -479,9 +482,13 @@ void PS2PortExtension::ledger_race_frame(uint64_t frame, uint64_t generation, ui
     } catch (...) {}
 }
 
+bool frame_pacing_requested() noexcept { return framepacing::requested(); }
+
 std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene_active,
                                             bool stateblock_recording) noexcept {
     if (!build_valid_ || disabled_ || !present_pass_requested()) return {};
+    // PERF-PACING1: wait for the display-locked slot after every present pass below has been drawn (any return path).
+    struct PaceAtExit { ~PaceAtExit() { framepacing::before_present(); } } pace_at_exit;
     perf::Timer perf_timer(perf::PresentPass);
     std::string notes;
     // One certified race HUD context per Present, shared by every pass below (it is not a cheap read).

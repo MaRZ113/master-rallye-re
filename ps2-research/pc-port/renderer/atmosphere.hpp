@@ -422,6 +422,7 @@ public:
         normals_path=setting(L"NormalHints",L"Atmosphere22/normals.lnh");if(normals_path.is_relative())normals_path=std::filesystem::path(ini_).parent_path()/normals_path;
         body_path=setting(L"BodyMaterials",L"Atmosphere22/body.blm");if(body_path.is_relative())body_path=std::filesystem::path(ini_).parent_path()/body_path;
         body_tata=setting(L"BodyPrototype",L"Off")==L"TataBonnet";
+        body_capabilities.auto_addons=setting(L"BodyMaterialsAddons",L"1")!=L"0";   // add-on cars absent from the registry: naming-contract roles
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
         package_root=setting(L"LightingPackageRoot",L"Atmosphere/courses");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;

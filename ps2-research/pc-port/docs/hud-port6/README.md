@@ -56,3 +56,9 @@ From `dist/hud-port6/build-report.json` (schema 3, branch `master`, base HEAD 4b
 
 Not verified here: the in-game visual check against the PS2 dumps (161115, 161201, 195341/195654).
 Build outputs (`dist/`) are not tracked; the A/B notes are in `dist/hud-port6/runtime-ab.md`.
+
+## Follow-up 2026-11-12: player chevron colour
+
+The owner asked for the minimap player chevron to use the player car's colour, like the progress-bar marker. The PC progress bar
+(`gaHudAiRaceProgressBar` 0x4A74A0) tints its marker with `Race/Car%d/Colour` (RGBA). The chevron now uses that colour ×250
+(GS alpha 125) for the local car. It falls back to PS2 blue (38,78,160) when the colour is unreadable. Tests: `map_feed_tests`.

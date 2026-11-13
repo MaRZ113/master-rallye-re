@@ -36,6 +36,18 @@ std::vector<std::string> vehicle_face_hashes(const DrawSnapshot& s) {
     }
     return faces;
 }
+std::string partition_ordered_topology(const DrawSnapshot& g){
+    if(!g.complete_mirror_coverage||g.primitive_type!=D3DPT_TRIANGLELIST||g.fvf!=0x152||g.stride!=36||!g.vertex_count||g.vertex_count>8192||!g.primitive_count||g.primitive_count>8192)return {};
+    const uint32_t size=g.index_format==D3DFMT_INDEX16?2u:g.index_format==D3DFMT_INDEX32?4u:0;
+    const uint64_t begin=(uint64_t(g.base_vertex)+g.min_index)*36;
+    if(!size||begin<g.vertex_byte_offset||g.index_bytes.size()!=uint64_t(g.primitive_count)*3*size)return {};
+    const uint64_t relative=begin-g.vertex_byte_offset;
+    if(relative>g.vertex_bytes.size()||uint64_t(g.vertex_count)*36>g.vertex_bytes.size()-relative)return {};
+    std::string bytes;bytes.reserve(g.vertex_count*8+g.primitive_count*12);
+    for(uint32_t i=0;i<g.vertex_count;++i)bytes.append(reinterpret_cast<const char*>(g.vertex_bytes.data()+relative+uint64_t(i)*36+28),8);
+    for(uint32_t k=0;k<g.primitive_count*3;++k){uint32_t i=0;std::memcpy(&i,g.index_bytes.data()+uint64_t(k)*size,size);if(i<g.min_index||i-g.min_index>=g.vertex_count)return {};i-=g.min_index;bytes.append(reinterpret_cast<const char*>(&i),4);}
+    return sha256_bytes(bytes.data(),bytes.size());
+}
 PartitionPlan partition_ordered_faces(const std::vector<std::string>& faces,const PartitionMaterial& m) {
     PartitionPlan p;p.material=&m;
     if(faces.size()!=m.triangles || !m.face_count || m.face_count>8192){p.reason="face_count_mismatch";return p;}
@@ -92,6 +104,15 @@ PartitionPlan VehiclePartitionPilot::classify(const ReflectionSnapshot& s,uint64
         const auto faces=vehicle_face_hashes(g);
         for(const auto& m:kVehiclePartitionMaterials)if(m.triangles==g.primitive_count&&m.vertices==g.vertex_count) {
             p=partition_ordered_faces(faces,m);if(p.accepted)break;
+        }
+        // REFLECT-DAMAGE2: a plan proved on the exact healthy geometry stays valid for a later upload of the same
+        // part mesh (same ordered UV + index topology) wherever the game draws it from: collision deformation moves
+        // positions/normals only, and the runs follow index order.
+        if(const auto topology=partition_ordered_topology(g);!topology.empty()) {
+            if(p.accepted){auto [it,inserted]=learned_.try_emplace(topology);if(inserted)it->second.plan=p;else if(it->second.plan.material!=p.material)it->second.ambiguous=true;}
+            else if(const auto it=learned_.find(topology);it!=learned_.end()&&!it->second.ambiguous&&it->second.plan.material&&
+                it->second.plan.material->triangles==g.primitive_count&&it->second.plan.material->vertices==g.vertex_count){
+                p=it->second.plan;p.reason="learned_uv_topology_on_deformed_partition";++learned_matches_;}
         }
         auto& e=cache_[next_++%cache_.size()];e={key,p,true};return p;
     }catch(...){PartitionPlan p;p.reason="partition_evaluation_failed_stock";return p;}

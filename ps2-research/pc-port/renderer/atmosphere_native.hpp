@@ -1,4 +1,5 @@
 #pragma once
+#include "vehicle_grime_stateblock.hpp"
 #include "course_objects_native_integration.hpp"
 #include "ground_detail_native.hpp"
 #include "atmosphere.hpp"
@@ -6,9 +7,13 @@
 #include "brake_glow.hpp"
 #include "ps2_hud_damage_feed.hpp"
 #include "ps2_perf_timing.hpp"
+#include "vehicle_grime_native.hpp"
 
 namespace gfx2::atmosphereintegration {
 inline atmosphere::Pilot* pilot(Device8& d)noexcept{return d.ps2_port()?d.ps2_port()->atmosphere_pilot():nullptr;}
+// R-SURFACE1 G1.3: true when the current DrawIndexedPrimitive belongs to a race car (fleet owner walk). Installed by
+// race_car_fleet_native.hpp; the course resolver uses it to leave car draws to the body routes.
+inline bool (*vehicle_draw_probe)(Device8&,uintptr_t pc,UINT min,UINT vertices,UINT start,UINT count,uint64_t race)noexcept=nullptr;
 inline void notify(Device8& d,uint32_t slot,const Args& args,HRESULT hr)noexcept{courseintegration::after_setter(d,slot,args,hr);}
 inline HRESULT repair(Device8& d) noexcept {
     auto* p=pilot(d);if(!p)return S_OK;
@@ -360,7 +365,187 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
         return S_OK;
     }catch(...){return repair(d);}
 }
+// R-SURFACE1 grime pass over a car draw that just ran (before the headlight pass, so headlights light it too).
+// Same geometry/WORLD/fog as the draw; stage 0 keeps its texture bound and reads DIFFUSE, TFACTOR and (masked kinds)
+// the texture alpha.
+//  stage 0: colour DIFFUSE x TFACTOR (car tint); alpha = texture alpha (used by masked kinds only)
+//  stage 1: zone texture (2D, or G2.1 volume with left/right slices): alpha = zone level (x stage-0 alpha when masked)
+//  stage 2: noise atlas: colour MODULATE2X detail, alpha ADDSIGNED2X(noise, level) = coverage
+//  stage 3: alpha x TFACTOR.a = patch opacity (kind factor x dust/mud opacity, G2.1: thin dust keeps some reflection)
+// draw(): issues the geometry once with the pass states applied.
+template<class Draw>
+inline HRESULT grime_pass(Device8& d,const grimeintegration::Overlay::Candidate& cand,Draw&& draw)noexcept{
+    auto& o=grimeintegration::overlay();
+    ps2port::perf::Timer perf_timer(ps2port::perf::Grime);
+    try{
+        auto& n=*d.native();
+        if(!o.caps){D3DCAPS8 caps{};o.caps=SUCCEEDED(n.GetDeviceCaps(&caps))&&caps.MaxTextureBlendStages>=4&&caps.MaxSimultaneousTextures>=3&&
+            (caps.TextureOpCaps&D3DTEXOPCAPS_MODULATE2X)&&(caps.TextureOpCaps&D3DTEXOPCAPS_ADDSIGNED2X)?1:2;
+            session().write("{\"type\":\"grime_overlay_caps\",\"supported\":"+std::string(o.caps==1?"true":"false")+"}");}
+        if(o.caps!=1||!grimeintegration::overlay_textures(n))return S_OK;
+        {courseintegration::Ref<IDirect3DSurface8> target,back;if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return S_OK;}
+        const auto& bounds_map=grimeoverlay::kind_wheel(cand.kind)?o.wheel_bounds:o.bounds;
+        const auto b=bounds_map.find(cand.instance);if(b==bounds_map.end()||!b->second.valid())return S_OK;
+        D3DMATRIX view{};if(FAILED(n.GetTransform(D3DTS_VIEW,&view)))return S_OK;
+        atmosphere::Mat4 v{},w{},iv{},iw{};std::memcpy(v.data(),&view,64);std::memcpy(w.data(),&cand.world,64);
+        if(!atmosphere::mat_inverse(v,iv)||!atmosphere::mat_inverse(w,iw))return S_OK;
+        const auto& look=grimeintegration::look();
+        // G2: the car's own state (race car index by position); the static look when Dynamic=0.
+        const int car=look.dynamic?grimeintegration::car_index(cand.instance,cand.world):-1;
+        if(look.dynamic&&car<0)return S_OK;
+        // G3: windscreens use the wiper texture (clean arcs) in their own glass plane instead of the body zone texture.
+        // G3.2: every glass draw uses the wiper texture: windscreens in their glass plane (clean arcs), side and rear glass at a
+        // point outside the arcs (one even film at the car's glass level).
+        const bool glass=cand.kind==grimeoverlay::Glass,wiper=glass&&look.wipers&&cand.glass.windscreen;
+        IDirect3DBaseTexture8* zones=glass?static_cast<IDirect3DBaseTexture8*>(grimeintegration::car_wiper(n,car)):grimeintegration::car_ramp(n,car);if(!zones)return S_OK;
+        const bool volume=o.volume==1&&!glass;
+        grimeoverlay::CarTone tone;
+        if(car>=0)tone=grimeintegration::car_tone(car);else{tone.mud=look.mud;tone.dust=1.f-look.mud;}
+        grimeoverlay::Vec3 tint=grimeoverlay::car_tint(look,tone);
+        {const float k=grimeoverlay::kind_tone(cand.kind);for(auto& c:tint)c*=k;}
+        const float opacity=grimeoverlay::kind_level(cand.kind)*grimeoverlay::car_opacity(look,tone);
+        {const float dx=w[12]-iv[12],dy=w[13]-iv[13],dz=w[14]-iv[14];const float reach=look.max_distance*(cand.kind==grimeoverlay::Body?1.f:cand.kind==grimeoverlay::Wheel?.6f:.4f);   // small parts: near cars only
+         if(dx*dx+dy*dy+dz*dz>reach*reach){++o.skipped_far;return S_OK;}}
+        const auto cam_to_local=atmosphere::mat_mul(iv,iw);
+        atmosphere::Mat4 m1{};
+        if(cand.kind==grimeoverlay::Wheel){   // G2.1: tyres get one even layer (a single atlas point), not blobs
+            if(o.tyre_uv[0]<0)o.tyre_uv=grimeoverlay::uniform_atlas_uv();m1[12]=o.tyre_uv[0];m1[13]=o.tyre_uv[1];m1[15]=1;}
+        else m1=atmosphere::mat_mul(cam_to_local,grimeoverlay::atlas_matrix(b->second,grimeoverlay::kind_tiles(cand.kind)));
+        atmosphere::Mat4 m2{};if(grimeoverlay::kind_wheel(cand.kind)){m2[12]=.5f;m2[13]=.85f;m2[14]=.5f;m2[15]=1;}   // wheels: uniform lower-body level
+        else if(wiper)m2=atmosphere::mat_mul(cam_to_local,grimeoverlay::wiper_matrix(cand.glass.x0,cand.glass.x1,cand.glass.y0,cand.glass.y1));
+        else if(glass){m2[12]=grimeoverlay::kGlassFilmU;m2[13]=grimeoverlay::kGlassFilmV;m2[15]=1;}
+        else m2=atmosphere::mat_mul(cam_to_local,volume?grimeoverlay::ramp_matrix3(b->second):grimeoverlay::ramp_matrix(b->second));
+        // One state block applies the pass states, a second one captures and restores the game's values (G1.2 perf).
+        auto& sb=grimeintegration::state_blocks();
+        if(sb.device&&sb.device!=&n)grimeintegration::grime_blocks_before_reset();
+        if(!sb.apply&&!sb.failed){
+            auto record=[&](DWORD& token)->bool{
+                if(FAILED(n.BeginStateBlock()))return false;
+                n.SetRenderState(D3DRS_ZWRITEENABLE,FALSE);n.SetRenderState(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);n.SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
+                n.SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);n.SetRenderState(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);n.SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+                n.SetRenderState(D3DRS_ALPHATESTENABLE,FALSE);n.SetRenderState(D3DRS_TEXTUREFACTOR,0);n.SetRenderState(D3DRS_WRAP1,0);n.SetRenderState(D3DRS_WRAP2,0);
+                n.SetRenderState(D3DRS_SPECULARENABLE,FALSE);
+                // G2.2: colour only; the framebuffer alpha is never changed by the grime pass.
+                n.SetRenderState(D3DRS_COLORWRITEENABLE,D3DCOLORWRITEENABLE_RED|D3DCOLORWRITEENABLE_GREEN|D3DCOLORWRITEENABLE_BLUE);
+                n.SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);n.SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_DIFFUSE);n.SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_TFACTOR);
+                n.SetTextureStageState(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);n.SetTextureStageState(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);n.SetTextureStageState(0,D3DTSS_ALPHAARG2,D3DTA_TFACTOR);
+                n.SetTextureStageState(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
+                n.SetTextureStageState(1,D3DTSS_COLOROP,D3DTOP_SELECTARG1);n.SetTextureStageState(1,D3DTSS_COLORARG1,D3DTA_CURRENT);
+                n.SetTextureStageState(1,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);n.SetTextureStageState(1,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);n.SetTextureStageState(1,D3DTSS_ALPHAARG2,D3DTA_CURRENT);
+                n.SetTextureStageState(2,D3DTSS_COLOROP,D3DTOP_MODULATE2X);n.SetTextureStageState(2,D3DTSS_COLORARG1,D3DTA_TEXTURE);n.SetTextureStageState(2,D3DTSS_COLORARG2,D3DTA_CURRENT);
+                n.SetTextureStageState(2,D3DTSS_ALPHAOP,D3DTOP_ADDSIGNED2X);n.SetTextureStageState(2,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);n.SetTextureStageState(2,D3DTSS_ALPHAARG2,D3DTA_CURRENT);
+                for(unsigned st=1;st<3;++st){n.SetTextureStageState(st,D3DTSS_RESULTARG,D3DTA_CURRENT);n.SetTextureStageState(st,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACEPOSITION);
+                    n.SetTextureStageState(st,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2);
+                    n.SetTextureStageState(st,D3DTSS_ADDRESSU,st==2?D3DTADDRESS_WRAP:D3DTADDRESS_CLAMP);n.SetTextureStageState(st,D3DTSS_ADDRESSV,st==2?D3DTADDRESS_WRAP:D3DTADDRESS_CLAMP);
+                    n.SetTextureStageState(st,D3DTSS_MINFILTER,D3DTEXF_LINEAR);n.SetTextureStageState(st,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);n.SetTextureStageState(st,D3DTSS_MIPFILTER,st==2?D3DTEXF_LINEAR:D3DTEXF_NONE);}
+                n.SetTextureStageState(1,D3DTSS_ADDRESSW,D3DTADDRESS_CLAMP);
+                n.SetTextureStageState(3,D3DTSS_COLOROP,D3DTOP_SELECTARG1);n.SetTextureStageState(3,D3DTSS_COLORARG1,D3DTA_CURRENT);
+                n.SetTextureStageState(3,D3DTSS_ALPHAOP,D3DTOP_MODULATE);n.SetTextureStageState(3,D3DTSS_ALPHAARG1,D3DTA_CURRENT);n.SetTextureStageState(3,D3DTSS_ALPHAARG2,D3DTA_TFACTOR);
+                n.SetTextureStageState(3,D3DTSS_RESULTARG,D3DTA_CURRENT);
+                n.SetTextureStageState(4,D3DTSS_COLOROP,D3DTOP_DISABLE);n.SetTextureStageState(4,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+                n.SetTexture(1,o.ramp);n.SetTexture(2,o.atlas);
+                D3DMATRIX id{};id._11=id._22=id._33=id._44=1;n.SetTransform(D3DTS_TEXTURE1,&id);n.SetTransform(D3DTS_TEXTURE2,&id);
+                return SUCCEEDED(n.EndStateBlock(&token))&&token;};
+            // Record the save block first so it holds the same state set; the apply block's values are what was recorded.
+            if(!record(sb.save)||!record(sb.apply)){if(sb.save)n.DeleteStateBlock(sb.save);if(sb.apply)n.DeleteStateBlock(sb.apply);sb.save=sb.apply=0;sb.failed=true;
+                session().write("{\"type\":\"grime_overlay_stateblock\",\"ok\":false}");return S_OK;}
+            sb.device=&n;++sb.created;session().write("{\"type\":\"grime_overlay_stateblock\",\"ok\":true,\"created\":"+std::to_string(sb.created)+"}");
+        }
+        if(!sb.apply)return S_OK;
+        HRESULT hr=n.CaptureStateBlock(sb.save);if(FAILED(hr))return S_OK;
+        hr=n.ApplyStateBlock(sb.apply);
+        if(SUCCEEDED(hr))hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,grimeoverlay::car_factor(tint,opacity));
+        if(SUCCEEDED(hr))hr=n.SetTexture(1,zones);
+        if(SUCCEEDED(hr)&&volume)hr=n.SetTextureStageState(1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT3);
+        if(SUCCEEDED(hr)&&grimeoverlay::kind_masked(cand.kind))hr=n.SetTextureStageState(1,D3DTSS_ALPHAOP,D3DTOP_MODULATE);   // zone x texture alpha
+        D3DMATRIX t1{},t2{};std::memcpy(&t1,m1.data(),64);std::memcpy(&t2,m2.data(),64);
+        if(SUCCEEDED(hr))hr=n.SetTransform(D3DTS_TEXTURE1,&t2);if(SUCCEEDED(hr))hr=n.SetTransform(D3DTS_TEXTURE2,&t1);   // 1 zones, 2 atlas
+        bool fatal=false;
+        if(SUCCEEDED(hr))hr=draw(n,fatal);
+        if(fatal){n.ApplyStateBlock(sb.save);return repair(d);}
+        if(SUCCEEDED(hr)&&wiper)++o.wiper_draws;
+
+        if(FAILED(n.ApplyStateBlock(sb.save)))return repair(d);
+        if(SUCCEEDED(hr)){++o.draws;++o.kind_draws[std::min(cand.kind,6u)];}
+        const auto frame=d.trace.frame_number();
+        if(frame>=o.log_frame+600){o.log_frame=frame;session().write("{\"type\":\"grime_overlay\",\"frame\":"+std::to_string(frame)+",\"draws\":"+std::to_string(o.draws)+",\"skipped_far\":"+std::to_string(o.skipped_far)+",\"cars\":"+std::to_string(o.bounds.size())+",\"wheels\":"+std::to_string(o.wheel_bounds.size())+",\"body_wheel_glass_lamp_grille_decal\":["+std::to_string(o.kind_draws[0])+","+std::to_string(o.kind_draws[1])+","+std::to_string(o.kind_draws[2])+","+std::to_string(o.kind_draws[3])+","+std::to_string(o.kind_draws[4])+","+std::to_string(o.kind_draws[5])+"],\"subset\":"+std::to_string(o.subset_draws)+",\"switch\":"+std::to_string(o.switch_draws)+",\"fleet\":"+std::to_string(o.fleet_draws)+",\"wiper\":"+std::to_string(o.wiper_draws)+",\"sheen\":"+std::to_string(o.sheen_draws)+",\"volume\":"+(volume?"true":"false")+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");}
+        return S_OK;
+    }catch(...){return repair(d);}
+}
+// G3.1 wet sheen: right after a native body draw, inside the reflection scopes (ps2integration::Scope::draw_result):
+// the draw's reflection texture, env coordinates and transform are still applied (PC live reflection or PS2
+// reflection). The same geometry is drawn again additively with the reflection only: stage 0 = TFACTOR grey (Sheen x
+// the car's wetness x the night environment factor) x vertex alpha (the native env weight), stage 1 = reflection x
+// current. Owner review: the G3 post-draw pass used the static env after the scopes ended, so the car only got
+// brighter and its reflection looked washed out. Body kind only.
+inline void grime_sheen(void* device)noexcept{
+    try{
+        auto& d=*static_cast<Device8*>(device);auto& o=grimeintegration::overlay();const auto& c=o.cand;const auto frame=d.trace.frame_number();
+        if(c.frame!=frame||c.kind!=grimeoverlay::Body||!grimeintegration::overlay_active()||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
+           GetCurrentThreadId()!=d.trace.render_thread_id())return;
+        const auto& look=grimeintegration::look();if(look.sheen<=0||!look.dynamic)return;
+        const int car=grimeintegration::car_index(c.instance,c.world);if(car<0)return;
+        const float wet=grimeintegration::car_tone(car).wet;if(wet<=.02f)return;
+        auto& n=*d.native();DWORD op=D3DTOP_DISABLE;if(FAILED(n.GetTextureStageState(1,D3DTSS_COLOROP,&op))||op==D3DTOP_DISABLE)return;
+        auto& sb=grimeintegration::state_blocks();
+        if(sb.device&&sb.device!=&n)grimeintegration::grime_blocks_before_reset();
+        if(!sb.sheen_apply&&!sb.sheen_failed){
+            auto record=[&](DWORD& token)->bool{
+                if(FAILED(n.BeginStateBlock()))return false;
+                n.SetRenderState(D3DRS_ZWRITEENABLE,FALSE);n.SetRenderState(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);n.SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
+                n.SetRenderState(D3DRS_SRCBLEND,D3DBLEND_ONE);n.SetRenderState(D3DRS_DESTBLEND,D3DBLEND_ONE);n.SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+                n.SetRenderState(D3DRS_ALPHATESTENABLE,FALSE);n.SetRenderState(D3DRS_TEXTUREFACTOR,0);n.SetRenderState(D3DRS_SPECULARENABLE,FALSE);
+                n.SetRenderState(D3DRS_COLORWRITEENABLE,D3DCOLORWRITEENABLE_RED|D3DCOLORWRITEENABLE_GREEN|D3DCOLORWRITEENABLE_BLUE);
+                n.SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);n.SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TFACTOR);
+                n.SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE|D3DTA_ALPHAREPLICATE);
+                n.SetTextureStageState(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG2);n.SetTextureStageState(0,D3DTSS_ALPHAARG2,D3DTA_TFACTOR);
+                n.SetTextureStageState(1,D3DTSS_COLOROP,D3DTOP_MODULATE);n.SetTextureStageState(1,D3DTSS_COLORARG1,D3DTA_TEXTURE);n.SetTextureStageState(1,D3DTSS_COLORARG2,D3DTA_CURRENT);
+                n.SetTextureStageState(1,D3DTSS_ALPHAOP,D3DTOP_SELECTARG2);n.SetTextureStageState(1,D3DTSS_ALPHAARG2,D3DTA_CURRENT);
+                n.SetTextureStageState(2,D3DTSS_COLOROP,D3DTOP_DISABLE);n.SetTextureStageState(2,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+                return SUCCEEDED(n.EndStateBlock(&token))&&token;};
+            if(!record(sb.sheen_save)||!record(sb.sheen_apply)){if(sb.sheen_save)n.DeleteStateBlock(sb.sheen_save);if(sb.sheen_apply)n.DeleteStateBlock(sb.sheen_apply);
+                sb.sheen_save=sb.sheen_apply=0;sb.sheen_failed=true;return;}
+            sb.device=&n;
+        }
+        if(!sb.sheen_apply||FAILED(n.CaptureStateBlock(sb.sheen_save)))return;
+        float night=1.f;if(auto* p=pilot(d);p&&p->enabled()&&p->lighting.active()&&p->lighting.ambient_strength<.5f)night=float((atmosphere::world_environment_factor(p->lighting)>>8)&255)/255;
+        const DWORD k=DWORD(std::lround(std::clamp(look.sheen*grimeoverlay::sheen_curve(wet)*night,0.f,1.f)*255));
+        HRESULT hr=n.ApplyStateBlock(sb.sheen_apply);
+        if(SUCCEEDED(hr))hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,0xff000000u|(k<<16)|(k<<8)|k);
+        if(SUCCEEDED(hr))hr=n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,c.min,c.vertices,c.start,c.count);
+        if(FAILED(n.ApplyStateBlock(sb.sheen_save))){(void)repair(d);return;}
+        if(SUCCEEDED(hr))++o.sheen_draws;
+    }catch(...){}
+}
+inline const bool grime_sheen_installed=(grimeintegration::wet_sheen_hook=&grime_sheen,true);
+// The candidate recorded by the body routes for the native draw that just ran.
+inline HRESULT grime_overlay(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
+    auto& o=grimeintegration::overlay();auto& c=o.cand;const auto frame=d.trace.frame_number();
+    if(c.frame!=frame)return S_OK;const auto cand=c;c.frame=UINT64_MAX;   // consumed: exactly the draw that just ran
+    if(FAILED(draw_hr)||pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||!d.trace.scene_active||
+       d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||!grimeintegration::overlay_active())return S_OK;
+    return grime_pass(d,cand,[&](IDirect3DDevice8& n,bool& fatal)->HRESULT{
+        // G1.3: draws with interior triangles use the shell arena (exterior triangles only, same VB / base vertex / range).
+        if(!cand.subset)return n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,cand.min,cand.vertices,cand.start,cand.count);
+        auto& sh=grimeintegration::shells();IDirect3DIndexBuffer8* ib=nullptr;UINT base=0;
+        if(!sh.arena||sh.device!=&n||FAILED(n.GetIndices(&ib,&base)))return E_FAIL;
+        HRESULT hr=n.SetIndices(sh.arena,base);if(SUCCEEDED(hr))hr=n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,cand.min,cand.vertices,cand.sub_start,cand.sub_count);
+        const HRESULT back=n.SetIndices(ib,base);if(ib)ib->Release();if(FAILED(back)){fatal=true;return back;}
+        if(SUCCEEDED(hr))++grimeintegration::overlay().subset_draws;return hr;});
+}
+// G2.1: PS2 fleet bodies are private DrawPrimitiveUP submissions (race_car_fleet_native.hpp draw_car_fleet): the same
+// pass right after each body mesh, with the same vertex array (36-byte FrontendVertex, car-local) and WORLD.
+inline void grime_fleet(Device8& d,uintptr_t instance,const D3DMATRIX& world,const void* vertices,UINT count,UINT stride,unsigned kind,uint64_t race_generation)noexcept{
+    try{
+        if(!grimeintegration::overlay_active()||!vertices||count<3||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return;
+        grimeintegration::add_bounds(instance,vertices,size_t(count)*stride,stride,race_generation,kind);
+        grimeintegration::Overlay::Candidate cand;cand.frame=d.trace.frame_number();cand.instance=instance;cand.world=world;cand.kind=kind;
+        (void)grime_pass(d,cand,[&](IDirect3DDevice8& n,bool&)->HRESULT{const HRESULT hr=n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,count/3,vertices,stride);
+            if(SUCCEEDED(hr))++grimeintegration::overlay().fleet_draws;return hr;});
+    }catch(...){}
+}
 inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
+    (void)grime_overlay(d,hr,pc);
     (void)headlight_world(d,hr,pc);
     auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
@@ -401,8 +586,10 @@ inline uint32_t particle_night_factor(const atmosphere::Lighting& s)noexcept{
         out|=uint32_t(std::lround(gain*255))<<((2-i)*8);}
     return out;
 }
-inline HRESULT particle_begin(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT count,uintptr_t pc,bool& pending)noexcept{
-    pending=false;auto* p=pilot(d);
+inline HRESULT particle_begin(Device8& d,D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t pc,bool& pending)noexcept{
+    pending=false;
+    grimeintegration::observe_particles(d,type,start,count,pc);   // R-SURFACE1 G0 probe: own config, observation only
+auto* p=pilot(d);
     const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
     if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||type!=D3DPT_TRIANGLELIST||!count||(pc!=exe+PARTICLE_DUST_RVA&&pc!=exe+PARTICLE_STONE_RVA)||
        !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||p->particle.pending)return S_OK;
@@ -485,6 +672,9 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
     return hr;
 }
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
+    grimeintegration::tick(d);   // R-SURFACE1 G0 probe: once per frame, menus included
+    if(auto* gp=pilot(d);gp&&ui){static uint64_t pose_frame=UINT64_MAX;const auto f=d.trace.frame_number();   // G0 pacing: drawn pose cadence
+        if(pose_frame!=f){pose_frame=f;for(const auto& c:gp->car_poses)if(c.instance&&c.frame==f&&c.prev_frame+1==f){grimeintegration::note_render_pose(std::memcmp(c.m.data(),c.prev.data(),sizeof(c.m))!=0);break;}}}
     capture_boundary(d,ui);
     auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
@@ -1180,6 +1370,10 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         // Placed/instanced course props (checkpoint boards, signs) keep their
         // native matrix; only the universal resolver lights them, in world space.
         if(!identity_world&&!p->universal)return reject(d,*p,"source_static_course_world_not_identity");
+        // R-SURFACE1 G1.3: placed draws that belong to a race car never go to the course resolver. An imported car without a
+        // vehicle signature (Lancer Evo IV) had its tread lit as a course tyre stack (same texture), and the body route then
+        // dropped the draw.
+        if(p->universal&&!identity_world&&vehicle_draw_probe&&vehicle_draw_probe(d,pc,min,vertices,start,count,cert.race_generation))return reject(d,*p,"resolver_fleet_owned_vehicle_draw_excluded");
         if(p->universal){const char* course=cert.course_id.data();if(!_strnicmp(course,"RaceTest/",9))course+=9;
             std::array<float,16> instance{};std::memcpy(instance.data(),&world,64);
             return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment,identity_world?nullptr:&instance,blended_plain&&!noise&&!environment);}

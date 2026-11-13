@@ -123,6 +123,7 @@ struct MapInput {
     std::vector<int> splits;             // split BestMarker indices (Race/SplitTime%d/Percentage * count)
     struct Opponent { float x=0,z=0,r=1,g=1,b=1; };
     std::vector<Opponent> opponents;     // every other car: world X/Z and Race/Car%d/Colour (default white)
+    bool player_colour=false;float pr=0,pg=0,pb=0;   // the local car's Race/Car%d/Colour (same as its progress bar arrow)
 };
 // Crossbar across the route at marker m (direction of segment m-1 -> m), half-length h, width 3 (GS dumps
 // 195654 finish: 23.2 x 3.0; 161115 split: 19.9 x 3.0; EE factors 3 / 2.5 of 4).
@@ -223,7 +224,8 @@ public:
             for(const auto& q:shadow)add(q,map_colour(map_byte(o.r,40.f),map_byte(o.g,40.f),map_byte(o.b,40.f),125));
             for(const auto& q:cross)add(q,map_colour(map_byte(o.r,250.f),map_byte(o.g,250.f),map_byte(o.b,250.f),125));
         }
-        add(map_chevron(),map_colour(38,78,160,125));
+        // The chevron takes the player car colour like the progress bar arrow (owner request 2026-11-12); PS2 blue without it.
+        add(map_chevron(),in.player_colour?map_colour(map_byte(in.pr,250.f),map_byte(in.pg,250.f),map_byte(in.pb,250.f),125):map_colour(38,78,160,125));
         add(map_frame_shadow(),map_colour(9,9,9,31));
         add(map_frame(),map_colour(216,216,216,125));
         return strips;

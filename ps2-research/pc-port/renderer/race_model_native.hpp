@@ -7,6 +7,9 @@
 #include "fleet_frame_policy.hpp"
 namespace gfx2::frontendmodelintegration {
 inline dipintegration::Result draw_car_fleet(Device8&,ps2port::FrontendModel&,D3DPRIMITIVETYPE,UINT,UINT,UINT,UINT,uintptr_t)noexcept;
+// Root nodes per car model the owner walk accepts (o.meshes keeps the first 64). Exactly `roots` steps must end on a null
+// link, so a cyclic list is refused without a duplicate scan.
+constexpr unsigned kOwnerRootLimit=256;
 inline bool race_context_uncached(uintptr_t stack,uintptr_t pc,Context& out,unsigned roots)noexcept;
 // PERF3: one owner walk per DrawIndexedPrimitive call (caller_serial) and root count; repeated checks of the same draw
 // (gate, body certificate, final re-check) reuse it. race_context_uncached fills only the first `roots` meshes and
@@ -19,12 +22,12 @@ inline bool race_context(uintptr_t stack,uintptr_t pc,Context& out,unsigned root
  context_gate=m.gate;out=m.value;return m.ok;
 }
 inline bool race_context_uncached(uintptr_t stack,uintptr_t pc,Context& out,unsigned roots)noexcept{
- const auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uint32_t ret=0;context_gate=0;if(!roots||roots>64)return false;if(!stack||pc!=base+0x17707e||!word(stack,ret)||ret!=pc)return false;
+ const auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uint32_t ret=0;context_gate=0;if(!roots||roots>kOwnerRootLimit)return false;if(!stack||pc!=base+0x17707e||!word(stack,ret)||ret!=pc)return false;
  context_gate=1;auto& o=out.owner;if(!pointer_word(stack+0x34,out.mesh)||!ps2port::frontend_queue_owner(stack,base,out.mesh,word,o.instance)||!pointer_word(stack+0x30,out.vertex)||!pointer_word(stack+0x44,out.index)||!pointer_word(o.instance+0xb0,o.packet)||!pointer_word(o.instance+0x8c,o.model))return false;
  context_gate=2;uintptr_t check=0;if(!pointer_word(o.packet+0x74,check)||check!=o.instance||!word(o.packet+0xc,o.name)||!o.name)return false;
  context_gate=3;uintptr_t list=0,sentinel=0;if(!ps2port::race_selected_list(o.instance,o.model,word,list,o.private_tree)||!pointer_word(list,sentinel)||!pointer_word(sentinel+4,o.root))return false;
  o.native_list=list;context_gate=4;std::array<uint32_t,3> root{};uint32_t callback=0;if(!read_leaf(o.root,root.data(),12)||root[0]!=base+0x2921b0||root[2]||!word(root[0]+0x30,callback)||callback!=base+0x178f30)return false;
- context_gate=5;uintptr_t node=root[1];std::array<uintptr_t,64> nodes{};bool found=false;for(unsigned i=0;i<roots;++i){if(!node||std::find(nodes.begin(),nodes.begin()+i,node)!=nodes.begin()+i)return false;nodes[i]=node;if(i<o.meshes.size())o.meshes[i]=node;std::array<uint32_t,3> row{};if(!read_leaf(node,row.data(),12))return false;if(node==out.mesh){if(row[0]!=base+0x292364||!word(row[0]+0x30,callback)||callback!=base+0x176910)return false;found=true;}node=row[2];}if(node||!found)return false;
+ context_gate=5;uintptr_t node=root[1];bool found=false;for(unsigned i=0;i<roots;++i){if(!node)return false;if(i<o.meshes.size())o.meshes[i]=node;std::array<uint32_t,3> row{};if(!read_leaf(node,row.data(),12))return false;if(node==out.mesh){if(row[0]!=base+0x292364||!word(row[0]+0x30,callback)||callback!=base+0x176910)return false;found=true;}node=row[2];}if(node||!found)return false;
  context_gate=6;if(!read_leaf(out.vertex,out.vd.data(),24)||!read_leaf(out.index,out.id.data(),16))return false;
  context_gate=7;uintptr_t current=0;return ps2port::frontend_queue_owner(stack,base,out.mesh,word,current)&&current==o.instance&&pointer_word(o.packet+0x74,check)&&check==o.instance;
 }

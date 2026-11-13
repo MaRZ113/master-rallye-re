@@ -20,7 +20,7 @@ enum Category : unsigned {
     Atmosphere, Water, Ground, XTrail, XTrailGlass, VehiclePartition, ReflectionNote, HudCapture,
     UiGrass, UiSpline, UiBirds, UiRigid, UiCollision, UiCourse, UiReflection, PresentPass, BaselineCertificate,
     AtmoWorld, AtmoUpload, AtmoBody, AtmoHeadlight, AtmoSunWorld, AtmoSunUi,
-    AtmoBodyGate, AtmoBodyOwner, AtmoBodyGeometry, AtmoBodyShade,
+    AtmoBodyGate, AtmoBodyOwner, AtmoBodyGeometry, AtmoBodyShade, Grime,
     CategoryCount
 };
 inline constexpr const char* kCategoryNames[CategoryCount] = {
@@ -30,7 +30,7 @@ inline constexpr const char* kCategoryNames[CategoryCount] = {
     "ui_grass", "ui_spline", "ui_birds", "ui_rigid_props", "ui_collision", "ui_course_objects", "ui_reflection",
     "present_pass", "baseline_certificate",
     "atmo_world", "atmo_upload", "atmo_body", "atmo_headlight", "atmo_sun_world", "atmo_sun_ui",
-    "atmo_body_gate", "atmo_body_owner", "atmo_body_geometry", "atmo_body_shade"};
+    "atmo_body_gate", "atmo_body_owner", "atmo_body_geometry", "atmo_body_shade", "grime"};
 
 // DIAGNOSTIC bypass steps (PS2PerfBypassKey). Only draw-time effects whose skip falls back to the native draw or to
 // no extra draw; vehicle models, reflections and the HUD are never bypassed (their continuity spans frames).
