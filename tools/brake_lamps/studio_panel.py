@@ -71,9 +71,12 @@ class Viewport(W.QWidget):
         # The SDK geometry is right-handed: mirror X so lettering/sides read as in game.
         return -right, up, back
 
+    def scale(self):
+        return min(self.width(), self.height()) / (self.span * 1.15) * self.zoom
+
     def project(self, p):
         r, u, b = self.basis()
-        s = min(self.width(), self.height()) / (self.span * .6) * self.zoom
+        s = self.scale()
         d = np.asarray(p) - self.centre
         return np.stack([self.width() / 2 + (d @ r) * s, self.height() / 2 - (d @ u) * s, d @ b], axis=-1)
 
@@ -93,6 +96,7 @@ class Viewport(W.QWidget):
                 continue
             q = self.project(d.mesh.positions)
             ids = self.ids.get(d.index)
+            shade = np.abs(d.mesh.face_normals() @ self.basis()[2])
             for k, t in enumerate(d.mesh.triangles):
                 fid = ids[k] if ids else None
                 if fid in lens_ids:
@@ -101,6 +105,7 @@ class Viewport(W.QWidget):
                     col = QtGui.QColor(150, 60, 50)
                 else:
                     col = QtGui.QColor(95, 102, 112)
+                col = col.darker(int(100 + 70 * (1 - shade[k]))) if fid not in lens_ids else col
                 polys.append((q[t][:, 2].mean(), q[t], col, None))
         if self.show_on:
             for f in self.fitted:
@@ -114,8 +119,8 @@ class Viewport(W.QWidget):
                         # Lamps sit 1-3 mm above the lens: draw them after the surface at equal depth.
                         polys.append((q[t][:, 2].mean() + 1e3, q[t], col, f.id))
         polys.sort(key=lambda p: p[0])
-        for _, q, col, _ in polys:
-            g.setPen(QtGui.QPen(col.darker(140), .5)); g.setBrush(col)
+        for _, q, col, owner in polys:
+            g.setPen(QtGui.QPen(col.darker(115 if owner is None else 140), .5)); g.setBrush(col)
             g.drawPolygon(QtGui.QPolygonF([QtCore.QPointF(x, y) for x, y, _ in q]))
         # Gizmo on the selected lamp: lens-plane axes (u red, v green) and normal (blue).
         sel = next((f for f in self.fitted if self.selected and f.id == self.selected['id']), None)
@@ -143,7 +148,7 @@ class Viewport(W.QWidget):
         if button == QtCore.Qt.LeftButton:
             self.yaw = max(-89, min(89, self.yaw - dx * .4)); self.pitch = max(-60, min(80, self.pitch + dy * .4)); self.update()
         elif button == QtCore.Qt.RightButton:
-            s = min(self.width(), self.height()) / (self.span * .6) * self.zoom
+            s = self.scale()
             self.moved.emit(-dx / s, -dy / s)   # screen right = -u after the mirror, screen up = +v
 
     def mouseReleaseEvent(self, _):
@@ -185,7 +190,7 @@ def _inside(x, y, a, b, c):
 class BrakeGlowPanel(W.QWidget):
     """Brake Glow-ON authoring panel. ``host``: game host folder (car.dx, textures, PS2 assets, registry)."""
 
-    def __init__(self, host: Path, family: str | None = None, spec_path: Path | None = None, parent=None):
+    def __init__(self, host: Path, family: str | None = None, spec_path: Path | None = None, parent=None, *, compact=False):
         super().__init__(parent)
         import brake_lamp_sdk as sdk
         self.sdk = sdk
@@ -196,9 +201,20 @@ class BrakeGlowPanel(W.QWidget):
         self.fitted = []
         self.raw = None
         self.car = None
-        layout = W.QHBoxLayout(self)
-        side = W.QVBoxLayout(); layout.addLayout(side, 0)
-        self.viewport = Viewport(); layout.addWidget(self.viewport, 1)
+        # Standalone: controls left, viewport right. Compact (a narrow Workshop side tab): viewport on top,
+        # controls in a scroll area below, plus a button that opens the full editor in its own window.
+        split = W.QSplitter(QtCore.Qt.Vertical if compact else QtCore.Qt.Horizontal)
+        W.QVBoxLayout(self).addWidget(split)
+        controls = W.QWidget(); side = W.QVBoxLayout(controls)
+        scroll = W.QScrollArea(); scroll.setWidgetResizable(True); scroll.setWidget(controls)
+        self.viewport = Viewport()
+        if compact:
+            self.viewport.setMinimumSize(240, 260)
+            split.addWidget(self.viewport); split.addWidget(scroll); split.setSizes([360, 600])
+            b = W.QPushButton('Open in own window'); b.clicked.connect(self.pop_out); side.addWidget(b)
+        else:
+            scroll.setMinimumWidth(330)
+            split.addWidget(scroll); split.addWidget(self.viewport); split.setSizes([340, 1060])
         self.family = W.QComboBox(); self.family.setEditable(True)
         for f in ('Mercedes', 'Trooper', 'Rav4', 'Tomcat', 'HeritageNewRav', 'ForesterSTI', 'ImprezaProto', 'LancerEvo4', 'Evo2FourRunner'):
             self.family.addItem(f)
@@ -206,7 +222,7 @@ class BrakeGlowPanel(W.QWidget):
         row = W.QHBoxLayout(); side.addLayout(row)
         for text, slot in (('Open json', self.open_spec), ('Auto spec', self.auto_spec), ('Save json', self.save_spec)):
             b = W.QPushButton(text); b.clicked.connect(slot); row.addWidget(b)
-        self.lamps = W.QListWidget(); self.lamps.currentRowChanged.connect(self.select); side.addWidget(self.lamps)
+        self.lamps = W.QListWidget(); self.lamps.setMinimumHeight(90); self.lamps.currentRowChanged.connect(self.select); side.addWidget(self.lamps)
         form = W.QFormLayout(); side.addLayout(form)
         self.fields = {}
 
@@ -234,7 +250,7 @@ class BrakeGlowPanel(W.QWidget):
         b = W.QPushButton('Snap to lens'); b.clicked.connect(self.snap); row.addWidget(b)
         b = W.QPushButton('Re-fit'); b.clicked.connect(self.refit); row.addWidget(b)
         row = W.QHBoxLayout(); side.addLayout(row)
-        for text, mode in (('Native BrakeGlow=0 (PC)', 'pc'), ('Native BrakeGlow=1 (PS2)', 'ps2')):
+        for text, mode in (('D3D9 BrakeGlow=0', 'pc'), ('D3D9 BrakeGlow=1', 'ps2')):
             b = W.QPushButton(text); b.clicked.connect(lambda _=False, m=mode: self.native(m)); row.addWidget(b)
         self.status = W.QPlainTextEdit(); self.status.setReadOnly(True); self.status.setMaximumHeight(140); side.addWidget(self.status)
         self.refit_timer = QtCore.QTimer(self); self.refit_timer.setSingleShot(True); self.refit_timer.timeout.connect(self.refit)
@@ -246,6 +262,15 @@ class BrakeGlowPanel(W.QWidget):
             self.load_spec(Path(spec_path))
         elif family:
             self.family.setCurrentText(family); self.auto_spec()
+
+    def pop_out(self):
+        """Full editor in its own window on the same host and current description."""
+        window = W.QMainWindow(self.window()); window.setWindowTitle('Material & Glow Studio - Brake Glow-ON'); window.resize(1400, 860)
+        panel = BrakeGlowPanel(self.host, self.family.currentText())
+        if self.spec is not None:
+            panel.spec_path = self.spec_path; panel.set_spec(copy.deepcopy(self.spec))
+        window.setCentralWidget(panel); window.show()
+        self._windows = getattr(self, '_windows', []) + [window]
 
     # ---------------------------------------------------------------- spec io
     def log(self, text):
@@ -442,8 +467,10 @@ def QLabel(text):
 
 def add_to_workshop(window, host, family=None):
     """Add the panel as a 'Brake Glow-ON' tab next to Material / Glow in a Rally Workshop main window."""
-    tabs = window.findChild(W.QTabWidget)
-    panel = BrakeGlowPanel(Path(host), family)
-    index = next((i for i in range(tabs.count()) if tabs.tabText(i) == 'Material / Glow'), tabs.count() - 1)
+    found = [(t, i) for t in window.findChildren(W.QTabWidget) for i in range(t.count()) if t.tabText(i) == 'Material / Glow']
+    if not found:
+        raise RuntimeError('no Material / Glow tab in this window')
+    tabs, index = found[0]
+    panel = BrakeGlowPanel(Path(host), family, compact=True)
     tabs.insertTab(index + 1, panel, 'Brake Glow-ON')
     return panel

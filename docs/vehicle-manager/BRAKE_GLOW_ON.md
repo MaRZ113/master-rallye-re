@@ -110,8 +110,15 @@ in the OFF state.
 
 `tools/brake_lamps/studio_panel.py` is a PySide6 panel for the Material &
 Glow Studio (Rally Workshop 2.0 `workshop/qt_editor.py`, tab
-`Material / Glow`): `add_to_workshop(window, host)` inserts a `Brake Glow-ON`
-tab next to it; `tools/brake_lamp_studio.py` runs it standalone. Viewport with
+`Material / Glow`): `add_to_workshop(window, host)` inserts a compact
+`Brake Glow-ON` tab next to it (viewport on top, controls scrolled, "Open in
+own window"). `tools/brake_lamp_studio.py` runs it standalone, or with
+`--workshop <workspace>` opens the SDK Workshop with the tab added; the SDK's
+`qt_editor.py` itself is not modified. Tested 2026-11-13 with PySide6 6.12.0
+on Python 3.11 (owner approved the install): load, lamp select, gizmo drag
+(re-fit reports BURIED when the core is dragged off the lens), Shift+wheel,
+Snap to lens, OFF/ON, lens face toggle, both native previews, Workshop mount.
+Mouse input itself was driven through the slots, not by a person. Viewport with
 OFF/ON toggle and heat colouring, lens-plane gizmo (RMB drag; Shift+wheel =
 normal offset), numeric fields, Snap to lens, Ctrl+click lens face picking,
 and native D3D9 preview for BrakeGlow=0 and 1.
