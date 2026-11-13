@@ -30,7 +30,8 @@ def compile_proxy(output, include, extra_header, menu_builder):
                      '    MRExtraRevisionV1=_MRExtraRevisionV1@12 @10\n'
                      '    MRExtraTextureV1=_MRExtraTextureV1@36 @11\n'
                      '    MRExtraVisualV2=_MRExtraVisualV2@12 @12\n'
-                     '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n') if extra_header is not None else ''
+                     '    MRExtraVehicleRegistryAbi=_MRExtraVehicleRegistryAbi@0 @13\n'
+                     '    MRExtraFamilyV1=_MRExtraFamilyV1@12 @19\n') if extra_header is not None else ''
     # Menu Builder exports follow the registry marker (@13); all consumers bind by name.
     exports_menu = ('    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n'
                     '    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n'

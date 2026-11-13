@@ -55,6 +55,20 @@ inline bool fleet_folder_matches(const char* folder,const char* family) noexcept
 // setter stores the pool id of the 0x4d1010-normalised file name (lower case, '/' replaced by '\'), so the live
 // text is "vehicles\<name>\car" (runtime PID 26308 rejected the '/'-only form for all four cars).
 inline bool fleet_path_separator(char c) noexcept {return c=='/'||c=='\\';}
+// Vehicle options (docs/vehicle-manager/VEHICLE_OPTIONS_DESIGN.md rev 2): a painted car loads from the virtual folder
+// "<kit>__p<n>" (n = 1..31), whose files are the kit's except the paint textures. Geometry, lamps, brake, damage and
+// collision hull are the kit's, so every profile lookup uses the kit folder.
+inline bool fleet_strip_paint(char* name) noexcept {
+    const size_t n=name?std::strlen(name):0;
+    for(size_t digits=1;digits<=2;++digits){
+        if(n<digits+4)continue;
+        const size_t s=n-digits-3;
+        if(name[s]!='_'||name[s+1]!='_'||(name[s+2]!='p'&&name[s+2]!='P')||name[s+3]=='0')continue;
+        bool ok=true;for(size_t k=s+3;k<n;++k)if(name[k]<'0'||name[k]>'9')ok=false;
+        if(ok){for(size_t k=s;k<n;++k)name[k]=0;return true;}
+    }
+    return false;
+}
 inline bool fleet_model_folder(const char* text,const char* leaf,std::array<char,48>& out) noexcept {
     out={};if(!text||!leaf)return false;constexpr char prefix[]="vehicles";const size_t n=std::strlen(text),p=sizeof(prefix)-1,l=std::strlen(leaf);
     if(n<=p+2+l)return false;
@@ -64,6 +78,7 @@ inline bool fleet_model_folder(const char* text,const char* leaf,std::array<char
     for(size_t i=0;i<l;++i){char c=text[n-l+i];if(c>='A'&&c<='Z')c=char(c-'A'+'a');if(c!=leaf[i])return false;}
     const size_t name=n-l-2-p;if(!name||name>=out.size())return false;
     for(size_t i=0;i<name;++i){const char c=text[p+1+i];if(fleet_path_separator(c)||c<0x20)return false;out[i]=c;}
+    fleet_strip_paint(out.data());
     return true;
 }
 

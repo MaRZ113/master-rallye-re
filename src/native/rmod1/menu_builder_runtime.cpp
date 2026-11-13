@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "menu_builder_runtime.hpp"
 #include "vehicle_roster.hpp"
+#include "menu_dynamic.hpp"
 #include <array>
 #include <cctype>
 #include <climits>
@@ -33,7 +34,7 @@ constexpr uintptr_t kCreateFileSite = 0x64d573;   // FF 15 [0x68F1E0] CALL Creat
 constexpr uintptr_t kScreenNameSite = 0x45d865;   // CALL 0x449CF0 in the screen change 0x45D6C0
 constexpr uintptr_t kHostInitSlot = 0x690540;     // gaFEScreenGraphicsMainAI vtable 0x69052C [5] = init
 constexpr int kRetailScreens = 0x36, kHostScreen = 0x33, kFirstCustom = 64;
-constexpr const char* kRuntimeVersion = "1.1.0";
+constexpr const char* kRuntimeVersion = "1.2.0";
 
 struct Api { uintptr_t va; std::array<unsigned char, 8> bytes; };
 constexpr Api kApis[] = {
@@ -67,6 +68,8 @@ struct Screen {
     std::map<std::string, std::string> variants; int focus = 0; bool has_back = false; Action back;
     std::vector<Button> buttons;
     std::vector<Value> values;
+    // Dynamic visibility (format 2 "visible" lines): rows hidden while their value provider is unavailable.
+    std::vector<menu_dynamic::Row> dynamic; std::vector<std::string> dynamic_values; menu_dynamic::State dynamic_state;
     int base_state = 0; // 0 unknown, 1 ok, -1 base changed (redirect disabled)
     const Button* find(int bid) const { for (auto& b : buttons) if (b.id == bid) return &b; return nullptr; }
 };
@@ -209,6 +212,18 @@ bool load_layout(const fs::path& dir) {
                 s->buttons.push_back(b);
             } else if (k == "hit" && t.size() >= 5) {
                 for (auto& b : s->buttons) if (b.id == std::atoi(t[2].c_str())) b.hit[t[3]] = parse_rect(t[4]);
+            } else if (k == "visible" && t.size() >= 7) {
+                // visible <scene> <button> <value id> <up> <down> <egg,egg,...>
+                menu_dynamic::Row r; r.button = std::atoi(t[2].c_str()); r.up = std::atoi(t[4].c_str()); r.down = std::atoi(t[5].c_str());
+                r.eggs = split(t[6], ',');
+#if defined(RMOD_EXTRA_OPTIONS)
+                // Extra Options owns the Vehicle Select MODEL/PAINT rows itself (also without Menu Builder).
+                if (!r.eggs.empty() && (r.eggs[0].compare(0, 10, "ExtraModel") == 0 || r.eggs[0].compare(0, 10, "ExtraPaint") == 0)) {
+                    log(fmt("LAYOUT_VISIBLE ignored scene=%s button=%d: row owned by Extra Options", t[1].c_str(), r.button)); continue;
+                }
+#endif
+                if (r.button <= 0 || r.eggs.empty() || t[3].empty()) { log(fmt("LAYOUT_VISIBLE invalid line %d", lineno)); return false; }
+                s->dynamic.push_back(r); s->dynamic_values.push_back(t[3]);
             } else if (k == "value" && t.size() >= 7) {
                 Value v; v.egg = t[2]; v.key = t[3]; v.source = t[4]; v.fallback = t[5]; v.format = t[6];
                 if (v.key.compare(0, 12, "MenuBuilder/") != 0) { log(fmt("LAYOUT_VALUE rejected key=%s (must be MenuBuilder/...)", v.key.c_str())); return false; }
@@ -442,7 +457,7 @@ void __fastcall host_init(void* self, void*, void* argument) {
 std::string canonical(const std::string& id) { return id == "extra_options.model_source" ? "vehicle.model_source" : id; }
 bool owned_id(const std::string& id) {
     const auto c = canonical(id);
-    return c == "vehicle.model_source" || c == "vehicle.tyres" || c == "game.quit";
+    return c == "vehicle.model_source" || c == "vehicle.tyres" || c == "vehicle.paint" || c == "vehicle.model_label" || c == "game.quit";
 }
 bool valid_id(const char* id) {
     if (!id) return false;
@@ -475,6 +490,7 @@ bool extension_available(const std::string& id) {
 #if defined(RMOD_EXTRA_OPTIONS)
     if (name == "vehicle.model_source") return extra_runtime::appearance_available();
     if (name == "vehicle.tyres") return extra_runtime::tyre_available();
+    if (name == "vehicle.paint") return extra_runtime::appearance_available();
 #endif
     return false;
 }
@@ -488,6 +504,7 @@ bool run_extension(const std::string& id, const std::string& args, int screen, i
     const int direction = args == "-1" ? -1 : 1;
     if (name == "vehicle.model_source" && extra_runtime::appearance_step(direction, label, sizeof(label))) { log(fmt("ACTION vehicle.model_source -> %s", label)); return true; }
     if (name == "vehicle.tyres" && extra_runtime::tyre_step(direction, label, sizeof(label))) { log(fmt("ACTION vehicle.tyres -> %s", label)); return true; }
+    if (name == "vehicle.paint" && extra_runtime::paint_step(direction, label, sizeof(label))) { log(fmt("ACTION vehicle.paint -> %s", label)); return true; }
 #endif
     return false;
 }
@@ -504,9 +521,32 @@ bool value_of(const std::string& id, int screen, std::string& out) {
 #if defined(RMOD_EXTRA_OPTIONS)
     if (name == "vehicle.model_source" && extra_runtime::appearance_label(text, sizeof(text))) { out = text; return true; }
     if (name == "vehicle.tyres" && extra_runtime::tyre_label(text, sizeof(text))) { out = text; return true; }
+    if (name == "vehicle.paint" && extra_runtime::paint_label_of(text, sizeof(text))) { out = text; return true; }
+    if (name == "vehicle.model_label" && extra_runtime::model_caption_label(text, sizeof(text))) { out = text; return true; }
 #endif
     (void)screen;
     return false;
+}
+
+// Dynamic rows: shown while their value ID has an answer for the current state.
+menu_dynamic::Host dynamic_host(Screen& s) {
+    return menu_dynamic::Host{
+        [](const std::string& egg) -> uintptr_t {
+            fn<void(__cdecl*)()>(kEggManager)();
+            uintptr_t manager = 0, en2d = 0;
+            if (!read_mem(kEggManagerGlobal, &manager, 4) || !manager) return 0;
+            uint32_t k = key(egg.c_str());
+            auto e = reinterpret_cast<uintptr_t>(fn<void*(__thiscall*)(void*, uint32_t*)>(kFindEgg)(reinterpret_cast<void*>(manager), &k));
+            return e && read_mem(e + 0x4c, &en2d, 4) ? en2d : 0;
+        },
+        [] { return get_int("UI/Active"); }, [](int b) { put_int("UI/Active", b); },
+        [&s](const std::string& line) { log("DYNAMIC scene=" + s.scene + " " + line); }};
+}
+void update_dynamic(Screen& s) {
+    if (s.dynamic.empty()) return;
+    std::vector<bool> available;
+    for (auto& id : s.dynamic_values) { std::string ignored; available.push_back(value_of(id, s.id, ignored)); }
+    menu_dynamic::update(s.dynamic, available, s.dynamic_state, dynamic_host(s));
 }
 
 // Native Name text (upper case, printable ASCII) of every dynamic value of the screen; written only on a change.
@@ -774,6 +814,7 @@ int __fastcall get_command(Helper* h, void*, int sound) {
                 for (auto& b : s->buttons) if (b.enabled) { put_int("UI/Active", b.id); log(fmt("FOCUS_MOVED from blocked %d to %d", f->id, b.id)); break; }
             g_last_mouse = {LONG_MIN, LONG_MIN};
             g_lbutton = g_rbutton = false;
+            menu_dynamic::entered(s->dynamic, s->dynamic_state, dynamic_host(*s));
             log(fmt("SCREEN_ACTIVE scene=%s id=%d variant=%s focus=%d", s->scene.c_str(), sid, g_variant.c_str(), get_int("UI/Active")));
             live_dump(*s, sid);
         }
@@ -782,6 +823,7 @@ int __fastcall get_command(Helper* h, void*, int sound) {
             g_deferred_accept = 0;
         } else if (s && g_layout.mouse && g_os_mouse) mouse(*s);
         if (s && !s->values.empty()) update_values(*s, false);
+        if (s) update_dynamic(*s);
         if (!g_steps.empty()) autotest(s, sid);
     } catch (...) { s = nullptr; }
     // native.forward: the target screen's own AI receives the command as if its button was pressed.
@@ -797,6 +839,7 @@ int __fastcall get_command(Helper* h, void*, int sound) {
         if (result > 0) {
             if (const Button* b = s->find(result)) {
                 if (!b->enabled) { log(fmt("BLOCKED scene=%s button=%d egg=%s: hidden/disabled, command ignored", s->scene.c_str(), result, b->egg.c_str())); return -1; }
+                if (menu_dynamic::hidden_button(s->dynamic, result)) { log(fmt("BLOCKED scene=%s button=%d: dynamic row hidden, command ignored", s->scene.c_str(), result)); return -1; }
                 if (b->action.type == "native" && !b->action.args.count("command")) return result;  // retail command, native AI owns it
                 return execute(h, sid, result, b->action);
             }

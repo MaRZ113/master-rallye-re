@@ -71,7 +71,7 @@ static class Program
         var vc = layout.Screens.First(s => s.Name == "VehicleConfig");
         Check(vc.Buttons.First(b => b.Egg == "VC_Setup").Action.Type == ActionBinding.Forward, "VEHICLE SETUP = native.forward (Quick Race command 5)");
         Check(vc.Buttons.First(b => b.Egg == "VC_Paint").Status == BindingStatus.Extension && vc.Buttons.First(b => b.Egg == "VC_Paint").Action.Extension == "vehicle.paint",
-              "PAINT bound to the planned typed action vehicle.paint (served disabled, not faked)");
+              "PAINT bound to the Extra Options typed action vehicle.paint");
         Check(vc.Buttons.First(b => b.Egg == "VC_Model").Action.Extension == "vehicle.model_source", "MODEL SOURCE bound to the Extra Options action");
 
         // --- runtime table ---------------------------------------------------------------------------------

@@ -56,6 +56,16 @@ void* __fastcall test_find(void*,void*,uint32_t* parent,uint32_t* child){
  auto it=controllers.find(strings[*parent]);return it==controllers.end()?nullptr:&it->second;
 }
 void check(bool ok,const char* s){if(!ok)throw std::runtime_error(s);}
+// Menu-car display tick: records the registry folder of the shown CarID while the original runs.
+std::string display_loaded;int display_calls=0;
+void __fastcall test_display(void* self,void*,void*){++display_calls;int id=0;std::memcpy(&id,static_cast<char*>(self)+0xc,4);
+ const int want=numbers[strings[*reinterpret_cast<uint32_t*>(static_cast<char*>(self)+0x10)]];
+ if(id!=want){std::memcpy(static_cast<char*>(self)+0xc,&want,4);uintptr_t text=0;std::memcpy(&text,registry+0x24+want*0x34,4);display_loaded=reinterpret_cast<const char*>(text);}}
+// Race participant wrapper setters (CarType +0x64, WheelType +0x6C).
+std::map<int,std::string> car_type,wheel_type;
+void __fastcall test_strdup(uint32_t* to,void*,const char* s){std::free(reinterpret_cast<void*>(*to));const auto n=std::strlen(s)+1;auto* p=std::malloc(n);std::memcpy(p,s,n);*to=reinterpret_cast<uint32_t>(p);}
+void __fastcall test_car_type(void*,void*,int car,uint32_t* s){car_type[car]=reinterpret_cast<const char*>(*s);}
+void __fastcall test_wheel_type(void*,void*,int car,uint32_t* s){wheel_type[car]=reinterpret_cast<const char*>(*s);}
 }
 uintptr_t extra_test_resolve(uintptr_t p){
  switch(p){
@@ -83,6 +93,10 @@ uintptr_t extra_test_resolve(uintptr_t p){
  case 0x525a80:return reinterpret_cast<uintptr_t>(&test_buttons);
  case 0x525800:return reinterpret_cast<uintptr_t>(&test_focus);
  case 0x481f50:return reinterpret_cast<uintptr_t>(&test_scroll);
+ case 0x44c4c0:return reinterpret_cast<uintptr_t>(&test_display);
+ case 0x4d1990:return reinterpret_cast<uintptr_t>(&test_strdup);
+ case 0x4aca40:return reinterpret_cast<uintptr_t>(&test_car_type);
+ case 0x4acb40:return reinterpret_cast<uintptr_t>(&test_wheel_type);
  default:throw std::runtime_error("unmapped API");
  }
 }
@@ -173,6 +187,13 @@ int main(int argc,char** argv){try{
  check(MRExtraVisualV2("Megane",1,1)==0,"Tires=0 keeps AI appearance isolated");
  options.tires=true;paints[0][21]=0;
 
+ // Vehicle Select rows: egg lookup is replaced (no native egg manager in the test).
+ std::map<std::string,std::vector<unsigned char>> en2d;
+ for(const char* e:{"ExtraModel","ExtraModelText","ExtraModelLeftArrow","ExtraModelRightArrow","ExtraPaint","ExtraPaintText","ExtraPaintLeftArrow","ExtraPaintRightArrow"}){
+  en2d[e].assign(0x60,0);const float x=36.0f;std::memcpy(en2d[e].data()+0x54,&x,4);}
+ row_egg=[&](const std::string& n)->uintptr_t{auto it=en2d.find(n);return it==en2d.end()?0:reinterpret_cast<uintptr_t>(it->second.data());};
+ auto egg_x=[&](const char* n){float x=0;std::memcpy(&x,en2d[n].data()+0x54,4);return x;};
+
  // Vehicle Select: generic PS2/PC for every car, per-car presets where authored; immediate.
  numbers["Frontend/VehicleSelect/PlayerID"]=0;numbers["Frontend/VehicleSelect/CarModel"]=15;
  select_init(nullptr,nullptr,nullptr);
@@ -188,7 +209,7 @@ int main(int argc,char** argv){try{
  check(MRExtraVisualV2("Megane",1,1)==0,"race AI unchanged");
  paints[0][21]=0;check(MRExtraVisualV2("SeatBuggy",0,1)==2,"race human PS2");
  check(MRExtraTextureV1("SeatBuggy",0,1,1,registry,registry,4,-1,0)==FALSE,"texture-transfer variant retired");
- check(migrate_paint(21,2)==1&&migrate_paint(21,1)==0&&migrate_paint(2,1)==1&&migrate_paint(15,5)==0,"EXTRA-SET1 presets migrate to PS2/PC");
+ check(migrate_paint(21,2)==2&&migrate_paint(21,1)==0&&migrate_paint(2,1)==1&&migrate_paint(15,5)==0&&migrate_paint(2,kUnset)==kUnset,"EXTRA-SET1 presets migrate to PS2/PC; stored DEMO kept (checked at use); unset stays unset");
  focused=3;select_scroll(nullptr,nullptr,1);check(scrolls==0,"Left/Right on MODEL keeps the carousel");
  focused=2;select_scroll(nullptr,nullptr,1);check(scrolls==1,"carousel still scrolls from its own row");
  options.liveries=false;check(MRExtraVisualV2("SeatBuggy",0,1)==0,"independent appearance toggle");options.liveries=true;
@@ -205,6 +226,81 @@ int main(int argc,char** argv){try{
   check(GetPrivateProfileIntW(section,L"Tire",0,path.c_str())==2,"high physical ID INI persistence");
  }
  check(!valid_car(-1)&&!valid_car(513),"capacity bounds");
+
+ // ---- vehicle-options.ini (revision 2) -------------------------------------------------------------------------
+ {
+  vehicle_options::Table bad;std::string error;
+  check(!vehicle_options::parse("[Family:X]\nmodel=A,B\n",bad,error),"kits need one folder per choice");
+  check(!vehicle_options::parse("[Family:X]\nmodel=A,B\nmodel_folders=X__p1,Y\n",bad,error),"virtual separator refused in folders");
+  check(!vehicle_options::parse("[Family:X]\nmodel=A,B\nmodel_folders=Q,R\n[Family:Y]\nmodel=C,D\nmodel_folders=Q,S\n",bad,error),"kit folder of two families refused");
+  check(!vehicle_options::parse("[Family:X]\nwhatever=1\n",bad,error),"unknown key refused");
+  std::string kit;unsigned n=0;
+  check(vehicle_options::split_virtual("Calmini__p3",kit,n)&&kit=="Calmini"&&n==3,"virtual name split");
+  check(!vehicle_options::split_virtual("Calmini__p0",kit,n)&&!vehicle_options::split_virtual("Calmini__p03",kit,n)&&!vehicle_options::split_virtual("__p1",kit,n),"invalid virtual names");
+ }
+ const char* ini="; test\r\n[Family:CalminiFrontier]\r\nmodel_label = KIT\r\nmodel = BARE,STOCK,FULL ; three kits\r\n"
+  "model_folders = CalminiFrontier_bare,CalminiFrontier,CalminiFrontier_full\r\nmodel_default = 1\r\npaint = GREY,RED,BLACK\r\n"
+  "[Family:Evo2Plain]\r\nmodel =\r\n";
+ {std::string error;check(vehicle_options::parse(ini,vopts,error),error.c_str());}
+ {std::vector<std::string> c;
+  check(vopts.candidates("DataGx/Vehicles/CalminiFrontier_full__p2/body.dxt",c)&&c.size()==2&&c[0]=="datagx/vehiclepaints/calminifrontier/2/body.dxt"&&c[1]=="datagx/vehicles/calminifrontier_full/body.dxt","paint file first, then the kit");
+  check(!vopts.candidates("DataGx/Vehicles/CalminiFrontier_full__p3/body.dxt",c),"paint index past the family list refused");
+  check(!vopts.candidates("DataGx/Vehicles/Pajero__p1/car.dx",c),"undeclared family never rewritten");
+  check(vopts.family_of("CalminiFrontier_bare__p1")=="CalminiFrontier"&&vopts.family_of("CalminiFrontier_full")=="CalminiFrontier","family of kit/paint names");}
+ static const char calmini[]="CalminiFrontier",plain_family[]="Evo2Plain",heritage[]="HeritageTrooper";
+ for(auto [id,name]:{std::pair<int,const char*>{30,calmini},{31,plain_family},{32,heritage}}){const auto ptr=reinterpret_cast<uintptr_t>(name);std::memcpy(registry+0x24+id*0x34,&ptr,4);}
+ for(int id:{30,31,32}){paints[0][id]=kUnset;colours[0][id]=kUnset;paints[1][id]=kUnset;colours[1][id]=kUnset;}
+ numbers["Frontend/VehicleSelect/PlayerID"]=0;numbers["Frontend/VehicleSelect/CarModel"]=30;
+ select_init(nullptr,nullptr,nullptr);
+ check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"BARE","STOCK","FULL"},"kit choices replace PS2/PC");
+ check(texts["Frontend/ExtraOptions/ModelLabel"]=="KIT"&&texts["Frontend/ExtraOptions/PaintText"]=="STOCK","caption KIT, default kit STOCK");
+ check(published["Frontend/ExtraOptions/ColourList"]==std::vector<std::string>{"GREY","RED","BLACK"}&&texts["Frontend/ExtraOptions/ColourText"]=="GREY","paint row");
+ check(std::string(participant_folder(0,30))=="CalminiFrontier","default kit + paint 0 = family folder");
+ numbers["Frontend/ExtraOptions/Paint"]=2;numbers["Frontend/ExtraOptions/Colour"]=1;select_tick(nullptr,nullptr,0);
+ check(std::string(participant_folder(0,30))=="CalminiFrontier_full__p1","kit FULL + paint RED");
+ check(std::string(participant_folder(1,30))=="CalminiFrontier","second player keeps defaults");
+ check(std::string(participant_folder(-1,30))=="CalminiFrontier","AI: family default");
+ // Menu car: the registry row carries the kit/paint folder only while the display tick runs.
+ {std::vector<unsigned char> display(0x20,0);const int none=-1;std::memcpy(display.data()+0xc,&none,4);
+  const uint32_t k=intern("Frontend/VehicleSelect/CarModel");std::memcpy(display.data()+0x10,&k,4);
+  display_tick(display.data(),nullptr,nullptr);
+  uintptr_t row_now=0;std::memcpy(&row_now,registry+0x24+30*0x34,4);
+  check(display_loaded=="CalminiFrontier_full__p1"&&row_now==reinterpret_cast<uintptr_t>(calmini),"menu car built from the virtual folder, registry restored");
+  display_loaded.clear();display_tick(display.data(),nullptr,nullptr);check(display_loaded.empty(),"no rebuild without a change");
+  numbers["Frontend/ExtraOptions/Colour"]=2;select_tick(nullptr,nullptr,0);display_tick(display.data(),nullptr,nullptr);
+  check(display_loaded=="CalminiFrontier_full__p2","paint change rebuilds the menu car at once");
+  numbers["Frontend/VehicleSelect/CarModel"]=2;select_tick(nullptr,nullptr,0);display_loaded.clear();display_tick(display.data(),nullptr,nullptr);
+  check(display_loaded=="Tata","other cars untouched");numbers["Frontend/VehicleSelect/CarModel"]=30;select_tick(nullptr,nullptr,0);}
+ // Race: each participant gets its own folder; physics/registry untouched.
+ numbers["Race/AttractMode"]=0;
+ numbers["Race/Car0/PlayerType"]=1;numbers["Race/Car0/CarID"]=30;numbers["Race/Car1/PlayerType"]=1;numbers["Race/Car1/CarID"]=30;
+ numbers["Race/Car2/PlayerType"]=2;numbers["Race/Car2/CarID"]=30;numbers["Race/Car3/PlayerType"]=2;numbers["Race/Car3/CarID"]=2;
+ paints[1][30]=0;colours[1][30]=0;
+ for(int c=0;c<4;++c)race_identity(c);
+ check(car_type[0]=="CalminiFrontier_full__p2"&&wheel_type[0]==car_type[0],"player 1 own kit and paint");
+ check(car_type[1]=="CalminiFrontier_bare","player 2 same car, own kit");
+ check(!car_type.count(2)&&!car_type.count(3),"AI default and retail cars keep the native identity");
+ numbers["Race/AttractMode"]=1;car_type.clear();race_identity(0);check(car_type.empty(),"attract untouched");numbers["Race/AttractMode"]=0;
+ // Rows: Evo2Plain declares no model, no paints -> both rows hidden; focus walks over them.
+ numbers["Frontend/VehicleSelect/CarModel"]=31;numbers["UI/Active"]=2;select_tick(nullptr,nullptr,0);
+ check(egg_x("ExtraModel")==menu_dynamic::kParkedX&&egg_x("ExtraPaintRightArrow")==menu_dynamic::kParkedX,"rows without choices parked");
+ numbers["UI/Active"]=3;select_tick(nullptr,nullptr,0);check(numbers["UI/Active"]==1,"Down from SelectCar skips MODEL and PAINT to Class");
+ numbers["UI/Active"]=4;select_tick(nullptr,nullptr,0);check(numbers["UI/Active"]==2,"Up from Class skips PAINT and MODEL to SelectCar");
+ check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"-"}&&numbers["Frontend/ExtraOptions/PaintRightArrow"]==0,"no fake choices");
+ numbers["Frontend/VehicleSelect/CarModel"]=30;select_tick(nullptr,nullptr,0);
+ check(egg_x("ExtraModel")==36.0f&&egg_x("ExtraPaintText")==36.0f,"rows come back for a car with choices");
+ // Added car without a PS2 bundle or DEMO: nothing to switch, hidden; retail cars keep PS2/PC.
+ numbers["Frontend/VehicleSelect/CarModel"]=32;select_tick(nullptr,nullptr,0);select_tick(nullptr,nullptr,0);
+ check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"-"}&&egg_x("ExtraModel")==menu_dynamic::kParkedX,"added car: MODEL row hidden");
+ numbers["Frontend/VehicleSelect/CarModel"]=2;select_tick(nullptr,nullptr,0);select_tick(nullptr,nullptr,0);
+ check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"PS2","PC"}&&egg_x("ExtraModel")==36.0f&&egg_x("ExtraPaint")==menu_dynamic::kParkedX,"retail: MODEL shown, PAINT hidden");
+ focused=4;select_scroll(nullptr,nullptr,1);check(scrolls==1,"Left/Right on PAINT keeps the carousel");focused=2;
+ {char out[64]{};check(MRExtraFamilyV1("CalminiFrontier_bare__p2",out,64)&&std::string(out)=="CalminiFrontier","family export for kit/paint folders");
+  check(!MRExtraFamilyV1("Pajero",out,64),"unknown names stay as they are");}
+ check(model_row_available()&&!paint_row_available(),"Menu Builder rows: retail car has MODEL, no PAINT");
+ numbers["Frontend/VehicleSelect/CarModel"]=30;select_tick(nullptr,nullptr,0);
+ check(MRExtraVisualV2("CalminiFrontier_full__p2",-1,0)==1,"renderer query with a virtual folder answers for the family (PC)");
+ {char label[32]{};check(paint_step(1,label,sizeof(label))&&std::string(label)=="GREY"&&colours[0][30]==0,"vehicle.paint steps and wraps");}
  options.enabled=false;check(MRExtraVisualV1("SeatBuggy",0,1)==0,"customization off passthrough");
- std::cout<<"EXTRA_NATIVE_PASS GENERAL tyre row (Quick Race + championship, two players); human-only compound wheels; Vehicle Select PS2/PC immediate for every car, carousel locked on MODEL; renderer V1/V2 contract\n";return 0;
+ std::cout<<"EXTRA_NATIVE_PASS GENERAL tyre row (Quick Race + championship, two players); human-only compound wheels; Vehicle Select PS2/PC immediate for every car, carousel locked on MODEL/PAINT; kits/paints per player and participant; dynamic rows; renderer V1/V2 contract\n";return 0;
  }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

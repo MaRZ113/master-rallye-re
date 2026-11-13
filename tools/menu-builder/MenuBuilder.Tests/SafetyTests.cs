@@ -211,6 +211,8 @@ static class SafetyTests
         Check(ws.Build(gone).findings.Any(f => f.Code == "BASE_EGG_MISSING" && f.Severity == Severity.Error), "edit of a missing retail egg is an ERROR");
 
         var required = good.Clone();
+        // vehicle.paint is implemented by Extra Options since runtime 1.2: vehicle.apply is still a planned action.
+        required.Screen("VehicleConfig")!.Element("VC_Paint")!.Action!.Extension = "vehicle.apply";
         required.Screen("VehicleConfig")!.Element("VC_Paint")!.Action!.Optional = false;
         var (_, f2) = ws.Build(required);
         Check(f2.Any(f => f.Code == "ACTION_REQUIRED_MISSING" && f.Severity == Severity.Error && f.Element == "VC_Paint"), "required action without handler is an ERROR");
@@ -230,6 +232,20 @@ static class SafetyTests
         var legacy = good.Clone();
         legacy.Screen("VehicleConfig")!.Element("VC_Model")!.Action!.Extension = "extra_options.model_source";
         Check(Installer.RuntimeTable(ws.Build(legacy).layout, ws.Data, ws.Exe).Contains("ext=vehicle.model_source"), "legacy action name maps to its catalog ID");
+        // Dynamic visibility: the PAINT button and its value text form one row that the runtime hides while
+        // vehicle.paint has no answer (car without paints).
+        var dyn = good.Clone();
+        dyn.Screen("VehicleConfig")!.Element("VC_Paint")!.Patch.VisibleWhen = "vehicle.paint";
+        dyn.Screen("VehicleConfig")!.Element("VC_PaintValue")!.Patch.VisibleWhen = "vehicle.paint";
+        var (dynLayout, dynFindings) = ws.Build(dyn);
+        var dynTable = Installer.RuntimeTable(dynLayout, ws.Data, ws.Exe);
+        var paintButton = dynLayout.Screens.First(s => s.Name == "VehicleConfig").Buttons.First(b => b.Egg == "VC_Paint");
+        Check(dynFindings.All(f => f.Severity != Severity.Error) &&
+              dynTable.Contains($"visible\tMB_VehicleConfig\t{paintButton.Id}\tvehicle.paint\t{paintButton.Up}\t{paintButton.Down}\tVC_Paint,VC_PaintValue\n"),
+              "VisibleWhen compiles to a runtime 'visible' row (button + texts of the same value ID)");
+        var badDyn = good.Clone();
+        badDyn.Screen("VehicleConfig")!.Element("VC_Paint")!.Patch.VisibleWhen = "0x401000";
+        Check(ws.Build(badDyn).findings.Any(f => f.Code == "VALUE_ID" && f.Severity == Severity.Error), "an invalid VisibleWhen ID is an ERROR");
         Check(lay.Screens.All(s => s.Name != "Unused") && ws.Build(new MenuProject { Name = "U", Screens = { ws.NewRetailScreen("Credits") } }).layout.Screens.Count == 0,
             "unchanged retail screens are not served");
     }

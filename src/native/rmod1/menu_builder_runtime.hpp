@@ -36,5 +36,12 @@ bool appearance_label(char* label, size_t size) noexcept;
 bool tyre_available() noexcept;
 bool tyre_step(int direction, char* label, size_t size) noexcept;
 bool tyre_label(char* label, size_t size) noexcept;
+// vehicle.model_label (MODEL row caption) and vehicle.paint (PAINT row); unavailable = the row has no choices for the
+// Vehicle Select car, which is what dynamic visibility ("visible" rows) hides.
+bool model_row_available() noexcept;
+bool model_caption_label(char* label, size_t size) noexcept;
+bool paint_row_available() noexcept;
+bool paint_label_of(char* label, size_t size) noexcept;
+bool paint_step(int direction, char* label, size_t size) noexcept;
 }
 #endif

@@ -32,6 +32,7 @@
 #include <string>
 #include <vector>
 #include "roster_loader_profile.hpp"
+#include "vehicle_options.hpp"
 
 namespace vehicle_roster {
 
@@ -47,6 +48,7 @@ struct State {
     char game_dir[MAX_PATH]{};       // with trailing backslash
     char overlay_dir[MAX_PATH]{};    // ...\MRMods\Vehicles\active\resources\ (with trailing backslash)
     std::vector<std::string> overlay; // sorted, lower case, forward slashes, game-relative
+    vehicle_options::Table options;   // active/vehicle-options.ini: kit folders and virtual paint folders
     FARPROC create_file = nullptr, get_attributes = nullptr;
     bool installed = false;
     // Save guard: class of every physical ID the running roster offers (-1 = not offered), first ID per class.
@@ -134,8 +136,16 @@ inline std::string overlay_key(const char* path) {
 inline bool redirect(const char* path, char* out, size_t size) {
     const auto& s = state();
     if (s.overlay.empty()) return false;
-    const auto key = overlay_key(path);
-    if (key.empty() || !std::binary_search(s.overlay.begin(), s.overlay.end(), key)) return false;
+    auto key = overlay_key(path);
+    if (key.empty()) return false;
+    if (!std::binary_search(s.overlay.begin(), s.overlay.end(), key)) {
+        // Virtual paint folder DataGx/Vehicles/<kit>__p<n>/<file>: the paint's own file, else the kit's file.
+        std::vector<std::string> candidates;
+        if (s.options.families.empty() || !s.options.candidates(key, candidates)) return false;
+        key.clear();
+        for (const auto& c : candidates) if (std::binary_search(s.overlay.begin(), s.overlay.end(), c)) { key = c; break; }
+        if (key.empty()) return false;
+    }
     std::string rel = key;
     for (auto& c : rel) if (c == '/') c = '\\';
     return std::snprintf(out, size, "%s%s", s.overlay_dir, rel.c_str()) > 0;
@@ -377,6 +387,26 @@ inline bool install_native(const std::vector<uint8_t>& b, char* why, size_t why_
     return true;
 }
 
+// Vehicle Select options (kits, paints): only the virtual-folder table is needed here; Extra Options reads the same
+// file for the menu rows. A malformed file is ignored as a whole (no virtual names resolve).
+inline void load_options() {
+    auto& s = state();
+    char path[MAX_PATH]{};
+    std::snprintf(path, sizeof(path), "%sMRMods\\Vehicles\\active\\vehicle-options.ini", s.game_dir);
+    std::vector<uint8_t> bytes;
+    if (GetFileAttributesA(path) == INVALID_FILE_ATTRIBUTES || !read_file(path, bytes, 1024 * 1024)) return;
+    std::string error;
+    vehicle_options::Table table;
+    char line[300]{};
+    if (vehicle_options::parse(std::string(bytes.begin(), bytes.end()), table, error)) {
+        unsigned paints = 0;
+        for (auto& f : table.families) paints += f.paints.size() > 1 ? unsigned(f.paints.size() - 1) : 0u;
+        std::snprintf(line, sizeof(line), "VEHICLE_OPTIONS families=%u virtual_paint_folders_per_kit=%u", unsigned(table.families.size()), paints);
+        s.options = std::move(table);
+    } else std::snprintf(line, sizeof(line), "VEHICLE_OPTIONS_REJECTED %s; no kit/paint folders resolve", error.c_str());
+    log(line);
+}
+
 inline void attach(HINSTANCE self) {
     auto& s = state();
     try {
@@ -403,6 +433,7 @@ inline void attach(HINSTANCE self) {
                 collect(s.overlay_dir, "", s.overlay, 0);
                 std::sort(s.overlay.begin(), s.overlay.end());
                 s.overlay.erase(std::unique(s.overlay.begin(), s.overlay.end()), s.overlay.end());
+                load_options();
             }
         }
         // The save guard always runs: with this roster, with a launcher-installed registry (descriptor already

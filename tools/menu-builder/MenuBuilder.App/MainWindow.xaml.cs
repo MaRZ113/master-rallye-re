@@ -881,6 +881,15 @@ public partial class MainWindow : Window
                 }
             }
         }
+        {
+            // Dynamic visibility (runtime 1.2): shown only while the value ID has an answer for the current state.
+            Header("VISIBLE WHEN");
+            var vdyn = def != null ? Compiler.Effective(_s.Project, def) : null;
+            var choices = ActionCatalog.Values.Select(ActionLabel).Prepend("(always)").ToList();
+            var current = vdyn?.VisibleWhen is { } vw ? choices.FirstOrDefault(x => IdOf(x) == vw) ?? vw : "(always)";
+            Combo("Value ID", choices, current, v => _s.Patch(new[] { name }, "Visible when", (p, _) => p.VisibleWhen = v.StartsWith("(always") ? null : IdOf(v)),
+                editable: true, tip: "the row (button + texts with the same ID) is hidden while this value is unavailable; Up/Down skip it");
+        }
         if (egg.Focusable is { } f && egg.IsPrimaryFocusable)
         {
             Header("FOCUS & NAVIGATION");

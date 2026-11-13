@@ -24,6 +24,9 @@ public sealed class CompiledButton
     public bool Hidden;
     /// <summary>Hidden or disabled by the author: the runtime gives it no hitbox and swallows its command.</summary>
     public bool Blocked;
+    /// <summary>Dynamic row: value ID deciding visibility at run time, and every egg of the row (button first).</summary>
+    public string? VisibleWhen;
+    public List<string> RowEggs { get; } = new();
 }
 
 /// <summary>Dynamic text: the runtime writes the formatted provider value into a Broker Name the text egg displays.</summary>
@@ -384,6 +387,12 @@ public sealed class Compiler
         !screen.IsCustom && screen.Elements.Count == 0 && screen.Aspects.Values.All(m => m.Count == 0) && screen.DefaultFocus == null && screen.Back == null;
 
     /// <summary>Patch flag set by the author on an element (base delta, or the override of <paramref name="aspect"/>).</summary>
+    static string? AuthorText(MenuProject project, ScreenDef screen, string egg, Func<ElementPatch, string?> field)
+    {
+        var def = screen.Element(egg) ?? screen.ForBase(egg);
+        return def == null ? null : field(Effective(project, def));
+    }
+
     static bool? AuthorFlag(MenuProject project, ScreenDef screen, string egg, string? aspect, Func<ElementPatch, bool?> flag)
     {
         if (aspect != null && screen.Aspects.TryGetValue(aspect, out var map) && map.TryGetValue(egg, out var ov) && flag(ov) is bool o) return o;
@@ -480,7 +489,26 @@ public sealed class Compiler
                     Local = hidden ? default : _layout.Hitbox(visual).Offset(-visual.X, -visual.Y),
                     Up = f.GetInt("Up Path") ?? 0, Down = f.GetInt("Down Path") ?? 0, Left = f.GetInt("Left Path") ?? 0, Right = f.GetInt("Right Path") ?? 0,
                     Enabled = f.Get("Enabled") != "False", Hidden = hidden, Blocked = hidden || disabled,
+                    VisibleWhen = AuthorText(project, screen, egg.Name, p => p.VisibleWhen) ?? AuthorText(project, screen, visual.Name, p => p.VisibleWhen),
                 };
+                if (b.VisibleWhen != null)
+                {
+                    if (!ActionCatalog.IsValidId(b.VisibleWhen))
+                    {
+                        cs.Diagnostics.Add(new(Severity.Error, cs.Name, egg.Name, "VALUE_ID", $"VisibleWhen '{b.VisibleWhen}' is not a valid value ID") { Operation = "dynamic visibility", Fix = "use a value ID such as vehicle.paint" });
+                        b.VisibleWhen = null;
+                    }
+                }
+                if (b.VisibleWhen != null)
+                {
+                    b.VisibleWhen = ActionCatalog.Canonical(b.VisibleWhen);
+                    b.RowEggs.Add(visual.Name);
+                    if (egg.Name != visual.Name) b.RowEggs.Add(egg.Name);
+                    foreach (var other in doc.Eggs)
+                        if (!b.RowEggs.Contains(other.Name) && other.Focusable == null &&
+                            AuthorText(project, screen, other.Name, p => p.VisibleWhen) is string w && ActionCatalog.Canonical(w) == b.VisibleWhen)
+                            b.RowEggs.Add(other.Name);
+                }
                 foreach (var (a, vdoc) in cs.Variants)
                 {
                     if (vdoc.Find(visual.Name) is not { } ve) continue;

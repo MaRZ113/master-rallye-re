@@ -261,6 +261,11 @@
         "valueFallback": {
           "type": "string",
           "description": "Text for {value} while the provider is unavailable (default N/A)"
+        },
+        "visibleWhen": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "description": "Dynamic visibility (runtime 1.2): value ID; while it is unavailable the runtime hides the row (the button and every element with the same ID) and Up/Down skip it"
         }
       },
       "additionalProperties": false

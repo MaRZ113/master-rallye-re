@@ -85,6 +85,10 @@ public sealed class ElementPatch
     public string? ValueFormat { get; set; }
     /// <summary>Text shown for {value} while the provider is unavailable (default "N/A").</summary>
     public string? ValueFallback { get; set; }
+    /// <summary>Dynamic visibility: value ID whose provider decides at run time whether this element is shown. A
+    /// focusable with it becomes a dynamic row: while the provider is unavailable the runtime parks the button and
+    /// every element of the screen with the same VisibleWhen off-screen and Up/Down walk over it.</summary>
+    public string? VisibleWhen { get; set; }
     /// <summary>Raw value edits: "AIName/Value Name" → value. Kept for advanced users and unknown AIs.</summary>
     public Dictionary<string, string>? Raw { get; set; }
 

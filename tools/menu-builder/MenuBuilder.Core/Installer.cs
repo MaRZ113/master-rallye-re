@@ -83,6 +83,9 @@ public static class Installer
                 var action = b.Status is BindingStatus.NativeRetail ? new ActionBinding { Type = ActionBinding.Native } : b.Action;
                 sb.Append($"button\t{s.SceneName}\t{b.Id}\t{b.Egg}\t{(b.Blocked ? 0 : 1)}\t{I(b.Local.X0)} {I(b.Local.Y0)} {I(b.Local.X1)} {I(b.Local.Y1)}\t{ActionTokens(action, Resolve)}\n");
                 foreach (var (a, r) in b.Hit) sb.Append($"hit\t{s.SceneName}\t{b.Id}\t{a}\t{I(r.X0)} {I(r.Y0)} {I(r.X1)} {I(r.Y1)}\n");
+                // Dynamic row (runtime 1.2; older runtimes skip unknown lines and keep the row always visible).
+                if (b.VisibleWhen != null && !b.Hidden)
+                    sb.Append($"visible\t{s.SceneName}\t{b.Id}\t{b.VisibleWhen}\t{b.Up}\t{b.Down}\t{string.Join(',', b.RowEggs)}\n");
             }
             foreach (var v in s.Values.Where(v => !v.Direct))
                 sb.Append($"value\t{s.SceneName}\t{v.Egg}\t{v.Key}\t{v.Source}\t{Clean(v.Fallback)}\t{Clean(v.Format)}\n");

@@ -53,6 +53,7 @@ public sealed class Validator
                 r.Add(new(Severity.Error, cs.Name, string.Join(",", g.Select(b => b.Egg)), "DUPLICATE_ID", $"Button ID {g.Key} is used by several focusables"));
             var ids = cs.Buttons.Select(b => b.Id).ToHashSet();
             var hiddenIds = cs.Buttons.Where(b => b.Hidden).Select(b => b.Id).ToHashSet();
+            var dynamicIds = cs.Buttons.Where(b => b.VisibleWhen != null && !b.Hidden).Select(b => b.Id).ToHashSet();
             if (cs.DefaultFocus is int df)
             {
                 if (!ids.Contains(df)) r.Add(new(Severity.Error, cs.Name, null, "FOCUS_TARGET", $"default focus {df} is not a focusable of this screen") { Operation = "screen settings", Fix = "pick an existing Button ID or clear the default focus" });
@@ -64,6 +65,8 @@ public sealed class Validator
                 {
                     if (target != 0 && !ids.Contains(target))
                         r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_TARGET", $"{dir} Path → {target} does not exist") { ElementType = b.Kind.ToString(), Operation = "focus navigation", Fix = "relink navigation" });
+                    else if (target != 0 && !b.Hidden && dynamicIds.Contains(target))
+                        r.Add(new(Severity.Info, cs.Name, b.Egg, "NAV_TO_DYNAMIC", $"{dir} Path → {target} is a dynamic row: focus continues past it while it is hidden"));
                     else if (target != 0 && !b.Hidden && hiddenIds.Contains(target))
                         r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_TO_HIDDEN", $"{dir} Path → {target} leads focus onto a hidden element") { ElementType = b.Kind.ToString(), Operation = "focus navigation", Fix = "use Hide (reroutes paths) or relink navigation" });
                 }

@@ -4,7 +4,11 @@
 * VehicleSetup3.xml (GENERAL): the four rows move up 50 px apart and a fifth TYRE TYPE row
   (native text table 7/8, cloned from the GEARBOX GearType multistate) is added as button 6.
 * VehicleSelect.xml: a MODEL row (button 3, cloned from the Class multistate) below the car
-  carousel; the car name block moves down 25 px to make room.
+  carousel; the car name block moves down 25 px to make room. Vehicle options (revision 2,
+  docs/vehicle-manager/VEHICLE_OPTIONS_DESIGN.md): the MODEL caption comes from the Broker
+  (Frontend/ExtraOptions/ModelLabel: MODEL, KIT, ...) and a PAINT row (button 4) follows MODEL;
+  the name/stats blocks move down 15 more px. Rows without choices are hidden at run time
+  (Extra Options, src/native/rmod1/menu_dynamic.hpp).
 
 VehicleSetup4.xml (GEARBOX) is not produced: the stock page is used unchanged.
 Inputs are only read; outputs go to a new directory.
@@ -147,6 +151,64 @@ def select_page(original: bytes) -> bytes:
         move(arrow, y=y + 9)
         value(control(arrow, "gaFrontendArrowAI"), "Arrow Status*", f"Frontend/ExtraOptions/Paint{side}Arrow")
         s.append(arrow)
+    vehicle_options_rows(root)
+    ET.indent(root)
+    return ET.tostring(root, encoding="utf-8") + b"\n"
+
+
+STATS = ("SpeedBar", "AccelerationBar", "HandlingBar", "EnduranceBar", "SpeedText", "AccelerationText", "HandlingText",
+         "EnduranceText")
+
+
+def vehicle_options_rows(root) -> bool:
+    """MODEL caption from the Broker + PAINT row (button 4). Idempotent: False when the page already has it.
+    Navigation top -> bottom: Class 1 -> SelectCar 2 -> MODEL 3 -> PAINT 4 -> Class 1."""
+    s = section_of(root, "Class")
+    eggs = {e.get("Name"): e for e in s.findall("Egg")}
+    if "ExtraPaint" in eggs:
+        return False
+    need = {"Class", "ExtraModel", "ExtraModelText", "ExtraModelLeftArrow", "ExtraModelRightArrow"}
+    if not need <= eggs.keys():
+        raise ValueError("Vehicle Select page has no MODEL row")
+    info = {e.get("Name"): e for e in section_of(root, "ManufacturerName").findall("Egg")}
+    for name, e in info.items():
+        if name in ("ManufacturerName", "CarName") or name in STATS:
+            move(e, y=row3(e)[1] - 15)
+    model_y = 283.0
+    for name, dy in (("ExtraModel", 0), ("ExtraModelText", 6), ("ExtraModelLeftArrow", 9), ("ExtraModelRightArrow", 9)):
+        move(eggs[name], y=model_y + dy)
+    value(control(eggs["ExtraModel"], "enUITextButtonAI"), "Text*", "Frontend/ExtraOptions/ModelLabel")
+    value(control(eggs["ExtraModel"], "gaFrontendMultistateAI"), "Down Path", 4)
+    value(control(eggs["Class"], "gaFrontendMultistateAI"), "Up Path", 4)
+    y = 250.0
+    paint = copy.deepcopy(eggs["ExtraModel"])
+    paint.set("Name", "ExtraPaint")
+    move(paint, y=y)
+    label = control(paint, "enUITextButtonAI")
+    value(label, "Text*", "Null"), value(label, "Text String", "PAINT")
+    m = control(paint, "gaFrontendMultistateAI")
+    for n, v in (("Button ID", 4), ("Up Path", 3), ("Down Path", 1), ("StringList*", "Frontend/ExtraOptions/ColourList"),
+                 ("Value*", "Frontend/ExtraOptions/Colour"), ("CurrentText*", "Frontend/ExtraOptions/ColourText")):
+        value(m, n, v)
+    text = copy.deepcopy(eggs["ExtraModelText"])
+    text.set("Name", "ExtraPaintText")
+    move(text, y=y + 6)
+    value(control(text, "enUITextButtonAI"), "Text*", "Frontend/ExtraOptions/ColourText")
+    s.extend([paint, text])
+    for side in ("Left", "Right"):
+        arrow = copy.deepcopy(eggs[f"ExtraModel{side}Arrow"])
+        arrow.set("Name", f"ExtraPaint{side}Arrow")
+        move(arrow, y=y + 9)
+        value(control(arrow, "gaFrontendArrowAI"), "Arrow Status*", f"Frontend/ExtraOptions/Colour{side}Arrow")
+        s.append(arrow)
+    return True
+
+
+def add_vehicle_options_rows(page: bytes) -> bytes:
+    """Upgrade an installed Vehicle Select page (Vehicle Manager roster resources) in place; unchanged if done."""
+    root = ET.fromstring(page)
+    if not vehicle_options_rows(root):
+        return page
     ET.indent(root)
     return ET.tostring(root, encoding="utf-8") + b"\n"
 

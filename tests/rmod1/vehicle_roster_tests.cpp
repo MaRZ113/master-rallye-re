@@ -46,6 +46,23 @@ int main(int argc, char** argv) {
     // A clean save is served as is.
     { std::ofstream f(save, std::ios::binary); f << "<Value Name=\"Frontend/QuickRace/Car0\" Type=\"Int\" Value=\"5\"/>\r\n"; }
     CHECK(!vehicle_roster::sanitize_save(save.c_str(), out, sizeof(out)));
+    // Vehicle options: virtual paint folders resolve to the paint's own file, else the kit's file (overlay only).
+    std::snprintf(s.overlay_dir, sizeof(s.overlay_dir), "%s\\overlay\\", argv[1]);
+    s.overlay = {"datagx/vehicles/calmini_full/body.dxt", "datagx/vehicles/calmini_full/car.dx", "datagx/vehiclepaints/calmini/2/body.dxt"};
+    std::sort(s.overlay.begin(), s.overlay.end());
+    {
+        std::string error;
+        CHECK(vehicle_options::parse("[Family:Calmini]\nmodel=BARE,FULL\nmodel_folders=Calmini,Calmini_full\npaint=A,B,C\n", s.options, error));
+    }
+    char target[MAX_PATH * 2]{};
+    CHECK(vehicle_roster::redirect("DataGx\\Vehicles\\Calmini_full__p2\\body.dxt", target, sizeof(target)) &&
+          std::string(target).find("overlay\\datagx\\vehiclepaints\\calmini\\2\\body.dxt") != std::string::npos);
+    CHECK(vehicle_roster::redirect("DataGx\\Vehicles\\Calmini_full__p2\\car.dx", target, sizeof(target)) &&
+          std::string(target).find("overlay\\datagx\\vehicles\\calmini_full\\car.dx") != std::string::npos);
+    CHECK(vehicle_roster::redirect("DataGx/Vehicles/Calmini_full/car.dx", target, sizeof(target)));                  // real overlay file
+    CHECK(!vehicle_roster::redirect("DataGx\\Vehicles\\Calmini_full__p3\\body.dxt", target, sizeof(target)));         // paint 3 not declared
+    CHECK(!vehicle_roster::redirect("DataGx\\Vehicles\\Calmini_full__p1\\wheel.dx", target, sizeof(target)));        // no such file anywhere
+    CHECK(!vehicle_roster::redirect("DataGx\\Vehicles\\Pajero__p1\\car.dx", target, sizeof(target)));                // undeclared family
     std::printf(failures ? "vehicle_roster_tests: %d FAILED\n" : "vehicle_roster_tests: PASS\n", failures);
     return failures ? 1 : 0;
 }

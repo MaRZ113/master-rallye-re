@@ -15,13 +15,17 @@ the Vehicle SDK registry builder (`import-base`); `apply` keeps the selection wh
 
 Packages (.mrcar, ZIP): kind "variant" = an alternative model of a family shown as an extra MODEL choice (DEMO): its
 resource folder, display names and the family whose physics it clones. They need no native change.
+Vehicle options (docs/vehicle-manager/VEHICLE_OPTIONS_DESIGN.md rev 2): kind "kit" = equipment levels of a family on the
+MODEL row (one resource folder per choice, the row renamed e.g. KIT); kind "paint" = paints on the PAINT row (only the
+textures that differ, under DataGx/VehiclePaints/<family>/<n>/). `apply` writes active/vehicle-options.ini and adds the
+PAINT row to Vehicle Select; kits and paints share the family physics (no clones).
 
 `apply` rebuilds active/ from the base in a fresh active.new/ (class tables, class counts, selection publisher bound,
 Vehicle Select widgets, MRLP loader profile, variants, physics clones), verifies it and swaps it in atomically
 (previous kept as active.prev/). `stock` disables the roster (game runs stock, saves fall back safely).
 """
 from __future__ import annotations
-import argparse, hashlib, io, json, os, re, shutil, struct, sys, time, zipfile
+import argparse, colorsys, hashlib, io, json, os, re, shutil, struct, sys, time, zipfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -169,7 +173,7 @@ class Manager:
         enabled = set(self.selection().get("packages", []))
         for p in sorted(self.packages.glob("*.mrcar")) if self.packages.is_dir() else []:
             m = read_package(p)[0]
-            out.append({"file": p.name, "enabled": p.name in enabled, **{k: m[k] for k in ("kind", "name", "base", "folder", "manufacturer", "model")}})
+            out.append({"file": p.name, "enabled": p.name in enabled, **{k: m.get(k, "") for k in ("kind", "name", "base", "folder", "manufacturer", "model")}})
         return out
 
     def install(self, package: Path) -> str:
@@ -221,6 +225,7 @@ class Manager:
         mods_xml = res / "DataGame/Modifications.xml"
         vtext, mtext = vehicles_xml.read_bytes().decode("latin-1"), mods_xml.read_bytes().decode("latin-1")
         n = 0
+        options = {}                                     # family -> {"kit": manifest, "paint": manifest}
         for name in enabled:
             path = self.packages / name
             if not path.is_file():
@@ -230,6 +235,12 @@ class Manager:
                 out = res / rel
                 out.parent.mkdir(parents=True, exist_ok=True)
                 out.write_bytes(data)
+            if m["kind"] in ("kit", "paint"):
+                slot = options.setdefault(m["base"], {})
+                if m["kind"] in slot:
+                    raise ValueError(f"{name}: a second {m['kind']} package for {m['base']} (uninstall the other one)")
+                slot[m["kind"]] = m
+                continue
             vtext = clone_block(vtext, m["physics_block"], m["folder"])
             mtext = clone_block(mtext, m["physics_block"], m["folder"])
             ini += [f"[Variant{n}]", f"Base={m['base']}", f"Folder={m['folder']}", f"Manufacturer={m['manufacturer']}",
@@ -244,6 +255,10 @@ class Manager:
         vehicles_xml.write_bytes(vtext.encode("latin-1"))
         mods_xml.write_bytes(mtext.encode("latin-1"))
         (staging / "variants.ini").write_bytes(("\r\n".join(ini) + "\r\n").encode("ascii"))
+        (staging / "vehicle-options.ini").write_bytes(vehicle_options_ini(options).encode("ascii"))
+        if scene.is_file():                              # PAINT row + Broker MODEL caption (idempotent)
+            import extra_set2_frontend
+            scene.write_bytes(extra_set2_frontend.add_vehicle_options_rows(scene.read_bytes()))
         catalog_path = staging / "catalog.json"
         catalog = json.loads(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() else {}
         catalog.update({"schema": "mr-vehicle-roster/1", "label": "Vehicle Manager", "classes": plan,
@@ -255,7 +270,8 @@ class Manager:
         catalog_path.write_text(json.dumps(catalog, indent=1) + "\n", encoding="utf-8")
         verify_active(staging)
         swap(staging, active, previous)
-        return {"active": str(active), "classes": plan, "variants": n, "loader_profile": {k: summary[k] for k in ("checks", "registry_count", "sdk_vehicles")}}
+        return {"active": str(active), "classes": plan, "variants": n, "vehicle_options": sorted(options),
+                "loader_profile": {k: summary[k] for k in ("checks", "registry_count", "sdk_vehicles")}}
 
     def stock(self) -> str:
         active, disabled = self.mods / "active", self.mods / "active.disabled"
@@ -397,8 +413,10 @@ def write_variant_package(path: Path, v: dict, folder: Path):
 def read_package(path: Path):
     with zipfile.ZipFile(path) as z:
         m = json.loads(z.read("manifest.json"))
-        if m.get("schema") != PACKAGE_SCHEMA or m.get("kind") != "variant":
+        if m.get("schema") != PACKAGE_SCHEMA or m.get("kind") not in ("variant", "kit", "paint"):
             raise ValueError(f"{path.name}: unsupported package (schema/kind)")
+        if m["kind"] in ("kit", "paint"):
+            return read_option_package(path, z, m)
         folder = m["folder"]
         if not re.fullmatch(r"[A-Za-z0-9_]{1,48}", folder) or not re.fullmatch(r"[A-Za-z0-9_]{1,48}", m["physics_block"]):
             raise ValueError(f"{path.name}: invalid folder name")
@@ -424,6 +442,141 @@ def read_package(path: Path):
             art[role] = data
         m["_art"] = art
         return m, files
+
+
+# ---- vehicle options: kits and paints -------------------------------------------------------------------------------
+FOLDER = re.compile(r"[A-Za-z0-9_]{1,45}")
+LABEL = re.compile(r"[A-Z0-9 .\-]{1,15}")
+HUES = ((15, "RED"), (40, "ORANGE"), (70, "YELLOW"), (160, "GREEN"), (200, "TEAL"), (260, "BLUE"), (320, "PURPLE"), (360, "RED"))
+
+
+def paint_name(rgb) -> str:
+    """Paint caption from a catalog swatch (Evo 2 colorList R,G,B): grey scale by value, else hue bucket + dark/light."""
+    h, s, v = colorsys.rgb_to_hsv(*(c / 255 for c in rgb))
+    h *= 360
+    if s < 0.12 or v < 0.10:
+        return "WHITE" if v > 0.85 else "SILVER" if v > 0.65 else "GREY" if v > 0.35 else "GUNMETAL" if v > 0.15 else "BLACK"
+    base = next(n for lim, n in HUES if h < lim)
+    if base in ("ORANGE", "RED") and v < 0.55 and 15 <= h < 45:
+        base = "BROWN"
+    if base in ("ORANGE", "YELLOW") and s < 0.3:
+        base = "SAND"
+    if s < 0.25 and base != "SAND":
+        base += " GREY"
+    if v < 0.3 and base != "BROWN":
+        base = "DARK " + base
+    elif v > 0.8 and s < 0.4 and base != "SAND":
+        base = "LIGHT " + base
+    return base
+
+
+def paint_names(paints: list[dict]) -> list[str]:
+    """Package names win; missing names come from the swatch; duplicates get ' 2', ' 3'."""
+    out, seen = [], {}
+    for p in paints:
+        n = p.get("name") or (paint_name(p["rgb"]) if p.get("rgb") else "PAINT")
+        n = n.upper()[:15]
+        seen[n] = seen.get(n, 0) + 1
+        out.append(n if seen[n] == 1 else f"{n[:13]} {seen[n]}")
+    return out
+
+
+def read_option_package(path: Path, z: zipfile.ZipFile, m: dict):
+    base = m.get("base", "")
+    if not FOLDER.fullmatch(base) or "__p" in base.lower():
+        raise ValueError(f"{path.name}: invalid base family folder")
+    files = {}
+
+    def take(item, prefix):
+        rel = item["path"]
+        if not rel.startswith(prefix) or ".." in rel or "\\" in rel:
+            raise ValueError(f"{path.name}: file outside {prefix}: {rel}")
+        data = z.read("files/" + rel)
+        if sha(data) != item["sha256"]:
+            raise ValueError(f"{path.name}: {rel} hash mismatch")
+        files[rel] = data
+
+    if m["kind"] == "kit":
+        choices = m.get("choices") or []
+        if not 2 <= len(choices) <= 8 or not LABEL.fullmatch(m.get("label", "KIT")):
+            raise ValueError(f"{path.name}: a kit package needs 2..8 choices and an upper-case label")
+        if not 0 <= int(m.get("default", 0)) < len(choices):
+            raise ValueError(f"{path.name}: default out of range")
+        folders = [c["folder"] for c in choices]
+        if len(set(f.lower() for f in folders)) != len(folders):
+            raise ValueError(f"{path.name}: one folder per choice")
+        for c in choices:
+            if not LABEL.fullmatch(c["name"]) or not FOLDER.fullmatch(c["folder"]) or "__p" in c["folder"].lower():
+                raise ValueError(f"{path.name}: invalid choice {c}")
+        for item in m.get("files", []):
+            folder = next((f for f in folders if item["path"].startswith(f"DataGx/Vehicles/{f}/")), None)
+            if folder is None or folder.lower() == base.lower():
+                raise ValueError(f"{path.name}: kit files must be in a kit folder other than the family's own: {item['path']}")
+            take(item, f"DataGx/Vehicles/{folder}/")
+        for f in folders:
+            if f.lower() == base.lower():
+                continue                                 # the installed family itself
+            for role in ("car.dx", "complete.dx", "wheel.dx"):
+                if f"DataGx/Vehicles/{f}/{role}" not in files:
+                    raise ValueError(f"{path.name}: kit folder {f} lacks {role}")
+    else:
+        paints = m.get("paints") or []
+        if not 2 <= len(paints) <= 32 or not 0 <= int(m.get("default", 0)) < len(paints):
+            raise ValueError(f"{path.name}: a paint package needs 2..32 paints (paint 0 = the family's own textures)")
+        if paints[0].get("files"):
+            raise ValueError(f"{path.name}: paint 0 is the family's own textures and carries no files")
+        for n, pnt in enumerate(paints):
+            if pnt.get("name") is not None and not LABEL.fullmatch(pnt["name"]):
+                raise ValueError(f"{path.name}: invalid paint name {pnt['name']!r}")
+            for item in pnt.get("files", []):
+                if not re.fullmatch(r"[A-Za-z0-9_.-]{1,64}\.dxt", item["path"].rsplit("/", 1)[-1]):
+                    raise ValueError(f"{path.name}: paints replace textures (*.dxt) only: {item['path']}")
+                take(item, f"DataGx/VehiclePaints/{base}/{n}/")
+        m["_names"] = paint_names(paints)
+    return m, files
+
+
+def vehicle_options_ini(options: dict) -> str:
+    lines = ["; Written by the Vehicle Manager (tools/vehicle_manager.py apply): kits and paints of installed packages.",
+             "; docs/vehicle-manager/VEHICLE_OPTIONS_DESIGN.md (revision 2)."]
+    for family in sorted(options, key=str.lower):
+        kit, paint = options[family].get("kit"), options[family].get("paint")
+        lines.append(f"[Family:{family}]")
+        if kit:
+            lines += [f"model_label = {kit.get('label', 'KIT')}",
+                      "model = " + ",".join(c["name"] for c in kit["choices"]),
+                      "model_folders = " + ",".join(c["folder"] for c in kit["choices"]),
+                      f"model_default = {int(kit.get('default', 0))}"]
+        if paint:
+            lines += ["paint = " + ",".join(paint["_names"]), f"paint_default = {int(paint.get('default', 0))}"]
+            rgb = [",".join(str(c) for c in p["rgb"]) if p.get("rgb") else "-" for p in paint["paints"]]
+            lines.append("paint_rgb = " + " / ".join(rgb))
+    return "\r\n".join(lines) + "\r\n"
+
+
+def write_option_package(path: Path, manifest: dict, sources: dict[str, Path]):
+    """manifest without files; sources: package path prefix (DataGx/Vehicles/<kit>/ or DataGx/VehiclePaints/<f>/<n>/)
+    -> local folder whose files go there. Kit folders take every file; paint folders take *.dxt only."""
+    m = dict(manifest, schema=PACKAGE_SCHEMA)
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        listed = []
+        for prefix, folder in sorted(sources.items()):
+            for f in sorted(Path(folder).iterdir()):
+                if not f.is_file() or (prefix.startswith("DataGx/VehiclePaints/") and f.suffix.lower() != ".dxt"):
+                    continue
+                if prefix.startswith("DataGx/Vehicles/") and f.suffix.lower() == ".json":
+                    continue                             # preview/profile side files of the converter
+                rel = prefix + f.name
+                data = f.read_bytes()
+                z.writestr("files/" + rel, data)
+                listed.append((prefix, {"path": rel, "sha256": sha(data)}))
+        if m["kind"] == "kit":
+            m["files"] = [item for _, item in listed]
+        else:
+            for n, pnt in enumerate(m["paints"]):
+                pnt["files"] = [item for prefix, item in listed if prefix == f"DataGx/VehiclePaints/{m['base']}/{n}/"]
+        z.writestr("manifest.json", json.dumps(m, indent=1))
+    read_package(path)                                   # the written package must validate
 
 
 def drop_block(text: str, family: str) -> str:
@@ -487,7 +640,35 @@ def main(argv=None):
     i = sub.add_parser("install"); i.add_argument("package", type=Path)
     u = sub.add_parser("uninstall"); u.add_argument("name"); u.add_argument("--delete", action="store_true")
     sub.add_parser("apply"); sub.add_parser("stock"); sub.add_parser("gui")
+    k = sub.add_parser("make-kit", help="write a kit package: --choice NAME=FOLDER[:SOURCE_DIR] (no source = the family folder)")
+    k.add_argument("--base", required=True); k.add_argument("--label", default="KIT"); k.add_argument("--default", type=int, default=0)
+    k.add_argument("--choice", action="append", required=True); k.add_argument("--name"); k.add_argument("--out", type=Path, required=True)
+    pp = sub.add_parser("make-paint", help="write a paint package from a spec JSON {base, default, paints: [{name?, rgb?, dir?}]}")
+    pp.add_argument("--spec", type=Path, required=True); pp.add_argument("--out", type=Path, required=True)
     a = p.parse_args(argv)
+    if a.cmd == "make-kit":
+        choices, sources = [], {}
+        for spec in a.choice:
+            name, rest = spec.split("=", 1)
+            folder, _, src = rest.partition(":") if not re.match(r"^[^:]+:[A-Za-z]:", rest) else (rest.split(":", 1)[0], ":", rest.split(":", 1)[1])
+            choices.append({"name": name, "folder": folder})
+            if src:
+                sources[f"DataGx/Vehicles/{folder}/"] = Path(src)
+        write_option_package(a.out, {"kind": "kit", "name": a.name or f"{a.base} {a.label}", "base": a.base, "label": a.label,
+                                     "choices": choices, "default": a.default}, sources)
+        print(json.dumps({"package": str(a.out), "choices": choices}, indent=1))
+        return
+    if a.cmd == "make-paint":
+        spec = json.loads(a.spec.read_text(encoding="utf-8"))
+        base, sources, paints = spec["base"], {}, []
+        for n, pnt in enumerate(spec["paints"]):
+            paints.append({"name": pnt.get("name"), "rgb": pnt.get("rgb")})
+            if pnt.get("dir"):
+                sources[f"DataGx/VehiclePaints/{base}/{n}/"] = (a.spec.parent / pnt["dir"]).resolve()
+        write_option_package(a.out, {"kind": "paint", "name": spec.get("name", f"{base} paints"), "base": base,
+                                     "paints": paints, "default": int(spec.get("default", 0))}, sources)
+        print(json.dumps({"package": str(a.out), "paints": paint_names(paints)}, indent=1))
+        return
     m = Manager(a.game)
     if a.cmd == "gui":
         from vehicle_manager_gui import run
