@@ -1,7 +1,7 @@
 # Vehicle Select options per car: MODEL hide/rename, equipment kits, PAINT (design, 2026-11-13)
 
-Status: **design for owner review; nothing implemented.** Branch `feature/vehicle-options` (from
-`integration/base` 98e83ef).
+Status: **design approved by the owner (2026-11-13); open items resolved below (revision 2); nothing
+implemented.** Branch `feature/vehicle-options` (from `integration/base` 98e83ef).
 
 ## Owner requirements (2026-11-13)
 
@@ -38,38 +38,77 @@ One section per family, written by Vehicle Manager from the installed packages (
 ```ini
 [Family:CalminiFrontier]
 model_label = KIT                 ; row caption, upper-case native font
-model = BARE,STOCK,FULL           ; choices; empty = row hidden
-model_kind = folder               ; folder = registry folder swap per choice (DEMO mechanism, N choices)
+model = BARE,STOCK,FULL           ; choices; fewer than two = row hidden
 model_folders = CalminiFrontier_bare,CalminiFrontier,CalminiFrontier_full
 model_default = 1
-paint = SHOWROOM                  ; one choice -> PAINT row hidden
 [Family:Evo2FourRunner]
-paint = SILVER,WHITE,TAN,RED,BROWN,GREEN,BLUE,NAVY,BLACK
-paint_kind = texture              ; renderer texture substitution per choice
-paint_textures = paint/<n>/<texture>.dxt
+model = PS2,PC                    ; not offered: add-on families get no PS2/PC pair (row hidden)
+paint = GREY,SILVER,SAND,RED,BROWN,DARK TEAL,BLUE GREY,DARK BLUE,BLACK
+paint_default = 0
 [Family:Pajero]                   ; retail car: unchanged behaviour
 model = PS2,PC
 ```
 
 Rules: retail families keep `PS2,PC` (+ DEMO where packaged); add-on families get no model row unless
-their package declares kits; a family with fewer than two choices hides the row.
+their package declares kits; a family with fewer than two choices hides the row. `model_folders` index
+0 may be the family folder itself; a PS2/PC choice is not a folder (renderer bundle, as today).
 
-### B. Equipment kits = N-way folder variants
+### B. Kits and paints = per-participant virtual folders (revised)
 
-The DEMO mechanism is generalised from one variant to N: each kit is a resource folder (car.dx,
-complete.dx, wheel sources, lamps) shipped by the package; physics block is cloned from the family
-(kits do not change mass/handling in the first version). The Evo 2 adapter already builds the three
-kits (`kit=bare|stock|full`, branch research/import-exclusives 89486f1). Choosing a kit swaps the
-registry folder pointer exactly like DEMO; names/icons optional per kit.
+Kits (and DEMO) are resource folders shipped by packages. A paint is a set of replacement texture
+files (`*.dxt`) for one family. Both are delivered to the game as one **virtual folder name**:
 
-### C. PAINT = texture substitution
+```
+<kit folder>            kit chosen, paint 0 (or the family has no paints)
+<kit folder>__p<n>      kit chosen, paint n >= 1
+```
 
-The renderer already calls `MRExtraTextureV1(family, index, w, h, original, output, ...)` when it
-uploads a vehicle texture; today it serves only the "PS2 with PC textures" case. Extend it: when the
-selected paint of that participant/menu car is n > 0 and the package binds texture index/size for
-paint n, return the packaged pixels. Revision (`MRExtraRevisionV1`) bumps on every change, so the menu
-car re-uploads immediately and race cars load the right paint. Evo 2 paints are precomputed at import
-with the recovered original HSV recolouring (`evo2_color.py`), so no recolouring runs in game.
+The name exists only as a string; there is no such directory. The roster's CreateFileA /
+GetFileAttributesA overlay (`vehicle_roster.hpp`, already in the loader) resolves
+`DataGx/Vehicles/<kit>__p<n>/<file>` in this order: `paints/<family>/<n>/<file>` (overlay) ->
+`DataGx/Vehicles/<kit>/<file>` (overlay, then retail). The table of valid virtual names is written by
+Vehicle Manager (`vehicle-options.ini`), so a path that is not listed is never rewritten.
+
+Why a folder name and not a texture hook (revision 1 assumed `MRExtraTextureV1`): the current
+renderer has **no call site** for `MRExtraTextureV1` (`tests/rmod1/extra_native_tests.cpp`: "texture-
+transfer variant retired"), and the engine loads `vehicles/<name>/car|wheel|complete` by name, so two
+cars of one family with different paints need distinct names to get distinct model/texture instances.
+A distinct folder string gives that with no renderer texture path and no cache invalidation.
+
+#### Where the name is applied
+
+| Consumer | Today | New |
+|---|---|---|
+| Menu car (`gaFE` car display, slot 0x69021C -> 0x44C4C0, builds `Vehicles/<folder>/complete`) | registry row +0x24 swapped globally (DEMO) | the row is set to the virtual name **only for the duration of the display tick** (hook already installed: `display_tick`), then restored; the cached ID at +0x0C is invalidated on every kit/paint change |
+| Race body + wheels (`gaBootAICar` 0x4B6A00 loads `vehicles/<CarType>/car` and `vehicles/<WheelType>/wheel`) | CarType/WheelType = registry folder, copied per participant by 0x44A510 | hook 0x44A510 (participant identity preparation): after the original, write `Race/Car<N>/CarType` and `WheelType` (wrapper setters 0x4ACA40 / 0x4ACB40) with the participant's virtual name |
+| Race physics (0x44ED50, named physics via registry +0x24 by CarID) | registry folder | unchanged: always the family folder (kits/paints never change physics) |
+| Vehicle Setup screens (0x44C780.. read registry +0x24) | registry folder (DEMO: cloned physics block) | unchanged family folder; no physics clones needed for kits/paints |
+
+Because the registry row is no longer swapped outside the menu-car tick, the DEMO limitation goes
+away together with the kit one (see E). DEMO becomes "a kit with a label"; its existing physics clone
+stays harmless.
+
+#### Renderer and other name readers
+
+The renderer identifies a participant by the model path `vehicles/<name>/car`
+(`fleet_participants.hpp`) and keys fleet/lamp/brake/damage profiles by family. One normaliser
+`family_of(name)` maps `<kit folder>__p<n>` -> `<kit folder>` and a kit folder -> its family (table from
+`vehicle-options.ini`, read through the existing Extra Options ABI as a new export
+`MRExtraFamilyV1(name, out, size)`); every profile lookup goes through it. The PS2 HUD time-diffs
+(`ps2_hud_timediffs.hpp`, reads `Race/Car%d/CarType`) uses the same normaliser. A renderer without
+the export keeps today's behaviour (unknown names render stock).
+
+### C. PAINT data
+
+* Package kind `paint` (schema below) ships, per paint, only the textures that differ, at the exact
+  file names and DXT formats of the family's own textures. Vehicle Manager rejects a paint texture whose
+  name is not referenced by the family's models or whose size/format differs.
+* Evo 2 paints are precomputed at import with the recovered original HSV recolouring
+  (`src/master_rallye/source_adapters/evo2_color.py`, branch research/import-exclusives): one texture
+  set per `colorList[]` record. No recolouring runs in game.
+* **The four GC exclusive trucks have no paints**: `numColors 0` in `CFRT/JWR/SMT/WDRT.TRK`
+  (checked on the GC `TRUCK.pod`), so their PAINT row is hidden and only KIT is shown. Paints apply to
+  the PC Evo 2 trucks (4Runner: nine records) when they are ported.
 
 ### D. Rows in Vehicle Select (Menu Builder)
 
@@ -79,8 +118,17 @@ Layout `vehicle-options` (Menu Builder project, installed transactionally like o
 |---|---|---|---|---|
 | Class | retail | 2 | native | retail |
 | MODEL/KIT | `ExtraModel` | 3 | `vehicle.model_source` | live `vehicle.model_label` |
-| PAINT | new `ExtraPaint` (+ text, arrows) | free ID (see open item 1) | `vehicle.paint` | `PAINT` |
+| PAINT | new `ExtraPaint` (+ text, arrows) | **4** | `vehicle.paint` | `PAINT` |
 | SelectCar | retail | 1 | native | retail |
+
+**Button ID 4 is free (resolved).** The Vehicle Select tick 0x481340 (vtable 0x690B18; Ghidra had no
+function there because it is reached only through the vtable) calls GetCommand 0x45D930 and switches
+on `command + 5` with `ja` to the default for anything outside 0..7: commands -5..-3 (back/scroll
+cases at 0x48188D, 0x4818A9, 0x4817E5) and 1..2 (0x4813AB, select/class) are handled; -2..0 and every
+command >= 3 fall to the default 0x4818CA, which does not read the command again. So IDs 3 (MODEL,
+already in use) and 4 are ignored natively. Left/Right on PAINT must not scroll the carousel: the
+existing `select_scroll` guard (call 0x4818C5 -> 0x481F50) returns early for button 3 and is extended
+to button 4.
 
 New Menu Builder capability **dynamic visibility** (`visibleWhen: "<value id>"`): an element whose
 provider reports *unavailable* for the current state is parked off-screen (the same parking that
@@ -99,25 +147,83 @@ Providers registered by Extra Options (Menu Builder ABI 2, `MRMenuRegisterValueV
 
 Without Menu Builder (standalone Extra Options) the generated scene keeps today's MODEL row; Extra
 Options then serves a single `-` choice with both arrows off for families without choices (no hide,
-but no fake options either).
+but no fake options either). PAINT exists only with Menu Builder.
 
-### E. State and race
+### E. State and race (revised: per participant)
 
 Per player x CarID state already exists (`paints[]` holds the MODEL choice). Add `kits[]` and
-`paints2[]` (saved in the same Extra Options save file, versioned). Race: kit = registry folder of the
-CarID at race load (as DEMO), paint = texture callback per participant (phase 1). Two human players
-with the same CarID and different kits: the registry row is global, so the last choice wins (same
-limitation as DEMO today; documented).
+`colours[]` (saved in the same Extra Options save file, versioned). At race preparation the 0x44A510
+hook knows the participant index N; `Race/Car<N>/PlayerType == 1` participants are mapped to players
+in order (the mapping `refresh_race` already uses) and get their own kit + paint; AI participants get
+the family default kit and paint 0 (optional later: a random paint per AI car). **Two players with the
+same car and different kits/paints therefore each race their own choice; the "last choice wins"
+limitation of DEMO is removed.** Remaining per-CarID items: the small race icon (registry +0x1C, DEMO
+art) and the results screen read the CarID, not the participant (cosmetic). The network path
+(0x44A710, same pattern) is left stock.
 
-## Open items before implementation
+## Vehicle Manager package schema (resolved)
 
-1. Verify which Button IDs the native Vehicle Select AI (tick 0x481340) ignores (MODEL uses 3; PAINT
-   needs another free ID).
-2. Menu Builder runtime: implement `visibleWhen` (park/unpark + focus skip in the GetCommand detour
-   0x45D930), editor/validator support (`NAV_TO_HIDDEN` becomes a warning for dynamic elements).
-3. Renderer: generalise the `MRExtraTextureV1` call site to any family with packaged paint
-   bindings (today gated on the PS2/PC-texture case); confirm both menu and race upload paths.
-4. Vehicle Manager: package schema for kits/paints, writing `vehicle-options.ini`, migration from
-   `variants.ini`.
-5. Labels: caption for Evo 2 kits (`KIT` proposed) and paint names (Evo 2 TRK has no names: derived
-   from the catalog RGB).
+Existing `kind: "variant"` (DEMO) packages keep working. Two kinds are added; schema id unchanged
+(`PACKAGE_SCHEMA`), validation in `read_package`:
+
+```json
+{"schema": "...", "kind": "kit", "base": "CalminiFrontier", "label": "KIT",
+ "choices": [{"name": "BARE",  "folder": "CalminiFrontier_bare"},
+             {"name": "STOCK", "folder": "CalminiFrontier"},
+             {"name": "FULL",  "folder": "CalminiFrontier_full"}],
+ "default": 1,
+ "files": [{"path": "DataGx/Vehicles/CalminiFrontier_bare/car.dx", "sha256": "..."}]}
+```
+
+```json
+{"schema": "...", "kind": "paint", "base": "Evo2FourRunner",
+ "paints": [{"name": "GREY",  "rgb": [137,151,142], "files": [{"path": "paints/Evo2FourRunner/1/body.dxt", "sha256": "..."}]},
+            {"name": null,    "rgb": [196,187,179], "files": [...]}],
+ "default": 0}
+```
+
+Rules: kit folders follow the variant rules (`[A-Za-z0-9_]{1,45}`, so that `__p<n>` still fits the
+48-character folder limit; car.dx + complete.dx + wheel.dx required unless the folder is the family
+folder); paint 0 is always the unmodified family; paint files live under `paints/<base>/<n>/` and may
+only replace texture names the family/kit models reference; `name: null` = derived from `rgb`
+(below). Vehicle Manager writes `vehicle-options.ini` (sections of A plus `paint_rgb` and the list of
+valid virtual names) and, during migration, converts each `variants.ini` entry into a kit choice
+`DEMO` of its family. The add-on itself (car package) may embed `kits`/`paints` directly, so an Evo 2
+truck installs as one package with all levels and colours.
+
+## Paint names derived from colour (resolved)
+
+Evo 2 `colorList[]` records are `hueShift,sat%,val%,R,G,B,NULL`: the first three drive the recolouring,
+R,G,B is the catalog swatch. Names come from the swatch HSV:
+
+* saturation < 0.12 or value < 0.10: WHITE (> 0.85), SILVER (> 0.65), GREY (> 0.35), GUNMETAL (> 0.15),
+  BLACK;
+* otherwise hue buckets RED < 15, ORANGE < 40, YELLOW < 70, GREEN < 160, TEAL < 200, BLUE < 260,
+  PURPLE < 320, RED; dark orange/red (15..45 deg, value < 0.55) -> BROWN; weak orange/yellow
+  (saturation < 0.3) -> SAND; saturation < 0.25 -> "<hue> GREY"; value < 0.3 -> "DARK <name>",
+  value > 0.8 with saturation < 0.4 -> "LIGHT <name>";
+* duplicates get " 2", " 3"; a package `name` always wins.
+
+4Runner result: GREY, SILVER, SAND, RED, BROWN, DARK TEAL, BLUE GREY, DARK BLUE, BLACK.
+
+## Verification items for the implementation (must pass in game)
+
+1. Menu car: a virtual name applied only inside the display tick loads the paint/kit (model load is
+   synchronous in that tick); switching paint shows at once; leaving and re-entering Vehicle Select
+   keeps the choice.
+2. Same family, two names in one race (2 players, different paints): two distinct texture sets
+   (proves the engine keys textures by folder path, not by bare file name).
+3. Physics/Vehicle Setup unchanged with any kit/paint (registry folder untouched outside the tick).
+4. Renderer profiles (lamps, brake, damage, PS2 HUD icons) identical for `<kit>__p<n>` and the family.
+5. Other screens and layouts without `visibleWhen` are byte-identical in behaviour (Menu Builder
+   regression suite); standalone Extra Options without Menu Builder unchanged.
+
+## Implementation order
+
+1. Loader: virtual-name resolution in the roster overlay + `vehicle-options.ini` reader.
+2. Extra Options: per-family table, `kits[]`/`colours[]`, providers, 0x44A510 hook, scoped menu-car
+   swap, `select_scroll` guard for button 4, `MRExtraFamilyV1`.
+3. Menu Builder: `visibleWhen` (runtime + editor/validator), layout `vehicle-options` with the PAINT row.
+4. Renderer: `family_of` normaliser at the profile lookups and the HUD reader.
+5. Vehicle Manager: `kit`/`paint` kinds, migration from `variants.ini`, Evo 2 export with kits and
+   (PC trucks) paints.
