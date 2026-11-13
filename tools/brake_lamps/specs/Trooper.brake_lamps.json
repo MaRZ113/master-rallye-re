@@ -1,0 +1,119 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "Trooper",
+ "source_car_sha256": "8f313406be0bfc1768b4841edc54fb6d6a4357ca93488ef579f2391c067bafd5",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "b5db79d7231d5489",
+     "a7ba9a8d4519369c",
+     "e2dc4c1d3dae670e",
+     "e4b2c07986f1a687",
+     "3a4acd2822eec18c",
+     "28846a653017af54"
+    ]
+   }
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "44df15d162100099",
+     "c22837f90ead7e57",
+     "2cab28493b3a735f",
+     "9ccfe1de163c5bb1",
+     "414bd57e1457bff7",
+     "fcf9bcf064cc367d"
+    ]
+   }
+  }
+ ]
+}

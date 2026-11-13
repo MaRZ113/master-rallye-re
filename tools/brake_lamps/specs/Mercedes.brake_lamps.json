@@ -1,0 +1,129 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "Mercedes",
+ "source_car_sha256": "aa8520ae280c4d552bab30c67347fddcd93ebc24cae3bd7323a6db08e4aa132e",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "b0ded5018906caa3",
+     "94c728085b00214c",
+     "119eca3542ab0bda",
+     "c50357772db1e9a2",
+     "299632fb8735bb44",
+     "719f0b52196a7ca9",
+     "53b07a33b7da3a5a",
+     "9511fe2a3fc70081",
+     "daa510fc2c485a44",
+     "cf942123bacbdf82",
+     "5b5f54bf8d670f33"
+    ]
+   }
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "9a535f00fe6818f9",
+     "87a151338e95d91b",
+     "84c0bbb1d9569926",
+     "e8afff11987e1e6b",
+     "889383e3faf399f7",
+     "ab00752d787f61b2",
+     "41143abcfe6c2ed8",
+     "023cbc1cd5a1125b",
+     "b4da204bca81117e",
+     "6cfbd46e7c455749",
+     "b7fc0b8376d0e2d8"
+    ]
+   }
+  }
+ ]
+}

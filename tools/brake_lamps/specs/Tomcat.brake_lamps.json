@@ -1,0 +1,115 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "Tomcat",
+ "source_car_sha256": "7d3d85f7f97720c3871038230810015a6d50c493e4966efdde3994dba6b39a70",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "087d5f2036bf9ace",
+     "b9c835e80a3c3acd",
+     "4982cd39a58dd979",
+     "552667ee3792ebb9"
+    ]
+   }
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "from_glass"
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "blight",
+    "faces": [
+     "02cf9b70657183d9",
+     "bbbd6eae18abec51",
+     "0dbcfba880cd7cb6",
+     "69783ed439047ec8"
+    ]
+   }
+  }
+ ]
+}
