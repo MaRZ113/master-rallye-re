@@ -441,6 +441,16 @@ void RigidPropsPilot::ensure_roots() noexcept {
         wchar_t cwd[32768]{};const DWORD n=GetCurrentDirectoryW(32768,cwd);
         if(n&&n<32768)folders.emplace_back(cwd);
         folders.emplace_back(game_root_);
+        // Add-on cars (Vehicle Manager) live in MRMods/Vehicles/active/resources/DataGx/Vehicles/<folder>: without this root
+        // their car.dx hull was never found, so checkpoint barrels and hay bales let them drive through. Loose files only,
+        // searched first (an installed add-on overrides the retail folder of the same name).
+        for(const auto& f:std::vector<std::filesystem::path>(folders)){
+            std::error_code error;const auto mods=f/L"MRMods"/L"Vehicles"/L"active"/L"resources";
+            if(!std::filesystem::is_directory(mods/L"DataGx"/L"Vehicles",error))continue;
+            const auto canon=std::filesystem::weakly_canonical(mods,error);bool seen=false;
+            for(const auto& r:roots_)if(std::filesystem::equivalent(r.folder,canon,error))seen=true;
+            if(!seen){GameRoot r;r.folder=canon;roots_.push_back(std::move(r));}
+        }
         for(const auto& f:folders){
             std::error_code error;const auto canon=std::filesystem::weakly_canonical(f,error);
             bool seen=false;for(const auto& r:roots_)if(std::filesystem::equivalent(r.folder,canon,error))seen=true;
