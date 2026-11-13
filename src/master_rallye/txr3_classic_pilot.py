@@ -44,7 +44,7 @@ def _roles(scene,spec):
     roles={}
     for m in scene['materials']:
         key=m['id']
-        if key.startswith('mat-')and spec.get('role_fn'):
+        if spec.get('role_fn'):
             role=spec['role_fn'](m)
         elif key.startswith('mat-'):
             raw=m['raw_fields'][0];idx=int(key[4:])
@@ -132,7 +132,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     from .gt_auto_profile import donor_geometry
     g=donor_geometry(donor)
     wheels={n['name']:n['local_transform']for n in scene['nodes']if n['role']=='wheel'}
-    ax=spec.get('long_axis',3);wb=abs(wheels['FL_WHEEL'][ax]-wheels['BL_WHEEL'][ax]);scale=g['wheelbase']/wb
+    ax=spec.get('long_axis',3);wb=abs(wheels['FL_WHEEL'][ax]-wheels['BL_WHEEL'][ax]);scale=1. if spec.get('keep_source_scale')else g['wheelbase']/wb
     probe,roles=pilot_profile(path,spec,_scaled_fit(uvs.IDENTITY[:],scale))
     fit=_scaled_fit(axle_fit(compile_scene(path,probe)),scale)
     # axle_fit measured hubs that already include the scale; keep its translation, re-apply scale on the diagonal
@@ -140,8 +140,9 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     first=compile_scene(path,profile)
     hubs,hub_report=symmetric_hubs(first)
     half=g['track_half']
-    for s in SLOTS:hubs[s][0]=half if s.endswith('left')else -half
-    hub_report.update(front_track=2*half,rear_track=2*half)
+    if not spec.get('source_track'):
+        for s in SLOTS:hubs[s][0]=half if s.endswith('left')else -half
+        hub_report.update(front_track=2*half,rear_track=2*half)
     profile.update(hub_overrides=hubs,hub_evidence='MR symmetric axles: '+L+' wheel centres scaled to the donor wheelbase; donor track width.')
     result=compile_scene(path,profile)
     output.mkdir(parents=True)
@@ -160,7 +161,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     ordinary=[];core=[];lamps=[];glass=None
     for part,rec in zip(body,report['body_draws']):
         role=roles[rec['material_id']]
-        if rec['material_id']=='mat-%02d'%spec['glass_material']:glass=part
+        if rec['material_id']==(spec.get('glass_key')or'mat-%02d'%spec['glass_material']):glass=part
         elif role=='brake':lamps.append(part)
         else:
             if role=='paint':core.append(len(ordinary))
