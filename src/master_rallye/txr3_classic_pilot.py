@@ -42,7 +42,9 @@ def _roles(scene,spec):
     roles={}
     for m in scene['materials']:
         key=m['id']
-        if key.startswith('mat-'):
+        if key.startswith('mat-')and spec.get('role_fn'):
+            role=spec['role_fn'](m)
+        elif key.startswith('mat-'):
             raw=m['raw_fields'][0];idx=int(key[4:])
             if idx in spec.get('materials',{}):
                 role=spec['materials'][idx]
@@ -50,7 +52,7 @@ def _roles(scene,spec):
                 tex=int(m['diffuse_texture_id'].split('-')[1]);role=spec['textures'].get(tex)
             else:
                 role=spec['solid'].get(idx)
-            if role is None:raise ValueError('no MR role for TXR3 material %s (%s)'%(key,m['diffuse_texture_id']))
+            if role is None:raise ValueError('no MR role for '+spec.get('label','TXR3')+' material %s (%s)'%(key,m['diffuse_texture_id']))
         else:
             role=DONOR_WHEEL_ROLES[m['raw_fields'][0]['donor_texture']]
         roles[key]=role
@@ -63,18 +65,18 @@ def pilot_profile(scene_path,spec,fit=None):
     for key,role in roles.items():
         mr_role='lamp'if role=='brake'else role
         rule={'interpretation':'mr_authoring','role':'MR Classic '+mr_role,
-              'evidence':'TXR3 diffuse texture/colour with the stock MR '+mr_role+' material (owner policy); PS2 GS state not reproduced.'}
+              'evidence':spec.get('label','TXR3')+' diffuse texture/colour with the stock MR '+mr_role+' material (owner policy); source GPU state not reproduced.'}
         m=next(x for x in scene['materials']if x['id']==key)
         tex=m['diffuse_texture_id']
         if role=='glass':rule['mode']='alpha_blend'
-        elif tex.startswith('tim-')and int(tex[4:7])in spec['alpha_test_textures']:rule.update(mode='alpha_test',alpha_ref=100)
+        elif tex.startswith('tim-')and int(tex[4:7])in spec.get('alpha_test_textures',()):rule.update(mode='alpha_test',alpha_ref=100)
         elif role=='chrome'and key.endswith(('d03','d04')):rule.update(mode='alpha_test',alpha_ref=100)
         else:rule.update(mode='opaque',allow_alpha_flatten=True)
         materials[key]=rule
     from .scene_semantics import features
     used={mid for n in scene['nodes']for mid in n['mesh_ids']}
     policy={row['id']:{'disposition':'mr_classic_material','evidence':'Owner policy: source geometry and diffuse textures with stock MR materials.',
-                       'impact':'TXR3 '+row['kind']+' replaced by the MR role material.'}for row in features(scene,used)}
+                       'impact':spec.get('label','TXR3')+' '+row['kind']+' replaced by the MR role material.'}for row in features(scene,used)}
     profile={'schema':'universal-scene-mr-profile/1','source_scene_sha256':uvs.sha(uvs.read_bounded(path,uvs.MAX_JSON_BYTES)),
              'normalized_to_mr':BASIS,'authoring_transform':fit or uvs.IDENTITY[:],
              'transform_evidence':'Normalized +X right/+Y up/-Z front -> MR +X left/+Y up/+Z front. Body scaled to the donor wheelbase; axles centred, mean hub at Y=-RideHeight.',
@@ -115,7 +117,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     from .addon_sdk.import_project import prepare
     from .addon_sdk.physics_collision import fit_collision
     from .dxt import parse_dxt_bytes
-    spec=VEHICLES[vehicle];family=spec['family']
+    spec=VEHICLES[vehicle];family=spec['family'];L=spec.get('label','TXR3')
     path=Path(scene_path).absolute();retail_sma=Path(retail_sma).absolute();retail_root=Path(retail_root).absolute()
     donor=retail_root/'DataGx/Vehicles'/spec['donor'];scene=uvs.load_scene(path)
     output=_admit_output(output,scene,[path.parent,donor,retail_sma,retail_root])
@@ -128,7 +130,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     from .gt_auto_profile import donor_geometry
     g=donor_geometry(donor)
     wheels={n['name']:n['local_transform']for n in scene['nodes']if n['role']=='wheel'}
-    wb=wheels['FL_WHEEL'][3]-wheels['BL_WHEEL'][3];scale=g['wheelbase']/wb
+    ax=spec.get('long_axis',3);wb=abs(wheels['FL_WHEEL'][ax]-wheels['BL_WHEEL'][ax]);scale=g['wheelbase']/wb
     probe,roles=pilot_profile(path,spec,_scaled_fit(uvs.IDENTITY[:],scale))
     fit=_scaled_fit(axle_fit(compile_scene(path,probe)),scale)
     # axle_fit measured hubs that already include the scale; keep its translation, re-apply scale on the diagonal
@@ -138,7 +140,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     half=g['track_half']
     for s in SLOTS:hubs[s][0]=half if s.endswith('left')else -half
     hub_report.update(front_track=2*half,rear_track=2*half)
-    profile.update(hub_overrides=hubs,hub_evidence='MR symmetric axles: TXR3 arch centres scaled to the donor wheelbase; donor track width.')
+    profile.update(hub_overrides=hubs,hub_evidence='MR symmetric axles: '+L+' wheel centres scaled to the donor wheelbase; donor track width.')
     result=compile_scene(path,profile)
     output.mkdir(parents=True)
     copied=_copy_scene(path,output/'inputs/source-scene')
@@ -172,7 +174,7 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
             'panes':[{'label':label,'source_draw':i,'triangles':list(range(len(parts[i].geometry.triangles))),
                       'broken_uv_axes':[0,1]if label in('screenfront','screenrear')else[2,1],'broken_texture':names[2]}for label,i in panes.items()],
             'brake':{'source_draw':lamp,'triangles':list(range(len(parts[lamp].geometry.triangles))),'lit_texture':names[0],'glow_texture':names[1],
-                     'evidence':'TXR3 tail lamp (TIM 43) and roof high stop lamp (TIM 39) meshes.'}}
+                     'evidence':spec.get('brake_evidence','TXR3 tail lamp (TIM 43) and roof high stop lamp (TIM 39) meshes.')}}
     car,states=author_states(raw,recipe)
     (assets/'car.dx').write_bytes(car)
     (assets/'complete.dx').write_bytes(write_scene_dx((donor/'complete.dx').read_bytes(),parts+complete_wheels))
@@ -185,32 +187,32 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
         wheel_resources[f'wheel-source{i}.dx']=write_scene_dx((donor/'wheel.dx').read_bytes(),sp)
     for name,data in wheel_resources.items():(assets/name).write_bytes(data)
     _json(assets/'preview-profile.json',{'race_wheel_instances':[{'translation':hubs[s],'rotation_y':math.pi if s.endswith('left')else 0.,'scale':[1.,1.,1.]}for s in SLOTS],
-        'race_wheel_resources':list(wheel_resources),'provenance':'Retail donor wheels on TXR3 arch-fitted hubs.'})
+        'race_wheel_resources':list(wheel_resources),'provenance':'Retail donor wheels on '+L+' hubs.'})
     lo,hi=_bounds(parts)
     dims={**hub_report,'length':hi[2]-lo[2],'width':hi[0]-lo[0],'height':hi[1]-lo[1],'wheel_radius':_wheel_radius(wheel_slots['front_right'])}
     _json(output/'identity.json',{'addon':{'name':spec['name'],'family':family,'manufacturer':spec['manufacturer'],'model':spec['model']}})
     author=prepare(output/'converted',donor,output/'identity.json',output/'author',render_ui=render_ui or _renderer,
-                   source_format='TXR3 PS2 Universal Vehicle Scene',vehicle_class=spec['class'])
+                   source_format=spec.get('source_format','TXR3 PS2 Universal Vehicle Scene'),vehicle_class=spec['class'])
     project=json.loads((author/'vehicle-project.json').read_text());folder=Path(project['source_vehicle_dir'])
     if not folder.is_absolute():folder=(author/folder).resolve()
     for name,data in wheel_resources.items():(folder/name).write_bytes(data)
     physics=_physics(retail_sma,family,spec['donor'],dims)
-    physics['notes']=physics['notes'].replace('Dakar 2','TXR3')
+    physics['notes']=physics['notes'].replace('Dakar 2',L)
     physics['collision_fit']={'source_sha256':uvs.sha(car),'core_draw_indices':core,'padding_m':[0.,0.,0.],
-                              'evidence':'TXR3 body paint draws; affine fit of the retail donor hull.'}
+                              'evidence':L+' body paint draws; affine fit of the retail donor hull.'}
     _,collision=fit_collision(car,physics['collision_fit'])
     _json(output/'collision-fit-report.json',collision);_json(author/'physics-profile.json',physics)
     addon=json.loads((author/'addon.json').read_text())
     addon['audio']['stock_audio_profile_id']=spec['audio'];addon['assets']['required_roles'].extend(wheel_resources)
     addon['results']['display_name']=spec['results']
-    addon['description']=('Private TXR3 (PS2) '+spec['name']+' in MR Classic mode: original geometry and diffuse textures, stock Master Rallye '
+    addon['description']=('Private '+spec.get('source_label','TXR3 (PS2)')+' '+spec['name']+' in MR Classic mode: original geometry and diffuse textures, stock Master Rallye '
                           'materials by semantic role, retail '+spec['donor']+' wheels and physics with measured dimensions. Gameplay not claimed.')
     _json(author/'addon.json',addon)
     from .workshop.service import WorkshopProject
     workshop=WorkshopProject.create(author,output/'workshop',kind='addon',car_id=car_id)
     workshop.data['universal_source']={'scene_path':str(copied),'scene_sha256':uvs.sha(copied.read_bytes()),
         'manifest_sha256':uvs.sha((copied.parent/'manifest.json').read_bytes()),'conversion_report':str(output/'conversion-report.json'),
-        'conversion_report_sha256':uvs.sha((output/'conversion-report.json').read_bytes()),'adapter':'txr3-ps2/1','baseline':'MR Classic'}
+        'conversion_report_sha256':uvs.sha((output/'conversion-report.json').read_bytes()),'adapter':spec.get('adapter_id','txr3-ps2/1'),'baseline':'MR Classic'}
     workshop.save()
     summary={'schema':'txr3-classic-pilot/1','vehicle':vehicle,'family':family,'output':str(output),'author':str(author),
              'workshop':str(workshop.root),'dimensions':dims,'body_scale':scale,'hub_fit':fit,'orientation_ledger':ledger,
