@@ -37,3 +37,14 @@ are generated (`CarID 29` workshop default).
 * Lower cladding colour, interior and underbody are flat colours (TXR3 untextured materials).
 * No roster record yet: needs the V-CAP registry rebuild (36 records) and the Roster V4
   transform; T1 placement proposed.
+
+## Look fixes (2026-11-13)
+
+* **CLUT order.** TXR3 stores the 8-bit body atlas (TIM 0) CLUT in linear order. The standard
+  CSM1 unswizzle scrambled it into dithered speckle (the "dark front wing"). `tim2.read(...,
+  csm1_unswizzle=False)` is used for TXR3; the atlas then has clean gradients.
+* **Material tint.** The game modulates the shared atlas by the material diffuse: TIM 0 is the
+  painted body at 0.9 and the unpainted lower cladding at 0.5 (also TIM 9 hood insert, TIM 11/36
+  bumpers, TIM 42 mirrors, TIM 38 roof rails). MR has no per-material tint, so the adapter bakes
+  `diffuse / 0.9` (clamped to 1) into a per-material texture copy (`tim-NNN-kXXX`). Cladding
+  materials (records 0, 10, 43) use the MR trim role instead of paint.

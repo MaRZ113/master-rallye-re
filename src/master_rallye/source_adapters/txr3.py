@@ -11,6 +11,7 @@ from pathlib import Path
 from .. import universal_vehicle_scene as uvs
 from . import txr3_formats as fmt
 from .tim2 import read as read_tim2
+from PIL import Image
 
 VERSION='txr3-ps2-source/1'
 # Source frame: +X front, +Y up, +Z vehicle left, metres, mirrored (badge text proves it).
@@ -22,6 +23,8 @@ VEHICLES={
         'arches':{'front':[1.135,0.259],'rear':[-1.192,0.259],'radius':0.401}},
 }
 TEXTURED=0x20
+# Diffuse of the painted body material (TIM 0 upper body); brighter materials (lamps 1.0) clamp to 1.
+PAINT_REFERENCE=0.9
 
 
 def digest(b):return hashlib.sha256(b).hexdigest()
@@ -54,7 +57,7 @@ def create_scene(container,output,vehicle='VEHICROSS',*,donor_wheel=None,donor_t
     offs=list(struct.unpack_from('<3I',raw,4))+[len(raw)]
     s=raw[offs[0]:offs[1]]
     if s[:8]!=b'0IVX00.1':raise ValueError('TXR3 model section expected')
-    tims=read_tim2(raw[offs[1]:offs[2]])
+    tims=read_tim2(raw[offs[1]:offs[2]],csm1_unswizzle=False)
     mats=material_records(s);starts=[m['offset']for m in mats]
     import bisect
     batches=fmt.batches(s)
@@ -80,9 +83,18 @@ def create_scene(container,output,vehicle='VEHICROSS',*,donor_wheel=None,donor_t
         m=mats[k];key='mat-%02d'%k
         if m['textured']:
             im=tims[m['texture']].convert('RGBA')
-            tid=texture_for('tim-%03d'%m['texture'],im.tobytes(),im.size[0],im.size[1],
-                {'mode':'TIM2 CLUT (CSM1 unswizzled), PS2 alpha 0x80 = opaque scaled to 255','tim_index':m['texture'],
-                 'alpha':'source TIM alpha; runtime blend state from the material header'})
+            # The game modulates the shared atlas by the material diffuse (e.g. VehiCROSS: the same TIM 0 is the
+            # painted body at 0.9 and the unpainted lower cladding at 0.5). Bake that tint relative to the paint
+            # reference so MR, which has no per-material tint, keeps the in-game look.
+            k=[min(1.,max(0.,v/PAINT_REFERENCE))for v in m['diffuse'][:3]]
+            name='tim-%03d'%m['texture'];chan={'mode':'TIM2 CLUT (stored linear order; CSM1 unswizzle speckles TIM 0), PS2 alpha 0x80 = opaque scaled to 255','tim_index':m['texture'],
+                 'alpha':'source TIM alpha; runtime blend state from the material header'}
+            if min(k)<0.995:
+                name+='-k%03d'%round(k[0]*100);bands=im.split()
+                im=Image.merge('RGBA',[bands[c].point(lambda v,f=k[c]:round(v*f))for c in range(3)]+[bands[3]])
+                chan['material_tint']={'diffuse':m['diffuse'][:3],'reference':PAINT_REFERENCE,'factor':k,
+                                       'evidence':'material diffuse vec4 modulates the TIM in-game; factor = diffuse / paint reference, clamped to 1'}
+            tid=texture_for(name,im.tobytes(),im.size[0],im.size[1],chan)
         else:
             c=[max(0,min(255,round(v*255)))for v in m['diffuse'][:3]]+[max(0,min(255,round(m['diffuse'][3]*255)))]
             tid=texture_for('solid-%02d'%k,_solid(c),2,2,{'mode':'derived 2x2 solid colour from the untextured material diffuse vec4',

@@ -27,6 +27,9 @@ VEHICLES={
                     19:'lamp',26:'lamp',23:'lamp',12:'lamp',13:'lamp',2:'lamp',37:'lamp',52:'lamp',46:'lamp',
                     43:'brake',39:'brake'},
         'alpha_test_textures':{1},
+        # material record index -> role, wins over the TIM map (TIM 0 at diffuse 0.5 = unpainted lower cladding,
+        # TIM 9 at 0.5 = hood scoop insert)
+        'materials':{0:'trim',10:'trim',43:'trim'},
         # untextured material record index -> role
         'solid':{1:'glass',3:'trim',6:'trim',7:'trim',5:'interior',8:'interior',16:'interior',35:'interior',
                  23:'trim',24:'trim',26:'trim',28:'trim',30:'trim',32:'trim',37:'trim',39:'trim',55:'trim',60:'trim'},
@@ -41,7 +44,9 @@ def _roles(scene,spec):
         key=m['id']
         if key.startswith('mat-'):
             raw=m['raw_fields'][0];idx=int(key[4:])
-            if raw['textured']:
+            if idx in spec.get('materials',{}):
+                role=spec['materials'][idx]
+            elif raw['textured']:
                 tex=int(m['diffuse_texture_id'].split('-')[1]);role=spec['textures'].get(tex)
             else:
                 role=spec['solid'].get(idx)
@@ -62,7 +67,7 @@ def pilot_profile(scene_path,spec,fit=None):
         m=next(x for x in scene['materials']if x['id']==key)
         tex=m['diffuse_texture_id']
         if role=='glass':rule['mode']='alpha_blend'
-        elif tex.startswith('tim-')and int(tex[4:])in spec['alpha_test_textures']:rule.update(mode='alpha_test',alpha_ref=100)
+        elif tex.startswith('tim-')and int(tex[4:7])in spec['alpha_test_textures']:rule.update(mode='alpha_test',alpha_ref=100)
         elif role=='chrome'and key.endswith(('d03','d04')):rule.update(mode='alpha_test',alpha_ref=100)
         else:rule.update(mode='opaque',allow_alpha_flatten=True)
         materials[key]=rule

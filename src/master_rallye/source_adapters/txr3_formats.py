@@ -51,7 +51,7 @@ def export(path,outdir,stem):
     from .tim2 import read
     d=open(path,'rb').read();n=struct.unpack_from('<I',d)[0];offs=list(struct.unpack_from('<%dI'%n,d,4))+[len(d)]
     s=d[offs[0]:offs[1]];os.makedirs(outdir,exist_ok=True)
-    texs=read(d[offs[1]:offs[2]]) if d[offs[1]:offs[1]+4]==b'TIM2' else []
+    texs=read(d[offs[1]:offs[2]],csm1_unswizzle=False) if d[offs[1]:offs[1]+4]==b'TIM2' else []
     for k,im in enumerate(texs): im.save(os.path.join(outdir,'%s_t%03d.png'%(stem,k)))
     B=batches(s);V=[];VT=[];groups={}
     for b in B:
