@@ -2,9 +2,16 @@ namespace MenuBuilder.Core;
 
 public enum Severity { Info, Warning, Error }
 
+/// <summary>One diagnostic. ERROR blocks installation; WARNING and INFO never do.</summary>
 public sealed record Finding(Severity Severity, string Screen, string? Element, string Code, string Message, string? Aspect = null)
 {
-    public override string ToString() => $"{Severity.ToString().ToUpperInvariant()} {Screen}{(Element != null ? "/" + Element : "")}{(Aspect != null ? " [" + Aspect + "]" : "")} {Code}: {Message}";
+    /// <summary>Element type (egg kind) when known.</summary>
+    public string? ElementType { get; init; }
+    /// <summary>Operation that failed or was checked (e.g. "create from template", "bind action").</summary>
+    public string? Operation { get; init; }
+    /// <summary>What the author can do about it.</summary>
+    public string? Fix { get; init; }
+    public override string ToString() => $"{Severity.ToString().ToUpperInvariant()} {Screen}{(Element != null ? "/" + Element : "")}{(ElementType != null ? " (" + ElementType + ")" : "")}{(Aspect != null ? " [" + Aspect + "]" : "")} {Code}: {Message}{(Operation != null ? " — during: " + Operation : "")}{(Fix != null ? " — fix: " + Fix : "")}";
 }
 
 /// <summary>
@@ -15,7 +22,8 @@ public sealed class Validator
 {
     readonly LayoutEngine _layout;
     readonly ExeTables? _exe;
-    public HashSet<string> KnownExtensions { get; } = new(StringComparer.Ordinal) { "extra_options.model_source", "game.quit" };
+    /// <summary>Action IDs offered by the editor (catalog; legacy names stay valid).</summary>
+    public IEnumerable<string> KnownExtensions => ActionCatalog.Actions.Select(a => a.Id);
 
     public Validator(LayoutEngine layout, ExeTables? exe) { _layout = layout; _exe = exe; }
 
@@ -23,12 +31,16 @@ public sealed class Validator
     {
         var r = new List<Finding>();
         if (_exe != null && !_exe.IsRetail) r.Add(new(Severity.Warning, "*", null, "EXE_NOT_RETAIL", $"MRallye.exe {_exe.Sha256[..12]}… is not the certified retail image; native addresses are only verified for retail"));
+        if (LayoutName.Problem(project.Name) is { } np)
+            r.Add(new(Severity.Error, "*", null, "LAYOUT_NAME", $"project name '{project.Name}' cannot be a layout name: {np}") { Operation = "install", Fix = $"rename the project, e.g. '{LayoutName.Suggest(project.Name)}'" });
+        r.AddRange(compiled.Diagnostics);
         foreach (var cs in compiled.Screens)
         {
             var def = project.Screen(cs.Name)!;
-            foreach (var n in cs.Notes) r.Add(new(Severity.Warning, cs.Name, null, "BUILD", n));
+            r.AddRange(cs.Diagnostics);
             if (!cs.IsCustom && cs.NativeId < 0) r.Add(new(Severity.Error, cs.Name, null, "UNKNOWN_SCREEN", $"{cs.Base} is not in the native screen table"));
             if (cs.BaseSource == "loose") r.Add(new(Severity.Info, cs.Name, null, "BASE_LOOSE", $"base page comes from a loose file of another mod (sha {cs.BaseSha256[..12]}…); the delta is applied on top of it"));
+            if (cs.BaseSource == "overlay") r.Add(new(Severity.Info, cs.Name, null, "BASE_OVERLAY", $"base page comes from the active Vehicle Manager roster (sha {cs.BaseSha256[..12]}…); the layout is served only while that roster page is unchanged"));
             if (def.BaseSha256 != null && def.BaseSha256 != cs.BaseSha256)
                 r.Add(new(Severity.Warning, cs.Name, null, "BASE_CHANGED", "base page differs from the one the project was authored against; edits re-apply by egg name — review the screen"));
             var doc = cs.Variants["4:3"];
@@ -40,23 +52,33 @@ public sealed class Validator
             foreach (var g in cs.Buttons.GroupBy(b => b.Id).Where(g => g.Count() > 1))
                 r.Add(new(Severity.Error, cs.Name, string.Join(",", g.Select(b => b.Egg)), "DUPLICATE_ID", $"Button ID {g.Key} is used by several focusables"));
             var ids = cs.Buttons.Select(b => b.Id).ToHashSet();
+            var hiddenIds = cs.Buttons.Where(b => b.Hidden).Select(b => b.Id).ToHashSet();
+            if (cs.DefaultFocus is int df)
+            {
+                if (!ids.Contains(df)) r.Add(new(Severity.Error, cs.Name, null, "FOCUS_TARGET", $"default focus {df} is not a focusable of this screen") { Operation = "screen settings", Fix = "pick an existing Button ID or clear the default focus" });
+                else if (hiddenIds.Contains(df)) r.Add(new(Severity.Error, cs.Name, null, "FOCUS_HIDDEN", $"default focus {df} is a hidden element") { Operation = "screen settings", Fix = "pick a visible button" });
+            }
             foreach (var b in cs.Buttons)
             {
                 foreach (var (dir, target) in new[] { ("Up", b.Up), ("Down", b.Down), ("Left", b.Left), ("Right", b.Right) })
+                {
                     if (target != 0 && !ids.Contains(target))
-                        r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_TARGET", $"{dir} Path → {target} does not exist"));
+                        r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_TARGET", $"{dir} Path → {target} does not exist") { ElementType = b.Kind.ToString(), Operation = "focus navigation", Fix = "relink navigation" });
+                    else if (target != 0 && !b.Hidden && hiddenIds.Contains(target))
+                        r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_TO_HIDDEN", $"{dir} Path → {target} leads focus onto a hidden element") { ElementType = b.Kind.ToString(), Operation = "focus navigation", Fix = "use Hide (reroutes paths) or relink navigation" });
+                }
+                if (b.Hidden) r.Add(new(Severity.Info, cs.Name, b.Egg, "HIDDEN", "hidden: no hitbox, not focusable, command ignored by the runtime"));
+                else if (b.Blocked && !b.Enabled) r.Add(new(Severity.Info, cs.Name, b.Egg, "DISABLED", "disabled: drawn greyed, command ignored"));
+                else if (b.Blocked) r.Add(new(Severity.Warning, cs.Name, b.Egg, "DISABLED_NO_NATIVE_STATE", "this button has no native Enabled state: it is drawn normally but its command is ignored") { Fix = "hide it, or change its text to show that it is unavailable" });
                 switch (b.Status)
                 {
-                    case BindingStatus.Unbound:
-                        r.Add(new(Severity.Error, cs.Name, b.Egg, "UNBOUND", "focusable without a working handler (not a retail command of this screen and no typed action)")); break;
+                    case BindingStatus.Unbound when !b.Blocked:
+                        r.Add(new(Severity.Error, cs.Name, b.Egg, "UNBOUND", $"focusable without a working handler ('{b.Action.Type}' is not a retail command of this screen nor a typed action)")
+                            { ElementType = b.Kind.ToString(), Operation = "bind action", Fix = "choose an action type, or hide/disable the button" }); break;
                     case BindingStatus.Extension:
-                        var ext = b.Action.Extension ?? "";
-                        r.Add(KnownExtensions.Contains(ext)
-                            ? new(Severity.Info, cs.Name, b.Egg, "EXTENSION", $"provider '{ext}' is built into the runtime; it reports UNAVAILABLE when its owner (e.g. Extra Options) is disabled")
-                            : new(Severity.Warning, cs.Name, b.Egg, "EXTENSION_EXTERNAL", $"provider '{ext}' must be registered by another module via MRMenuRegisterActionV1; until then the button is shown disabled in game"));
-                        break;
-                    case BindingStatus.Disabled:
-                        r.Add(new(Severity.Info, cs.Name, b.Egg, "DISABLED", "action 'none': the button is shown disabled")); break;
+                        CheckExtension(r, cs.Name, b); break;
+                    case BindingStatus.Disabled when !b.Blocked:
+                        r.Add(new(Severity.Info, cs.Name, b.Egg, "NO_ACTION", "action 'none': the button does nothing when pressed")); break;
                 }
                 if (b.Action.Type == ActionBinding.Forward)
                 {
@@ -70,11 +92,16 @@ public sealed class Validator
                     bool ok = project.Screens.Any(s => s.IsCustom && s.Name == target) || (_exe?.ScreenId(target) ?? -1) >= 0;
                     if (!ok) r.Add(new(Severity.Error, cs.Name, b.Egg, "NAV_SCREEN", $"navigate target '{target}' is neither a retail nor a custom screen"));
                 }
-                if ((b.Action.Type is ActionBinding.SetInt or ActionBinding.ToggleBool or ActionBinding.CycleInt) && string.IsNullOrWhiteSpace(b.Action.Key))
-                    r.Add(new(Severity.Error, cs.Name, b.Egg, "BROKER_KEY", "Broker action without key"));
-                if (b.Local.IsEmpty)
-                    r.Add(new(Severity.Error, cs.Name, b.Egg, "NO_HITBOX", "focusable has neither a sprite nor text; it cannot be drawn or hit"));
+                if ((b.Action.Type is ActionBinding.SetInt or ActionBinding.ToggleBool or ActionBinding.CycleInt) && !Ids.IsBrokerKey(b.Action.Key))
+                    r.Add(new(Severity.Error, cs.Name, b.Egg, "BROKER_KEY", $"Broker action needs a key like 'Group/Name' (got '{b.Action.Key}')") { Operation = "bind action", Fix = "enter the Broker key" });
+                if (b.Action.Type == ActionBinding.CycleInt && (b.Action.Min ?? 0) > (b.Action.Max ?? 1))
+                    r.Add(new(Severity.Error, cs.Name, b.Egg, "CYCLE_RANGE", "cycle min is greater than max") { Operation = "bind action" });
+                if (b.Action.Type == ActionBinding.Native && b.Action.Command is int nc && (nc <= 0 || nc > 255))
+                    r.Add(new(Severity.Error, cs.Name, b.Egg, "COMMAND_RANGE", $"native command {nc} is outside 1..255") { Operation = "bind action" });
+                if (b.Local.IsEmpty && !b.Hidden)
+                    r.Add(new(Severity.Error, cs.Name, b.Egg, "NO_HITBOX", "focusable has neither a sprite nor text; it cannot be drawn or hit") { ElementType = b.Kind.ToString(), Operation = "create hitbox", Fix = "give it a sprite or a label" });
             }
+            foreach (var v in cs.Values) CheckValue(r, cs.Name, v);
             // Reachability from the default focus over Up/Down/Left/Right (focusables with paths only).
             var pathful = cs.Buttons.Where(b => b.Kind is ElementKind.Button or ElementKind.Multistate or ElementKind.Popup or ElementKind.Toggle).ToList();
             if (pathful.Count > 0)
@@ -109,6 +136,16 @@ public sealed class Validator
                     if (bnd.X1 < left || bnd.X0 > right || bnd.Y1 < 0 || bnd.Y0 > 480)
                         r.Add(new(Severity.Warning, cs.Name, egg.Name, "OFFSCREEN", $"bounds {bnd} outside the visible area {left:0}..{right:0}", aspect));
                 }
+                // An active hitbox that cannot be seen is an invisible click area.
+                foreach (var b in hits.Where(b => !b.Blocked))
+                {
+                    var h = b.Hit[aspect];
+                    if (h.X1 <= left || h.X0 >= right || h.Y1 <= 0 || h.Y0 >= 480)
+                        r.Add(new(Severity.Error, cs.Name, b.Egg, "HITBOX_OFFSCREEN", $"active hitbox {h} is entirely outside the visible area {left:0}..{right:0}", aspect)
+                            { ElementType = b.Kind.ToString(), Operation = "create hitbox", Fix = "move the element on screen, or hide it in this aspect" });
+                    else if (VisibleShare(h, left, right) < 0.75)
+                        r.Add(new(Severity.Warning, cs.Name, b.Egg, "HITBOX_CLIPPED", $"hitbox {h} extends past the visible area {left:0}..{right:0}", aspect));
+                }
             }
             // Renderer PreserveMargins rules (Widescreen = 2) on the 16:9 variant.
             var wide = cs.Variants.ContainsKey("16:9") ? "16:9" : compiled.Aspects.Last();
@@ -137,7 +174,65 @@ public sealed class Validator
                     r.Add(new(Severity.Warning, cs.Name, egg.Name, "TEXT_OVERFLOW", $"label width {run.Width} exceeds the button image ({img.Width})"));
             }
         }
-        foreach (var m in _layout.Assets.Missing.Distinct()) r.Add(new(Severity.Error, "*", null, "MISSING_ASSET", m));
+        foreach (var m in _layout.Assets.Missing.Distinct()) r.Add(new(Severity.Error, "*", null, "MISSING_ASSET", m) { Operation = "load resource", Fix = "pick an existing model or font" });
         return r;
+    }
+
+    /// <summary>Visible share of a hitbox's area (retail long buttons run slightly past the right edge by design).</summary>
+    static double VisibleShare(UiRect h, double left, double right)
+    {
+        double w = Math.Max(0, Math.Min(h.X1, right) - Math.Max(h.X0, left)), hh = Math.Max(0, Math.Min(h.Y1, 480) - Math.Max(h.Y0, 0));
+        return h.Width * h.Height <= 0 ? 0 : w * hh / (h.Width * h.Height);
+    }
+
+    static void CheckExtension(List<Finding> r, string screen, CompiledButton b)
+    {
+        var id = b.Action.Extension ?? "";
+        var info = ActionCatalog.Find(id);
+        bool optional = b.Action.Optional != false;
+        if (!ActionCatalog.IsValidId(id))
+        {
+            r.Add(new(Severity.Error, screen, b.Egg, "ACTION_ID", $"'{id}' is not a valid action ID (lower-case dotted name, e.g. vehicle.paint)")
+                { ElementType = b.Kind.ToString(), Operation = "bind action", Fix = "pick an action from the list" });
+            return;
+        }
+        if (info != null && !info.IsAction)
+        {
+            r.Add(new(Severity.Error, screen, b.Egg, "ACTION_NOT_ACTION", $"'{id}' is a value, not an action") { Operation = "bind action", Fix = "bind it as the element's value instead" });
+            return;
+        }
+        switch (info?.Owner)
+        {
+            case ActionOwner.BuiltIn:
+                r.Add(new(Severity.Info, screen, b.Egg, "ACTION_BUILTIN", $"'{id}' is executed by the Menu Builder runtime")); break;
+            case ActionOwner.ExtraOptions:
+                r.Add(new(Severity.Info, screen, b.Egg, "ACTION_EXTRA_OPTIONS", $"'{id}' is executed by Extra Options; with the standalone runtime or Extra Options disabled the button is served disabled")); break;
+            case ActionOwner.Planned when optional:
+                r.Add(new(Severity.Warning, screen, b.Egg, "ACTION_NOT_IMPLEMENTED", $"'{id}' ({info.Title}) has no runtime handler yet; the button is served disabled until a module registers it")); break;
+            case ActionOwner.Planned:
+                r.Add(new(Severity.Error, screen, b.Egg, "ACTION_REQUIRED_MISSING", $"'{id}' is marked required but has no runtime handler")
+                    { Operation = "bind action", Fix = "mark the action optional or bind an implemented action" }); break;
+            default:
+                if (optional) r.Add(new(Severity.Warning, screen, b.Egg, "ACTION_EXTERNAL", $"'{id}' must be registered by another module (MRMenuRegisterActionV1); until then the button is served disabled"));
+                else r.Add(new(Severity.Error, screen, b.Egg, "ACTION_REQUIRED_MISSING", $"required action '{id}' is not provided by any known module")
+                    { Operation = "bind action", Fix = "mark it optional or use a catalog action" });
+                break;
+        }
+    }
+
+    static void CheckValue(List<Finding> r, string screen, CompiledValue v)
+    {
+        var info = ActionCatalog.Find(v.Source);
+        if (info != null && !info.HasValue)
+            r.Add(new(Severity.Error, screen, v.Egg, "VALUE_NOT_VALUE", $"'{v.Source}' has no value to show") { Operation = "bind value", Fix = "pick a value source" });
+        else if (info?.Owner == ActionOwner.Planned)
+            r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_NOT_IMPLEMENTED", $"'{v.Source}' has no provider yet; the element shows '{Compiler.FormatValue(v.Format, v.Fallback)}'"));
+        else if (info == null)
+            r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_EXTERNAL", $"'{v.Source}' must be registered by another module (MRMenuRegisterValueV1); until then the element shows '{Compiler.FormatValue(v.Format, v.Fallback)}'"));
+        if (v.Direct && v.Format != "{value}")
+            r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_FORMAT_IGNORED", $"'{v.Source}' is a native name shown as is; the format '{v.Format}' is not applied") { Fix = "put the caption in a separate text element" });
+        else if (!v.Format.Contains("{value}")) r.Add(new(Severity.Warning, screen, v.Egg, "VALUE_FORMAT", "the format has no {value} placeholder"));
+        if ((v.Format + v.Fallback).Any(c => c > '~' || c < ' '))
+            r.Add(new(Severity.Error, screen, v.Egg, "VALUE_TEXT", "value format/fallback must be printable ASCII (native Name text)") { Operation = "bind value" });
     }
 }

@@ -7,7 +7,8 @@
   TEST_DONE, stops the game and copies MenuBuilder.log, live dumps and screenshots to -Out.
 #>
 param([Parameter(Mandatory)][string]$GameHost, [Parameter(Mandatory)][string]$Test, [Parameter(Mandatory)][string]$Out, [int]$TimeoutSec = 240,
-      [string]$Launcher = "")   # optional: start through a launcher command (e.g. the SDK candidate's Launch-Extra-Options.cmd)
+      [string]$Launcher = "",   # optional: start through a launcher command (e.g. the SDK candidate's Launch-Extra-Options.cmd)
+      [int]$LingerSec = 0)      # keep the game running after TEST_DONE (e.g. a race loading) and capture a last screenshot
 $ErrorActionPreference = "Stop"
 $mb = Join-Path $GameHost "MenuBuilder"
 $driver = Join-Path $PSScriptRoot "mrdrive.ps1"
@@ -36,6 +37,10 @@ while ((Get-Date) -lt $deadline -and -not $p.HasExited) {
   }
   $log = Join-Path $mb "MenuBuilder.log"
   if ((Test-Path $log) -and ((Get-Content $log -Raw) -match "TEST_DONE")) { $done = $true; break }
+}
+if ($done -and $LingerSec -gt 0) {
+  Start-Sleep -Seconds $LingerSec
+  if (-not $p.HasExited) { & powershell -NoProfile -ExecutionPolicy Bypass -File $driver shot (Join-Path $Out "zz-after-linger.png") | Out-Null }
 }
 $crashed = $p.HasExited
 if (-not $p.HasExited) { Start-Sleep -Milliseconds 500; Stop-Process -Id $p.Id -Force }

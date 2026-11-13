@@ -7,7 +7,11 @@
 #include <array>
 #include <string>
 
+// RMOD_MENU_BUILDER_STANDALONE: the plain Menu Builder loader for a game without Extra Options / Vehicle Manager.
+// It installs no Randomizer plan and no roster (those need the generated SDK headers and the runtime core).
+#if !defined(RMOD_MENU_BUILDER_STANDALONE)
 #include "rmod2_inprocess.hpp"
+#endif
 #include "vehicle_roster.hpp"
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "extra_options_runtime.hpp"
@@ -72,6 +76,9 @@ FARPROC system_export(unsigned index) {
 
 BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
     InterlockedExchange(&g_boot_state, 1);
+#if defined(RMOD_MENU_BUILDER_STANDALONE)
+    InterlockedExchange(&g_boot_state, 2);
+#else
     char error[512]{};
     if (rmod2_boot::initialize(error, static_cast<unsigned>(sizeof(error)))) {
 #if defined(RMOD_EXTRA_OPTIONS)
@@ -81,6 +88,7 @@ BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
     } else {
         InterlockedExchange(&g_boot_state, 3);
     }
+#endif
 #if defined(RMOD_EXTRA_OPTIONS)
     // Ghost/difficulty hooks are disjoint from the Randomizer plan and need no runtime core.
     extra_ghost::initialize();
@@ -98,7 +106,11 @@ BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
 extern "C" BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID) {
     // Vehicle Manager roster (docs/vehicle-manager/DESIGN.md): before the first game instruction, kernel32 only.
     // Absent roster = no effect. Thread notifications stay inert.
+#if !defined(RMOD_MENU_BUILDER_STANDALONE)
     if (reason == DLL_PROCESS_ATTACH) vehicle_roster::attach(instance);
+#else
+    (void)instance; (void)reason;
+#endif
     return TRUE;
 }
 

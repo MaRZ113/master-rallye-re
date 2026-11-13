@@ -34,7 +34,9 @@ def compile_proxy(output, include, extra_header, menu_builder):
     # Menu Builder exports follow the registry marker (@13); all consumers bind by name.
     exports_menu = ('    MRMenuAbiV1=_MRMenuAbiV1@0 @14\n'
                     '    MRMenuRegisterActionV1=_MRMenuRegisterActionV1@8 @15\n'
-                    '    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n') if menu_builder else ''
+                    '    MRMenuQueryV1=_MRMenuQueryV1@8 @16\n'
+                    '    MRMenuAbiV2=_MRMenuAbiV2@0 @17\n'
+                    '    MRMenuRegisterValueV1=_MRMenuRegisterValueV1@8 @18\n') if menu_builder else ''
     proxy_def.write_text(original_def + '\n    MRExtraSdkBindingAbi=_MRExtraSdkBindingAbi@0 @7\n' + exports_extra + exports_menu, encoding='ascii')
 
     vcvars, msvc = locate_toolchain()

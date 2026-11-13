@@ -1,0 +1,70 @@
+# MENU-STUDIO1 in-game check: demo layout on the current Extra Options loader + Vehicle Manager roster + renderer.
+# Typed actions with live values (Vehicle Configuration), planned actions served disabled, native forward, back.
+wait 3000
+expect-screen MainMenu
+dump
+shot s01-mainmenu
+key accept
+wait 3000
+expect-screen 2
+key accept
+wait 4000
+expect-screen QuickRace
+dump
+shot s02-quickrace
+expect-hit 120 100 MB_VehicleConfig
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+dump
+expect-focus 1
+expect-value-prefix VC_ModelValue MODEL:_
+expect-value-prefix VC_TyresValue TYRES:_
+expect-value VC_BuildValue BUILD:_NOT_AVAILABLE
+expect-value VC_PaintValue PAINT:_NOT_AVAILABLE
+expect-served-disabled VC_Build
+expect-served-disabled VC_Paint
+expect-served-disabled VC_Apply
+shot s03-vehicleconfig
+note-value VC_ModelValue
+key accept
+wait 1500
+expect-value-changed VC_ModelValue
+shot s04-model-stepped
+key down
+wait 400
+expect-focus 2
+note-value VC_TyresValue
+key accept
+wait 1500
+expect-value-changed VC_TyresValue
+shot s05-tyres-stepped
+# planned BUILD: pressing it does nothing (served disabled)
+hover 150 300
+wait 400
+key accept
+wait 1500
+expect-screen MB_VehicleConfig
+# hitboxes of the live eggs
+expect-hit 150 392 VC_Model
+expect-hit 150 116 VC_Back
+expect-hit 500 200 none
+# native.forward: VEHICLE SETUP opens the native Vehicle Setup through Quick Race command 5
+click 150 208
+wait 300
+wait 5000
+expect-screen VehicleSetup4
+dump
+shot s06-native-setup
+key back
+wait 4000
+expect-screen QuickRace
+shot s07-back-quickrace
+click 120 100
+wait 3500
+expect-screen MB_VehicleConfig
+click 150 116
+wait 3500
+expect-screen QuickRace
+shot s08-back-button
+end

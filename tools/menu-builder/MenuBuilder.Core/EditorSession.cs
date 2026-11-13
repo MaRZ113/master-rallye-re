@@ -9,10 +9,12 @@ namespace MenuBuilder.Core;
 /// </summary>
 public sealed class EditorSession
 {
-    public Workspace Ws { get; }
+    public Workspace Ws { get; private set; }
     public MenuProject Project { get; private set; }
     public string? Path { get; set; }
-    public bool Dirty { get; private set; }
+    /// <summary>True when the project differs from the last saved/opened state (screens opened for viewing only do not count).</summary>
+    public bool Dirty => Fingerprint(Project) != _saved;
+    string _saved;
     public ScreenDef? Screen { get; private set; }
     public string Aspect { get; set; } = "4:3";
     /// <summary>When true, geometry edits go to Aspects[Aspect] instead of the base layout.</summary>
@@ -21,10 +23,63 @@ public sealed class EditorSession
     readonly Stack<string> _undo = new(), _redo = new();
     public event Action? Changed;
 
-    public EditorSession(Workspace ws, MenuProject project, string? path)
+    /// <param name="saved">false for a project that was never saved (a new project starts dirty).</param>
+    public EditorSession(Workspace ws, MenuProject project, string? path, bool saved = true)
     {
         Ws = ws; Project = project; Path = path;
         Screen = project.Screens.FirstOrDefault();
+        _saved = saved ? Fingerprint(project) : "";
+    }
+
+    /// <summary>Canonical content used for the dirty check: unchanged retail screens are view state, not edits.</summary>
+    static string Fingerprint(MenuProject p)
+    {
+        var c = p.Clone();
+        c.Screens.RemoveAll(Compiler.IsUnchanged);
+        return c.ToJson();
+    }
+
+    /// <summary>
+    /// Points the session at another installation (game folder change or resource reload) without touching the
+    /// project, its file path, the dirty state or the undo/redo history. Returns findings about resources the
+    /// project needs and the new installation lacks.
+    /// </summary>
+    public List<Finding> Rebind(Workspace ws)
+    {
+        Ws = ws;
+        if (Screen != null && Project.Screen(Screen.Name) == null) Screen = Project.Screens.FirstOrDefault();
+        var report = ResourceReport();
+        Changed?.Invoke();
+        return report;
+    }
+
+    /// <summary>Base pages, retail eggs and templates the project refers to that this installation does not provide.</summary>
+    public List<Finding> ResourceReport()
+    {
+        var r = new List<Finding>();
+        foreach (var sc in Project.Screens)
+        {
+            if (!Ws.Data.Exists(Compiler.ScenePath(sc.Base)))
+            {
+                r.Add(new Finding(Severity.Error, sc.Name, null, "BASE_MISSING", $"base page {sc.Base} is not in this installation") { Fix = "pick the right game folder or remove the screen" });
+                continue;
+            }
+            try { Ws.Compiler.BuildScene(Project, sc, r); }
+            catch (Exception ex) { r.Add(new Finding(Severity.Error, sc.Name, null, "SCREEN_BUILD_FAILED", ex.Message)); }
+        }
+        return r.Where(f => f.Severity != Severity.Info).ToList();
+    }
+
+    /// <summary>Opens any retail frontend screen for viewing/editing; it becomes part of the project only once edited.</summary>
+    public void OpenScreen(string name)
+    {
+        if (Project.Screen(name) == null)
+        {
+            var retail = Ws.RetailScreens().FirstOrDefault(r => r.name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (retail.name == null) throw new KeyNotFoundException($"{name} is neither a project screen nor a frontend screen of this installation");
+            Project.Screens.Add(Ws.NewRetailScreen(retail.name));
+        }
+        SelectScreen(name);
     }
 
     public void SelectScreen(string name)
@@ -36,16 +91,24 @@ public sealed class EditorSession
 
     // ---- scene views -------------------------------------------------------------------------
     public SceneDocument Scene() => Screen == null ? throw new InvalidOperationException("no screen") : Ws.Compiler.BuildScene(Project, Screen);
-    public SceneDocument Variant() => Ws.Compiler.Variant(Project, Screen!, Scene(), Aspect);
+    public SceneDocument Variant() => Workspace.PreviewStates(Screen!, Ws.Compiler.Variant(Project, Screen!, Scene(), Aspect));
     public SceneDocument Original() => Ws.Compiler.Base(Screen!.Base);
 
     // ---- undo ----------------------------------------------------------------------------------
     public void Edit(string what, Action change)
     {
-        _undo.Push(Project.ToJson());
+        var before = Project.ToJson();
+        try { change(); }
+        catch
+        {
+            // A failed edit must not leave a half-applied change behind.
+            var screen = Screen?.Name;
+            Project = MenuProject.FromJson(before);
+            Screen = screen != null ? Project.Screen(screen) : Project.Screens.FirstOrDefault();
+            throw;
+        }
+        _undo.Push(before);
         _redo.Clear();
-        change();
-        Dirty = true;
         LastEdit = what;
         Changed?.Invoke();
     }
@@ -58,7 +121,6 @@ public sealed class EditorSession
         Project = MenuProject.FromJson(json);
         Screen = screen != null ? Project.Screen(screen) ?? Project.Screens.FirstOrDefault() : Project.Screens.FirstOrDefault();
         if (Screen != null) { var scene = Scene(); Selection.RemoveAll(n => scene.Find(n) == null); } else Selection.Clear();
-        Dirty = true;
         Changed?.Invoke();
     }
     public void Undo() { if (_undo.Count == 0) return; _redo.Push(Project.ToJson()); Restore(_undo.Pop()); }
@@ -66,9 +128,12 @@ public sealed class EditorSession
 
     public void Save(string? path = null)
     {
-        Path = path ?? Path ?? throw new InvalidOperationException("no path");
-        Project.Save(Path);
-        Dirty = false;
+        var target = path ?? Path ?? throw new InvalidOperationException("no path");
+        Project.Id ??= MenuProject.NewId();
+        // Write next to the target and rename over it: a failed save never truncates the previous file.
+        SafeFs.WriteAtomic(target, System.Text.Encoding.UTF8.GetBytes(Project.ToJson()));
+        Path = target;
+        _saved = Fingerprint(Project);
         Changed?.Invoke();
     }
 
@@ -114,11 +179,25 @@ public sealed class EditorSession
 
     public static double Snap(double v, double step) => step <= 0 ? Math.Round(v, 2) : Math.Round(v / step) * step;
 
-    public void Delete(IEnumerable<string> eggs)
+    public DependencyReport Dependencies(string egg) => new DependencyAnalyzer(Ws).Analyze(Project, Screen!, egg);
+
+    /// <summary>
+    /// Deletes elements. Retail elements with a native dependency (Native Required / Unknown Dependency) are refused
+    /// with a <see cref="DependencyException"/> unless <paramref name="force"/>; Hide/Disable keep them working.
+    /// Focus paths and the default focus that pointed at a deleted element are rerouted to its own neighbours.
+    /// </summary>
+    public void Delete(IEnumerable<string> eggs, bool force = false)
     {
+        var names = eggs.ToList();
+        var reports = names.Select(Dependencies).ToList();
+        var blocked = reports.Where(r => r.BlocksDelete || (r.Class == ElementClass.UserCreated && r.Dependencies.Any(d => d.Kind == "egg-reference"))).ToList();
+        if (blocked.Count > 0 && !force) throw new DependencyException("Delete", blocked);
+        if (names.Any(n => Scene().Find(n)?.Kind == ElementKind.Screen)) throw new InvalidOperationException("the screen controller egg cannot be deleted");
+        var scene = Scene();
         Edit("Delete", () =>
         {
-            foreach (var name in eggs.ToList())
+            RerouteAround(scene, names);
+            foreach (var name in names)
             {
                 var s = Screen!;
                 var def = s.Element(name) ?? s.ForBase(name);
@@ -127,6 +206,86 @@ public sealed class EditorSession
                 foreach (var a in s.Aspects.Values) a.Remove(name);
             }
             Selection.Clear();
+        });
+    }
+
+    /// <summary>
+    /// Every focus path (and the default focus) that targets one of <paramref name="removed"/> is pointed at the
+    /// removed element's own path in the same direction (following chains of removed elements), so focus never
+    /// lands on a deleted or hidden element. Must run inside an <see cref="Edit"/>.
+    /// </summary>
+    void RerouteAround(SceneDocument scene, IReadOnlyCollection<string> removed)
+    {
+        var byId = scene.Focusables.Where(f => f.ButtonId is > 0).GroupBy(f => f.ButtonId!.Value).ToDictionary(g => g.Key, g => g.First());
+        var gone = removed.Select(n => scene.Find(n)?.ButtonId).Where(i => i is > 0).Select(i => i!.Value).ToHashSet();
+        if (gone.Count == 0) return;
+        string[] paths = { "Up Path", "Down Path", "Left Path", "Right Path" };
+        int Resolve(int target, string path)
+        {
+            for (int guard = 0; guard < 64 && gone.Contains(target); guard++)
+                target = byId.TryGetValue(target, out var e) ? e.Focusable?.GetInt(path) ?? 0 : 0;
+            return gone.Contains(target) ? 0 : target;
+        }
+        foreach (var f in scene.Focusables.Where(f => !removed.Contains(f.Name) && f.Focusable != null))
+            foreach (var path in paths)
+                if (f.Focusable!.GetInt(path) is int t && gone.Contains(t))
+                {
+                    var p = Def(f.Name).Patch;
+                    int v = Resolve(t, path);
+                    switch (path) { case "Up Path": p.Up = v; break; case "Down Path": p.Down = v; break; case "Left Path": p.Left = v; break; default: p.Right = v; break; }
+                }
+        if (Screen!.DefaultFocus is int d && gone.Contains(d)) Screen.DefaultFocus = null;
+    }
+
+    /// <summary>
+    /// Hides elements with native semantics: not drawn, not focusable (focus paths rerouted), no mouse hitbox, and
+    /// the runtime swallows the command, so an invisible button can never be activated. The egg, its name and its
+    /// native links stay in the scene.
+    /// </summary>
+    public void Hide(IEnumerable<string> eggs)
+    {
+        var names = eggs.ToList();
+        var scene = Scene();
+        Edit("Hide", () =>
+        {
+            RerouteAround(scene, names);
+            foreach (var n in names)
+            {
+                var p = Def(n).Patch;
+                p.Visible = false;
+                if (scene.Find(n)?.Focusable?.Has("Enabled") == true) p.Enabled = false;
+            }
+        });
+    }
+
+    /// <summary>Shows hidden elements again (navigation is not re-linked automatically; use Link navigation).</summary>
+    public void Show(IEnumerable<string> eggs) => Edit("Show", () =>
+    {
+        foreach (var n in eggs.ToList())
+        {
+            var p = Def(n).Patch;
+            p.Visible = null;
+            p.Enabled = null;
+        }
+    });
+
+    /// <summary>Disable: drawn (greyed where the native button supports it) but never activated; Enable undoes it.</summary>
+    public void SetEnabled(IEnumerable<string> eggs, bool enabled) => Edit(enabled ? "Enable" : "Disable", () =>
+    {
+        foreach (var n in eggs.ToList()) Def(n).Patch.Enabled = enabled ? null : false;
+    });
+
+    /// <summary>Scales elements about a fixed point (the opposite edge/corner of a resize handle), in authored units.</summary>
+    public void ScaleAbout(IEnumerable<string> eggs, double kx, double ky, double ax, double ay, double minScale = 0.05)
+    {
+        var scene = Variant();
+        Patch(eggs, "Scale", (p, egg) =>
+        {
+            float sx = (float)Math.Round(Math.Max(minScale, egg.ScaleX * kx), 3), sy = (float)Math.Round(Math.Max(minScale, egg.ScaleY * ky), 3);
+            double rx = egg.ScaleX == 0 ? 1 : sx / egg.ScaleX, ry = egg.ScaleY == 0 ? 1 : sy / egg.ScaleY;
+            p.ScaleX = sx; p.ScaleY = sy;
+            p.X = (float)Math.Round(ax - rx * (ax - egg.X), 2);
+            p.Y = (float)Math.Round(ay - ry * (ay - egg.Y), 2);
         });
     }
 
@@ -201,9 +360,12 @@ public sealed class EditorSession
         return created;
     }
 
-    public void Rename(string egg, string newName)
+    public void Rename(string egg, string newName, bool force = false)
     {
-        if (string.IsNullOrWhiteSpace(newName) || Scene().Find(newName) != null) throw new ArgumentException("name already used or empty");
+        if (!Ids.IsEggName(newName)) throw new ArgumentException($"'{newName}' is not a valid element name (letters, digits and '_', first a letter or '_', at most 63)");
+        if (Scene().Find(newName) != null || Screen!.Elements.Any(e => e.Name == newName)) throw new ArgumentException($"an element named '{newName}' already exists");
+        var report = Dependencies(egg);
+        if (report.BlocksRename && !force) throw new DependencyException("Rename", new[] { report });
         Edit("Rename", () =>
         {
             Def(egg).Name = newName;
@@ -372,5 +534,5 @@ public sealed class EditorSession
 
     public void AddScreen(ScreenDef s) => Edit("Add screen " + s.Name, () => { Project.Screens.Add(s); Screen = s; Selection.Clear(); });
     public void RemoveScreen(string name) => Edit("Remove screen " + name, () => { Project.Screens.RemoveAll(x => x.Name == name); Screen = Project.Screens.FirstOrDefault(); Selection.Clear(); });
-    public void ReplaceProject(MenuProject p) { _undo.Push(Project.ToJson()); _redo.Clear(); Project = p; Screen = p.Screens.FirstOrDefault(); Selection.Clear(); Dirty = true; Changed?.Invoke(); }
+    public void ReplaceProject(MenuProject p) { _undo.Push(Project.ToJson()); _redo.Clear(); Project = p; Screen = p.Screens.FirstOrDefault(); Selection.Clear(); Changed?.Invoke(); }
 }

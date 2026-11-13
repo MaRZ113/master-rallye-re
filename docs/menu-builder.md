@@ -1,4 +1,4 @@
-# Master Rallye Menu Builder
+# Master Rallye Menu Builder 1.1
 
 WYSIWYG editor and native runtime for the Master Rallye PC frontend. Layouts are designed on the
 real scene files with the game's own sprites, fonts and icons, compiled to native
@@ -14,7 +14,8 @@ ones the game uses: preview and runtime share one layout model and the runtime r
 | Python API | `tools/menu-builder/python/mr_menu_builder.py` |
 | Native runtime (dinput8 loader module) | `src/native/rmod1/menu_builder_runtime.{hpp,cpp}` |
 | Tests: headless core tests, in-game autotests, game driver | `tools/menu-builder/MenuBuilder.Tests`, `tools/menu-builder/test` |
-| Example project | `examples/menu-builder/demo.mrmenu.json` |
+| Example project | `examples/menu-builder/demo.mrmenu.json` (MAIN MENU edit, OPTIONS > MENU BUILDER, QUICK RACE > VEHICLE CONFIG) |
+| MENU-STUDIO1 report | `docs/menu-builder/MENU-STUDIO1-REPORT.md` |
 | Reproducible build | `tools/build_menu_builder.py` |
 
 ## 1. How the native frontend works (research summary)
@@ -56,14 +57,36 @@ All addresses are for the retail image `bf8aef32…` (MRallye.exe 3,121,214 byte
 * **No native mouse.** The retail frontend has no pointer input; the runtime adds hover/click on
   top of the same focus mechanism using the compiled hitboxes.
 
-## 2. Projects
+## 2. Quick start (everyday use)
 
-A project (`*.mrmenu.json`, `format: "mr-menu-project"`, `version: 1`) is a **delta** over the
-installed pages; the retail baseline is never copied or modified. Schema: `docs/menu-builder/project.schema.json`.
+1. Start `MenuBuilder.exe`, pick the Master Rallye folder (the one with `MRallye.exe` and `Data.sma`; the retail
+   archive and re-packed archives are both read, nothing in the game folder is modified).
+2. **Screens** lists the project's edited screens and below them **every frontend screen** of the installation;
+   clicking one opens it (it becomes part of the project only when you edit it).
+3. Drag a button with the mouse. Smart guides snap its edges and centre to the other elements and to the screen
+   (magenta lines); `Shift` locks the axis, `Alt` disables snapping, the grid step applies when no guide matched.
+4. Resize with any of the eight handles: the scene is re-rendered live while dragging, the opposite edge stays in
+   place, the label shows size and percentage; `Shift` keeps proportions, `Alt` scales from the centre.
+5. *Insert* adds a new element (long/curved buttons, option rows, arrows, texts, live value text, images, panels).
+6. In the property panel choose an **Action** (e.g. `navigate.screen`, `native.forward`, or a typed game action such
+   as `vehicle.model_source`) and, for a value text, a **Live value** source with a format like `MODEL: {value}`.
+7. Switch *Aspect* (4:3, 16:10, 16:9, 21:9, any window size) and *UI mode* (Stock, Centered 4:3, Preserve margins)
+   to preview the widescreen layout; *Edit this aspect only* writes geometry to that variant.
+8. Save (`Ctrl+S`), check the **Validation** list (`F7`): ERRORs block installation, WARNINGs do not.
+9. *Game → Install & activate* (`F8`) publishes the layout transactionally and reports Installed / Updated /
+   Validation Failed / Rollback Completed / Installation Failed.
+10. Start the game (*Game → Launch*); *Switch to Classic menus* returns to the native frontend.
+
+No XML, EXE or hook configuration is edited by hand at any step.
+
+## 3. Projects
+
+A project (`*.mrmenu.json`, `format: "mr-menu-project"`, `version: 1`) is a **delta** over the pages the game
+loads; the retail baseline is never copied or modified. Schema: `docs/menu-builder/project.schema.json`.
 
 ```json
 {
-  "format": "mr-menu-project", "version": 1, "name": "Demo",
+  "format": "mr-menu-project", "version": 1, "name": "Demo", "id": "5f0c1d1e6a8b4e0c9a7d3b2a1c0e9f01",
   "settings": { "mouse": true, "aspects": ["4:3", "16:10", "16:9", "21:9"], "language": 0 },
   "styles":     { "MenuButton": { "textOffsetX": 110, "vJustify": 1 } },
   "components": { "LongButton": { "template": "MainMenu/OnePlayer", "style": "MenuButton" } },
@@ -71,151 +94,224 @@ installed pages; the retail baseline is never copied or modified. Schema: `docs/
     { "name": "MainMenu", "kind": "retail", "base": "MainMenu", "defaultFocus": 1,
       "elements": [
         { "name": "Options", "base": "Options", "patch": { "x": 300, "y": 233, "scaleX": 0.9, "scaleY": 0.9 } },
+        { "name": "Progress", "base": "Progress", "patch": { "visible": false, "enabled": false } },
         { "name": "MB_Credits", "template": "component:LongButton",
           "patch": { "x": 252, "y": 125, "buttonId": 10, "up": 4, "down": 5, "text": "CREDITS" },
-          "action": { "type": "navigate.screen", "screen": "Credits" } } ],
-      "aspects": { "16:9": { "MB_Credits": { "x": 260 } } } },
-    { "name": "ModMenu", "kind": "custom", "base": "GraphicsMain", "title": "MENU BUILDER",
-      "back": { "type": "navigate.back" }, "elements": [ … ] } ]
+          "action": { "type": "navigate.screen", "screen": "Credits" } } ] },
+    { "name": "VehicleConfig", "kind": "custom", "base": "GraphicsMain", "title": "VEHICLE CONFIG", "elements": [
+        { "name": "VC_Model", "template": "component:LongButton", "patch": { "x": 20, "y": 372, "buttonId": 1, "text": "MODEL SOURCE" },
+          "action": { "type": "extension", "extension": "vehicle.model_source", "args": "1" } },
+        { "name": "VC_ModelValue", "template": "QuickRace/ModeText",
+          "patch": { "x": 360, "y": 386, "valueSource": "vehicle.model_source", "valueFormat": "MODEL: {value}" } } ] } ]
 }
 ```
 
-* **Elements.** `base` names an existing egg (edit, rename, `deleted: true`); elements without
-  `base` are new and copy a `template` egg (`"Egg"` of the base screen, `"Screen/Egg"` of any
-  retail screen or `"component:Name"`). `patch` fields: `x y scaleX scaleY model bankIndex
-  drawPriority visible buttonId up down left right enabled text textId textIndex textKey font
-  textOffsetX textOffsetY icon hJustify vJustify anchor raw` (`raw`: `"AIName/Value Name" → value`
-  for any other AI value). Precedence: component → style → element patch → aspect override.
-* **Screens.** `kind: retail` edits a native screen (its own screen AI keeps all retail commands).
-  `kind: custom` creates a new screen (native ID 64+, scene `MB_<Name>`) whose visual base is any
-  retail scene; its controller is replaced by the host AI `gaFEScreenGraphicsMainAI`, which the
-  runtime keeps from acting on its own commands.
-* **Aspects.** Variants are compiled for every `settings.aspects` key. `anchor: left|right` moves an
-  element by ∓/± half the extra width ((480·aspect − 640) / 2; 106.67 at 16:9); `aspects[key][egg]`
-  patches only that variant. 4:3 is always produced and used when the renderer stretches.
-* **Exchange.** Screens export/import as `*.mrscreen.json` together with the styles and components
-  they use.
+* **Name and identity.** `name` is the layout folder: letters, digits, `-`, `_` (max 48, not a device name such as
+  `CON`); it is validated, never rewritten. `id` identifies the project, so a layout of the same name installed by
+  another project is not replaced silently.
+* **Elements.** `base` names an existing egg (edit, rename, hide, `deleted: true`); elements without `base` are new
+  and copy a `template` egg (`"Egg"` of the base screen, `"Screen/Egg"` of any retail screen or `"component:Name"`).
+  New and renamed element names: `[A-Za-z_][A-Za-z0-9_]*`, max 63. `patch` fields: `x y scaleX scaleY model
+  bankIndex drawPriority visible buttonId up down left right enabled text textId textIndex textKey font textOffsetX
+  textOffsetY icon hJustify vJustify anchor valueSource valueFormat valueFallback raw`. Precedence: component →
+  style → element patch → aspect override.
+* **Screens.** `kind: retail` edits a native screen (its own AI keeps all retail commands). `kind: custom` creates a
+  new screen (native ID 64+, scene `MB_<Name>`, name `[A-Za-z][A-Za-z0-9]*`) hosted by `gaFEScreenGraphicsMainAI`.
+  A retail screen without edits is not served at all.
+* **Aspects.** Variants are compiled for every `settings.aspects` key. `anchor: left|right` moves an element by
+  ∓/± half the extra width ((480·aspect − 640) / 2; 106.67 at 16:9); `aspects[key][egg]` patches one variant only.
+  4:3 is always produced and used when the renderer stretches (Stock). Nothing is stretched to 16:9 unless you
+  anchor or override it.
+* **Exchange.** Screens export/import as `*.mrscreen.json` with the styles and components they use.
 
-## 3. Typed actions
+## 4. Element safety: dependencies, Hide and Disable
 
-Every focus target gets a compiled binding; the validator refuses a button without a working one.
+Every element has a class shown in the property panel and by `mrmenu deps`:
+
+| Class | Meaning | Delete / rename |
+|---|---|---|
+| Native Required | screen controller or camera; name looked up by `MRallye.exe`; referenced by another egg (popup `ButtonEgg`, `Tiles`, any AI value); driven by Extra Options (`Frontend/ExtraOptions/*`) | blocked by default |
+| Unknown Dependency | retail focusable whose Button ID is a command of the native screen AI | blocked by default |
+| Native Optional | retail decoration or static text without known references | allowed |
+| User Created | added in this project | allowed; focus paths that pointed at it are rerouted |
+
+A blocked operation shows the dependencies and offers **Hide instead**, **Disable instead**, the forced operation or
+Cancel (CLI: exit 1 with the list; `--force` to override).
+
+* **Hide** keeps the egg with its name, Button ID and native links. It is not drawn: compiled pages park it outside
+  the screen because native button AIs redraw their eggs whatever `en2d Visible` says (verified in game). It has no
+  mouse hitbox, focus paths and the default focus are rerouted around it, and the runtime swallows its command, so an
+  invisible active button cannot exist. A path that still leads into a hidden element is an ERROR (`NAV_TO_HIDDEN`).
+* **Disable** keeps the element in place; buttons with a native `Enabled` state are drawn greyed; the runtime
+  ignores the command in every case.
+
+## 5. Typed actions and live values
+
+Every focus target gets a compiled binding; a button without a working one is an ERROR (`UNBOUND`).
 
 | `type` | Fields | Executed by |
 |---|---|---|
-| `native` | `command` (default: own Button ID) | the screen's own AI (retail buttons; a new button can reuse a retail command of its screen) |
+| `native` | `command` (default: own Button ID) | the screen's own AI |
 | `navigate.screen` | `screen` (retail name or custom screen) | runtime → `RequestScreen 0x45D910`, return stack push |
 | `navigate.back` | – | runtime, pops the return stack (default MainMenu) |
-| `native.forward` | `screen`, `command` | runtime: opens the retail screen and hands it `command` on its first tick, so the native preparation runs (e.g. QuickRace 5 = Vehicle Setup) |
-| `broker.set_int` / `broker.toggle_bool` / `broker.cycle_int` | `key`, `value` / `min max step` | runtime, Broker `0x4D8000/0x4D7AA0/0x4D6760` |
-| `extension` | `extension`, `args` | provider registered with `MRMenuRegisterActionV1`, or built-in (`game.quit`, `extra_options.model_source`) |
-| `none` | – | shown disabled |
+| `native.forward` | `screen`, `command` | runtime: opens the retail screen and hands it `command` on its first tick (e.g. QuickRace 5 = Vehicle Setup) |
+| `broker.set_int` / `broker.toggle_bool` / `broker.cycle_int` | `key` (`Group/Name`), `value` / `min max step` | runtime, Broker |
+| `extension` | `extension` (typed ID), `args`, `optional` | catalog handler or a module registration (below) |
+| `none` | – | does nothing (reported) |
 
-Statuses reported by the compiler: `NativeRetail`, `NativeRemap`, `Runtime`, `Extension`,
-`Unbound` (error), `Disabled`. An `extension` whose provider is not present at run time is served
-with its `Enabled` flag cleared (greyed, refused natively) and logs `ACTION_UNAVAILABLE`.
+**Catalog** (`mrmenu actions`, `MenuBuilder.Core/Actions.cs`, runtime `owned_id`):
 
-### Extension API (C, exported by dinput8.dll)
+| ID | Owner | Action | Value |
+|---|---|---|---|
+| `vehicle.model_source` (legacy `extra_options.model_source`) | Extra Options | steps PS2/PC/DEMO of the Vehicle Select car (`args` 1 / -1) | `PS2`, `PC`, `DEMO` |
+| `vehicle.tyres` | Extra Options | steps the tyre compound of that car (same state as GENERAL TYRE TYPE) | `STOCK`, `TARMAC`, … |
+| `vehicle.build` | planned (V-CONFIG1) | – | fallback |
+| `vehicle.paint` | planned (V-CONFIG1) | – | fallback |
+| `vehicle.apply` | planned (V-CONFIG1) | – | – |
+| `game.quit` | built in | quits the game | – |
+
+An action without a handler at run time (planned ID, another module not loaded, Extra Options disabled or the
+standalone runtime) is **served disabled** (greyed, refused natively, `ACTION_UNAVAILABLE_SERVED` in the log); the
+editor preview greys it the same way. `optional: false` turns a missing handler into an installation-blocking ERROR.
+A live value text shows `format` with `{value}` replaced by the provider's current value, or by `valueFallback`
+(default `N/A`) when no provider answers; values are written into the Broker Name `MenuBuilder/<scene>/<egg>` when
+the scene loads and on every change (`VALUE …` in the log). Nothing is a hard-coded demo caption.
+
+### Extension API (C, exported by the dinput8 loader, ABI 2)
 
 ```c
-typedef int (WINAPI* MRMenuActionV1)(const char* args, int screen, int button);
-unsigned WINAPI MRMenuAbiV1(void);                                   // 0x4D4D0001
-BOOL     WINAPI MRMenuRegisterActionV1(const char* name, MRMenuActionV1 action);
-int      WINAPI MRMenuQueryV1(char* buffer, int size);               // "installed=1 layout=… screen=… variant=… mode=…"
+typedef int (WINAPI* MRMenuActionV1)(const char* args, int screen, int button);  // non-zero = performed
+typedef int (WINAPI* MRMenuValueV1)(char* buffer, int size, int screen);          // length, <= 0 = unavailable
+unsigned WINAPI MRMenuAbiV1(void);                                  // 0x4D4D0001
+unsigned WINAPI MRMenuAbiV2(void);                                  // 0x4D4D0002 (values, ownership rules)
+BOOL     WINAPI MRMenuRegisterActionV1(const char* id, MRMenuActionV1 action);
+BOOL     WINAPI MRMenuRegisterValueV1(const char* id, MRMenuValueV1 provider);
+int      WINAPI MRMenuQueryV1(char* buffer, int size);              // "abi=2 version=1.1.0 installed=1 layout=… format=2 …"
 ```
 
-Providers run on the game thread inside the frontend tick. Extra Options supplies
-`extra_options.model_source` (`extra_runtime::appearance_step`, the PS2/PC MODEL choice of the
-Vehicle Select car; its label is Broker `Frontend/ExtraOptions/PaintText`).
+Rules: IDs are lower-case dotted names; the first valid registration owns an ID (`EXTENSION_CONFLICT` otherwise);
+IDs owned by Menu Builder or Extra Options cannot be taken over; a callback must be executable code inside a module
+image loaded in the process (never an arbitrary address). Providers run on the game thread inside the frontend tick.
+V-CONFIG1 is expected to register `vehicle.build`, `vehicle.paint`, `vehicle.apply`; the Vehicle Configuration demo
+then enables those buttons and shows their values without a layout change.
 
-## 4. Native runtime
+## 6. Installation (transactional)
 
-`menu_builder::initialize()` runs from the dinput8 loader after the Randomizer boot and Extra
-Options/Ghost initialisation (independent of their result). With `MenuBuilder/MenuBuilder.ini`
-missing or `Enabled=0` it installs nothing (**Classic**). Otherwise it loads
-`MenuBuilder/Layouts/<Layout>/runtime.txt`, verifies 14 retail API prologues, the two call sites
-and the vtable slot, and installs four hooks in one rollback-safe transaction:
+`Install & activate` / `mrmenu install` / `Workspace.Install`:
+
+1. Validate the project and the layout name; any ERROR → **Validation Failed**, nothing is written.
+2. Recover an interrupted earlier install of this name (restore its backup) and remove stale temporary folders.
+3. Refuse a same-name layout of another project unless replacing it was confirmed (`--replace-foreign`).
+4. Compile into `Layouts/.mb-stage-<name>-<id>` (same volume), verify every file against `layout.json`, the runtime
+   table and all variants.
+5. Rename the live layout to `.mb-backup-<name>-<id>`, rename the staging folder into place, write
+   `MenuBuilder.ini` atomically, then delete the backup → **Installed** / **Updated**.
+6. A failure after the swap renames the backup back and restores `MenuBuilder.ini` → **Rollback Completed**; a failure
+   before it leaves everything untouched → **Installation Failed** (locked files are reported as such).
+
+Every path is checked to be strictly inside `<game>/MenuBuilder/Layouts`; the Layouts root and the game folder are
+never deleted; junctions and symbolic links are never followed (a link inside a deleted tree is unlinked, its target
+stays; a layout folder or Layouts folder that is a link is refused). Uninstall moves the folder aside before deleting.
+`mrmenu compile --out DIR` uses the same pipeline into `DIR/MenuBuilder/Layouts` without activating.
+
+## 7. Native runtime
+
+`menu_builder::initialize()` runs in the dinput8 loader after the Randomizer boot and Extra Options/Ghost (independent
+of their result). Without `MenuBuilder/MenuBuilder.ini` or with `Enabled=0` nothing is installed (**Classic**; the
+`MenuBuilder` folder is not even created). Otherwise it loads `Layouts/<Layout>/runtime.txt` (formats 1 and 2; a
+format-1 runtime refuses format 2 and keeps Classic), verifies 14 retail API prologues, the two call sites and the
+vtable slot, and installs four hooks in one rollback-safe transaction:
 
 | Hook | Site | Purpose |
 |---|---|---|
-| CreateFileA call → `create_file_hook` | `0x64D573` | serve `FrontendScreens/<scene>.xml` of the layout (variant by window aspect, 4:3 when the renderer stretches) and custom `.hnt`; base page re-check (archive: no loose page appeared; loose: FNV-1a 64 equal) else `BASE_CHANGED` and the native page is kept |
+| CreateFileA call → `create_file_hook` | `0x64D573` | serve the layout's `FrontendScreens/<scene>.xml` variant and custom `.hnt`; write live values before the scene initialises |
 | GetScreenName call → `screen_name_hook` | `0x45D865` | names for custom screen IDs, current-screen tracking |
 | GraphicsMain init slot → `host_init` | `0x690540` | default focus of custom screens |
-| GetCommand detour (7-byte trampoline) | `0x45D930` | typed actions, Back, `native.forward`, mouse hover/click, live dumps, autotest |
+| GetCommand detour (7-byte trampoline) | `0x45D930` | typed actions, Back, `native.forward`, blocked buttons, mouse, values, live dumps, autotest |
 
-It does not touch the Extra Options hooks (GENERAL/Vehicle Select slots, `0x483151`, `0x4818C5`,
-`0x44385B`): Extra Options' GENERAL command call still reaches `0x45D930` and passes through the
-detour unchanged. The D3D8 renderer is optional; when present, the runtime reads its interface mode
-(`MRRRenderer.ini`, v2 `[Quality] Preset/Widescreen`, v1 `[Widescreen] InterfaceMode`).
+**Hook ownership in the integrated loader.** The Vehicle Manager roster (DllMain) owns the `CreateFileA` /
+`GetFileAttributesA` import slots; Menu Builder hooks the VFS call site and chains through whatever the import slot
+holds, so roster resources keep working and a layout page is served only when the page the game would otherwise load
+(roster overlay → loose → `Data.sma`) is the one it was compiled against (FNV-1a 64; `BASE_CHANGED` keeps the native
+or roster page). Extra Options hooks only call sites and vtable slots (`0x483151` → GetCommand passes through the
+detour unchanged, `0x4818C5`, `0x44385B`, GENERAL/Vehicle Select/display slots); Ghost and the Randomizer plan use
+other sites. `tools/audit_base_patch_sites.py` lists every site of the integrated loader.
 
-**Mouse.** Hit rectangles = compiled local rect (from the same DXB image box the game draws) +
-the egg's live translation (en2d object `+0x4C`, row 3 at `+0x54`) + the renderer's margin shift.
-Hover sets `UI/Active`, left click sets `UI/Active` and `UI/Control = 4`, right click `UI/Control = 5`.
+**Mouse.** Hit rectangles = compiled local rect + the egg's live translation (en2d `+0x4C`, row 3 at `+0x54`) + the
+renderer's margin shift. Hover focuses only after the cursor moved on the current screen (a resting cursor never
+steals the focus); a click on an unfocused button focuses it and confirms on the next frame; right click = Back.
+Hidden/disabled buttons have no hitbox.
 
-**Files.** `<game>/MenuBuilder/MenuBuilder.ini` (`Enabled`, `Layout`, `[Diagnostics] LiveDump`,
-`AutoTest`), `Layouts/<name>/{runtime.txt, layout.json, project.mrmenu.json, <WxH>/<scene>.xml, MB_*.hnt}`,
-`MenuBuilder.log`, `live/<scene>.txt` (eggs, live positions, hitboxes, focus), `cache/` (served
-copies with disabled unavailable providers). Saves (`DataGame/PlayerState.xml`, `options.xml`) and
-game data are never written.
+**Files.** `<game>/MenuBuilder/MenuBuilder.ini` (`Enabled`, `Layout`, `[Diagnostics] LiveDump`, `AutoTest`),
+`Layouts/<name>/{runtime.txt, layout.json, project.mrmenu.json, <WxH>/<scene>.xml, MB_*.hnt}`, `MenuBuilder.log`,
+`live/<scene>.txt`, `cache/` (served copies with unavailable actions disabled). Saves and game data are never written.
 
-## 5. Widescreen
+## 8. Builds and configurations
 
-Renderer interface modes: **Stock** (640×480 stretched), **Centered 4:3** (virtual width
-480·aspect, authored area centred) and **Preserve margins** (Centered + per-packet shift). The
-builder reproduces the renderer's `margin_direction` (`ui_margins.cpp`): 51 exact reference points
-(±half), then the left band x∈[25,106], y∈[19,100)∪[259,340) for every packet (−half), Vehicle
-Select carousel cards on y = 309 excluded. Example: on the native GEARBOX page (VehicleSetup4)
-`GearRatio` at (40, 301) is in the band and jumps left while GEARBOX/RESET stay. The validator
-reports `WS_MARGIN_RULE`; *Quick fix* (`mrmenu fix-margins`) nudges exact-point matches by one unit in
-the wide variants or anchors the band match's column to the same margin. The editor previews every
-mode at any aspect or window size and shows the visible range.
+`python tools/build_menu_builder.py --name <name> --package` produces:
 
-## 6. Editor
+| Product | Contents |
+|---|---|
+| `Editor/` | `MenuBuilder.exe`, `mrmenu.exe`, Python API |
+| `Runtime/integrated/` | the current Extra Options loader of this branch (`build_extra_capacity_candidate.py --menu-builder`: roster-independent Vehicle Registry / Roster V4 loader, Randomizer, Ghost, five difficulties, tyres, PS2/PC/DEMO MODEL) with the Menu Builder runtime, plus its runtime core |
+| `Runtime/standalone/dinput8.dll` | Menu Builder only (`RMOD_MENU_BUILDER_STANDALONE`): no Randomizer plan, no roster, no generated SDK headers |
+| `BUILD-PROVENANCE.json` | commit, dirty flag, SHA-256 of every product and source |
 
-Screens (retail list + custom), elements in draw order (✎ edited, + new), live preview with
-focus states, icons and scaled labels, drag to move, corner handle to scale, arrows/Shift+arrows to
-nudge, grid/snap/guides, hitbox/navigation/safe-area overlays, aspect (4:3, 16:10, 16:9, 21:9,
-any window size), UI mode, compare (original / split / onion), *Edit this aspect only*, typed property
-panel (geometry, sprite, label, font, icon, justification, focus paths, action), styles and
-components, insert templates (long/curved buttons, option rows, arrows, texts, images, panels, bars),
-align/distribute/z-order/link navigation, copy/paste/duplicate/rename/delete, undo/redo, validation
-list with quick fix, Interact mode (arrow keys follow the real paths, Enter shows the bound action),
-install & activate, Classic, launch, and **Load in-game live dump** to overlay the hitboxes the game
-reported (cyan) on the editor's.
+There is one loader per installation: the integrated loader *is* Extra Options with Menu Builder support, and it runs
+unchanged without layouts. The renderer (`d3d8.dll`) is optional for compiling and loading menus; the runtime reads
+its interface mode from `MRRRenderer.ini` when it is present.
 
-## 7. CLI and Python API
+## 9. Widescreen
 
-`mrmenu <command>` prints one JSON document; exit 0 ok, 1 validation errors, 2 usage/IO error.
-Commands: `screens inspect render compare validate compile install activate uninstall status
-new-project add-screen export-screen import-screen texts fix-margins live api`
-(`mrmenu --help`). `--exe` / `--target` support launchers whose data root differs from the EXE
-folder (SDK resource roots). The Python module wraps every command and edits projects directly
-(`Project.patch/add_element/add_custom_screen/set_action/style/component`).
+Renderer interface modes: **Stock** (640×480 stretched; the 4:3 variant is served), **Centered 4:3** (virtual width
+480·aspect, authored area centred) and **Preserve margins** (Centered + the renderer's per-packet shift). The builder
+reproduces `margin_direction` (`ui_margins.cpp`): 51 exact reference points (±half), then the left band x∈[25,106],
+y∈[19,100)∪[259,340) for every packet (−half). The validator reports `WS_MARGIN_RULE` with a quick fix
+(`mrmenu fix-margins`), `OFFSCREEN`, `HITBOX_CLIPPED` and, as an ERROR, an active hitbox entirely outside the visible
+area (`HITBOX_OFFSCREEN`). The runtime picks the variant nearest to the window aspect and re-reads the window on every
+scene load, so changing the resolution takes effect on the next screen.
 
-## 8. Verification
+## 10. Editor reference
 
-* Core tests (`MenuBuilder.Tests`, 37 checks): all 113 DXB banks, EXE tables, byte-identical
-  round trip of all 47 retail scenes, compiler/runtime table, aspect anchors, editor session
-  (move, undo/redo, add/duplicate/delete/copy/paste, aspect-only edits), PreserveMargins rules,
-  screen exchange.
-* In-game (`tools/menu-builder/test/run_runtime_check.ps1`; input through `UI/Control` and the
-  runtime hit test, screenshots by PrintWindow, no OS input):
-  * `qualification.autotest`, 4:3, renderer present — 25/25: focus chain through the new button,
-    moved/scaled OPTIONS hitbox and empty old area, new CREDITS → Credits, Options → new ModMenu →
-    VehicleConfig, unavailable PAINT refused, APPLY/BACK return chain.
-  * same without the D3D8 renderer — 25/25.
-  * `integrated.autotest`, EXTRA-SET2 + SDK33 launcher + renderer, 16:9, Preserve margins — 7/7:
-    Quick Race VEHICLE CONFIG, MODEL SOURCE through Extra Options (`APPEARANCE_SELECTED …
-    source=menu-builder`), BUILD → native Vehicle Setup via `native.forward`, fixed GEARBOX column.
-  * same without the renderer — 7/7. Classic (`Enabled=0`): native menu unchanged.
-  * Preview vs game: 50 % blends of editor renders and game captures align (sprites, labels,
-    icons, scaled buttons, margin shifts).
+Project lifecycle: New, Open, Save, Save As (`Ctrl+Shift+S`), Close project, Exit — every action that could lose edits
+asks *Save / Don't save / Cancel*; saving writes a temporary file and renames it (a failed save never truncates the
+previous file). *Game folder…* and *Reload game resources* (`F5`) re-bind the project to the installation without
+touching the project, its file, the unsaved state or the undo/redo history, and list resources the project needs that
+the installation lacks. The dirty mark follows the saved state (undoing back to it clears it).
 
-## 9. Limits
+Also: elements in draw order (✎ edited, + new, hidden/disabled marks), hitbox/navigation/safe-area overlays,
+compare (original / split / onion), styles and components, align/distribute/z-order/link navigation,
+copy/paste/duplicate/rename/delete/hide/disable, validation list with quick fix and *show info*, Interact mode
+(arrow keys follow the real paths), install, Classic, launch, **Load in-game live dump** (in-game hitboxes in cyan).
+`MenuBuilder.exe --game DIR --project P --selftest OUT` drives the real pointer handlers and saves snapshots.
 
-* Panels (`enUITileBox`, `enUIGradientBoxAI`), 3D models and animated effects are previewed only
-  by their image banks/outline; Broker-driven texts show `{Key}` unless a preview value is set.
-* Custom screens use the GraphicsMain host AI; screens that need their own native logic (carousels,
-  sliders) should stay retail screens edited in place.
-* Mouse hitboxes are added by the runtime; the retail frontend itself has keyboard/gamepad focus only.
-* Only the retail EXE is certified; on another image the runtime refuses to install
-  (`API_LAYOUT_UNSUPPORTED`) and the native frontend is unchanged.
+## 11. CLI and Python API
+
+`mrmenu <command>` prints one JSON document; exit 0 ok, 1 validation failed / blocked edit, 2 usage or IO error,
+3 installation failed or rolled back. Commands: `screens inspect render compare validate compile install activate
+uninstall status new-project add-screen export-screen import-screen texts fix-margins live deps edit actions api`.
+`install` has no force: errors always block (`--replace-foreign` only for a same-name layout of another project).
+`edit --hide/--show/--disable/--enable/--delete/--rename` applies the editor's dependency rules.
+The Python module (`mr_menu_builder.py`) wraps every command (`install` returns the outcome; `edit`, `deps`,
+`actions`) and edits projects directly (`Project.patch/add_element/set_action/bind_value/...`).
+
+## 12. Verification
+
+See `docs/menu-builder/MENU-STUDIO1-REPORT.md` for the current matrix (unit, integration, in-game and owner checks).
+Commands:
+
+```
+dotnet run --project tools/menu-builder/MenuBuilder.Tests -c Release -- "<game>" examples/menu-builder/demo.mrmenu.json
+powershell -File tools/menu-builder/test/run_runtime_check.ps1 -GameHost <isolated copy> -Test tools/menu-builder/test/studio.autotest -Out <dir>
+powershell -File tools/menu-builder/test/run_ws_matrix.ps1 -GameHost <isolated copy with renderer> -Out <dir>
+```
+
+## 13. Limits
+
+* Panels, 3D models and animated effects are previewed by their image banks/outline only.
+* Custom screens use the GraphicsMain host AI; screens that need their own native logic (carousels, sliders) should
+  stay retail screens edited in place.
+* The retail frontend has keyboard/gamepad focus only; mouse hitboxes are added by the runtime.
+* Car names are native Broker *strings* that a text element cannot show on a custom screen yet (verified in game: they
+  render as `N`), so the catalog has no vehicle-name value.
+* Only the retail EXE is certified; on another image the runtime refuses to install (`API_LAYOUT_UNSUPPORTED`).

@@ -69,12 +69,14 @@ static class Program
         Check(custom.IsCustom && custom.NativeId == 64 && custom.SceneName == "MB_ModMenu" && custom.Variants["4:3"].ScreenAi == Compiler.HostAi, "custom screen 64 hosted by GraphicsMain AI");
         Check(custom.Hnt != null && System.Text.Encoding.ASCII.GetString(custom.Hnt).Contains("FSTexture\t[frontend\\buttons\\longbutton_000_000]"), "custom screen texture manifest");
         var vc = layout.Screens.First(s => s.Name == "VehicleConfig");
-        Check(vc.Buttons.First(b => b.Egg == "VC_Build").Action.Type == ActionBinding.Forward, "BUILD = native.forward (Quick Race command 5)");
-        Check(vc.Buttons.First(b => b.Egg == "VC_Paint").Status == BindingStatus.Extension, "PAINT reported as extension (not complete integration)");
+        Check(vc.Buttons.First(b => b.Egg == "VC_Setup").Action.Type == ActionBinding.Forward, "VEHICLE SETUP = native.forward (Quick Race command 5)");
+        Check(vc.Buttons.First(b => b.Egg == "VC_Paint").Status == BindingStatus.Extension && vc.Buttons.First(b => b.Egg == "VC_Paint").Action.Extension == "vehicle.paint",
+              "PAINT bound to the planned typed action vehicle.paint (served disabled, not faked)");
+        Check(vc.Buttons.First(b => b.Egg == "VC_Model").Action.Extension == "vehicle.model_source", "MODEL SOURCE bound to the Extra Options action");
 
         // --- runtime table ---------------------------------------------------------------------------------
         var table = Installer.RuntimeTable(layout, ws.Data, ws.Exe);
-        Check(table.StartsWith("MRMENU\t1\n") && table.EndsWith("end\n"), "runtime table header/footer");
+        Check(table.StartsWith($"MRMENU\t{Installer.RuntimeFormat}\n") && table.EndsWith("end\n"), "runtime table header/footer");
         Check(table.Contains("button\tMainMenu\t10\tMB_Credits\t1\t") && table.Contains("navigate.screen\tscreen=44"), "navigate target resolved to native screen 44");
         Check(table.Contains("button\tMB_ModMenu\t1\tMB_VehicleConfig\t1\t") && table.Contains("screen=65"), "custom target resolved to 65");
         Check(table.Contains("native.forward\tcommand=5\tscreen=27"), "forward resolved to QuickRace 27");
@@ -101,13 +103,13 @@ static class Program
         var addedEgg = session.Scene().Find(added)!;
         Check(addedEgg.ButtonId == 11, $"new button gets the next free ID >= 10 ({addedEgg.ButtonId})");
         var (l3, f3) = ws.Build(session.Project);
-        Check(f3.Any(f => f.Code == "UNBOUND" || f.Code == "DISABLED"), "new button without a handler is reported");
+        Check(f3.Any(f => f.Code is "UNBOUND" or "NO_ACTION"), "new button without a handler is reported");
         session.Aspect = "16:9"; session.EditAspectOverride = true;
         session.Move(new[] { "Quit" }, 50, 0, 0);
         Check(session.Project.Screen("MainMenu")!.Aspects["16:9"]["Quit"].X == 284 && session.Scene().Find("Quit")!.X == 234, "aspect-only edit leaves the base layout");
         var dup = session.Duplicate(new[] { "Options" }, 0, -40);
         Check(dup.Count == 1 && session.Scene().Find(dup[0])!.ScaleX == 0.9f, "duplicate keeps the effective patch");
-        session.Delete(new[] { "Progress" });
+        session.Delete(new[] { "Progress" }, force: true);
         Check(session.Scene().Find("Progress") == null && ws.Compiler.Base("MainMenu").Find("Progress") != null, "delete is a delta; retail base untouched");
         var json = session.Copy(new[] { "OnePlayer" });
         session.Paste(json, 0, 0);
@@ -124,6 +126,9 @@ static class Program
         var p4 = new MenuProject();
         var imported = Workspace.ImportScreen(p4, exported, "VC2");
         Check(imported.Name == "VC2" && p4.Components.ContainsKey("LongButton") && p4.Styles.ContainsKey("MenuButton"), "screen export/import carries components and styles");
+
+        // --- MENU-STUDIO1 regression suites
+        SafetyTests.Run(ws, demo, Check);
 
         Console.WriteLine($"RESULT pass={_pass} fail={_fail}");
         return _fail == 0 ? 0 : 1;

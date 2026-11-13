@@ -1,0 +1,35 @@
+# MENU-STUDIO1 runtime states on MainMenu (runtimechecks.mrmenu.json): hidden Progress (no hitbox, focus rerouted),
+# disabled Multiplayer (command swallowed), planned PAINT action served disabled.
+wait 3000
+expect-screen MainMenu
+dump
+shot r01-mainmenu
+expect-focus 1
+expect-blocked 4
+expect-blocked 2
+expect-served-disabled MB_Paint
+key down
+wait 500
+expect-focus 2
+key accept
+wait 2000
+expect-screen MainMenu
+key down
+wait 500
+expect-focus 3
+key down
+wait 500
+expect-focus 5
+key up
+wait 500
+expect-focus 3
+expect-hit 450 183 none
+click 450 183
+wait 1500
+expect-screen MainMenu
+expect-hit 200 45 MB_Paint
+click 200 45
+wait 1500
+expect-screen MainMenu
+shot r02-after-clicks
+end
