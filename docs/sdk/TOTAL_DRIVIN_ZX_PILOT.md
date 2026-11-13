@@ -1,6 +1,7 @@
 # Total Drivin' Citroen ZX Rallye Raid pilot (2026-11-13)
 
 Owner: the ZX Rallye Raid is `DAKAR1` or `DAKAR2` (same body, different livery). Both are built.
+**Owner decision 2026-11-13: roster uses DAKAR1 (canonical red livery).**
 
 ```
 py -3 -c "from master_rallye.source_adapters.total_drivin import create_scene; create_scene(<lvl10_obj.bin>, <lvl10_1.bin>, <scene out>, 'ZX_DAKAR1', donor_wheel=<retail Pajero>/wheel.dx, donor_textures=<retail Pajero>, scale=2.385/4.28)"
