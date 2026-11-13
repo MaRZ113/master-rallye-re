@@ -62,6 +62,23 @@ for key,family,name,make,model,results,donor,audio in (
     base.VEHICLES[key]['label']='Evo 2'
 
 
+# 4x4 Evo 1 exclusives (did not reach Evo 2: the Ford range + Nissan Pathfinder; docs/sdk/EVO_COLLECTION.md). Keys = Evo 1
+# TRK names; the prepared catalogs ("43": 19 stock parts) where the game has them, else the 4WD catalog.
+for key,family,name,make,model,results,donor,audio in (
+    ('FEXCL43','Evo1FordExcursion','Ford Excursion Ltd','FORD','EXCURSION','FORD EXCURSION','Pajero',1),
+    ('FEXDEB4','Evo1FordExpedition','Ford Expedition','FORD','EXPEDITION','FORD EXPEDITION','Pajero',1),
+    ('FEXPL4','Evo1FordExplorer','Ford Explorer Ltd','FORD','EXPLORER LTD','FORD EXPLORER','Pajero',1),
+    ('FES2D43','Evo1FordExplorerSport','Ford Explorer Sport','FORD','EXPLORER SPORT','FORD EXPLORER SPORT','Pajero',1),
+    ('FEST43','Evo1FordSportTrac','Ford Explorer Sport Trac','FORD','EXPLORER SPORT TRAC','FORD SPORT TRAC','Navara',7),
+    ('F150XCRW43','Evo1FordF150SuperCrew','Ford F-150 XLT SuperCrew','FORD','F-150 SUPERCREW','FORD F-150','Navara',7),
+    ('F250XTSS4','Evo1FordF250SuperCab','Ford F-250 XLT SuperCab','FORD','F-250 SUPERCAB','FORD F-250','Navara',7),
+    ('FF150TT2','Evo1FordF150Race','Ford F-150 Race Truck','FORD','F-150 RACE','FORD F-150 RACE','Navara',7),
+    ('PATHXE43','Evo1NissanPathfinder','Nissan Pathfinder XE','NISSAN','PATHFINDER','NISSAN PATHFINDER','Pajero',1)):
+    spec=_spec(family,name,make,model,results,donor,audio,'T2',EVO)
+    spec.update({'name':name+' (Evo 1)','label':'Evo 1','source_label':'4x4 Evolution (PC)','source_format':'Evo 1 Universal Vehicle Scene',
+                 'adapter_id':'evo1-truck/1','brake_evidence':'Evo 1 rear lens quads LightBL/LightBR and high stop LightBC.','game':'evo1'})
+    base.VEHICLES[key]=spec
+
 
 def create_pilot(scene_path,truck,retail_sma,retail_root,output,**kw):
     return base.create_pilot(scene_path,truck,retail_sma,retail_root,output,**kw)

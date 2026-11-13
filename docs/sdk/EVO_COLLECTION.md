@@ -107,3 +107,37 @@ take their faces' normal.
 Not done yet (owner decisions / next steps): roster rebuild with these cars (V-CAP registry build + Vehicle Manager),
 the separate class itself (the SDK and the MRVC registry know T1-T3 + the frontend-only T4 layer; a fifth Vehicle
 Select class needs the T4-style native layer extended), kit packages (stock parts present on all 15), gameplay.
+
+## Evo 1 path and Ford / Pathfinder pilots (2026-11-13)
+
+`evo2_gc.create_scene(..., game='evo1')` reads 4x4 Evo 1 `TRUCK.POD` (build 58) with the same adapter:
+
+* **TRK version 6** carries every field the adapter uses (suspension types, `static_bpos`, `stockPartList[]`,
+  `colorList[]` in the Evo 2 grammar: HSV delta + swatch RGB). Evo 1 stock-part names missing from the Evo 2 table
+  (`HighDrivingLights`, `FenderFlares`, `Winch`, `MudFlaps`) map through `STOCK_EVO1`; Evo 2 output is unchanged
+  (4Runner Rally scene rebuilt equal except the new `version` field).
+* **Textures**: `<name>.RAW` = square 8-bit index plane (512x512 bodies, 256x256 LOD `<name>0`), `<name>.ACT` = 256
+  RGB triplets, `<name>.OPA` = same-size 8-bit plane with 0/128/255 levels. 128 covers painted body panels, so OPA is
+  not treated as alpha (preview opaque, member snapshot retained); glass uses the Evo 2 MR policy (alpha 140 copy).
+* **Catalog variants**: `<x>2`/`<x>4` = 2WD/4WD stock, `<x>42` = 17 and `<x>43` = 19 stock parts (prepared). The 18
+  Sport Trac promo liveries are separate `.SMF/.RAW` pairs over the same 1933-triangle body (candidates for PAINT
+  packages, not separate cars). F-150 Race has only the high stop lens `LightBC` (no LightBL/LightBR).
+
+Pilots (keys = Evo 1 TRK names, author class T2, target EVO; SUV donor Pajero/audio 1, pickup donor Navara/audio 7);
+all `PASS_SOURCE_OFF_STATE_EQUIVALENCE`; preview `.research-output/evo1-collection/evo1_collection.png`:
+
+| Key | Vehicle | Donor | L | W | H | Wheel r |
+|---|---|---|---|---|---|---|
+| FEXCL43 | Ford Excursion Ltd (prepared) | Pajero | 5.94 | 2.34 | 2.18 | 0.40 |
+| FEXDEB4 | Ford Expedition (stock, no prepared catalog) | Pajero | 5.20 | 2.35 | 1.86 | 0.38 |
+| FEXPL4 | Ford Explorer Ltd (stock, no prepared catalog) | Pajero | 4.84 | 2.09 | 1.70 | 0.38 |
+| FES2D43 | Ford Explorer Sport (prepared) | Pajero | 4.71 | 2.07 | 1.85 | 0.37 |
+| FEST43 | Ford Explorer Sport Trac (prepared) | Navara | 5.36 | 2.15 | 1.88 | 0.38 |
+| F150XCRW43 | Ford F-150 XLT SuperCrew (prepared) | Navara | 5.86 | 2.44 | 2.02 | 0.40 |
+| F250XTSS4 | Ford F-250 XLT SuperCab (stock, no prepared catalog) | Navara | 5.88 | 2.39 | 1.84 | 0.40 |
+| FF150TT2 | Ford F-150 Race Truck | Navara | 4.89 | 2.03 | 1.98 | 0.47 |
+| PATHXE43 | Nissan Pathfinder XE (prepared) | Pajero | 4.76 | 2.04 | 1.84 | 0.37 |
+
+Next: Evo 1 catalog paints (colorList recolouring needs the Evo 1 paint mask; candidate = OPA level 128 or palette
+index ranges, unproven), Sport Trac promo liveries as a paint package, `full` kit for the three stock-only cars,
+brake lamps via the Vehicle SDK Brake Glow-ON module (F-150 Race: high stop only), roster rebuild + EVO class.

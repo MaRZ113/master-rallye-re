@@ -1,4 +1,9 @@
-"""4x4 Evolution 2 GameCube exclusive trucks -> Universal Vehicle Scene v1 (MR Classic pilots).
+"""4x4 Evolution 2 GameCube trucks and 4x4 Evolution (1) trucks -> Universal Vehicle Scene v1 (MR Classic pilots).
+
+Evo 1 (game='evo1', TRUCK.POD build 58): same POD2/SMF grammar and TRK fields, TRK version 6, textures are
+8-bit indexed RAW (square, 512x512 bodies) + 768-byte ACT RGB palette + an optional same-size 8-bit OPA plane.
+OPA is recorded as a raw channel only (its 0/128/255 levels are not a proven alpha: the 128 level covers painted
+body panels), so Evo 1 textures preview opaque and glass follows the same MR policy as Evo 2.
 
 Source: TRUCK.pod extracted from the GC disc (research/source-formats, evo2-gc/tools/rvz.py).
 Same POD2/SMF/TIFF grammar as the PC game (evo2_formats). Unlike the qualified 4Runner
@@ -31,13 +36,13 @@ def parse_trk(data:bytes)->dict:
         hits=[i for i,r in enumerate(lines)if r==key]
         if len(hits)!=1:raise ValueError('missing/ambiguous TRK field '+key)
         return lines[hits[0]+1]
-    if get('version')!='7':raise ValueError('unsupported TRK version')
+    if get('version')not in('6','7'):raise ValueError('unsupported TRK version')
     out={k:get(k)for k in('frontSuspType','rearSuspType','frontSuspSpringType','rearSuspSpringType','truckName','truckMake','truckModel','truckClass','truckModelBaseName','tireModelBaseName',
                           'truckWheelbase','truckFrontTrack','truckRearTrack','numStockParts','numColors')}
     n=int(out['numStockParts']);i=lines.index('stockPartList[]')if n else 0
     out['stock_parts']=lines[i+1:i+1+n]if n else[]
     out['wheel_positions']={s:[float(v)for v in get(s+'.static_bpos').split(',')]for s,_ in SLOTS.values()}
-    out['raw_lines']=lines
+    out['version']=get('version');out['raw_lines']=lines
     return out
 
 
@@ -45,14 +50,18 @@ def parse_trk(data:bytes)->dict:
 ACCESSORIES={'SKID','BUSHBAR','MUDFLPS','ROLLBR1','ROLLBR2','SNORKEL','WINCH','RFRACK','RACK','STEPS','FFLARES','HSCOOP','VISOR','BUGSHLD',
              'FOGB1','FOGB2','FOGB3','FOGB4','FOGR1','FOGR2','FOGR3','FOGR4'}
 KITS=('bare','stock','full')
+# Evo 1 stock-part names the Evo 2 table does not use (Evo 2 outputs stay byte-identical).
+STOCK_EVO1={**STOCK,'HIGHDRIVINGLIGHTS':('FOGR1','FOGR2','FOGR3','FOGR4'),'FENDERFLARES':('FFLARES',),'WINCH':('WINCH',),'MUDFLAPS':('MUDFLPS',)}
+GAMES={'evo2-gc':{'adapter':'evo2-gc-truck/1','game':'4x4 Evolution 2 (GameCube, GE4E7D)','stock':STOCK},
+       'evo1':{'adapter':'evo1-truck/1','game':'4x4 Evolution (PC, build 58)','stock':STOCK_EVO1}}
 
 
-def visible_objects(trk,kit='stock'):
+def visible_objects(trk,kit='stock',stock=STOCK):
     """bare = body only; stock = TRK stockPartList; full = every accessory in the model (Evo 2 upgrade shop)."""
     if kit not in KITS:raise ValueError('kit must be one of '+', '.join(KITS))
     vis=set(BASE)
     if kit=='stock':
-        for part in trk['stock_parts']:vis.update(STOCK.get(part.upper(),()))
+        for part in trk['stock_parts']:vis.update(stock.get(part.upper(),()))
     elif kit=='full':vis|=ACCESSORIES
     return vis
 
@@ -76,7 +85,26 @@ def _repaired_normals(frame,faces):
     return N
 
 
-def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspension=True,kit='stock')->dict:
+def decode_raw_act(raw:bytes,act:bytes,opa:bytes|None=None):
+    """Evo 1 indexed texture -> (metadata, opaque RGBA). Square power-of-two side; ACT = 256 RGB triplets."""
+    side=int(round(len(raw)**.5))
+    if side*side!=len(raw)or side&(side-1)or len(act)!=768:raise ValueError('unsupported RAW/ACT texture')
+    if opa is not None and len(opa)!=len(raw):raise ValueError('OPA plane size mismatch')
+    rgba=bytearray(len(raw)*4);pal=[act[3*i:3*i+3]for i in range(256)]
+    for i,v in enumerate(raw):rgba[i*4:i*4+3]=pal[v];rgba[i*4+3]=255
+    meta={'width':side,'height':side,
+          'source_channels':{'mode':'8-bit RAW + ACT palette'+(' + OPA plane'if opa is not None else''),
+                             'samples_per_pixel':1,'raw_sample_bytes':len(raw),'raw_samples_sha256':uvs.sha(raw),
+                             'palette_bytes':len(act),'palette_sha256':uvs.sha(act),
+                             'opa_sha256':uvs.sha(opa)if opa is not None else None,
+                             'opa_policy':'not alpha (0/128/255 levels; 128 covers painted panels); original member snapshot retained'},
+          'alpha_association':'none (preview opaque)'}
+    return meta,bytes(rgba)
+
+
+def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspension=True,kit='stock',game='evo2-gc')->dict:
+    if game not in GAMES:raise ValueError('game must be one of '+', '.join(GAMES))
+    profile=GAMES[game]
     pod_path=Path(truck_pod).absolute();uvs.unlinked(pod_path);protected=[pod_path.parent]
     output=Path(output).absolute();uvs.output_directory(output,protected)
     if output.exists():raise ValueError('Fresh source output required')
@@ -93,10 +121,17 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
     def texture(name):
         k=name.casefold()
         if k in tex_ids:return tex_ids[k]
-        rec,blob=get('ART/'+safe_name(name));meta,rgba,samples,palette=decode_classic_tiff(blob)
-        tid='texture-%03d'%len(textures);path='textures/%s.rgba'%tid;assets[path]=rgba
-        meta['source_channels']['raw_samples_path']='textures/%s.samples'%tid;assets[meta['source_channels']['raw_samples_path']]=samples
-        if palette:meta['source_channels']['palette_path']='textures/%s.palette'%tid;assets[meta['source_channels']['palette_path']]=palette
+        tid='texture-%03d'%len(textures);path='textures/%s.rgba'%tid
+        if name.upper().endswith('.RAW'):
+            stem='ART/'+safe_name(name)[:-4];rec,raw=get(stem+'.RAW');_,act=get(stem+'.ACT')
+            opa=get(stem+'.OPA')[1]if safe_name(stem+'.OPA').casefold()in entries else None
+            meta,rgba=decode_raw_act(raw,act,opa);assets[path]=rgba
+            meta['source_channels']['raw_samples_path']='textures/%s.samples'%tid;assets[meta['source_channels']['raw_samples_path']]=raw
+            meta['source_channels']['palette_path']='textures/%s.palette'%tid;assets[meta['source_channels']['palette_path']]=act
+        else:
+            rec,blob=get('ART/'+safe_name(name));meta,rgba,samples,palette=decode_classic_tiff(blob);assets[path]=rgba
+            meta['source_channels']['raw_samples_path']='textures/%s.samples'%tid;assets[meta['source_channels']['raw_samples_path']]=samples
+            if palette:meta['source_channels']['palette_path']='textures/%s.palette'%tid;assets[meta['source_channels']['palette_path']]=palette
         textures.append({'id':tid,**meta,'rgba_path':path,'rgba_sha256':uvs.sha(rgba),'source':rec});tex_ids[k]=tid
         return tid
     def glass_texture(tid):
@@ -123,7 +158,7 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
             ids.append(mid)
         return ids,hidden
     catalog_name=TRUCKS.get(truck,truck);_,catalog=get(catalog_name);trk=parse_trk(catalog)
-    keep=visible_objects(trk,kit)|BRAKE
+    keep=visible_objects(trk,kit,profile['stock'])|BRAKE
     body_ids,hidden=model('MODELS/%s.SMF'%trk['truckModelBaseName'],'body',keep)
     wheels={}
     for side in('L','R'):
@@ -158,9 +193,9 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
             'local_transform':m,'source_local_transform':None,
             'transform_evidence':{'kind':'source_bytes','member':catalog_name,'record':rec+'.static_bpos','side_model':side}})
     fr,fl,rr,rl=(trk['wheel_positions'][s]for s in('faxle.rtire','faxle.ltire','raxle.rtire','raxle.ltire'))
-    scene={'schema':uvs.SCHEMA,'metadata':{'adapter':'evo2-gc-truck/1','display_name':trk['truckName'],
+    scene={'schema':uvs.SCHEMA,'metadata':{'adapter':profile['adapter'],'display_name':trk['truckName'],
             'implementation_sha256':{p.name:uvs.sha(p.read_bytes())for p in(Path(__file__),Path(__file__).with_name('evo2_formats.py'))}},
-        'source':{'game':'4x4 Evolution 2 (GameCube, GE4E7D)','root':str(pod_path.parent),'catalog':catalog_name,
+        'source':{'game':profile['game'],'root':str(pod_path.parent),'catalog':catalog_name,
                   'pod':{'path':pod_path.name,'bytes':len(pod),'sha256':uvs.sha(pod)},'protected_roots':[str(p)for p in protected],
                   'resources':list(resources.values()),'catalog_original':{k:v for k,v in trk.items()if k!='raw_lines'}},
         'coordinate_system':{'source':{'right_axis':[1,0,0],'up_axis':[0,1,0],'forward_axis':[0,0,1],'units':'ft'},
