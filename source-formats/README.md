@@ -18,8 +18,9 @@ The import pipeline (Universal Vehicle Scene, Workshop, native DX writers) stays
 | `paris-dakar/` | Paris-Dakar Rally (PC) | migrated; Pajero Silver in MR |
 | `rcx/` | Rally Championship Xtreme | migrated from `exclusive_research`; Astra pilot |
 | `txr3/` | Tokyo Xtreme Racer 3 (PS2) | new: container + model + textures, VehiCROSS extracted |
-| `total-drivin/` | Total Drivin' / Grand Tour Racing '98 (PS1) | new |
-| `evo2-gc/` | 4x4 Evolution 2 (GameCube) | new: roster comparison with PC |
+| `CLASSES.md` | class map (T4 = trucks) | owner decision 2026-11-13 |
+| `total-drivin/` | Total Drivin' / Grand Tour Racing '98 (PS1) | new: LZW, levels, car geometry; textures open |
+| `evo2-gc/` | 4x4 Evolution 2 (GameCube) | new: RVZ reader, 4 GC-only vehicles extracted |
 | `decoders/` | reference copies of the research/vehicles source readers | migrated |
 
 Not migrated on purpose: third-party Noesis scripts (`E:\RallyWorkshop_Sources\tools\research-pinned`,
