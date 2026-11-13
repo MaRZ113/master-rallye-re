@@ -36,6 +36,32 @@ base.VEHICLES.update({
     'JWR':_spec('JeepWrangler','Jeep Wrangler Rubicon','JEEP','WRANGLER RUBICON','JEEP WRANGLER','Pajero',1,'T1','T1 UNMODIFIED'),
 })
 
+# Evo 2 collection (owner 2026-11-13: Evo 1 / Evo 2 / GC comparison, docs/sdk/EVO_COLLECTION.md): the rally-prepared
+# SUVs, race trucks and the ARB monster, all from the GC TRUCK.pod (same meshes and textures as the PC game).
+# Author class T1/T2 only (SDK); the target is a separate Evo class until the owner places them.
+EVO='EVO (separate class, owner to place)'
+for key,family,name,make,model,results,donor,audio in (
+    ('T4R4','Evo2Toyota4RunnerRally','Toyota 4Runner Rally Edition','TOYOTA','4RUNNER RALLY','TOYOTA 4RUNNER','Pajero',1),
+    ('JGCRSUV','Evo2JeepCherokeeRace','Jeep Grand Cherokee Race SUV','JEEP','GRAND CHEROKEE RACE','JEEP CHEROKEE','Pajero',1),
+    ('DDRE4','Evo2DodgeDurangoRally','Dodge Durango Rally Edition','DODGE','DURANGO RALLY','DODGE DURANGO','Pajero',1),
+    ('JLRE4','Evo2JeepLibertyRally','Jeep Liberty Rally Edition','JEEP','LIBERTY RALLY','JEEP LIBERTY','Pajero',1),
+    ('LLX470RE','Evo2LexusLX470Rally','Lexus LX 470 Rally Edition','LEXUS','LX 470 RALLY','LEXUS LX 470','Pajero',1),
+    ('IQX4RE4','Evo2InfinitiQX4Rally','Infiniti QX4 Rally Edition','INFINITI','QX4 RALLY','INFINITI QX4','Pajero',1),
+    ('XTERRT','Evo2NissanXterraRace','Nissan Xterra Race SUV','NISSAN','XTERRA RACE','NISSAN XTERRA','Pajero',1),
+    ('CBRE4','Evo2ChevyBlazerRally','Chevrolet Blazer Rally Edition','CHEVROLET','BLAZER RALLY','CHEVROLET BLAZER','Pajero',1),
+    ('CTTT2','Evo2ChevyTrailBlazerRace','Chevrolet TrailBlazer Race SUV','CHEVROLET','TRAILBLAZER RACE','CHEVROLET TRAILBLAZER','Pajero',1),
+    ('MPRT2D','Evo2MitsubishiMonteroRally','Mitsubishi Montero Rally','MITSUBISHI','MONTERO RALLY','MITSUBISHI MONTERO','Pajero',1),
+    ('AJWS','Evo2JeepARBWrangler','Jeep ARB Wrangler Rally Edition','JEEP','ARB WRANGLER','JEEP ARB WRANGLER','Pajero',1),
+    ('DDRT','Evo2DodgeDakotaRace','Dodge Dakota Race Truck','DODGE','DAKOTA RACE','DODGE DAKOTA','Navara',7),
+    ('DRTT','Evo2DodgeRamRace','Dodge Ram Race Truck','DODGE','RAM RACE','DODGE RAM','Navara',7),
+    ('GS1TT','Evo2GMCSierraTrophy','GMC Sierra 1500 Trophy Truck','GMC','SIERRA TROPHY','GMC SIERRA','Navara',7),
+    ('TTTT2','Evo2ToyotaTundraRace','Toyota Tundra Race Truck','TOYOTA','TUNDRA RACE','TOYOTA TUNDRA','Navara',7),
+    ('FRRT','Evo2NissanFrontierRace','Nissan Frontier Race Truck','NISSAN','FRONTIER RACE','NISSAN FRONTIER','Navara',7),
+    ('AMT','Evo2GMCARBMonster','GMC ARB Sierra Monster Truck','GMC','ARB SIERRA MONSTER','GMC ARB MONSTER','Patrol',7)):
+    base.VEHICLES[key]=_spec(family,name,make,model,results,donor,audio,'T2',EVO)
+    base.VEHICLES[key]['label']='Evo 2'
+
+
 
 def create_pilot(scene_path,truck,retail_sma,retail_root,output,**kw):
     return base.create_pilot(scene_path,truck,retail_sma,retail_root,output,**kw)
