@@ -44,6 +44,13 @@ from TRK records:
 
 4x42.exe (Watcom, image base 0x400000) xrefs: TRK suspension types read at 0x486560..0x4865B2,
 `spring_arm` at 0x486ACD; `axleModelName` / `shockTextureName` / `barTextureName` /
-`axlebarOffset` at 0x5F0001..0x5F0094 (one loader). Next: follow the loaded fields to the
-renderer that builds the shock/spring/bar geometry, then reproduce it as static MR geometry
-(or a runtime-animated add-on) for both PC and GC trucks.
+`axlebarOffset` at 0x5F0001..0x5F0094 (TRK writer FUN_005efd30; truck struct offsets: susp types
++0x12A4/+0x12A8, spring types +0x12AC/+0x12B0, shock tex +0x1744, bar tex +0x175C, axle model
++0x1724, axlebarOffset +0x24A4, driveshaftPos +0x24B0).
+
+Decoded (2026-11-13): truck draw FUN_005F7820 -> full detail FUN_005FDAD0 (point table at
+0xD651C0, 12-byte points, rear +48) + FUN_006006D0 (draw); simplified/bigfoot path FUN_005FF4D0 +
+FUN_00600EB0 + FUN_00601510. FUN_005FFC00 = camera-facing ribbon (half-width at 0xD6574C, UV rect
+0xD6564C from tables set in FUN_005FD690 = SUSP.RAW quadrants), FUN_00600110 = two-sided quad.
+SpringType 2 = leaf springs (drawn); 0/1 draw nothing. Full geometry/constant list:
+`src/master_rallye/source_adapters/evo2_suspension.py` on research/import-exclusives.
