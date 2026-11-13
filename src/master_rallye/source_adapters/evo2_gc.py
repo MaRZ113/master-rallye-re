@@ -57,6 +57,25 @@ def visible_objects(trk,kit='stock'):
     return vis
 
 
+def _repaired_normals(frame,faces):
+    """Source normals; a zero-length one (some Evo 2 race bodies: Durango Rally, TrailBlazer Race, Tundra Race) takes
+    the area-weighted normal of its faces, or +Y for an unused vertex."""
+    N=[list(v[3:6])for v in frame]
+    bad=[i for i,n in enumerate(N)if sum(c*c for c in n)<1e-12]
+    if not bad:return N
+    acc={i:[0.,0.,0.]for i in bad}
+    for f in faces:
+        if not any(i in acc for i in f):continue
+        a,b,c=(frame[i][:3]for i in f);u=[b[k]-a[k]for k in range(3)];w=[c[k]-a[k]for k in range(3)]
+        n=[u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]]
+        for i in f:
+            if i in acc:acc[i]=[acc[i][k]+n[k]for k in range(3)]
+    for i,n in acc.items():
+        l=sum(c*c for c in n)**.5
+        N[i]=[c/l for c in n]if l>1e-12 else[0.,1.,0.]
+    return N
+
+
 def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspension=True,kit='stock')->dict:
     pod_path=Path(truck_pod).absolute();uvs.unlinked(pod_path);protected=[pod_path.parent]
     output=Path(output).absolute();uvs.output_directory(output,protected)
@@ -98,7 +117,7 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
                 'object':obj['name'],'flags':{'transparent_raw':obj['material_raw'][3],'reflective_raw':obj['material_raw'][4]},
                 'unsupported':['native lighting/reflection','native TIFF alpha policy'],'preview':{'opacity':1.,'policy':'source texture'}})
             frame=obj['vertices_by_frame'][0]
-            meshes.append({'id':mid,'name':obj['name'],'positions':[v[:3]for v in frame],'normals':[v[3:6]for v in frame],
+            meshes.append({'id':mid,'name':obj['name'],'positions':[v[:3]for v in frame],'normals':_repaired_normals(frame,obj['faces']),
                 'uvs':[v[6:8]for v in frame],'triangles':obj['faces'],'material_id':mid,
                 'source':{'member':rec['member'],'member_sha256':rec['sha256'],'object_index':i,'source_visible':obj['visible']}})
             ids.append(mid)

@@ -74,5 +74,36 @@ Stylistically:
 
 `evo2_gc_pilot.py` registers the 17 vehicles of group 1 (keys = GC TRK names) with author class T2 and target
 "EVO (separate class, owner to place)"; donors: Pajero for SUVs, Navara for pickups, Patrol for the monster.
-Built from the GC `TRUCK.pod` into `.research-output/evo2-collection/<key>-scene|pilot`. Results: see the table
-added below after the batch.
+Built from the GC `TRUCK.pod` into `.research-output/evo2-collection/<key>-scene|pilot`. Results below.
+
+### Batch results (2026-11-13)
+
+Native states PASS (`PASS_SOURCE_OFF_STATE_EQUIVALENCE`) for 15 of 17; preview sheet
+`.research-output/evo2-collection/evo2_collection.png`. Dimensions in metres (true Evo size, feet x 0.3048).
+
+| Key | Vehicle | Donor | L | W | H | Wheel r |
+|---|---|---|---|---|---|---|
+| T4R4 | Toyota 4Runner Rally Edition | Pajero | 4.77 | 1.83 | 1.64 | 0.47 |
+| JGCRSUV | Jeep Grand Cherokee Race SUV | Pajero | 4.72 | 2.07 | 1.86 | 0.37 |
+| DDRE4 | Dodge Durango Rally Edition | Pajero | 4.98 | 1.92 | 1.83 | 0.47 |
+| JLRE4 | Jeep Liberty Rally Edition | Pajero | 4.73 | 2.13 | 1.79 | 0.47 |
+| LLX470RE | Lexus LX 470 Rally Edition | Pajero | 5.04 | 2.11 | 1.82 | 0.47 |
+| IQX4RE4 | Infiniti QX4 Rally Edition | Pajero | 4.77 | 2.12 | 1.68 | 0.47 |
+| XTERRT | Nissan Xterra Race SUV | Pajero | 4.65 | 1.93 | 1.69 | 0.38 |
+| CBRE4 | Chevrolet Blazer Rally Edition | Pajero | 4.61 | 1.89 | 1.66 | 0.47 |
+| MPRT2D | Mitsubishi Montero Rally | Pajero | 4.52 | 2.11 | 1.79 | 0.39 |
+| AJWS | Jeep ARB Wrangler Rally Edition | Pajero | 4.25 | 2.06 | 1.73 | 0.38 |
+| DDRT | Dodge Dakota Race Truck | Navara | 5.62 | 1.82 | 1.82 | 0.47 |
+| DRTT | Dodge Ram Race Truck | Navara | 5.52 | 2.32 | 1.70 | 0.47 |
+| GS1TT | GMC Sierra 1500 Trophy Truck | Navara | 5.99 | 2.30 | 1.76 | 0.47 |
+| FRRT | Nissan Frontier Race Truck | Navara | 5.08 | 2.00 | 1.64 | 0.37 |
+| AMT | GMC ARB Sierra Monster Truck | Patrol | 5.80 | 2.29 | 3.23 | 0.84 |
+
+Deferred: **CTTT2** (TrailBlazer Race SUV) and **TTTT2** (Tundra Race Truck) have no lamp lens objects (tail
+lamps painted on the body), and the MR Classic pilot needs a brake draw; next = synthesised lamp quads at the
+painted lamp UVs. Adapter fix in this commit: zero-length source normals (Durango Rally and both deferred bodies)
+take their faces' normal.
+
+Not done yet (owner decisions / next steps): roster rebuild with these cars (V-CAP registry build + Vehicle Manager),
+the separate class itself (the SDK and the MRVC registry know T1-T3 + the frontend-only T4 layer; a fifth Vehicle
+Select class needs the T4-style native layer extended), kit packages (stock parts present on all 15), gameplay.
