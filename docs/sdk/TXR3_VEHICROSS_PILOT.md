@@ -48,3 +48,6 @@ are generated (`CarID 29` workshop default).
   bumpers, TIM 42 mirrors, TIM 38 roof rails). MR has no per-material tint, so the adapter bakes
   `diffuse / 0.9` (clamped to 1) into a per-material texture copy (`tim-NNN-kXXX`). Cladding
   materials (records 0, 10, 43) use the MR trim role instead of paint.
+* **Headlights.** Material 59 (TIM 26) is a headlight lens overlay with the TXR3 blend flag and a
+  graded alpha mask. Flattened to opaque it covered the lamps in white (looked like paint on the
+  headlights); it is now `alpha_blend` (`alpha_blend_materials`).

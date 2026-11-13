@@ -30,6 +30,8 @@ VEHICLES={
         # material record index -> role, wins over the TIM map (TIM 0 at diffuse 0.5 = unpainted lower cladding,
         # TIM 9 at 0.5 = hood scoop insert)
         'materials':{0:'trim',10:'trim',43:'trim'},
+        # TIM 26 headlight lens overlay: blend flag + graded alpha in TXR3; opaque it paints the lamps white.
+        'alpha_blend_materials':{59},
         # untextured material record index -> role
         'solid':{1:'glass',3:'trim',6:'trim',7:'trim',5:'interior',8:'interior',16:'interior',35:'interior',
                  23:'trim',24:'trim',26:'trim',28:'trim',30:'trim',32:'trim',37:'trim',39:'trim',55:'trim',60:'trim'},
@@ -68,7 +70,7 @@ def pilot_profile(scene_path,spec,fit=None):
               'evidence':spec.get('label','TXR3')+' diffuse texture/colour with the stock MR '+mr_role+' material (owner policy); source GPU state not reproduced.'}
         m=next(x for x in scene['materials']if x['id']==key)
         tex=m['diffuse_texture_id']
-        if role=='glass':rule['mode']='alpha_blend'
+        if role=='glass'or key in{'mat-%02d'%k for k in spec.get('alpha_blend_materials',())}:rule['mode']='alpha_blend'
         elif tex.startswith('tim-')and int(tex[4:7])in spec.get('alpha_test_textures',()):rule.update(mode='alpha_test',alpha_ref=100)
         elif role=='chrome'and key.endswith(('d03','d04')):rule.update(mode='alpha_test',alpha_ref=100)
         else:rule.update(mode='opaque',allow_alpha_flatten=True)
