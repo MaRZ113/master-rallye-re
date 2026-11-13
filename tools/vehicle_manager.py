@@ -131,6 +131,21 @@ class Manager:
             out[c] = [i for i in order if i not in removed]
         return out
 
+    def set_frontend_class(self, label: str | None, ids: list[int]):
+        """One extra Vehicle Select class (frontend only; records keep their MRVC class). label None = remove all."""
+        sel = self.selection()
+        if label is None:
+            sel.pop("frontend_classes", None)
+        else:
+            plan = self.plan()
+            for i in ids:
+                if not any(i in plan[c] for c in CLASSES):
+                    raise ValueError(f"ID {i} is not offered by the roster")
+            classes = [c for c in sel.get("frontend_classes") or [] if c["label"] != label and not set(c["ids"]) & set(ids)]
+            sel["frontend_classes"] = classes + [{"label": label, "ids": ids}]
+        self.save_selection(sel)
+        return sel.get("frontend_classes", [])
+
     def set_order(self, cls: str, ids: list[int]):
         native = self.native()["classes"][cls]
         if sorted(ids) != sorted(i for i in native if i in ids) or len(set(ids)) != len(ids) or set(ids) - set(native):
@@ -204,6 +219,13 @@ class Manager:
         plan = self.plan()
         roster_v2 = (self.base / "roster.mrvr").read_bytes()
         v1 = rebuild_classes(strip_v2(roster_v2), native["classes"], plan, exe)
+        offered = set(sum(plan.values(), []))           # a removed vehicle leaves its extra class too
+        extra = [{**c, "ids": [i for i in c["ids"] if i in offered]} for c in self.selection().get("frontend_classes") or []]
+        extra = [c for c in extra if c["ids"]]
+        frontend = None
+        if extra:                                        # extra Vehicle Select classes (tools/frontend_classes.py)
+            from frontend_classes import apply_native
+            v1, frontend = apply_native(v1, exe, parse_roster(v1)["writable"], plan, extra)
         masks = {pid: m for pid, m in native["masks"].items()}
         profile, summary = build_profile(v1, exe, core, masks=masks)
         roster = to_v2(v1, profile)
@@ -218,6 +240,9 @@ class Manager:
         if plan != native["classes"]:
             text = scene.read_bytes().decode("latin-1")
             scene.write_bytes(reorder_scene(text, native["classes"], plan).encode("latin-1"))
+        if frontend:
+            from frontend_classes import apply_scene
+            scene.write_bytes(apply_scene(scene.read_bytes().decode("latin-1"), plan, frontend).encode("latin-1"))
         # Packages: variant folders, physics clones, variants.ini.
         ini = ["; Written by the Vehicle Manager (tools/vehicle_manager.py); edit the selection there."]
         enabled = self.selection().get("packages", [])
@@ -263,14 +288,14 @@ class Manager:
         catalog = json.loads(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() else {}
         catalog.update({"schema": "mr-vehicle-roster/1", "label": "Vehicle Manager", "classes": plan,
                         "removed": sorted(set(sum(native["classes"].values(), [])) - set(sum(plan.values(), []))),
-                        "packages": enabled, "roster_mrvr_sha256": sha(roster),
+                        "packages": enabled, "roster_mrvr_sha256": sha(roster), "frontend_classes": frontend,
                         "resources": [{"path": p.relative_to(res).as_posix(), "sha256": sha(p.read_bytes()), "size": p.stat().st_size}
                                       for p in sorted(res.rglob("*")) if p.is_file()],
                         "active_derivation": {"tool": "tools/vehicle_manager.py apply", "base_roster_sha256": sha(roster_v2)}})
         catalog_path.write_text(json.dumps(catalog, indent=1) + "\n", encoding="utf-8")
         verify_active(staging)
         swap(staging, active, previous)
-        return {"active": str(active), "classes": plan, "variants": n, "vehicle_options": sorted(options),
+        return {"active": str(active), "classes": plan, "frontend_classes": frontend and frontend["classes"], "variants": n, "vehicle_options": sorted(options),
                 "loader_profile": {k: summary[k] for k in ("checks", "registry_count", "sdk_vehicles")}}
 
     def stock(self) -> str:
@@ -640,6 +665,8 @@ def main(argv=None):
     i = sub.add_parser("install"); i.add_argument("package", type=Path)
     u = sub.add_parser("uninstall"); u.add_argument("name"); u.add_argument("--delete", action="store_true")
     sub.add_parser("apply"); sub.add_parser("stock"); sub.add_parser("gui")
+    fc = sub.add_parser("frontend-class", help="extra Vehicle Select class: LABEL IDS (e.g. \"4X4 EVO\" 35,36,37) or --clear")
+    fc.add_argument("label", nargs="?"); fc.add_argument("ids", nargs="?"); fc.add_argument("--clear", action="store_true")
     k = sub.add_parser("make-kit", help="write a kit package: --choice NAME=FOLDER[:SOURCE_DIR] (no source = the family folder)")
     k.add_argument("--base", required=True); k.add_argument("--label", default="KIT"); k.add_argument("--default", type=int, default=0)
     k.add_argument("--choice", action="append", required=True); k.add_argument("--name"); k.add_argument("--out", type=Path, required=True)
@@ -683,6 +710,8 @@ def main(argv=None):
         "install": lambda: m.install(a.package),
         "uninstall": lambda: m.uninstall(a.name, a.delete) or m.list_packages(),
         "apply": m.apply,
+        "frontend-class": lambda: m.set_frontend_class(None if a.clear else a.label,
+                                                       [] if a.clear else [int(x) for x in a.ids.split(",")]),
         "stock": m.stock,
     }[a.cmd]()
     print(json.dumps(result, indent=1))
