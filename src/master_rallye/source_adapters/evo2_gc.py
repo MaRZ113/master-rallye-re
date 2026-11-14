@@ -42,6 +42,8 @@ def parse_trk(data:bytes)->dict:
     n=int(out['numStockParts']);i=lines.index('stockPartList[]')if n else 0
     out['stock_parts']=lines[i+1:i+1+n]if n else[]
     out['wheel_positions']={s:[float(v)for v in get(s+'.static_bpos').split(',')]for s,_ in SLOTS.values()}
+    out['static_bpos']={k:list(v)for k,v in out['wheel_positions'].items()}
+    out['physics']={k:float(get(k))for k in('dry_weight','faxle.spring_rate','raxle.spring_rate','faxle.maxcompr','raxle.maxcompr')}
     out['version']=get('version');out['raw_lines']=lines
     return out
 
@@ -54,6 +56,23 @@ KITS=('bare','stock','full')
 STOCK_EVO1={**STOCK,'HIGHDRIVINGLIGHTS':('FOGR1','FOGR2','FOGR3','FOGR4'),'FENDERFLARES':('FFLARES',),'WINCH':('WINCH',),'MUDFLAPS':('MUDFLPS',)}
 GAMES={'evo2-gc':{'adapter':'evo2-gc-truck/1','game':'4x4 Evolution 2 (GameCube, GE4E7D)','stock':STOCK},
        'evo1':{'adapter':'evo1-truck/1','game':'4x4 Evolution (PC, build 58)','stock':STOCK_EVO1}}
+
+
+def rest_sag(trk):
+    """Spring compression of each axle with the truck standing still: Evo draws trucks on loaded springs, while
+    static_bpos is the unloaded hub. Load per wheel = dry_weight split between the axles by their distance to the
+    body origin (cgModifier z added), / 2; sag = load / spring_rate, capped at maxcompr. Feet.
+    Check: GC Stillen monster (owner screenshots 2026-11-14) hub about 1.85 ft above static_bpos at rest; this gives
+    front 1.31 / rear 2.47 ft."""
+    ph=trk['physics'];zf=trk['static_bpos']['faxle.rtire'][2];zr=trk['static_bpos']['raxle.rtire'][2]
+    cg=float(trk.get('cg_z',0.));span=zf-zr
+    if span<=0:return {'front':0.,'rear':0.}
+    share={'front':(cg-zr)/span,'rear':(zf-cg)/span}
+    out={}
+    for axle,k in(('front','faxle'),('rear','raxle')):
+        load=ph['dry_weight']*share[axle]/2;rate=ph[k+'.spring_rate']
+        out[axle]=min(ph[k+'.maxcompr'],load/rate)if rate>0 else 0.
+    return out
 
 
 def visible_objects(trk,kit='stock',stock=STOCK):
@@ -102,7 +121,7 @@ def decode_raw_act(raw:bytes,act:bytes,opa:bytes|None=None):
     return meta,bytes(rgba)
 
 
-def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspension=True,kit='stock',game='evo2-gc')->dict:
+def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspension=True,kit='stock',game='evo2-gc',rest_pose=False)->dict:
     if game not in GAMES:raise ValueError('game must be one of '+', '.join(GAMES))
     profile=GAMES[game]
     pod_path=Path(truck_pod).absolute();uvs.unlinked(pod_path);protected=[pod_path.parent]
@@ -194,6 +213,11 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
             ids.append(mid)
         return ids,hidden
     catalog_name=TRUCKS.get(truck,truck);_,catalog=get(catalog_name);trk=parse_trk(catalog)
+    if rest_pose:
+        sag=rest_sag(trk)
+        for key,(rec,_) in zip(SLOTS,SLOTS.values()):
+            axle='front' if rec.startswith('faxle') else 'rear';trk['wheel_positions'][rec][1]+=sag[axle]
+    else:sag={'front':0.,'rear':0.}
     keep=visible_objects(trk,kit,profile['stock'])|BRAKE
     body_ids,hidden=model('MODELS/%s.SMF'%trk['truckModelBaseName'],'body',keep)
     wheels={}
@@ -256,7 +280,8 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
         'measurements':{'wheelbase_static_m':(fr[2]-rr[2])*FT,'front_track_m':(fr[0]-fl[0])*FT,'rear_track_m':(rr[0]-rl[0])*FT,
                         'wheelbase_catalog_m':float(trk['truckWheelbase'])*FT},
         'selection':{'wheel_detail':wheel_detail,'visible_rule':'kit %s: BASE objects (+ TRK stock parts for stock, + all accessories for full) + rear lens quads as brake'%kit,'kit':kit,
-                     'stock_parts':trk['stock_parts'],'hidden_objects':hidden,'axle_beams_moved_to_hub_line_ft':axle_moves},
+                     'stock_parts':trk['stock_parts'],'hidden_objects':hidden,'axle_beams_moved_to_hub_line_ft':axle_moves,
+                     'rest_pose_sag_ft':{k:round(v,4)for k,v in sag.items()},'rest_pose_rule':'hub = static_bpos + min(maxcompr, wheel load / spring_rate) (rest_sag)'},
         'unknown_semantics':[{'id':'native-rendering','status':'UNSUPPORTED','meaning':'Evo2 reflections, light passes and alpha are not reproduced'}]}
     result=uvs.save_scene(scene,output,assets,protected_roots=protected)
     return {**result,'truck':truck,'name':trk['truckName'],'hidden':hidden,'measurements':scene['measurements'],'suspension':susp_report}
