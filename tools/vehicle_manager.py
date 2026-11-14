@@ -30,7 +30,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from roster_v4 import Rvp, Image, CLASSES, CLASS_COUNT_OPS, reorder_scene   # noqa: E402
+from roster_v4 import Rvp, Image, CLASSES, CLASS_COUNT_OPS, reorder_scene, egg_span   # noqa: E402
 from roster_loader_profile import (build_profile, to_v2, strip_v2, read_profile_masks, parse_roster,  # noqa: E402
                                    class_map, fnv64, HEADER)
 
@@ -243,6 +243,8 @@ class Manager:
         if frontend:
             from frontend_classes import apply_scene
             scene.write_bytes(apply_scene(scene.read_bytes().decode("latin-1"), plan, frontend).encode("latin-1"))
+        if scene.is_file():
+            scene.write_bytes(sync_unlock_frames(scene.read_bytes().decode("latin-1")).encode("latin-1"))
         # Packages: variant folders, physics clones, variants.ini.
         ini = ["; Written by the Vehicle Manager (tools/vehicle_manager.py); edit the selection there."]
         enabled = self.selection().get("packages", [])
@@ -306,6 +308,20 @@ class Manager:
             shutil.rmtree(disabled)
         retry(os.replace, active, disabled)
         return f"roster disabled ({disabled}); `apply` installs it again"
+
+
+def sync_unlock_frames(xml: str) -> str:
+    """Carousel widgets: the unlocked frame (gaFrontendDisablerAI / unlocker "True Value") is the widget's own CarSheet
+    frame (presentation fix 01 rule). A rebased roster can move frames (new vehicles appended before the roster's own
+    art), so the rule is re-applied on every apply instead of trusting merged scene values."""
+    for m in list(re.finditer(r'<Egg Name="(T\d+_Car\d+)">', xml))[::-1]:
+        a, b = egg_span(xml, m.group(1))
+        block = xml[a:b]
+        frame = re.search(r'Name="en2d Image Bank Index" Type="Int" Value="(\d+)"', block)
+        if frame:
+            block = re.sub(r'(Name="True Value" Type="Int" Value=")\d+(")', lambda v: v[1] + frame.group(1) + v[2], block)
+            xml = xml[:a] + block + xml[b:]
+    return xml
 
 
 # ---- native class tables ---------------------------------------------------------------------------------------
