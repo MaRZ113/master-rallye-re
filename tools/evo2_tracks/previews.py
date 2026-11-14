@@ -71,23 +71,22 @@ def export_obj(project, project_dir: Path, out: Path, *, skip_roles=("collision"
 
 
 def cameras(project):
-    """Two views: behind the start looking down the route, and at the route's middle gate."""
+    """Two views on the race line itself (never inside a slope): at the start looking down the route, and a few
+    metres before the middle gate looking through it."""
     pts = project.route.points
-    def view(i, back=14.0, up=3.2, ahead=40):
-        a, b = pts[i], pts[min(len(pts) - 1, i + max(2, ahead // 10))]
-        dx, dz = b[0] - a[0], b[2] - a[2]
-        n = math.hypot(dx, dz) or 1
-        dx, dz = dx / n, dz / n
-        eye = (a[0] - dx * back, a[1] + up, a[2] - dz * back)
-        target = (b[0], b[1] + 1.0, b[2])
-        to_b = lambda p: (p[0], -p[2], p[1])
-        return {"eye": to_b(eye), "target": to_b(target)}
-    mid = len(pts) // 2
+    n = len(pts)
+    to_b = lambda p: (p[0], -p[2], p[1])
+
+    def view(i, ahead=5, up=3.0):
+        i = max(0, min(n - 2, i))
+        eye = pts[i]
+        target = pts[min(n - 1, i + ahead)]
+        return {"eye": to_b((eye[0], eye[1] + up, eye[2])), "target": to_b((target[0], target[1] + 1.2, target[2]))}
+    mid = n // 2
     if project.checkpoints:
         c = project.checkpoints[len(project.checkpoints) // 2].center
-        mid = min(range(len(pts)), key=lambda i: (pts[i][0] - c[0]) ** 2 + (pts[i][2] - c[2]) ** 2)
-        mid = max(2, mid - 3)
-    return [view(1), view(mid)]
+        mid = min(range(n), key=lambda i: (pts[i][0] - c[0]) ** 2 + (pts[i][2] - c[2]) ** 2) - 4
+    return [view(0), view(mid)]
 
 
 BLENDER_SCRIPT = r'''

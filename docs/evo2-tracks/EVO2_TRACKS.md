@@ -41,7 +41,9 @@ python tools/verify_course_layer.py <game>
   CCollisionBox (invisible), CCheckpoint (gate: 240 ft x height, ordered along the race), CTree, CTrain, CFlyingObject,
   CTreasure, CTriggerBox.
 * `*** Course ***`: the AI course as straight segments (`cstart`, `cend`, width); arcs between them are implicit.
-* `LEVELS/*.LVL`: heightmap / colour / texture-list names, water height and RGBA, detail texture, light vector.
+* `LEVELS/*.LVL`: heightmap / colour / texture-list names, water height and RGBA, detail texture, light vector. The
+  water height is in half feet: value / 2 gives lakes, rivers and seas on 4-21 % of the maps with a dry AI line (fords
+  on up to 4 %) across ten races; read as feet it floods 60-100 % of every map and the AI lines run 40 m under water.
 * `DATA/<lvl>.RAW` 256x256 u16 heights, `height_ft = value / 32`, 32 ft cells, row index = z (checked against the
   gates: centre = ground + half height). `.CLR` per-cell ground texture (low 12 bits) into the TEX list; `.SDW` per-cell
   baked shadow texture (0x8000 / 0x4000 = none; drawn instead of the ground tile); `.RTD` ray data (unused).
@@ -65,17 +67,70 @@ python tools/verify_course_layer.py <game>
   between the gates, always inside the solid corridor.
 * **Race.** Start = vehicle 1. Circuits (closed courses) are one lap: the AI route starts at the start line and the
   finish is placed 150 m before it (the grid stands behind the start; a finish on the start line would trigger at once).
-  The start/finish gate of the lap is dropped; every other gate is a native checkpoint (`gaRaceSplitTimeAI`, radius =
-  half the gate width, 18..40 m) with extra time for the next leg at about 40 km/h plus 25 s.
+  The start/finish gate of the lap is dropped; every other gate is a native checkpoint (`gaRaceSplitTimeAI`) with extra
+  time for the next leg at about 40 km/h plus 25 s. Radius = half the gate width (18..40 m), enlarged to the gate's
+  offset from the AI line + 8 m (at most 45 m; gates further out move towards the line) so the AI trigger it too.
 * **Surfaces.** Evo class -> MR Surface.xml: cement -> tarmac, dirt -> harddirt, mud -> mud, sand -> gravel, grass ->
   grass, gravel -> gravel, ice -> harddirt, snow -> gravel, metal -> metal, wood -> harddirt, rock -> rock.
 * **Objects.** SMF models are drawn (textures shelf-packed into 1024 pages when their UVs stay in 0..1, own texture
-  otherwise; alpha textures -> cutout). Collision: CCollisionBox and CCollide type 0 -> oriented boxes; CCollide
-  type 1 -> convex hull of the model. Every proxy is grounded (underside 0.5 m below the terrain; fully buried ones
-  dropped): proxies reaching deep under the terrain produced phantom solids in the BSP union, and the models themselves
-  as land polygons with overhangs inflated the tree to 2.3-2.7 million planes (retail courses: 100k-190k).
+  otherwise; alpha textures -> cutout). Collision near the AI line and the gates (40 m): CCollisionBox and CCollide
+  type 0 -> oriented boxes (at least 0.4 m thick), CCollide type 1 -> convex hull of the model (the models as land
+  polygons with overhangs inflated the tree to 2.3-2.7 million planes; retail courses have 100k-190k). Proxies are
+  grounded (underside 0.5 m below the terrain, fully buried ones dropped), hulls at most 60 faces, intersecting hulls
+  (face-normal separating-axis test) merged, and a solid that reaches into the AI line sweep (+-1.5 m, 0.3..2.4 m) is
+  dropped; build_track.py also removes any solid the Course Studio route sweep still reports and builds again.
+* **Object BSP** (`object_bsp.py`, wraps Course Studio at build time, no Course Studio file changed): Course Studio's
+  `build_solid_bsp` axis-splits cells over 64 polygons and gives a polygon-free sub-cell the axis side state (back =
+  solid) - correct for terrain, wrong for separate objects (empty space between rocks became solid, thousands of
+  phantom samples and a blocked AI line); and `collision_polygons` drops proxy faces that lie under the terrain, which
+  left grounded convex solids open. The wrapper groups object polygons by their source solid (recorded in
+  `project.extras["evo2_solids"]`), separates the solids by kd planes between them and builds every solid from its
+  complete hull. With it Deadman's Gulch (305 solids) validates with zero phantoms and a free AI line.
 * **Water.** LVL water height -> flat ROLE_WATER over cells below it (Evo `waterx00` texture, LVL alpha).
 * **Environment.** A retail RaceTest scene supplies sky, physics, cameras and HUD (keyword table in `to_course.py`).
+
+## Results (batch-02, 2026-11-14)
+
+All 30 Evo 2 races with checkpoints (race type 2 and the Pikes Peak hill climb) convert, build and pass the Course
+Studio validation (collision probes, AI line sweep, checkpoints, start/finish). Mission maps (Alaska, El Norte, Skull
+Island, The River, Washington, Obstacle Park: type 6, no gates) are not races and are skipped. Build time 25 s - 5 min
+per race (6 in parallel). The pack (`course_pack.py`, 30 races, 1.3 GB) is installed in the test host
+`master-rallye-re-base/.research-output/hosts/host-evo-tracks-01` (copy of host-evo-brake-01); smoke start:
+`INSTALLED operations=350 ... RESOURCE_OVERLAY files=1045`, `SDK_BINDING_PROFILE_MATCH`, `BOOT_B_READY`; gameplay is
+an owner test.
+
+| Race | SIT | Layout | AI line km | Gates | Collision solids | DX MB | Water |
+|---|---|---|---:|---:|---:|---:|---|
+| Arctic Wasteland | SHTARTC | circuit | 2.1 | 6 | 40 | 9.4 | yes |
+| Arizona | ZONA | circuit | 2.1 | 5 | 65 | 9.4 |  |
+| Autumn Leaves | AUTUMN | circuit | 1.9 | 8 | 153 | 13.5 | yes |
+| Baja Beach | BAJBEACH | circuit | 5.1 | 16 | 259 | 28.3 | yes |
+| Bayou Flats | SHTSWAM | circuit | 1.1 | 4 | 29 | 5.4 | yes |
+| Black Gold | OILFLD | circuit | 1.6 | 7 | 58 | 9.3 | yes |
+| Castle Rock | CASTLE | circuit | 2.3 | 6 | 73 | 15.4 | yes |
+| Construction Junction | CON2 | circuit | 2.7 | 8 | 106 | 9.5 | yes |
+| Costa Rica Rally | COSTRICA | circuit | 5.0 | 20 | 142 | 20.2 | yes |
+| Crazy 2001 | CZ2000 | circuit | 1.7 | 6 | 129 | 7.3 | yes |
+| Deadman's Gulch | DVALLEY | circuit | 7.1 | 16 | 305 | 27.0 |  |
+| Desert Run | DESERT | circuit | 1.4 | 5 | 129 | 8.6 | yes |
+| Egypt | EGYPT | circuit | 3.7 | 7 | 131 | 15.5 | yes |
+| Farm Road 109 | FM109 | circuit | 1.3 | 3 | 126 | 5.9 | yes |
+| Final Destination | DEVIL | circuit | 2.0 | 7 | 108 | 8.4 |  |
+| Laguna del Sol | SHTBAJA | circuit | 1.2 | 7 | 79 | 12.5 | yes |
+| Mediterranean | MEDI | circuit | 1.7 | 6 | 110 | 6.9 |  |
+| Motocross | MCROSS | circuit | 3.3 | 11 | 228 | 9.4 |  |
+| Pikes Peak | PEAK | point-to-point | 3.8 | 16 | 304 | 14.3 | yes |
+| Quarry Lake | QUARRY | circuit | 2.4 | 9 | 143 | 11.5 | yes |
+| Restricted Area | SHRTAIR | circuit | 1.6 | 7 | 106 | 6.9 |  |
+| Salvage Wasteland | JYARD | circuit | 1.7 | 5 | 364 | 9.4 | yes |
+| Silverton Pass | ASPEN | circuit | 2.2 | 8 | 67 | 7.4 | yes |
+| Thailand Rally | THAI | circuit | 2.6 | 7 | 90 | 10.6 | yes |
+| Tibet Cliffside | TIBET | circuit | 3.2 | 10 | 242 | 11.3 |  |
+| Treasure Bay | ISLAND2 | circuit | 3.6 | 10 | 29 | 18.7 | yes |
+| Tri Baja 250 | TRIBAJA | circuit | 7.6 | 10 | 254 | 29.7 |  |
+| Truck Stop 101 | THEHILL | circuit | 3.4 | 9 | 68 | 11.4 |  |
+| Vulture Canyon | VULTURE | circuit | 3.0 | 8 | 65 | 9.9 | yes |
+| Yukon | YUKON | circuit | 4.0 | 13 | 169 | 20.4 | yes |
 
 ## Native layer (tools/course_layer.py)
 

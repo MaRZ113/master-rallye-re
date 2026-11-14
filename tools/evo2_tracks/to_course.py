@@ -310,8 +310,25 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
         lap = lap[:gates[-1][0] + 1]
         gates = gates[:-1]
     route_m = [mirror((x * mm, ground_m(x * mm, z * mm) + 0.3, z * mm)) for x, z in lap]
+    # Course Studio draws the RaceLine as straight chords between markers: lift markers so that every chord stays
+    # 0.3 m above the terrain surface over crests (else "route leaves the terrain" / AI line inside a hill).
+    for _ in range(3):
+        lifted = False
+        for i in range(len(route_m) - 1):
+            a, b = route_m[i], route_m[i + 1]
+            deficit = 0.0
+            for k in range(1, 10):
+                f = k / 10
+                x, z = a[0] + (b[0] - a[0]) * f, a[2] + (b[2] - a[2]) * f
+                deficit = max(deficit, ground_m(-x, z) + 0.3 - (a[1] + (b[1] - a[1]) * f))
+            if deficit > 0.01:
+                route_m[i] = (a[0], a[1] + deficit, a[2])
+                route_m[i + 1] = (b[0], b[1] + deficit, b[2])
+                lifted = True
+        if not lifted:
+            break
     project.route.points = route_m
-    project.route.spacing = 20.0
+    project.route.spacing = ROUTE_STEP_M           # RaceLine markers = these points (chords checked above)
 
     def head_deg(i):
         a, b = route_m[max(0, i - 1)], route_m[min(len(route_m) - 1, i + 1)]
@@ -325,7 +342,17 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
         seg_len = (k - prev_k) * ROUTE_STEP_M
         extra = round(min(240.0, 25.0 + seg_len / 11.0), 0)            # ~40 km/h through rough off-road + margin
         c = route_m[k]
-        project.checkpoints.append(Checkpoint(uid=new_uid("cp_"), center=mirror((b.pos[0] * mm, ground_m(b.pos[0] * mm, b.pos[2] * mm), b.pos[2] * mm)),
+        gate = mirror((b.pos[0] * mm, ground_m(b.pos[0] * mm, b.pos[2] * mm), b.pos[2] * mm))
+        off = math.hypot(gate[0] - c[0], gate[2] - c[2])
+        # The trigger must catch the AI line too (Course Studio: centre within max(radius, 25 m) of the route): the
+        # radius covers the gate offset; gates further out than 37 m move towards the line.
+        if off + 8.0 > 45.0:
+            f = 37.0 / off
+            gx, gz = c[0] + (gate[0] - c[0]) * f, c[2] + (gate[2] - c[2]) * f
+            gate = (gx, ground_m(-gx, gz), gz)
+            off = 37.0
+        width = min(max(width, off + 8.0), 45.0)
+        project.checkpoints.append(Checkpoint(uid=new_uid("cp_"), center=gate,
                                               radius=width, extra_time=extra, heading=head_deg(k),
                                               board_spacing=min(width * 2, 60.0), name=f"Gate {n + 1}"))
         prev_k = k

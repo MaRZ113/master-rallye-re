@@ -2,7 +2,9 @@
 
 Formats (see docs/evo2-tracks/EVO2_TRACK_FORMAT.md):
   POD2 archive      <track>.pod, members ART/ DATA/ LEVELS/ MODELS/ SCRIPTS/ WORLD/ MISSIONS/
-  LEVELS/*.LVL      text: heightmap/colour/texture-list names, water height and colour, light vector
+  LEVELS/*.LVL      text: heightmap/colour/texture-list names, water height (half feet: value / 2 gives lakes, rivers
+                    and seas on 4-21 % of the maps with a dry AI line across 10 races; value in feet floods them all),
+                    water colour, light vector
   DATA/*.RAW        256x256 little-endian u16 heights; height_ft = value / 32; cell = 32 ft; row = z, column = x
   DATA/*.CLR        256x256 u16 per-cell ground texture index (low 12 bits) into the TEX list
   DATA/*.SDW        256x256 u16 per-cell baked shadow texture index into the same list (0x8000 / 0x4000 = none)
@@ -105,7 +107,7 @@ def parse_lvl(raw: bytes) -> Level:
     rgba = tuple(int(v) for v in _floats(after("@waterR"))) or (0, 0, 0, 0)
     light = tuple(_floats(after("$lightSource")) or (0.35, -0.87, 0.35))
     return Level(heightmap=body[2], colormap=body[3], texlist=body[4], sky=body[5],
-                 water_height_ft=water[0] if water else -1e9, water_rgba=rgba,
+                 water_height_ft=water[0] / 2.0 if water else -1e9, water_rgba=rgba,
                  detail_texture=after("#detailTexture"), light_vector=light, veg_texture=after("%vegTexture"))
 
 
@@ -266,15 +268,18 @@ class Track:
     shadow_count: int
 
     def height(self, x_ft: float, z_ft: float) -> float:
-        """Bilinear ground height in feet at a world position (wraps like CGround::groundHeight masks)."""
+        """Ground height in feet on the converted terrain surface: each cell is split on its (i,j)-(i+1,j+1) diagonal
+        exactly like to_course.py triangulates it (bilinear values put AI points up to metres under steep cells)."""
         gx, gz = x_ft / CELL_FT, z_ft / CELL_FT
         i0, j0 = math.floor(gx), math.floor(gz)
         fx, fz = gx - i0, gz - j0
         def h(i, j):
-            return self.heights_ft[(j % GRID) * GRID + (i % GRID)]
-        a = h(i0, j0) * (1 - fx) + h(i0 + 1, j0) * fx
-        b = h(i0, j0 + 1) * (1 - fx) + h(i0 + 1, j0 + 1) * fx
-        return a * (1 - fz) + b * fz
+            i, j = min(max(i, 0), GRID - 1), min(max(j, 0), GRID - 1)
+            return self.heights_ft[j * GRID + i]
+        h00, h10, h01, h11 = h(i0, j0), h(i0 + 1, j0), h(i0, j0 + 1), h(i0 + 1, j0 + 1)
+        if fz >= fx:
+            return h00 + (h11 - h01) * fx + (h01 - h00) * fz
+        return h00 + (h10 - h00) * fx + (h11 - h10) * fz
 
     def checkpoints(self):
         return [b for b in self.sit.boxes if b.kind == "CCheckpoint"]
