@@ -1,7 +1,7 @@
 {
  "schema": "mr-brake-lamps/1",
  "family": "StillenSilverado",
- "source_car_sha256": "e283b40483541eef612ac8c77a5bd08d9dc6d8a402afa8ce6f72e323860797a3",
+ "source_car_sha256": "076168d002d8130a1f212c4f08b29849c88df7c05c77661780813a956c290e92",
  "lamps": [
   {
    "body": "ANY",

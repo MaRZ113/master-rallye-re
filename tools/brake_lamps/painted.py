@@ -149,6 +149,29 @@ def visible_only(patch: dict, occluders, views, *, tolerance=0.0005):
     return out
 
 
+def main_components(patch: dict, *, min_share=0.1):
+    """Keep the connected parts carrying at least ``min_share`` of the largest part's area (drops a stray reflector
+    or decal speck that would stretch the halo outline across the panel)."""
+    P, T = patch['positions'], patch['triangles']
+    comps = components(T, P)
+    if len(comps) < 2:
+        return patch
+    area = lambda c: float(.5 * np.linalg.norm(np.cross(P[T[c, 1]] - P[T[c, 0]], P[T[c, 2]] - P[T[c, 0]]), axis=1).sum())
+    areas = [area(np.array(c)) for c in comps]
+    keep_tri = np.zeros(len(T), bool)
+    for c, a in zip(comps, areas):
+        if a >= min_share * max(areas):
+            keep_tri[c] = True
+    used = np.unique(T[keep_tri]); remap = {int(v): i for i, v in enumerate(used)}
+    out = dict(patch)
+    out['positions'] = P[used]; out['uvs'] = patch['uvs'][used]; out['normals'] = patch['normals'][used]
+    out['colors'] = [patch['colors'][int(v)] for v in used]
+    out['triangles'] = np.array([[remap[int(i)] for i in t] for t in T[keep_tri]], dtype=np.int64)
+    out['source_draw'] = patch['source_draw'][keep_tri]
+    out['stats'] = {**patch['stats'], 'stray_triangles_dropped': int((~keep_tri).sum())}
+    return out
+
+
 def components(triangles: np.ndarray, positions: np.ndarray):
     """Connected triangle groups (shared welded positions)."""
     parent = list(range(len(triangles)))

@@ -116,6 +116,8 @@ def fit_spec(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loade
                 from .geometry import view_directions
                 v = view_directions()
                 patch = painted.visible_only(patch, occluders, {k: v[k] for k in ('rear', 'yaw+30', 'yaw-30', 'yaw+60', 'yaw-60', 'high_25')})
+                if patch is not None:
+                    patch = painted.main_components(patch)
             if patch is None:
                 raise SpecError(f'lamp {lamp["id"]}: no visible lamp texels in the candidate faces (mask/bounds)')
             lens = Mesh(patch['positions'], patch['triangles'])

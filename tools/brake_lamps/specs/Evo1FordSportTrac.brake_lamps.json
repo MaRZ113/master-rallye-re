@@ -1,7 +1,7 @@
 {
  "schema": "mr-brake-lamps/1",
  "family": "Evo1FordSportTrac",
- "source_car_sha256": "1295809c999f7feab2969c878acc420feeb635dc4ea54fea817a1ae50f8f007f",
+ "source_car_sha256": "5d567e63c1ae17b019c9f41b76b22adcca0daecdd1441f95d37fc9cf1f4d27fc",
  "lamps": [
   {
    "body": "ANY",

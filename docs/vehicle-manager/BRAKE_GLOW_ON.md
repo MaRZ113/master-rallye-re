@@ -170,13 +170,16 @@ Source `painted` (`tools/brake_lamps/painted.py`):
   or the car has no brake group; lamps without visible lamp texels are left
   out and recorded in `notes`.
 
-Results on `host-evo-01` (test host `host-evo-brake-01`): Evo1FordSportTrac
-left/right + cab high stop lamp, StillenSilverado left/right (red upper
-segment), Evo2JeepCherokeeRace left/right/centre - 0 % of every core/halo
-hidden along its normal. Jeep caveat: in the current pilot the body faces under
-its lamps are themselves mapped onto the solid red atlas patch (converter
-GlassE/painted-panel issue being fixed in master-rallye-re-import), so its OFF
-lamp is a red block until the pilot is rebuilt; re-run `autospec`/`build` then.
+Results on `host-evo-01` with the pilots rebuilt after the GlassE/panel split
+(master-rallye-re-import aaa2424 + 3283bba; test host `host-evo-brake-01`):
+Evo1FordSportTrac left/right + cab high stop lamp, StillenSilverado left/right
+(red upper segment), Evo2JeepCherokeeRace left/right/centre - at most 0.6 % of
+any core or halo hidden along its normal. The Jeep "red block" seen in the first
+round was this module's own bug: its converter sprite lies exactly on the body
+faces it covers, so `lens.draw: "any"` matched the sprite's faces too and the
+OFF patch carried the sprite's solid red texels. `any` now excludes the brake
+group; stray mask specks (an orange reflector inside a sprite footprint) are
+dropped so the halo outline cannot stretch across the panel.
 TrailBlazer Race / Tundra Race (CTTT2/TTTT2) pilots have no car.dx yet.
 
 Cost: 300-600 core and 500-1200 halo triangles per Evo lamp; the offline

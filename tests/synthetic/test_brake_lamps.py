@@ -260,6 +260,17 @@ class Painted(unittest.TestCase):
         self.assertIsNone(visible_only(pt, cover, rear))
         self.assertEqual(len(visible_only(pt, Mesh.of(np.zeros((0, 3)), np.zeros((0, 3), int)), rear)['triangles']), len(pt['triangles']))
 
+    def test_stray_speck_dropped(self):
+        from brake_lamps.painted import main_components
+        big = [(0, 0, 0), (.2, 0, 0), (.2, .2, 0), (0, .2, 0)]
+        speck = [(.6, .6, 0), (.61, .6, 0), (.6, .61, 0)]
+        patch = {'positions': np.array(big + speck, float), 'uvs': np.zeros((7, 2)), 'normals': np.zeros((7, 3)),
+                 'colors': [bytes(4)] * 7, 'triangles': np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6]]),
+                 'source_draw': np.array([0, 0, 0]), 'stats': {}}
+        out = main_components(patch)
+        self.assertEqual(len(out['triangles']), 2)
+        self.assertEqual(out['stats']['stray_triangles_dropped'], 1)
+
     def test_hull(self):
         from brake_lamps.painted import hull_lens
         h = hull_lens(np.array([[0, 0], [1, 0], [1, 1], [0, 1], [.5, .5], [.2, .8]]))

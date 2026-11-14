@@ -491,7 +491,9 @@ def resolve_faces(model, geometry, cases, lamp):
     if lamp['lens']['draw'] == 'blight':
         draws = [d for d in model.physical_draws if cases.get(d.draw_index) and cases[d.draw_index] == (1, 1)]
     elif lamp['lens']['draw'] == 'any':
-        draws = [d for d in model.physical_draws if cases.get(d.draw_index) is None or cases[d.draw_index][1] == 1]
+        # Any draw shown with the brake released, except the brake group itself (a converter light sprite can lie
+        # exactly on the body faces it covers, so its face IDs coincide with theirs).
+        draws = [d for d in model.physical_draws if cases.get(d.draw_index) is None or (cases[d.draw_index][1] == 1 and cases[d.draw_index][0] != 1)]
     else:
         draws = [d for d in model.physical_draws if d.draw_index == lamp['lens']['draw']]
     found = []
