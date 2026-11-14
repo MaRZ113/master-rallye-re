@@ -149,20 +149,48 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
         textures.append({**{k:v for k,v in src.items()if k not in('id','rgba_path','rgba_sha256')},'id':gid,'rgba_path':path,'rgba_sha256':uvs.sha(bytes(rgba)),
                          'glass_alpha_policy':'140, or 255 where the source opacity plane is 255 (painted panels inside GlassE)'if plane is not None else '140'})
         return gid
+    def panel_triangles(tid,uv,faces):
+        """GlassE triangles that are painted panels: most of their texels are fully opaque in the source opacity plane
+        (Evo 2 TIFF second sample / Evo 1 .OPA; windows are 0 or 128)."""
+        plane=planes.get(tid)
+        if plane is None:return set()
+        src=next(t for t in textures if t['id']==tid);W,H=src['width'],src['height'];out=set()
+        weights=[(a/4,b/4,1-a/4-b/4)for a in range(5)for b in range(5-a)]
+        for n,f in enumerate(faces):
+            opaque=0
+            for wa,wb,wc in weights:
+                u=wa*uv[f[0]][0]+wb*uv[f[1]][0]+wc*uv[f[2]][0];v=wa*uv[f[0]][1]+wb*uv[f[1]][1]+wc*uv[f[2]][1]
+                x=min(W-1,max(0,int(u*W)));y=min(H-1,max(0,int(v*H)));opaque+=plane[y*W+x]>=250
+            if opaque*2>len(weights):out.add(n)
+        return out
+    def add_mesh(mid,name,frame,faces,rec,i,obj,extra=None):
+        used=sorted({k for f in faces for k in f});remap={k:j for j,k in enumerate(used)}
+        normals=_repaired_normals(frame,obj['faces'])
+        meshes.append({'id':mid,'name':name,'positions':[frame[k][:3]for k in used],'normals':[normals[k]for k in used],
+            'uvs':[frame[k][6:8]for k in used],'triangles':[[remap[k]for k in f]for f in faces],'material_id':mid,
+            'source':{'member':rec['member'],'member_sha256':rec['sha256'],'object_index':i,'source_visible':obj['visible'],**(extra or {})}})
+    def material(mid,tid,obj,**more):
+        materials.append({'id':mid,'diffuse_texture_id':tid,'raw_fields':obj['material_raw'],
+            'object':more.pop('object',obj['name']),'flags':{'transparent_raw':obj['material_raw'][3],'reflective_raw':obj['material_raw'][4]},
+            'unsupported':['native lighting/reflection','native TIFF alpha policy'],'preview':{'opacity':1.,'policy':'source texture'},**more})
     def model(name,prefix,keep=None):
         rec,blob=get(name);decoded=parse_smf(blob);ids=[];hidden=[]
         for i,obj in enumerate(decoded['objects']):
             if keep is not None and obj['name'].upper()not in keep:hidden.append(obj['name']);continue
             mid='mat-%s-%s'%(prefix,obj['name'].lower())
-            tid=texture(obj['texture'])
-            if obj['name'].upper()=='GLASSE':tid=glass_texture(tid)
-            materials.append({'id':mid,'diffuse_texture_id':tid,'raw_fields':obj['material_raw'],
-                'object':obj['name'],'flags':{'transparent_raw':obj['material_raw'][3],'reflective_raw':obj['material_raw'][4]},
-                'unsupported':['native lighting/reflection','native TIFF alpha policy'],'preview':{'opacity':1.,'policy':'source texture'}})
-            frame=obj['vertices_by_frame'][0]
-            meshes.append({'id':mid,'name':obj['name'],'positions':[v[:3]for v in frame],'normals':_repaired_normals(frame,obj['faces']),
-                'uvs':[v[6:8]for v in frame],'triangles':obj['faces'],'material_id':mid,
-                'source':{'member':rec['member'],'member_sha256':rec['sha256'],'object_index':i,'source_visible':obj['visible']}})
+            tid=texture(obj['texture']);frame=obj['vertices_by_frame'][0];faces=obj['faces']
+            if obj['name'].upper()=='GLASSE':
+                # GC / Evo 1 GlassE also carries roof and pillar panels (owner run 2026-11-14): those triangles become
+                # an ordinary painted body part, so cracked glass, glass grime and glass alpha stay on real windows.
+                panels=panel_triangles(tid,[v[6:8]for v in frame],faces)
+                if panels and len(panels)<len(faces):
+                    pid=mid+'panel'
+                    material(pid,tid,obj,object=obj['name']+'Panel',split='GlassE triangles with an opaque source opacity plane')
+                    add_mesh(pid,obj['name']+'Panel',frame,[f for n,f in enumerate(faces)if n in panels],rec,i,obj,{'split_from':'GlassE','rule':'opacity plane >= 250 on most texels'})
+                    ids.append(pid);faces=[f for n,f in enumerate(faces)if n not in panels]
+                tid=glass_texture(tid)
+            material(mid,tid,obj)
+            add_mesh(mid,obj['name'],frame,faces,rec,i,obj)
             ids.append(mid)
         return ids,hidden
     catalog_name=TRUCKS.get(truck,truck);_,catalog=get(catalog_name);trk=parse_trk(catalog)

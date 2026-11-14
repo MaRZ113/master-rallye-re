@@ -7,7 +7,7 @@ track widths). Roles come from the SMF object names.
 from __future__ import annotations
 from . import txr3_classic_pilot as base
 
-OBJECT_ROLE={'BODY':'paint','BEDCOVR':'paint','GLASSE':'glass','COCKPIT':'interior','UNDBODY':'trim','MIRRORL':'trim','MIRRORR':'trim',
+OBJECT_ROLE={'BODY':'paint','GLASSEPANEL':'paint','BEDCOVR':'paint','GLASSE':'glass','COCKPIT':'interior','UNDBODY':'trim','MIRRORL':'trim','MIRRORR':'trim',
              'WIPERLT':'trim','WIPERRT':'trim','MUDFLPS':'trim','BUMPERF':'trim','BUMPERR':'trim','CLADRT':'trim','BIKINI':'trim',
              'SKID':'chrome','BUSHBAR':'chrome','ROLLBR1':'chrome','ROLLBR2':'chrome','WINCH':'chrome','RFRACK':'chrome','RACK':'chrome','STEPS':'chrome','SNORKEL':'trim','FFLARES':'paint','HSCOOP':'paint','VISOR':'trim','BUGSHLD':'trim','SPARE':'tyre','SPARE2':'tyre',
              'LIGHTBL':'brake','LIGHTBR':'brake','LIGHTBC':'brake','TIRE':'tyre','WHEEL':'chrome'}

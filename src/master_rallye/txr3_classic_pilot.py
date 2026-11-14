@@ -171,7 +171,9 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     lamp=len(parts);parts.append(_merge(lamps))
     lit,glow,_=lamp_textures(parse_dxt_bytes((assets/(parts[lamp].textures[0]+'.dxt')).read_bytes()))
     names=(f'{family.lower()}-stop-lit-tga',f'{family.lower()}-stop-glow-tga',f'{family.lower()}-cracks-tga')
-    for name,raw in zip(names,(lit,glow,procedural_cracks())):(assets/(name+'.dxt')).write_bytes(raw)
+    # Cracked glass: the donor's own retail MR cracked windscreen (owner 2026-11-14: the procedural one looks artificial).
+    cracked=donor/'windscreenc32-tga.dxt'
+    for name,raw in zip(names,(lit,glow,cracked.read_bytes()if cracked.is_file()else procedural_cracks())):(assets/(name+'.dxt')).write_bytes(raw)
     raw=write_scene_dx((donor/'car.dx').read_bytes(),parts)
     recipe={'source_sha256':uvs.sha(raw),
             'panes':[{'label':label,'source_draw':i,'triangles':list(range(len(parts[i].geometry.triangles))),
