@@ -1,0 +1,851 @@
+{
+ "schema": "mr-course-registry/1",
+ "source": "retail MRallye.exe bf8aef32 registrations (COURSE-CAP1 extraction via master-rallye-re-course candidate-courses.json)",
+ "courses": [
+  {
+   "key": "stock:datagx/course/france1",
+   "folder": "DataGx/course/france1",
+   "model": "DataGx/course/france1/france1.dx"
+  },
+  {
+   "key": "stock:datagx/course/france2",
+   "folder": "DataGx/course/france2",
+   "model": "DataGx/course/france2/france2.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy1",
+   "folder": "DataGx/course/italy1",
+   "model": "DataGx/course/italy1/track01.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy2",
+   "folder": "DataGx/course/italy2",
+   "model": "DataGx/course/italy2/italy2.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy3",
+   "folder": "DataGx/course/italy3",
+   "model": "DataGx/course/italy3/italy3.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain1",
+   "folder": "DataGx/course/spain1",
+   "model": "DataGx/course/spain1/spain1.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain2",
+   "folder": "DataGx/course/spain2",
+   "model": "DataGx/course/spain2/spain2.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey1",
+   "folder": "DataGx/course/turkey1",
+   "model": "DataGx/course/turkey1/turkey1.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey2",
+   "folder": "DataGx/course/turkey2",
+   "model": "DataGx/course/turkey2/turkey2.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey3",
+   "folder": "DataGx/course/turkey3",
+   "model": "DataGx/course/turkey3/turkey3.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_s4",
+   "folder": "DataGx/course/italy_s4",
+   "model": "DataGx/course/italy_s4/italy_s4.dx"
+  },
+  {
+   "key": "stock:datagx/course/france_s2",
+   "folder": "DataGx/course/france_s2",
+   "model": "DataGx/course/france_s2/frances2.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_s2",
+   "folder": "DataGx/course/italy_s2",
+   "model": "DataGx/course/italy_s2/italy_s2.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey_s2",
+   "folder": "DataGx/course/turkey_s2",
+   "model": "DataGx/course/turkey_s2/turkey_s2.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_w2",
+   "folder": "DataGx/course/italy_w2",
+   "model": "DataGx/course/italy_w2/italy_w2.dx"
+  },
+  {
+   "key": "stock:datagx/course/france_w",
+   "folder": "DataGx/course/france_w",
+   "model": "DataGx/course/france_w/francew.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_s1",
+   "folder": "DataGx/course/spain_s1",
+   "model": "DataGx/course/spain_s1/spain_s1.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey_w",
+   "folder": "DataGx/course/turkey_w",
+   "model": "DataGx/course/turkey_w/turkey_w.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_s1",
+   "folder": "DataGx/course/italy_s1",
+   "model": "DataGx/course/italy_s1/italy_s1.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_m2",
+   "folder": "DataGx/course/italy_m2",
+   "model": "DataGx/course/italy_m2/italy_m2.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey_m",
+   "folder": "DataGx/course/turkey_m",
+   "model": "DataGx/course/turkey_m/turkey_m.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_w",
+   "folder": "DataGx/course/spain_w",
+   "model": "DataGx/course/spain_w/spain_w.dx"
+  },
+  {
+   "key": "stock:datagx/course/france_m",
+   "folder": "DataGx/course/france_m",
+   "model": "DataGx/course/france_m/francem.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_w1",
+   "folder": "DataGx/course/italy_w1",
+   "model": "DataGx/course/italy_w1/italy_w1.dx"
+  },
+  {
+   "key": "stock:datagx/course/france_s1",
+   "folder": "DataGx/course/france_s1",
+   "model": "DataGx/course/france_s1/frances1.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_s3",
+   "folder": "DataGx/course/italy_s3",
+   "model": "DataGx/course/italy_s3/italy_s3.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_m",
+   "folder": "DataGx/course/spain_m",
+   "model": "DataGx/course/spain_m/spain_m.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey_s1",
+   "folder": "DataGx/course/turkey_s1",
+   "model": "DataGx/course/turkey_s1/turkey_s1.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_s2",
+   "folder": "DataGx/course/spain_s2",
+   "model": "DataGx/course/spain_s2/spain_s2.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_m1",
+   "folder": "DataGx/course/italy_m1",
+   "model": "DataGx/course/italy_m1/italy_m1.dx"
+  },
+  {
+   "key": "stock:datagx/course/france_w_flip",
+   "folder": "DataGx/course/france_w_flip",
+   "model": "DataGx/course/france_w_flip/francew_flip.dx"
+  },
+  {
+   "key": "stock:datagx/course/turkey_s2_flip",
+   "folder": "DataGx/course/turkey_s2_flip",
+   "model": "DataGx/course/turkey_s2_flip/turkey_s2_flip.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_s1_flip",
+   "folder": "DataGx/course/spain_s1_flip",
+   "model": "DataGx/course/spain_s1_flip/spain_s1_flip.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_m1_flip",
+   "folder": "DataGx/course/italy_m1_flip",
+   "model": "DataGx/course/italy_m1_flip/italy_m1_flip.dx"
+  },
+  {
+   "key": "stock:datagx/course/spain_w_flip",
+   "folder": "DataGx/course/spain_w_flip",
+   "model": "DataGx/course/spain_w_flip/spain_w_flip.dx"
+  },
+  {
+   "key": "stock:datagx/course/italy_s3_flip",
+   "folder": "DataGx/course/italy_s3_flip",
+   "model": "DataGx/course/italy_s3_flip/italy_s3_flip.dx"
+  }
+ ],
+ "races": [
+  {
+   "id": 0,
+   "scene": "DataScene/RaceTest/France1.xml",
+   "native_fields": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1084227584,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france1",
+   "icont": "DataScene/ICont/France1.sfl"
+  },
+  {
+   "id": 1,
+   "scene": "DataScene/RaceTest/France2.xml",
+   "native_fields": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    1087373312,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france2",
+   "icont": "DataScene/ICont/France2.sfl"
+  },
+  {
+   "id": 2,
+   "scene": "DataScene/RaceTest/Italy1.xml",
+   "native_fields": [
+    2,
+    2,
+    2,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy1",
+   "icont": "DataScene/ICont/Italy1.sfl"
+  },
+  {
+   "id": 3,
+   "scene": "DataScene/RaceTest/Italy2.xml",
+   "native_fields": [
+    3,
+    2,
+    3,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy2",
+   "icont": "DataScene/ICont/Italy2.sfl"
+  },
+  {
+   "id": 4,
+   "scene": "DataScene/RaceTest/Italy3.xml",
+   "native_fields": [
+    4,
+    3,
+    4,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy3",
+   "icont": "DataScene/ICont/Italy3.sfl"
+  },
+  {
+   "id": 5,
+   "scene": "DataScene/RaceTest/Spain1.xml",
+   "native_fields": [
+    5,
+    4,
+    5,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain1",
+   "icont": "DataScene/ICont/Spain1.sfl"
+  },
+  {
+   "id": 6,
+   "scene": "DataScene/RaceTest/Spain2.xml",
+   "native_fields": [
+    6,
+    4,
+    6,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain2",
+   "icont": "DataScene/ICont/Spain2.sfl"
+  },
+  {
+   "id": 7,
+   "scene": "DataScene/RaceTest/Turkey1.xml",
+   "native_fields": [
+    7,
+    6,
+    7,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey1",
+   "icont": "DataScene/ICont/Turkey1.sfl"
+  },
+  {
+   "id": 8,
+   "scene": "DataScene/RaceTest/Turkey2.xml",
+   "native_fields": [
+    8,
+    7,
+    8,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey2",
+   "icont": "DataScene/ICont/Turkey2.sfl"
+  },
+  {
+   "id": 9,
+   "scene": "DataScene/RaceTest/Turkey3.xml",
+   "native_fields": [
+    9,
+    7,
+    9,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey3",
+   "icont": "DataScene/ICont/Turkey3.sfl"
+  },
+  {
+   "id": 10,
+   "scene": "DataScene/RaceTest/ItalyS4.xml",
+   "native_fields": [
+    10,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_s4",
+   "icont": "DataScene/ICont/italys4.sfl"
+  },
+  {
+   "id": 11,
+   "scene": "DataScene/RaceTest/FranceS2.xml",
+   "native_fields": [
+    11,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_s2",
+   "icont": "DataScene/ICont/franceS2.sfl"
+  },
+  {
+   "id": 12,
+   "scene": "DataScene/RaceTest/ItalyS2.xml",
+   "native_fields": [
+    12,
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_s2",
+   "icont": "DataScene/ICont/ItalyS2.sfl"
+  },
+  {
+   "id": 13,
+   "scene": "DataScene/RaceTest/TurkeyS2.xml",
+   "native_fields": [
+    13,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey_s2",
+   "icont": "DataScene/ICont/turkeys2.sfl"
+  },
+  {
+   "id": 14,
+   "scene": "DataScene/RaceTest/ItalyW2.xml",
+   "native_fields": [
+    14,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_w2",
+   "icont": "DataScene/ICont/ItalyW2.sfl"
+  },
+  {
+   "id": 15,
+   "scene": "DataScene/RaceTest/FranceW.xml",
+   "native_fields": [
+    15,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_w",
+   "icont": "DataScene/ICont/FranceW.sfl"
+  },
+  {
+   "id": 16,
+   "scene": "DataScene/RaceTest/SpainS1.xml",
+   "native_fields": [
+    16,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_s1",
+   "icont": "DataScene/ICont/SpainS1.sfl"
+  },
+  {
+   "id": 17,
+   "scene": "DataScene/RaceTest/TurkeyW.xml",
+   "native_fields": [
+    17,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey_w",
+   "icont": "DataScene/ICont/turkeyW.sfl"
+  },
+  {
+   "id": 18,
+   "scene": "DataScene/RaceTest/ItalyS1.xml",
+   "native_fields": [
+    18,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_s1",
+   "icont": "DataScene/ICont/ItalyS1.sfl"
+  },
+  {
+   "id": 19,
+   "scene": "DataScene/RaceTest/ItalyM2.xml",
+   "native_fields": [
+    19,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_m2",
+   "icont": "DataScene/ICont/ItalyM2.sfl"
+  },
+  {
+   "id": 20,
+   "scene": "DataScene/RaceTest/TurkeyM.xml",
+   "native_fields": [
+    20,
+    0,
+    1,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey_m",
+   "icont": "DataScene/ICont/turkeym.sfl"
+  },
+  {
+   "id": 21,
+   "scene": "DataScene/RaceTest/SpainW.xml",
+   "native_fields": [
+    21,
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_w",
+   "icont": "DataScene/ICont/SpainW.sfl"
+  },
+  {
+   "id": 22,
+   "scene": "DataScene/RaceTest/FranceM.xml",
+   "native_fields": [
+    22,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_m",
+   "icont": "DataScene/ICont/francem.sfl"
+  },
+  {
+   "id": 23,
+   "scene": "DataScene/RaceTest/ItalyW1.xml",
+   "native_fields": [
+    23,
+    0,
+    1,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_w1",
+   "icont": "DataScene/ICont/ItalyW1.sfl"
+  },
+  {
+   "id": 24,
+   "scene": "DataScene/RaceTest/FranceS1.xml",
+   "native_fields": [
+    24,
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_s1",
+   "icont": "DataScene/ICont/frances1.sfl"
+  },
+  {
+   "id": 25,
+   "scene": "DataScene/RaceTest/ItalyS3.xml",
+   "native_fields": [
+    25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_s3",
+   "icont": "DataScene/ICont/ItalyS3.sfl"
+  },
+  {
+   "id": 26,
+   "scene": "DataScene/RaceTest/SpainM.xml",
+   "native_fields": [
+    26,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_m",
+   "icont": "DataScene/ICont/SpainM.sfl"
+  },
+  {
+   "id": 27,
+   "scene": "DataScene/RaceTest/TurkeyS1.xml",
+   "native_fields": [
+    27,
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey_s1",
+   "icont": "DataScene/ICont/turkeys1.sfl"
+  },
+  {
+   "id": 28,
+   "scene": "DataScene/RaceTest/SpainS2.xml",
+   "native_fields": [
+    28,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_s2",
+   "icont": "DataScene/ICont/SpainS2.sfl"
+  },
+  {
+   "id": 29,
+   "scene": "DataScene/RaceTest/ItalyM1.xml",
+   "native_fields": [
+    29,
+    0,
+    4,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_m1",
+   "icont": "DataScene/ICont/ItalyM1.sfl"
+  },
+  {
+   "id": 30,
+   "scene": "DataScene/RaceTest/FranceWFlip.xml",
+   "native_fields": [
+    30,
+    0,
+    5,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_w_flip",
+   "icont": "DataScene/ICont/FranceWFlip.sfl"
+  },
+  {
+   "id": 31,
+   "scene": "DataScene/RaceTest/TurkeyS2Flip.xml",
+   "native_fields": [
+    31,
+    0,
+    6,
+    1,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey_s2_flip",
+   "icont": "DataScene/ICont/turkeys2Flip.sfl"
+  },
+  {
+   "id": 32,
+   "scene": "DataScene/RaceTest/SpainS1Flip.xml",
+   "native_fields": [
+    32,
+    0,
+    7,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_s1_flip",
+   "icont": "DataScene/ICont/SpainS1Flip.sfl"
+  },
+  {
+   "id": 33,
+   "scene": "DataScene/RaceTest/ItalyM1Flip.xml",
+   "native_fields": [
+    33,
+    0,
+    8,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_m1_flip",
+   "icont": "DataScene/ICont/ItalyM1Flip.sfl"
+  },
+  {
+   "id": 34,
+   "scene": "DataScene/RaceTest/SpainWFlip.xml",
+   "native_fields": [
+    34,
+    0,
+    9,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/spain_w_flip",
+   "icont": "DataScene/ICont/SpainWFlip.sfl"
+  },
+  {
+   "id": 35,
+   "scene": "DataScene/RaceTest/ItalyS3Flip.xml",
+   "native_fields": [
+    35,
+    0,
+    10,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_s3_flip",
+   "icont": "DataScene/ICont/ItalyS3Flip.sfl"
+  },
+  {
+   "id": 36,
+   "scene": "DataScene/RaceTest/FranceS1.xml",
+   "native_fields": [
+    36,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/france_s1",
+   "icont": "DataScene/ICont/frances1.sfl"
+  },
+  {
+   "id": 37,
+   "scene": "DataScene/RaceTest/Turkey3.xml",
+   "native_fields": [
+    37,
+    0,
+    1,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/turkey3",
+   "icont": "DataScene/ICont/Turkey3.sfl"
+  },
+  {
+   "id": 38,
+   "scene": "DataScene/RaceTest/ItalyM1.xml",
+   "native_fields": [
+    38,
+    0,
+    2,
+    2,
+    0,
+    0,
+    0,
+    4294967295,
+    4294967295
+   ],
+   "course": "stock:datagx/course/italy_m1",
+   "icont": "DataScene/ICont/ItalyM1.sfl"
+  }
+ ]
+}

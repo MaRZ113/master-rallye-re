@@ -50,6 +50,7 @@ class Manager:
         self.root = self.mods / "manager"
         self.base = self.root / "base"
         self.packages = self.root / "packages"
+        self.courses = self.root / "courses"                # course packs (tools/course_pack.py), see course_layer.py
         self.selection_path = self.root / "roster.json"
 
     # ---- base ---------------------------------------------------------------------------------------------
@@ -146,6 +147,77 @@ class Manager:
         self.save_selection(sel)
         return sel.get("frontend_classes", [])
 
+    # ---- course packs (new races in their own Quick Race category; tools/course_layer.py) ------------------------
+    def add_course_pack(self, source: Path) -> str:
+        meta = json.loads((source / "course-pack.json").read_text(encoding="utf-8"))
+        if meta.get("schema") != COURSE_PACK_SCHEMA:
+            raise ValueError(f"{source}: not a {COURSE_PACK_SCHEMA} folder")
+        name = re.sub(r"[^A-Za-z0-9_.-]", "_", meta["name"])
+        target = self.courses / name
+        if target.exists():
+            shutil.rmtree(target)
+        shutil.copytree(source, target)
+        sel = self.selection()
+        sel["course_packs"] = [n for n in sel.get("course_packs", []) if n != name] + [name]
+        sel.setdefault("course_category", meta.get("category", {}).get("label", "NEW RACES"))
+        self.save_selection(sel)
+        return name
+
+    def remove_course_pack(self, name: str):
+        sel = self.selection()
+        sel["course_packs"] = [n for n in sel.get("course_packs", []) if n != name]
+        self.save_selection(sel)
+        return sel["course_packs"]
+
+    def set_course_category(self, label: str):
+        if not re.fullmatch(r"[A-Z0-9 ()\-]{1,24}", label):
+            raise ValueError("category label: A-Z, 0-9, space, ()- only, at most 24 characters")
+        sel = self.selection()
+        sel["course_category"] = label
+        self.save_selection(sel)
+        return label
+
+    def course_races(self) -> tuple[list[dict], list[Path], dict]:
+        """Enabled packs in selection order -> (races, pack folders, category)."""
+        sel = self.selection()
+        races, folders, category = [], [], {"label": sel.get("course_category", "NEW RACES"), "logo": None}
+        for name in sel.get("course_packs", []):
+            folder = self.courses / name
+            meta = json.loads((folder / "course-pack.json").read_text(encoding="utf-8"))
+            folders.append(folder)
+            if category["logo"] is None and meta.get("category", {}).get("logo"):
+                category["logo"] = folder / meta["category"]["logo"]
+            for r in meta["races"]:
+                races.append({**r, "_pack": folder})
+        return races, folders, category
+
+    def seed_course_progress(self) -> dict:
+        """Best-time keys of the installed course races in the game's PlayerState.xml (backup kept), so records
+        persist like retail ones. Without them the races still run; the best time reads as 'no time'."""
+        races, _f, _c = self.course_races()
+        path = self.game / "DataGame" / "PlayerState.xml"
+        text = path.read_text(encoding="latin-1")
+        added = []
+        for r in races:
+            key = f"Progress/BestTimes/CourseRegistryV1/{r['progress_key']}"
+            if f'Name="{key}"' in text:
+                continue
+            at = text.find('<Value Name="Progress/BestTimes/')
+            if at < 0:
+                raise ValueError("PlayerState.xml has no Progress/BestTimes values to place the new keys next to")
+            at = text.rfind("\n", 0, at) + 1
+            indent = text[at:text.find("<", at)]
+            eol = "\r\n" if "\r\n" in text else "\n"
+            line = f'{indent}<Value Name="{key}" Type="Float" Value="86400.00000" SaveOptions="False" SavePlayerState="True"/>{eol}'
+            text = text[:at] + line + text[at:]
+            added.append(key)
+        if added:
+            backup = path.with_name(path.name + ".bak-course-seed")
+            if not backup.exists():
+                shutil.copy2(path, backup)
+            path.write_bytes(text.encode("latin-1"))
+        return {"player_state": str(path), "added": added}
+
     def set_order(self, cls: str, ids: list[int]):
         native = self.native()["classes"][cls]
         if sorted(ids) != sorted(i for i in native if i in ids) or len(set(ids)) != len(ids) or set(ids) - set(native):
@@ -226,6 +298,16 @@ class Manager:
         if extra:                                        # extra Vehicle Select classes (tools/frontend_classes.py)
             from frontend_classes import apply_native
             v1, frontend = apply_native(v1, exe, parse_roster(v1)["writable"], plan, extra)
+        course_races, course_folders, category = self.course_races()
+        courses = None
+        if course_races:                                 # new races in their own Quick Race category (tools/course_layer.py)
+            import course_layer
+            frames = course_frame_base(self.base / "resources", self.game)
+            for k, r in enumerate(course_races):
+                r["screenshot_pair"] = frames["pair"] + k
+            category["logo_frame"] = frames["logo"]
+            v1, courses = course_layer.apply_native(v1, exe, parse_roster(v1)["writable"], course_races,
+                                                    {"label": category["label"], "logo_frame": category["logo_frame"]})
         masks = {pid: m for pid, m in native["masks"].items()}
         profile, summary = build_profile(v1, exe, core, masks=masks)
         roster = to_v2(v1, profile)
@@ -245,6 +327,8 @@ class Manager:
             scene.write_bytes(apply_scene(scene.read_bytes().decode("latin-1"), plan, frontend).encode("latin-1"))
         if scene.is_file():
             scene.write_bytes(sync_unlock_frames(scene.read_bytes().decode("latin-1")).encode("latin-1"))
+        if courses:                                      # course resources, screenshot pairs, category logo
+            install_course_resources(res, self.game, course_races, course_folders, category)
         # Packages: variant folders, physics clones, variants.ini.
         ini = ["; Written by the Vehicle Manager (tools/vehicle_manager.py); edit the selection there."]
         enabled = self.selection().get("packages", [])
@@ -291,13 +375,16 @@ class Manager:
         catalog.update({"schema": "mr-vehicle-roster/1", "label": "Vehicle Manager", "classes": plan,
                         "removed": sorted(set(sum(native["classes"].values(), [])) - set(sum(plan.values(), []))),
                         "packages": enabled, "roster_mrvr_sha256": sha(roster), "frontend_classes": frontend,
+                        "courses": courses and {"category": courses["category"], "races": courses["races"],
+                                                "payload_va": courses["payload_va"], "operations": len(courses["operations"])},
                         "resources": [{"path": p.relative_to(res).as_posix(), "sha256": sha(p.read_bytes()), "size": p.stat().st_size}
                                       for p in sorted(res.rglob("*")) if p.is_file()],
                         "active_derivation": {"tool": "tools/vehicle_manager.py apply", "base_roster_sha256": sha(roster_v2)}})
         catalog_path.write_text(json.dumps(catalog, indent=1) + "\n", encoding="utf-8")
         verify_active(staging)
         swap(staging, active, previous)
-        return {"active": str(active), "classes": plan, "frontend_classes": frontend and frontend["classes"], "variants": n, "vehicle_options": sorted(options),
+        return {"active": str(active), "classes": plan, "frontend_classes": frontend and frontend["classes"], "variants": n,
+                "courses": courses and [r["title"] for r in courses["races"]], "vehicle_options": sorted(options),
                 "loader_profile": {k: summary[k] for k in ("checks", "registry_count", "sdk_vehicles")}}
 
     def stock(self) -> str:
@@ -364,7 +451,8 @@ def rebuild_classes(v1: bytes, old: dict, new: dict, exe: bytes) -> bytes:
 
 
 # Frame banks the variant artwork is appended to: (bank, template frame giving size/format, variants.ini key).
-ART_BANKS = {"carsheet": ("DataGx/Frontend/VehicleSelect/carsheet", 3), "smallcarsheet": ("DataGx/Frontend/RaceResults/smallcarsheet", 9)}
+ART_BANKS = {"carsheet": ("DataGx/Frontend/VehicleSelect/carsheet", 3), "smallcarsheet": ("DataGx/Frontend/RaceResults/smallcarsheet", 9),
+             "raceshot": ("DataGx/Frontend/RaceSelect/screenshotsheet", 0), "racelogo": ("DataGx/Frontend/RaceSelect/logos", 0)}
 ART_KEYS = {"carsheet": "CarSheetFrame", "smallcarsheet": "SmallFrame"}
 
 
@@ -393,6 +481,65 @@ def carousel_widget(scene: str, plan: dict, names: dict, base: str):
                 m = re.search(r'en2d Image Bank Index" Type="Int" Value="(\d+)"', scene[at:at + 4000]) if at >= 0 else None
                 return (name, int(m.group(1))) if m else None
     return None
+
+
+COURSE_PACK_SCHEMA = "mr-course-pack/1"
+RACE_SELECT = "DataGx/Frontend/RaceSelect/"
+
+
+def course_frame_base(res: Path, game: Path) -> dict:
+    """Next screenshot pair and logo frame of the RaceSelect banks as the game resolves them."""
+    sys.path.insert(0, str(HERE.parents[1] / "master-rallye-re-v-cap" / "src"))
+    from master_rallye.addon_sdk.ui_assets import parse_bank
+    shots = parse_bank(game_file(res, game, RACE_SELECT + "screenshotsheet.dxb"))["count"]
+    logos = parse_bank(game_file(res, game, RACE_SELECT + "logos.dxb"))["count"]
+    if shots % 2:
+        raise ValueError("screenshotsheet has an odd frame count")
+    return {"pair": shots // 2, "logo": logos}
+
+
+def install_course_resources(res: Path, game: Path, races: list[dict], folders: list[Path], category: dict):
+    """Pack resources (Course Studio build trees) into the overlay, then append the screenshot pairs and the logo
+    to the staged RaceSelect banks in the frame order course_frame_base predicted."""
+    for folder in folders:
+        src = folder / "resources"
+        for f in sorted(src.rglob("*")):
+            if f.is_file():
+                out = res / f.relative_to(src)
+                if out.exists():
+                    raise ValueError(f"course pack {folder.name}: {out.relative_to(res)} already exists in the roster overlay")
+                out.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(f, out)
+    for name in ("screenshotsheet", "logos"):
+        bank = res / (RACE_SELECT + name + ".dxb")
+        if not bank.is_file():
+            bank.parent.mkdir(parents=True, exist_ok=True)
+            bank.write_bytes(game_file(res, game, RACE_SELECT + name + ".dxb"))
+    for r in races:
+        frames = [append_art(res, "raceshot", (r["_pack"] / s).read_bytes(), game) for s in r["screenshots"]]
+        if frames != [2 * r["screenshot_pair"], 2 * r["screenshot_pair"] + 1]:
+            raise ValueError(f"{r['title']}: screenshot frames {frames} differ from pair {r['screenshot_pair']}")
+    logo = category["logo"].read_bytes() if category.get("logo") else default_category_logo(category["label"])
+    frame = append_art(res, "racelogo", logo, game)
+    if frame != category["logo_frame"]:
+        raise ValueError(f"category logo frame {frame} differs from the planned {category['logo_frame']}")
+
+
+def default_category_logo(label: str) -> bytes:
+    """A plain MR-style 256x64 banner with the category label (when the pack has no logo)."""
+    from PIL import Image, ImageDraw, ImageFont
+    im = Image.new("RGBA", (256, 64), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle((2, 4, 253, 59), 6, fill=(24, 40, 96, 255), outline=(255, 255, 255, 255), width=2)
+    try:
+        font = ImageFont.truetype("arialbi.ttf", 34)
+    except OSError:
+        font = ImageFont.load_default()
+    w = d.textlength(label, font=font)
+    d.text(((256 - w) / 2, 12), label, font=font, fill=(255, 255, 255, 255))
+    buf = io.BytesIO()
+    im.save(buf, "PNG")
+    return buf.getvalue()
 
 
 def append_art(res: Path, role: str, data: bytes, game: Path) -> int:
@@ -683,6 +830,10 @@ def main(argv=None):
     sub.add_parser("apply"); sub.add_parser("stock"); sub.add_parser("gui")
     fc = sub.add_parser("frontend-class", help="extra Vehicle Select class: LABEL IDS (e.g. \"4X4 EVO\" 35,36,37) or --clear")
     fc.add_argument("label", nargs="?"); fc.add_argument("ids", nargs="?"); fc.add_argument("--clear", action="store_true")
+    cp = sub.add_parser("course-pack-add", help="install a course pack folder (tools/course_pack.py make)"); cp.add_argument("folder", type=Path)
+    cr = sub.add_parser("course-pack-remove"); cr.add_argument("name")
+    cc = sub.add_parser("course-category", help="Quick Race category label of the course packs"); cc.add_argument("label")
+    sub.add_parser("seed-course-progress", help="add the course best-time keys to DataGame/PlayerState.xml (backup kept)")
     k = sub.add_parser("make-kit", help="write a kit package: --choice NAME=FOLDER[:SOURCE_DIR] (no source = the family folder)")
     k.add_argument("--base", required=True); k.add_argument("--label", default="KIT"); k.add_argument("--default", type=int, default=0)
     k.add_argument("--choice", action="append", required=True); k.add_argument("--name"); k.add_argument("--out", type=Path, required=True)
@@ -729,6 +880,10 @@ def main(argv=None):
         "frontend-class": lambda: m.set_frontend_class(None if a.clear else a.label,
                                                        [] if a.clear else [int(x) for x in a.ids.split(",")]),
         "stock": m.stock,
+        "course-pack-add": lambda: m.add_course_pack(a.folder),
+        "course-pack-remove": lambda: m.remove_course_pack(a.name),
+        "course-category": lambda: m.set_course_category(a.label),
+        "seed-course-progress": m.seed_course_progress,
     }[a.cmd]()
     print(json.dumps(result, indent=1))
 
