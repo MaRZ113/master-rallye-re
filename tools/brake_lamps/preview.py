@@ -164,7 +164,7 @@ def stage(raw: bytes, read_texture, mode: str, *, ps2_assets=None, suppress=(), 
         tri = [(a, c, b) for a, b, c in g.triangles]
         texture = d.texture_tuple[0]
         alpha = bool(d.flags_0x20[0])
-        lamp = 'core' if texture == 'breaklightson-tga' else 'glow' if texture == 'breaklightsonglow-tga' else None
+        lamp = 'core' if texture == 'breaklightson-tga' or texture.endswith('-brakeon-tga') else 'glow' if texture == 'breaklightsonglow-tga' else None
         args = dict(texture=tex(texture))
         if d.draw_index in highlight:
             args = dict(texture=-1, colorop=OP_DIFFUSE)

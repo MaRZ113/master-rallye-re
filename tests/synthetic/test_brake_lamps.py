@@ -195,5 +195,95 @@ class Preview(unittest.TestCase):
         self.assertEqual(len(blob), 16 + 48 + 12 + 12 + 28 + 8 + 3 * 24 + 12)
 
 
+class Painted(unittest.TestCase):
+    """Painted lenses: a lamp drawn in the body texture (4x4 Evo imports)."""
+
+    @staticmethod
+    def quad_draw():
+        from types import SimpleNamespace as NS
+        # 0.4 m x 0.2 m rear panel facing -Z, UV 0..1 across it.
+        pos = [(0.4, 0.5, -2.0), (0.8, 0.5, -2.0), (0.8, 0.7, -2.0), (0.4, 0.7, -2.0)]
+        uv = [(0, 1), (1, 1), (1, 0), (0, 0)]
+        verts = [NS(position=p, uvs=(u,), normal=(0, 0, -1), color=bytes([200, 200, 200, 255])) for p, u in zip(pos, uv)]
+        return NS(vertices=verts, triangles=((0, 2, 1), (0, 3, 2)))
+
+    @staticmethod
+    def texture(red_cols=slice(0, 32)):
+        img = np.full((64, 64, 4), 230, np.uint8)       # cream body
+        img[:, red_cols, :3] = (150, 30, 30)            # painted lamp in the left half of the UV square
+        img[20:22, 8:10, :3] = (230, 230, 230)          # a light speck inside the lamp (filled by closing)
+        return img
+
+    def test_mask_rule_and_closing(self):
+        from brake_lamps.painted import texture_mask
+        img = self.texture()
+        m = texture_mask(img)
+        self.assertTrue(m[:, 4:28].all())
+        self.assertFalse(m[:, 40:].any())
+        self.assertFalse(texture_mask(img, {'close_px': 0})[20, 8])
+
+    def test_patch_follows_painted_texels_and_bounds(self):
+        from brake_lamps.painted import painted_patch
+        g = {0: self.quad_draw()}
+        pt = painted_patch([(0, [0, 1])], g, {0: self.texture()})
+        xs = pt['positions'][:, 0]
+        self.assertLess(xs.max(), 0.66)          # left half of the panel (x 0.4..0.6), one cell of edge slack
+        self.assertAlmostEqual(xs.min(), 0.4)
+        self.assertEqual(set(pt['source_draw'].tolist()), {0})
+        self.assertEqual(pt['colors'][0], bytes([200, 200, 200, 255]))
+        bounded = painted_patch([(0, [0, 1])], g, {0: self.texture()}, bounds=((0.4, 0.6, -2.1), (0.7, 0.8, -1.9)))
+        self.assertGreaterEqual(bounded['positions'][:, 1].min(), 0.6 - 0.031)
+        self.assertIsNone(painted_patch([(0, [0, 1])], g, {0: np.full((64, 64, 4), 230, np.uint8)}))
+
+    def test_whole_face_kept_whole(self):
+        from brake_lamps.painted import painted_patch
+        pt = painted_patch([(0, [0, 1])], {0: self.quad_draw()}, {0: self.texture(slice(0, 64))})
+        self.assertEqual(len(pt['triangles']), 2)
+        self.assertEqual(pt['stats']['whole_faces'], 2)
+
+    def test_bake_samples_lit_atlas_through_planar_uv(self):
+        from brake_lamps.painted import painted_patch, bake
+        pt = painted_patch([(0, [0, 1])], {0: self.quad_draw()}, {0: self.texture()})
+        frame = build.Frame.of(Mesh(pt['positions'], pt['triangles']))
+        planar = build.planar_uv(pt['positions'], frame)
+        lit = self.texture(); lit[..., 0] = np.where(lit[..., 1] < 100, 255, lit[..., 0])   # lamp texels lit
+        img = bake(planar, pt['uvs'], pt['triangles'], lit, size=32)
+        self.assertEqual(img.shape, (32, 32, 4))
+        self.assertGreater(int(np.median(img[..., 0])), 240)
+        self.assertTrue((img[..., 3] == 255).all())
+
+    def test_visible_only_drops_covered_faces(self):
+        from brake_lamps.painted import painted_patch, visible_only
+        pt = painted_patch([(0, [0, 1])], {0: self.quad_draw()}, {0: self.texture()})
+        cover = Mesh.of([(0.3, 0.4, -2.05), (0.9, 0.4, -2.05), (0.9, 0.8, -2.05), (0.3, 0.8, -2.05)], [(0, 1, 2), (0, 2, 3)])
+        rear = {'rear': np.array([0, 0, -1.0])}
+        self.assertIsNone(visible_only(pt, cover, rear))
+        self.assertEqual(len(visible_only(pt, Mesh.of(np.zeros((0, 3)), np.zeros((0, 3), int)), rear)['triangles']), len(pt['triangles']))
+
+    def test_hull(self):
+        from brake_lamps.painted import hull_lens
+        h = hull_lens(np.array([[0, 0], [1, 0], [1, 1], [0, 1], [.5, .5], [.2, .8]]))
+        self.assertEqual(len(h), 4)
+
+    def test_dxt_roundtrip(self):
+        from brake_lamps.painted import read_rgba, write_dxt
+        import struct
+        template = struct.pack('<5I', 0x12345678, 1, 2, 1, 1) + bytes(4)
+        img = np.zeros((2, 3, 4), np.uint8); img[0, 1] = (10, 20, 30, 40)
+        blob = write_dxt(template, img)
+        self.assertEqual(struct.unpack_from('<5I', blob), (0x12345678, 1, 2, 3, 2))
+        np.testing.assert_array_equal(read_rgba(blob), img)
+
+    def test_spec_painted(self):
+        s = spec.normalise({'family': 'Evo', 'lamps': [{'id': 'left', 'lens': {'draw': 'any', 'faces': ['0123456789abcdef']},
+                                                        'source': {'kind': 'painted', 'bounds': [[0, 0, 0], [1, 1, 1]], 'mask': {'min_red': 60}}}]})
+        self.assertEqual(s['lamps'][0]['source']['kind'], 'painted')
+        for bad in ({'lens': {'faces': ['0123456789abcdef']}, 'source': {'kind': 'painted'}},          # blight lens
+                    {'lens': {'draw': 'any', 'faces': ['0123456789abcdef']}, 'source': {'kind': 'painted', 'mask': {'hue': 3}}},
+                    {'id': 'Left!', 'lens': {'draw': 'any', 'faces': ['0123456789abcdef']}, 'source': {'kind': 'painted'}}):
+            with self.assertRaises(spec.SpecError):
+                spec.normalise({'family': 'Evo', 'lamps': [{'id': 'left', **bad}]})
+
+
 if __name__ == '__main__':
     unittest.main()

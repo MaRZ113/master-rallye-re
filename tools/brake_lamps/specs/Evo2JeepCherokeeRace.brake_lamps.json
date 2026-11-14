@@ -1,0 +1,290 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "Evo2JeepCherokeeRace",
+ "source_car_sha256": "5c60491730d09f82046f27ddf497aa608abfd2af9c56fa668ecb9d0c2be1679f",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      -0.12031559526920318,
+      1.465671272277832,
+      -2.0911398220062254
+     ],
+     [
+      0.12352727234363556,
+      1.5562335538864136,
+      -1.9868869304656982
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "centre",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "2b017b27fbd1c556",
+     "e7b6323fa31c0a91",
+     "13a91a160719290f",
+     "fb94ee3a9a1d25ae",
+     "0e2563e1bdc7fe2a",
+     "47c30ed41d6fdc0a",
+     "61f4f14b11b6b2fc",
+     "87f91d9d4cd5bc52",
+     "dc941c7ce1dcfe22",
+     "78e738d7242d6905",
+     "920a1a62b6e619e0",
+     "ef6e270bca070bd9",
+     "1931170cfa5b237c",
+     "7ace30a510b557fe",
+     "d1bd0848d2929b79",
+     "dcab54e8e4df03bf",
+     "07044d0543c3e2c7",
+     "62e6f92f1dc4aa8e"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      0.28662625074386594,
+      0.6815153670310974,
+      -2.3867256927490232
+     ],
+     [
+      0.8040151882171631,
+      1.098289875984192,
+      -2.157843065261841
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "445b220a1a9b0b71",
+     "834e3a22bf88855e",
+     "e2f390fee385bc09",
+     "cf2b1dd943e4171d",
+     "222a96b7c96d9986",
+     "eed3e6f658c53f0b",
+     "eceebaf519a3c7bb",
+     "162f14585efd09b7",
+     "342b0c11ae0a066c",
+     "4a3a22000c6c42cb",
+     "b9830c8c5007be94",
+     "e1b282bade1e8158",
+     "6c3da0796bbb4d14",
+     "ff1d4ee79423cf59",
+     "329621cfbd986361",
+     "eef6d3a001c95d95",
+     "3686dd2e1fb6eb7f",
+     "990a4a70dbd0a93f",
+     "0bc25abd93109b1f",
+     "9ee8bf2b8f3fdae9",
+     "914ce7f9ce50f028",
+     "88104922daf09394",
+     "37272bc093c3d634",
+     "66ead85da8ed17ee",
+     "631f1cc5cb6ecaf4",
+     "c3d157b9422b4207",
+     "3b855234ff413960",
+     "e50aae425f982577",
+     "528d423349115a58",
+     "c4c652fc6974dc68",
+     "4789855d19e5a8d2",
+     "14816fa4d2d0c12d",
+     "bbb86ff3352c311a",
+     "9aef2066ebc9d712",
+     "3243b8b50f1ae929",
+     "598bd548b1f3e7a8",
+     "f864c7bb2edc3568",
+     "d73e9abdf46e593d"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      -0.8040151882171631,
+      0.6815153670310974,
+      -2.3867256927490232
+     ],
+     [
+      -0.28662625074386594,
+      1.098289875984192,
+      -2.157843065261841
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "c4b6a35bc3605b89",
+     "55d96681646050d7",
+     "2447eea45129918c",
+     "d7316dd4e5ccf1d1",
+     "2db05f3607b2385f",
+     "b816cd055c1c776c",
+     "9305fce80d9be9b8",
+     "8b16860d3b457bd5",
+     "988679e9379a820e",
+     "4fa2189fcdf3bf51",
+     "c0ccc97f0a55ddb0",
+     "a720ef7bb4f2a2e8",
+     "ae636f4da016c5a0",
+     "22f66c2818431d25",
+     "4a55f09b76ce4fc1",
+     "2c6a505b94630a97",
+     "9bbfe42275ec939c",
+     "9cb51cfdd155bf03",
+     "c968b48b1eab30ec",
+     "078bf1ca81e02e6c",
+     "e63fec67c7d255dd",
+     "5b2b1767609714bb",
+     "5abc9b0cdd75ac91",
+     "a7ceb808df4b1fa4",
+     "11da1ad3a8c70c91",
+     "968983c47828c72d",
+     "231b62c3778466b5",
+     "55ebefb7896e363a",
+     "92c0f7ed210a5e8b",
+     "6d4101ac6c9a41a0",
+     "75c59f1e2392c5bb",
+     "18fac65050ca592d",
+     "81ebf86c28cb80da",
+     "1ba925751d5b89ef",
+     "d53cd9b6f649896d",
+     "172ab3949b967f5a",
+     "a8c35524784427e3",
+     "1acb05afa6ffde07"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  }
+ ]
+}

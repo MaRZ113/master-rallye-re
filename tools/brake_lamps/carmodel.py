@@ -79,8 +79,8 @@ def load(raw: bytes, family: str) -> CarModel:
         case = cases.get(d.draw_index)
         texture = d.texture_tuple[0]
         label = labels.get(case[0]) if case else None
-        if texture == ON_CORE_TEXTURE or texture == ON_GLOW_TEXTURE:
-            role = 'on_core' if texture == ON_CORE_TEXTURE else 'on_glow'
+        if texture in (ON_CORE_TEXTURE, ON_GLOW_TEXTURE) or texture.endswith('-brakeon-tga'):
+            role = 'on_glow' if texture == ON_GLOW_TEXTURE else 'on_core'
             if case and case[1] != 2:
                 role = 'hidden_state'
         elif case is None:

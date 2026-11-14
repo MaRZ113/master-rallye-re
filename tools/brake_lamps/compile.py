@@ -84,7 +84,7 @@ def ps2_mesh_loader():
     return mesh
 
 
-def fit_spec(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loader=None):
+def fit_spec(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loader=None, read_texture=None):
     """Fit every lamp of ``spec`` onto ``raw``. Returns (normalised spec, fitted lamps, context)."""
     from master_rallye.dx import parse_dx_bytes
     from master_rallye.topology_writer import source_geometry
@@ -95,14 +95,36 @@ def fit_spec(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loade
     car = load_car(raw, spec['family'])
     lamp_draws = {d.index for d in car.draws if d.role in ('on_core', 'on_glow')}
     # Occluders: everything opaque drawn while braking except the ON layers being re-authored.
-    occluders = merge(d.mesh for d in car.draws if d.role in ('body', 'off_glass_on') and not d.alpha and d.index not in lamp_draws)
+    painted_car = any(l['source']['kind'] == 'painted' for l in spec['lamps'])
+    # A painted-lens car gets a new blight group: the old one (converter light sprites) is not drawn afterwards.
+    keep = ('body',) if painted_car else ('body', 'off_glass_on')
+    occluders = merge(d.mesh for d in car.draws if d.role in keep and not d.alpha and d.index not in lamp_draws)
     fitted, lenses = [], {}
     for lamp in spec['lamps']:
         if lamp['mirror']:
             continue
         faces = build.resolve_faces(m, geometry, cases, lamp)
-        lens = build.lens_mesh(geometry, faces)
         lenses[lamp['id']] = faces
+        if lamp['source']['kind'] == 'painted':
+            from . import painted
+            if read_texture is None:
+                raise SpecError('painted lamps need the car textures (read_texture)')
+            src = lamp['source']
+            textures = {d: painted.read_rgba(read_texture(m.physical_draws[d].texture_tuple[0] + '.dxt')) for d, _ in faces}
+            patch = painted.painted_patch(faces, geometry, textures, src.get('mask'), bounds=src.get('bounds'))
+            if patch is not None:
+                from .geometry import view_directions
+                v = view_directions()
+                patch = painted.visible_only(patch, occluders, {k: v[k] for k in ('rear', 'yaw+30', 'yaw-30', 'yaw+60', 'yaw-60', 'high_25')})
+            if patch is None:
+                raise SpecError(f'lamp {lamp["id"]}: no visible lamp texels in the candidate faces (mask/bounds)')
+            lens = Mesh(patch['positions'], patch['triangles'])
+            f = build.fit_lamp(lamp, lens, occluders)
+            patch['planar_uv'] = build.planar_uv(patch['positions'], f.frame, mirror=f.frame.origin[0] < 0)
+            f.painted = patch
+            fitted.append(f)
+            continue
+        lens = build.lens_mesh(geometry, faces)
         if lamp['source']['kind'] == 'ps2' and ps2_loader is None:
             ps2_loader = ps2_mesh_loader()
         fitted.append(build.fit_lamp(lamp, lens, occluders, donor_dx=donor_dx, ps2_loader=ps2_loader))
@@ -123,11 +145,26 @@ def fit_spec(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loade
     return spec, fitted, {'model': m, 'geometry': geometry, 'cases': cases, 'occluders': occluders, 'lenses': lenses, 'car': car}
 
 
+def painted_lamp_problems(raw: bytes, spec: dict, read_texture) -> dict:
+    """{lamp id: reason} for painted lamps that cannot be fitted (fitted one at a time)."""
+    out = {}
+    base = normalise(spec)
+    for lamp in base['lamps']:
+        if lamp['source']['kind'] != 'painted':
+            continue
+        try:
+            fit_spec(raw, {**base, 'lamps': [lamp]}, read_texture=read_texture)
+        except SpecError as e:
+            out[lamp['id']] = str(e).split(': ', 1)[-1]
+    return out
+
+
 def _as_custom(layer: Layer) -> dict:
     return {'positions': layer.positions.tolist(), 'uvs': layer.uvs.tolist(), 'triangles': layer.triangles.tolist()}
 
 
-def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loader=None, existing_rows=(), glow_texture: bytes | None = None) -> Compiled:
+def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_loader=None, existing_rows=(), glow_texture: bytes | None = None,
+                read_texture=None) -> Compiled:
     if str(TOOLS) not in sys.path:
         sys.path.insert(0, str(TOOLS))
     from master_rallye.dx import parse_dx_bytes
@@ -135,7 +172,7 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
     from master_rallye.addon_sdk.native_states import wrap_states, author_states
     from master_rallye.preview_scene import logical_cases
     from vehicle_lamp_authoring import parts_with_states
-    spec, fitted, ctx = fit_spec(raw, spec, donor_dx=donor_dx, ps2_loader=ps2_loader)
+    spec, fitted, ctx = fit_spec(raw, spec, donor_dx=donor_dx, ps2_loader=ps2_loader, read_texture=read_texture)
     m, cases = ctx['model'], ctx['cases']
     family = spec['family']
     sets = {}
@@ -145,15 +182,45 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
     if scoped and 'ANY' in sets:
         raise SpecError('mix of ANY and body-scoped lamps in one car')
     parts, authored = [], {}
+    painted_lamps = [f for f in fitted if f.painted is not None]
+    if painted_lamps and (scoped or len(painted_lamps) != len(fitted)):
+        raise SpecError('painted lamps are all-or-nothing per car and body ANY')
     for body in sorted(sets):
-        for layer, (texture, alpha) in enumerate(((CORE_PARTS, False), (GLOW_PARTS, True))):
-            mesh = join([f.core if layer == 0 else f.glow for f in sets[body]])
-            part = ScenePart(mesh.geometry(), texture, alpha=alpha, diffuse=False)
-            parts.append(part)
-            authored[(texture[0], _key(mesh.positions))] = (body, layer)
+        # Painted lamps: one core draw each (own baked PC texture); every other lamp of a set shares one core draw.
+        cores = [([f], (f'{f.id}-brakeon-tga', 'Null', 'Null')) for f in sets[body] if f.painted is not None]
+        shared = [f for f in sets[body] if f.painted is None]
+        if shared:
+            cores.append((shared, CORE_PARTS))
+        for group, texture in cores:
+            mesh = join([f.core for f in group])
+            parts.append(ScenePart(mesh.geometry(), texture, alpha=False, diffuse=False))
+            authored[(texture[0], _key(mesh.positions))] = (body, 0)
+        mesh = join([f.glow for f in sets[body]])
+        parts.append(ScenePart(mesh.geometry(), GLOW_PARTS, alpha=True, diffuse=False))
+        authored[(GLOW_PARTS[0], _key(mesh.positions))] = (body, 1)
     has_blight = any(cases.get(d.draw_index) == (1, 1) for d in m.physical_draws)
-    painted = [l for l in spec['lamps'] if not l['mirror']] if not has_blight else []
-    if painted:
+    painted = [l for l in spec['lamps'] if not l['mirror']] if not has_blight and not painted_lamps else []
+    if painted_lamps:
+        # New blight group: OFF = the painted patches with their body material (they look exactly like the body
+        # under them), ON = cores + halo. Converter light sprites of an existing blight group are dropped.
+        from master_rallye.topology_writer import CompiledVertex, DrawGeometry
+        items = parts_with_states(raw, [])
+        off = []
+        for f in painted_lamps:
+            pt = f.painted
+            for index in sorted(set(pt['source_draw'].tolist())):
+                d = m.physical_draws[index]
+                tri = pt['triangles'][pt['source_draw'] == index]
+                used = sorted(set(tri.ravel().tolist())); local = {v: i for i, v in enumerate(used)}
+                verts = tuple(CompiledVertex(tuple(map(float, pt['positions'][v])), tuple(map(float, pt['normals'][v])), pt['colors'][v],
+                                             ((float(pt['uvs'][v][0]), float(pt['uvs'][v][1])),)) for v in used)
+                geom = DrawGeometry(verts, tuple(tuple(local[int(i)] for i in t) for t in tri))
+                off.append(ScenePart(geom, d.texture_tuple, bool(d.flags_0x20[0]), bool(d.flags_0x20[1]), bool(d.unknown_0x24 & 4), bool(d.flags_0x20[2])))
+        if len(off) > 17 or len(parts) > 17:
+            raise SpecError('blight case exceeds 17 draws')
+        items = [i for i in items if not (isinstance(i, tuple) and i[0] == 'blight')] + [('blight', off, parts)]
+        output = wrap_states(raw, items)
+    elif painted:
         if scoped or any(not isinstance(l['lens']['draw'], int) for l in painted):
             raise SpecError('a model without a blight group needs lens faces of one body draw (index) and body ANY')
         draws = {d for l in painted for d, _ in ctx['lenses'][l['id']]}
@@ -180,7 +247,7 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
     assert raw[m.collision.offset:m.collision.unparsed_offset] == output[out.collision.offset:out.collision.unparsed_offset], 'collision changed'
     rows = []
     for d in out.physical_draws:
-        if oc.get(d.draw_index) != (1, 2) or d.texture_tuple[0] not in (ON_CORE_TEXTURE, ON_GLOW_TEXTURE):
+        if oc.get(d.draw_index) != (1, 2) or not (d.texture_tuple[0] in (ON_CORE_TEXTURE, ON_GLOW_TEXTURE) or d.texture_tuple[0].endswith('-brakeon-tga')):
             continue
         idx = sorted(set(out.draw_global_indices(d)))
         key = (d.texture_tuple[0], _key(np.array([out.vertices.positions[i] for i in idx])))
@@ -192,8 +259,8 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
             raise SpecError('compiled lamp material differs from the native ON layer material')
         g, uv = draw_identity(out, d)
         rows.append(f'{family} {layer} {d.local_vertex_max + 1} {d.triangle_count} {g} {uv} {build.POLICY[body]}')
-    if len(rows) != 2 * len(sets):
-        raise SpecError('expected one core and one halo row per lamp set')
+    if len(rows) != len(authored):
+        raise SpecError('expected one registry row per compiled core/halo draw')
     if scoped:
         # Layer 2: OFF lens draws, with the set whose lamps reference them.
         owner = {}
@@ -231,6 +298,22 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
     if glow_texture is not None:
         color, brightness = tints.pop()
         textures[ON_GLOW_TEXTURE + '.dxt'] = build.tinted_glow(glow_texture, color, brightness)
+    if painted_lamps:
+        from . import painted as P
+        if glow_texture is None:
+            raise SpecError('painted lamps need a DXT template (glow_texture)')
+        for f in painted_lamps:
+            src = next(l for l in spec['lamps'] if l['id'] == f.id)['source']
+            body_tex = m.physical_draws[int(f.painted['source_draw'][0])].texture_tuple[0]
+            name = src.get('lit_texture') or f'{family.lower()}-stop-lit-tga'
+            try:
+                lit = P.read_rgba(read_texture(name + '.dxt'))
+            except KeyError:
+                lit = P.read_rgba(read_texture(body_tex + '.dxt'))
+                name = body_tex + ' (no lit atlas: unlit body texels)'
+            pt = f.painted
+            textures[f'{f.id}-brakeon-tga.dxt'] = P.write_dxt(glow_texture, P.bake(pt['planar_uv'], pt['uvs'], pt['triangles'], lit))
+            pt['lit_source'] = name
     report = {'family': family, 'source_sha256': sha(raw), 'output_sha256': sha(output), 'sets': sorted(sets), 'rows': len(rows),
               'lamps': [lamp_report(f) for f in fitted]}
     return Compiled(output, rows, fitted, textures, report)
@@ -238,7 +321,8 @@ def compile_car(raw: bytes, spec: dict, *, donor_dx: bytes | None = None, ps2_lo
 
 def lamp_report(f) -> dict:
     strip = lambda e: {k: v for k, v in e.items() if not k.startswith('_')}
-    return {'id': f.id, 'body': f.body, 'offset_mm': f.offset_mm, 'core_vertices': len(f.core.positions), 'core_triangles': len(f.core.triangles),
+    extra = {'painted': {**f.painted['stats'], 'lit_source': f.painted.get('lit_source')}} if f.painted is not None else {}
+    return {**extra, 'id': f.id, 'body': f.body, 'offset_mm': f.offset_mm, 'core_vertices': len(f.core.positions), 'core_triangles': len(f.core.triangles),
             'halo_vertices': len(f.glow.positions), 'halo_triangles': len(f.glow.triangles),
             'core': strip(f.checks['core']), 'halo': strip(f.checks['halo']), 'fit_ok': f.checks['buried'] == 0,
             'evaluated_against_body': f.checks.get('evaluated', True)}
@@ -248,5 +332,14 @@ def _key(positions):
     return tuple(sorted(tuple(round(float(x), 5) for x in p) for p in np.asarray(positions)))
 
 
-def _same(a, b):
-    return len(a) == len(b) and all(abs(x - y) < 2e-5 for pa, pb in zip(a, b) for x, y in zip(pa, pb))
+def _same(a, b, tol=2e-5):
+    """Same vertex position multiset within ``tol`` (nearest-neighbour both ways; robust to rounding order)."""
+    if len(a) != len(b):
+        return False
+    A, B = np.asarray(a, float), np.asarray(b, float)
+    for X, Y in ((A, B), (B, A)):
+        for at in range(0, len(X), 512):
+            d = np.linalg.norm(X[at:at + 512, None] - Y[None], axis=2).min(axis=1)
+            if d.max() >= tol:
+                return False
+    return True

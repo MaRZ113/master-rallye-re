@@ -148,12 +148,12 @@ def planar_uv(points, frame: Frame, lo=None, hi=None, mirror=False):
     return np.stack([u, v], axis=1)
 
 
-def from_glass(lens: Mesh, frame: Frame, halo_size: float):
+def from_glass(lens: Mesh, frame: Frame, halo_size: float, *, extent: float | None = None):
     """Core = lens faces (planar 0..1 UV like the Blazer core); halo = ring grown from the outline."""
     mirror = frame.origin[0] < 0
     core = Layer(lens.positions.copy(), planar_uv(lens.positions, frame, mirror=mirror), lens.triangles.copy())
     q = frame.local(lens.positions)
-    extent = float(np.ptp(q[:, :2], axis=0).max())
+    extent = float(np.ptp(q[:, :2], axis=0).max()) if extent is None else extent
     width = BLAZER_HALO_WIDTH * extent * halo_size
     pos, tri = [], []
     for loop in boundary_loops(lens):
@@ -305,7 +305,8 @@ def lift(points, normals, surface: Mesh, offset: float, *, snap=False, reach=0.5
     return np.where(move[:, None], target, points), hit
 
 
-def fit_layers(core: Layer, glow: Layer, lens: Mesh, occluders: Mesh, frame: Frame, fit: dict, offset: float, *, exact_core=False):
+def fit_layers(core: Layer, glow: Layer, lens: Mesh, occluders: Mesh, frame: Frame, fit: dict, offset: float, *, exact_core=False,
+               halo_frame: 'Frame | None' = None):
     """Place core/halo per fit mode. ``exact_core``: core vertices are the lens vertices (from_glass)."""
     mode = fit['mode']
     if mode == 'none':
@@ -339,10 +340,11 @@ def fit_layers(core: Layer, glow: Layer, lens: Mesh, occluders: Mesh, frame: Fra
     core.positions, _ = lift(core.positions, n, lens, offset)
     # The whole halo, inner ring included, rides the envelope of lens + body: in a recessed lamp it sits at the
     # housing rim, in front of the housing walls, like the floating retail Blazer halo.
-    glow.positions = lift_halo(glow.positions, core.positions, frame, surface, offset,
+    hf = halo_frame or frame
+    glow.positions = lift_halo(glow.positions, core.positions, hf, surface, offset,
                                step=fit['max_edge_m'] / 2, radius=fit.get('halo_max_edge_m', fit['max_edge_m']), triangles=glow.triangles,
                                core_triangles=core.triangles)
-    core.normals = np.tile(frame.normal, (len(core.positions), 1)); glow.normals = np.tile(frame.normal, (len(glow.positions), 1))
+    core.normals = np.tile(frame.normal, (len(core.positions), 1)); glow.normals = np.tile(hf.normal, (len(glow.positions), 1))
     return core, glow
 
 
@@ -460,6 +462,7 @@ class FittedLamp:
     frame: Frame
     offset_mm: float
     checks: dict = field(default_factory=dict)
+    painted: dict | None = None   # atlas_uv (per core vertex), source_draw (per core triangle)
 
 
 def lens_mesh(car_geometry, draw_faces):
@@ -508,10 +511,27 @@ def resolve_faces(model, geometry, cases, lamp):
 
 def fit_lamp(lamp, lens: Mesh, occluders: Mesh, *, donor_dx=None, ps2_loader=None, views=None):
     frame = Frame.of(lens)
+    halo_frame = None
     src = lamp['source']
     halo = float(lamp['halo']['size'])
     if src['kind'] == 'from_glass':
         core, glow = from_glass(lens, frame, halo)
+    elif src['kind'] == 'painted':
+        # Core = the painted patch (planar 0..1 UVs; its PC texture is baked at compile time); halo = ring from the
+        # convex outline of the patch, since a texel-staircase outline would make a ragged ring.
+        from .painted import hull_mesh
+        core = Layer(lens.positions.copy(), planar_uv(lens.positions, frame, mirror=frame.origin[0] < 0), lens.triangles.copy())
+        # A lamp wrapping round a corner: grow the halo from its rear-facing part only, in that part's own plane, so
+        # the ring does not stand out sideways as a plate.
+        fn = lens.face_normals()
+        rear_faces = lens.triangles[np.abs(fn @ np.array([0.0, 0.0, -1.0])) >= math.cos(math.radians(50))]
+        hmesh = Mesh(lens.positions, rear_faces) if len(rear_faces) else lens
+        halo_frame = Frame.of(hmesh)
+        used = np.unique(hmesh.triangles)
+        q = halo_frame.local(lens.positions[used])
+        span = np.ptp(q[:, :2], axis=0)
+        # Tall narrow painted lamps: ring width from the geometric mean of the sides, not the long side.
+        _, glow = from_glass(hull_mesh(q[:, :2], float(q[:, 2].max()), halo_frame), halo_frame, halo, extent=float(np.sqrt(span[0] * span[1])))
     else:
         side = src.get('side') or ('left' if frame.origin[0] < 0 else 'right')
         core, glow = donor_layers(src['kind'], src, side, donor_dx, ps2_loader)
@@ -521,8 +541,8 @@ def fit_lamp(lamp, lens: Mesh, occluders: Mesh, *, donor_dx=None, ps2_loader=Non
     offset = float(lamp['fit']['offset_mm']) if lamp['fit']['mode'] != 'none' else 0.0
     base = (core.copy(), glow.copy())
     while True:
-        c, g = fit_layers(base[0].copy(), base[1].copy(), lens, occluders, frame, lamp['fit'], offset / 1000,
-                          exact_core=src['kind'] == 'from_glass' and lamp['transform']['scale'] == [1.0, 1.0, 1.0] and lamp['transform']['rotation'] == [0.0, 0.0, 0.0])
+        c, g = fit_layers(base[0].copy(), base[1].copy(), lens, occluders, frame, lamp['fit'], offset / 1000, halo_frame=halo_frame,
+                          exact_core=src['kind'] in ('from_glass', 'painted') and lamp['transform']['scale'] == [1.0, 1.0, 1.0] and lamp['transform']['rotation'] == [0.0, 0.0, 0.0])
         checks = check_layers(c, g, lens, occluders, frame, views=views)
         if checks['buried'] == 0 or offset + .5 > float(lamp['fit']['max_offset_mm']) + 1e-9 or lamp['fit']['mode'] == 'none':
             break

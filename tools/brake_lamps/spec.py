@@ -33,6 +33,12 @@ faces of one body draw are extracted into a new brake group (only for models tha
 * ``ps2``         - original PS2 meshes: ``{"asset": <.ps2vehicle path>, "core": <mesh path>, "glow": <mesh path>}``.
 * ``custom``      - inline meshes ``{"core": {"positions","uvs","triangles"}, "glow": {...}}`` (model space).
 * ``from_glass``  - core = the selected lens faces, halo = a ring grown from the lens outline (the Blazer construction).
+* ``painted``     - lamp painted in the body texture (4x4 Evo imports): the lens faces are *candidate* body faces;
+  the lamp is the part of them whose texels match ``mask`` (default red: ``red_over_green`` and
+  ``red_over_blue`` 1.4, ``min_red`` 45, closed by ``close_px`` 2), optionally limited to ``bounds`` [[lo xyz], [hi xyz]]. Core = that patch 1.5 mm above the
+  body with a per-lamp PC texture baked from ``lit_texture`` (default ``<family>-stop-lit-tga``, else the body
+  texture); halo = ring from the patch's convex outline. The car's blight group is replaced: OFF = the patch with
+  the body material, ON = cores + halo (converter light sprites are dropped).
 
 ``fit.mode``: ``plane`` (best-fit lens plane, in front of every lens vertex), ``project`` (each vertex cast along the lens
 normal onto the lens, halo onto lens or body, whichever is outermost), ``shrinkwrap`` (closest point on lens/body).
@@ -52,7 +58,7 @@ import json
 from pathlib import Path
 
 SCHEMA = 'mr-brake-lamps/1'
-SOURCES = ('blazer', 'ps2', 'custom', 'from_glass')
+SOURCES = ('blazer', 'ps2', 'custom', 'from_glass', 'painted')
 FITS = ('plane', 'project', 'shrinkwrap', 'none')
 BODIES = ('ANY', 'PC', 'PS2')
 DEPTH = ('native',)
@@ -138,6 +144,17 @@ def normalise(data: dict) -> dict:
             raise SpecError(f'{where}.source.side must be left or right')
         if src['kind'] == 'ps2' and not all(isinstance(src.get(k), str) for k in ('asset', 'core', 'glow')):
             raise SpecError(f'{where}.source needs asset/core/glow for ps2')
+        if src['kind'] == 'painted':
+            if lamp['mirror'] is None and lens.get('draw', 'blight') == 'blight':
+                raise SpecError(f'{where}: a painted lens names body faces (lens.draw "any" or a draw index)')
+            b = src.get('bounds')
+            if b is not None and (not isinstance(b, list) or len(b) != 2 or any(len(_vec(x, 3, f'{where}.source.bounds')) != 3 for x in b)):
+                raise SpecError(f'{where}.source.bounds must be [[lo x,y,z], [hi x,y,z]]')
+            m = src.get('mask', {})
+            if not isinstance(m, dict) or set(m) - {'min_red', 'red_over_green', 'red_over_blue', 'min_alpha', 'close_px'}:
+                raise SpecError(f'{where}.source.mask keys: min_red, red_over_green, red_over_blue, min_alpha, close_px')
+            if not lamp['id'].replace('_', '').isalnum() or lamp['id'] != lamp['id'].lower():
+                raise SpecError(f'{where}.id must be lowercase letters/digits/_ (it names the per-lamp texture)')
         if src['kind'] == 'custom':
             for layer in ('core', 'glow'):
                 mesh = src.get(layer)

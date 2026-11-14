@@ -216,7 +216,8 @@ class BrakeGlowPanel(W.QWidget):
             scroll.setMinimumWidth(330)
             split.addWidget(scroll); split.addWidget(self.viewport); split.setSizes([340, 1060])
         self.family = W.QComboBox(); self.family.setEditable(True)
-        for f in ('Mercedes', 'Trooper', 'Rav4', 'Tomcat', 'HeritageNewRav', 'ForesterSTI', 'ImprezaProto', 'LancerEvo4', 'Evo2FourRunner'):
+        for f in ('Mercedes', 'Trooper', 'Rav4', 'Tomcat', 'HeritageNewRav', 'ForesterSTI', 'ImprezaProto', 'LancerEvo4', 'Evo2FourRunner',
+                  'Evo1FordSportTrac', 'Evo2JeepCherokeeRace', 'StillenSilverado'):
             self.family.addItem(f)
         side.addWidget(QLabel('Car')); side.addWidget(self.family)
         row = W.QHBoxLayout(); side.addLayout(row)
@@ -295,12 +296,13 @@ class BrakeGlowPanel(W.QWidget):
             self.spec_path = Path(path); self.log(f'saved {path}')
 
     def auto_spec(self):
-        from .autospec import default_spec
         fam = self.family.currentText()
         raw = self.resources.read(f'DataGx/Vehicles/{fam}/car.dx')
+        from .autospec import auto
         try:
-            self.set_spec(default_spec(raw, fam, existing_rows=self.sdk.registry_rows(self.host),
-                                       ps2_sources=self.sdk.FORESTER_PS2 if fam == 'ForesterSTI' else None))
+            self.set_spec(auto(raw, fam, existing_rows=self.sdk.registry_rows(self.host),
+                               ps2_sources=self.sdk.FORESTER_PS2 if fam == 'ForesterSTI' else None,
+                               read_texture=lambda n: self.resources.read(f'DataGx/Vehicles/{fam}/{n}')))
         except ValueError as e:
             self.log(str(e))
 
@@ -412,7 +414,9 @@ class BrakeGlowPanel(W.QWidget):
         W.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         try:
             donor = self.resources.read('DataGx/Vehicles/Chevyblazer/car.dx')
-            spec, self.fitted, ctx = C.fit_spec(self.raw, self.spec, donor_dx=donor)
+            fam = self.spec['family']
+            spec, self.fitted, ctx = C.fit_spec(self.raw, self.spec, donor_dx=donor,
+                                                read_texture=lambda n: self.resources.read(f'DataGx/Vehicles/{fam}/{n}'))
             self.spec = spec
             self.heat = {}
             for f in self.fitted:

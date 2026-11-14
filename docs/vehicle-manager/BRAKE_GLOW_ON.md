@@ -140,3 +140,44 @@ py -3.11 tools/brake_lamp_sdk.py preview --host <host> --spec tools/brake_lamps/
 py -3.11 tools/brake_lamp_sdk.py build --source-host <host> --output-host <new host> --spec tools/brake_lamps/specs/*.json
 py -3.11 -m unittest tests.synthetic.test_brake_lamps
 ```
+
+## Painted lenses (4x4 Evo imports, 2026-11-14)
+
+The Evo converters' `LightBL`/`LightBR` objects are light-pass sprites, not
+lenses: 12-triangle quads sampling a solid red atlas patch (Evo 1 `.OPA`
+opacity ~0 there). The MR Classic pilots use them as the brake draw, so ON
+showed a red rectangle over lamp and bumper and OFF a visible rectangle. The
+real lamp is painted in the body texture.
+
+Source `painted` (`tools/brake_lamps/painted.py`):
+
+* candidates: opaque body faces overlapping each sprite footprint (+3 cm);
+  without sprites (cars that have none), the rear outer thirds - check those in
+  the editor;
+* mask: red texels (`min_red` 45, red over green/blue 1.4) closed by 2 px;
+  faces are tessellated to 3 cm / 4 texels and a sub-triangle is kept when a
+  quarter of its samples hit the mask and its centre lies in the footprint;
+  fully covered faces stay whole; sub-triangles no rear view can see are dropped;
+* core: that patch 1.5 mm above the body, planar 0..1 UVs, its own PC texture
+  `<lamp>-brakeon-tga` baked from the converter's lit atlas
+  (`<family>-stop-lit-tga`); BrakeGlow=1 swaps in BREAKLIGHTSON over the same UVs;
+* halo: ring from the convex outline of the rear-facing part, width from the
+  geometric mean of its sides;
+* compile: the blight group is replaced: OFF = the patch with the body material
+  (identical to the body below it), ON = one core per lamp + one halo; the
+  sprites are dropped. Rows `ANY_MODEL`.
+* `autospec.auto` picks `painted` when the ON case is textured `*-stop-lit-tga`
+  or the car has no brake group; lamps without visible lamp texels are left
+  out and recorded in `notes`.
+
+Results on `host-evo-01` (test host `host-evo-brake-01`): Evo1FordSportTrac
+left/right + cab high stop lamp, StillenSilverado left/right (red upper
+segment), Evo2JeepCherokeeRace left/right/centre - 0 % of every core/halo
+hidden along its normal. Jeep caveat: in the current pilot the body faces under
+its lamps are themselves mapped onto the solid red atlas patch (converter
+GlassE/painted-panel issue being fixed in master-rallye-re-import), so its OFF
+lamp is a red block until the pilot is rebuilt; re-run `autospec`/`build` then.
+TrailBlazer Race / Tundra Race (CTTT2/TTTT2) pilots have no car.dx yet.
+
+Cost: 300-600 core and 500-1200 halo triangles per Evo lamp; the offline
+uncached registry match rose to 3.7 ms mean per layer (33 layers), warm 0.16 us.

@@ -60,14 +60,17 @@ def compile_one(host: Path, spec: dict):
     raw = r.read(f'DataGx/Vehicles/{fam}/car.dx')
     donor = r.read('DataGx/Vehicles/Chevyblazer/car.dx')
     glow = r.read('DataGx/Vehicles/Chevyblazer/breaklightsonglow-tga.dxt')
-    return raw, C.compile_car(raw, spec, donor_dx=donor, existing_rows=registry_rows(host), glow_texture=glow)
+    return raw, C.compile_car(raw, spec, donor_dx=donor, existing_rows=registry_rows(host), glow_texture=glow,
+                              read_texture=lambda name: r.read(f'DataGx/Vehicles/{fam}/{name}'))
 
 
 def cmd_autospec(a):
     from brake_lamps import autospec
     from brake_lamps.spec import dump
     raw = resources(a.host).read(f'DataGx/Vehicles/{a.family}/car.dx')
-    spec = autospec.default_spec(raw, a.family, existing_rows=registry_rows(a.host), ps2_sources=FORESTER_PS2 if a.family == 'ForesterSTI' else None)
+    r = resources(a.host)
+    spec = autospec.auto(raw, a.family, existing_rows=registry_rows(a.host), ps2_sources=FORESTER_PS2 if a.family == 'ForesterSTI' else None,
+                         read_texture=lambda n: r.read(f'DataGx/Vehicles/{a.family}/{n}'))
     dump(spec, a.out)
     print(a.out)
 

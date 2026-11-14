@@ -1,0 +1,207 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "StillenSilverado",
+ "source_car_sha256": "e283b40483541eef612ac8c77a5bd08d9dc6d8a402afa8ce6f72e323860797a3",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      0.7655737113952636,
+      1.7563224744796753,
+      -3.040616302490234
+     ],
+     [
+      1.0037536907196045,
+      2.04241397857666,
+      -2.7557663440704347
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "d81b5708391ca0d5",
+     "ca9717496ef13be7",
+     "fd320d709ef84679",
+     "515c0e95979346cf",
+     "8fc903b8664d2ea1",
+     "fabfae68c6724e53",
+     "4ba572c754253715",
+     "750ac07d24d44f17",
+     "84694c5c217a6878",
+     "495d2c38b4f6eb99",
+     "2a30261206487971",
+     "d432e3d08ffe87cb",
+     "ac0d758ac4672d0a",
+     "ae278fda062b4087",
+     "742b32b1196d0b88",
+     "a72ca4d007f4b5c2",
+     "65d308197d245991",
+     "cee1db5aef3bd2e4",
+     "dffd6156b46cc24f",
+     "8fdce241a066cbe4",
+     "866b9fc11ae73c85",
+     "bfc6b17e28d0aeb5",
+     "e4671ad99077c573",
+     "59dfaa23f0b17055",
+     "9e469b7772e07679",
+     "d174eb1d55eeae33",
+     "57dd5846dba47271",
+     "7559b59680a32e64",
+     "5af17f6b53de4194",
+     "b73bd4caa6ee1565",
+     "794c3c98f38960bb",
+     "f0ea3e2385d145da",
+     "e4041fa4d02bf65e",
+     "b737c22a53408897",
+     "a276f2f110e59362",
+     "913d4ce5aa474e25",
+     "a1ec7f004b8479c2"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      -1.0037536907196045,
+      1.7563224744796753,
+      -3.040616302490234
+     ],
+     [
+      -0.7655737113952636,
+      2.04241397857666,
+      -2.7557663440704347
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "ff2c70e3db0321ba",
+     "56e23a7df19cb70b",
+     "02281ed8103c38a3",
+     "0ad00fe9b31b8dee",
+     "be8c117a5a3f73b4",
+     "9717b52664af5021",
+     "1107dcb61860feac",
+     "9084f266e440f82a",
+     "72c49fefa978691f",
+     "8f23524fc5469da7",
+     "935b9344db741175",
+     "150fd520d9831b66",
+     "4d83253ca0e86b55",
+     "4092d6d07334b711",
+     "6066c1dcb2ad5252",
+     "9c09054c620d7ba3",
+     "27b2352cf1d2a278",
+     "2ed38dfae4b5924f",
+     "0d27dd5cc75a2ef0",
+     "c77a57679dd13ea6",
+     "77c87aef4cbde0f2",
+     "67215fc51d0cfe66",
+     "a3863008a56c1957",
+     "59ed8ecb198738a1",
+     "60d4e749e4cb4c61",
+     "e82b9197a8358c5e",
+     "757a2f5d649102a0",
+     "b2c752cea0ee95ca",
+     "45a61f5c88caced7",
+     "7ebc976db0890eb2",
+     "dac812129effb6d5",
+     "8da254bcd034845d",
+     "d11c01db6807dbbb",
+     "e4f85c715e681dc5",
+     "7f7618cdcdbba201",
+     "992410cae96a0e4e",
+     "15194baf17d64f7e"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  }
+ ]
+}

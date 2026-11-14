@@ -1,0 +1,327 @@
+{
+ "schema": "mr-brake-lamps/1",
+ "family": "Evo1FordSportTrac",
+ "source_car_sha256": "1295809c999f7feab2969c878acc420feeb635dc4ea54fea817a1ae50f8f007f",
+ "lamps": [
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      -0.1870405811071396,
+      1.47657057762146,
+      -1.0637626934051514
+     ],
+     [
+      0.17106053113937378,
+      1.6108405876159668,
+      -0.939556074142456
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "centre",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "f4a202a2efbb796c",
+     "d4f9ac0a5fc7901c",
+     "a8de4c997d2b2db0",
+     "d13fbc47283bf3fd",
+     "20bbb49fe68040aa",
+     "9eed1a98d7328b75",
+     "674b15ed3cc2b21a",
+     "a4cd7fe17f165ab8",
+     "c6bd82baee9e664a",
+     "fd316aba90800c0e",
+     "a8e2c1ccecd4663e",
+     "d5b21591d9d10e26"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      0.5203557324409485,
+      0.419847012758255,
+      -2.6372340011596678
+     ],
+     [
+      0.897602825164795,
+      0.9871073651313782,
+      -2.2555307865142824
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "right",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "c0a8e18c6022ab27",
+     "8048274f13c1936a",
+     "1464ef549c41a068",
+     "5e2c9619bd94e2a9",
+     "16d8f5962b3024d9",
+     "b53c5fe3ca5a2dc0",
+     "d50d7dc989f77d7c",
+     "5f2c53d02cbb5ad0",
+     "77e15a78f8e64caa",
+     "5d7449387ea5ef16",
+     "7ccd2890c94c27c9",
+     "e5e0803c4ea6284a",
+     "e9047c9d769a311f",
+     "c42078c1756a12e7",
+     "30e6e1c53d764921",
+     "e22c34b27b864ed2",
+     "10fa484bb460f15d",
+     "7b2090bbf2dd8498",
+     "9daecd66accf1ace",
+     "8add3871295dc5f7",
+     "050f984424d3d450",
+     "238e63691433afda",
+     "ab709f04a2776acd",
+     "a1b2e4125838c11a",
+     "14f308e6f6b06617",
+     "94fee6f5680db23b",
+     "2cf4ce4c8e7c5e55",
+     "5742c41ea0d9e007",
+     "a6afcc67ce6d72f9",
+     "d8e854e65d23535b",
+     "fbcfe497b12e81f7",
+     "db1bb0779f544839",
+     "c10259de9eaeb618",
+     "29e63190f5b383be",
+     "c669c8e2d5c40c51",
+     "5d51ec40b55e5257",
+     "94768ab185399218",
+     "5ca9e134b8f3a602",
+     "5c11ad1fd1260fcc",
+     "e364deb5790d6b18",
+     "b08d1716f5442073",
+     "aea62822232b5c00",
+     "89bcd4b836be5acb",
+     "d14e5ac1910df592",
+     "0ce2c6f20fe2886d",
+     "686d028c8fe0c555",
+     "c11a9e3abbd0f99e",
+     "ca56bb1f84c4e2dc",
+     "2d971b624bad1c3c",
+     "1cf85def75994f4a",
+     "a5f67a2e1e0cd1cc",
+     "acf86e48cb31fa06",
+     "63532fb9f1fd66d3",
+     "9ad708ed32c915c7",
+     "eeab7e0bcbddde2a",
+     "bf3f394fa3612ce4",
+     "5f73d70f79e082bd",
+     "564c530928bb6607",
+     "ce569af26b011598"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  },
+  {
+   "body": "ANY",
+   "source": {
+    "kind": "painted",
+    "bounds": [
+     [
+      -0.8989244389533997,
+      0.419847012758255,
+      -2.6372340011596678
+     ],
+     [
+      -0.520483763217926,
+      0.9871073651313782,
+      -2.2555310249328615
+     ]
+    ]
+   },
+   "transform": {
+    "offset": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "scale": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "normal_offset_mm": 0.0
+   },
+   "fit": {
+    "mode": "project",
+    "offset_mm": 1.5,
+    "max_offset_mm": 3.0,
+    "max_edge_m": 0.02,
+    "halo_max_edge_m": 0.03
+   },
+   "halo": {
+    "size": 1.0,
+    "color": [
+     255,
+     255,
+     255
+    ],
+    "brightness": 1.0
+   },
+   "depth": {
+    "halo": "native"
+   },
+   "mirror": null,
+   "id": "left",
+   "lens": {
+    "draw": "any",
+    "faces": [
+     "3f9fabbf5fc2e455",
+     "10a30942e34849d1",
+     "6ed0bd2abdc5f158",
+     "efbd5a6eeb016b5e",
+     "dc89b52a898aee20",
+     "0876abe7517757be",
+     "4fcc7a8824cf982c",
+     "aa6f5e0fd1f4401f",
+     "56f39963c18ff092",
+     "aa7264eec858d10f",
+     "6a67ad4cfdae497e",
+     "377e496deed8b4e7",
+     "32b65d14173b24b7",
+     "c1c10bdd8cc0960d",
+     "ee0991a4a092d4ad",
+     "f0d49b5bbe2b29f7",
+     "bda51790add16893",
+     "ed7fa2cbd96f7898",
+     "6b0be2b4d36d22f5",
+     "ca4a5563d81f7388",
+     "4f3e8a169c30d7cf",
+     "56bf4da3584fdfbc",
+     "df2d15e15baf1974",
+     "50849b60e5950728",
+     "d36f036314d89e35",
+     "1023800dc1f9c4cd",
+     "42dd39c9f8d0e356",
+     "5ada2810b718feda",
+     "8a24b03ad28d4e18",
+     "e178be25e58425b6",
+     "be80b295240453b4",
+     "b400cc455b3c5236",
+     "f39a8cb425de7226",
+     "7ae236ae32e56f6c",
+     "89b449f017f073a5",
+     "ef9c6cb25fdb12e0",
+     "ffcfd84bce524847",
+     "87e2e972dd216e27",
+     "5ca9e134b8f3a602",
+     "5c11ad1fd1260fcc",
+     "b08d1716f5442073",
+     "aea62822232b5c00",
+     "2d971b624bad1c3c",
+     "b29792016b30820a",
+     "674aa2299b909c59",
+     "22b1c6a01d636158",
+     "c03862cf99100ee2",
+     "c44dd1fd52d38cea",
+     "2c324185e865642f",
+     "35bc49f0ee14f7d6",
+     "5119d7cc7f0aefd9",
+     "9f47d1c2ee03459b",
+     "68f6068ea68d9015",
+     "5286e3121fab07ff",
+     "4f28c69ca5ac380c",
+     "4a2252811db04cae",
+     "9e22ab734f2e057e",
+     "b90715c920fb7da1",
+     "b322fe216e75a548",
+     "9ed86aa4fe2eee6b"
+    ]
+   },
+   "notes": "converter light sprite footprint"
+  }
+ ]
+}
