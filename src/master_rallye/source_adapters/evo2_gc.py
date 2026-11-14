@@ -109,7 +109,7 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
     output=Path(output).absolute();uvs.output_directory(output,protected)
     if output.exists():raise ValueError('Fresh source output required')
     pod=uvs.read_bounded(pod_path,512*1024*1024);entries={e.name.casefold():e for e in pod2_members(pod)}
-    assets={};resources={};meshes=[];materials=[];textures=[];nodes=[];tex_ids={}
+    assets={};resources={};meshes=[];materials=[];textures=[];nodes=[];tex_ids={};planes={}
     def get(name):
         e=entries.get(safe_name(name).casefold())
         if e is None:raise ValueError('missing member '+name)
@@ -126,20 +126,28 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
             stem='ART/'+safe_name(name)[:-4];rec,raw=get(stem+'.RAW');_,act=get(stem+'.ACT')
             opa=get(stem+'.OPA')[1]if safe_name(stem+'.OPA').casefold()in entries else None
             meta,rgba=decode_raw_act(raw,act,opa);assets[path]=rgba
+            if opa is not None:planes[tid]=opa
             meta['source_channels']['raw_samples_path']='textures/%s.samples'%tid;assets[meta['source_channels']['raw_samples_path']]=raw
             meta['source_channels']['palette_path']='textures/%s.palette'%tid;assets[meta['source_channels']['palette_path']]=act
         else:
             rec,blob=get('ART/'+safe_name(name));meta,rgba,samples,palette=decode_classic_tiff(blob);assets[path]=rgba
+            ch=meta['source_channels']
+            if ch['samples_per_pixel']==2 and ch['photometric']==3:planes[tid]=samples[1::2]   # palette index + opacity
             meta['source_channels']['raw_samples_path']='textures/%s.samples'%tid;assets[meta['source_channels']['raw_samples_path']]=samples
             if palette:meta['source_channels']['palette_path']='textures/%s.palette'%tid;assets[meta['source_channels']['palette_path']]=palette
         textures.append({'id':tid,**meta,'rgba_path':path,'rgba_sha256':uvs.sha(rgba),'source':rec});tex_ids[k]=tid
         return tid
     def glass_texture(tid):
-        # MR authoring (as the 4Runner pilot's 89/255): Evo2 TIFF carries no usable glass alpha, the
-        # glass shares the body atlas, so the glass object gets its own copy at alpha 140.
+        # MR authoring (as the 4Runner pilot's 89/255): the glass shares the body atlas, so the glass object gets its
+        # own copy at alpha 140. Where the source opacity plane (Evo 2 TIFF second sample, Evo 1 .OPA) is fully opaque
+        # the texel is painted body, not glass: GC/Evo 1 GlassE objects also carry roof and pillar panels (owner run
+        # 2026-11-14: transparent roof on the Stillen monster and the Sport Trac), so those texels stay opaque.
         src=next(t for t in textures if t['id']==tid);rgba=bytearray(assets[src['rgba_path']])
-        rgba[3::4]=bytes([140])*(len(rgba)//4);gid=tid+'-glass';path='textures/%s.rgba'%gid;assets[path]=bytes(rgba)
-        textures.append({**{k:v for k,v in src.items()if k not in('id','rgba_path','rgba_sha256')},'id':gid,'rgba_path':path,'rgba_sha256':uvs.sha(bytes(rgba))})
+        plane=planes.get(tid)
+        rgba[3::4]=bytes(255 if plane is not None and plane[i]>=250 else 140 for i in range(len(rgba)//4))
+        gid=tid+'-glass';path='textures/%s.rgba'%gid;assets[path]=bytes(rgba)
+        textures.append({**{k:v for k,v in src.items()if k not in('id','rgba_path','rgba_sha256')},'id':gid,'rgba_path':path,'rgba_sha256':uvs.sha(bytes(rgba)),
+                         'glass_alpha_policy':'140, or 255 where the source opacity plane is 255 (painted panels inside GlassE)'if plane is not None else '140'})
         return gid
     def model(name,prefix,keep=None):
         rec,blob=get(name);decoded=parse_smf(blob);ids=[];hidden=[]
