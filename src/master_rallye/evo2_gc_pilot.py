@@ -16,7 +16,7 @@ OBJECT_ROLE={'BODY':'paint','GLASSEPANEL':'paint','BEDCOVR':'paint','GLASSE':'gl
 def _role(material):
     name=material.get('object','').upper()
     if name.startswith('FOG'):return 'lamp'
-    if name=='SUSP_SHOCKS':return 'chrome'
+    # Procedural suspension keeps its SUSP.RAW texture (GC/PC draw it unlit-textured): trim, not MR chrome (owner 2026-11-14)
     if name.startswith(('SUSP_','AXLE')):return 'trim'
     return OBJECT_ROLE.get(name,'trim')
 
