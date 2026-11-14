@@ -54,3 +54,35 @@ FUN_00600EB0 + FUN_00601510. FUN_005FFC00 = camera-facing ribbon (half-width at 
 0xD6564C from tables set in FUN_005FD690 = SUSP.RAW quadrants), FUN_00600110 = two-sided quad.
 SpringType 2 = leaf springs (drawn); 0/1 draw nothing. Full geometry/constant list:
 `src/master_rallye/source_adapters/evo2_suspension.py` on research/import-exclusives.
+
+## GC suspension, from the symbolised 4x4.elf (2026-11-14)
+
+The GC disc carries `4x4.elf` (Metrowerks, PowerPC, full symbol table, 17926 symbols; extract with
+`DolphinTool extract -s 4x4.elf`; Ghidra 12.1.4 `PowerPC:BE:32:default`, project
+`D:\Game\Master Rallye\_ghidra_project\Evo2GC`; scripts in `.research-output/evo2-gc/ghidra/scripts`). The PC
+4x42.exe functions map 1:1 to named GC functions:
+
+| PC 4x42.exe | GC 4x4.elf | Role |
+|---|---|---|
+| FUN_005F7820 | `CVehicle::renderTruck` 0x80102EF4 | truck draw, picks the suspension path |
+| FUN_005FDAD0 / FUN_006006D0 | `CVehicle::setupSuspension` 0x80108B98 / `renderSuspension` 0x80106F68 | full path |
+| FUN_005FF4D0 / FUN_00600EB0 | `CVehicle::setupMTSuspension` 0x801084D0 / `renderMTSuspension` 0x80106C6C | "MT" (monster) path |
+| FUN_00601510 | `CVehicle::renderDriveshaft` 0x80106878 | `drvshaft.bin/.smf` stretched driveshaft (MT path) |
+| FUN_005FFC00 | `setupSuspensionPolygon(int,int)` 0x8010805C | camera-facing ribbon between two points |
+
+Path choice (`renderTruck`): MT path when the TRK file is `bigfoot.trk`, or truck detail == 2, or the truck's
+`barTextureName` (CVehicle+0x1794, filled by `loadStaticFileStream`) is non-empty; otherwise the full path. Stillen
+SMT has `barTextureName NULL.RAW` (empty) -> the full path, same as on PC: 4 shocks from (+-1.4, 1.0, axle z) to
+(+-1.7, axle y+0.07, axle z -+0.15) (half-width 0.12), coil/torsion springs draw nothing, solid axles have no arms,
+driveshaft (0,0.2,1.0) -> rear axle (half-width 0.14) for a solid rear axle. All constants are identical to the PC
+values in `evo2_suspension.py` (GC .sdata2: 0.07, 1.4, 1.7, -1.4, 0.032, 0.32, 0.48, 1.58, -0.12, 0.6, 0.85, 1.22,
+0.4). Axle beams and every suspension point are relative to the dynamic axle position (`frontAxlePos`/`rearAxlePos`).
+
+MT path (for reference): 4 bar links (bar texture, half-width 0.15) from the axle (hub inner face - 0.5, y - 0.1,
+z -+0.31) to `axlebarOffset` (x -+0.1, y + 0.05); 8 shocks (shock texture, half-width 0.13), two per wheel at z
++-0.2, from (inner face - 0.53, front 1.2 [+1.16 if the tyre is taller than 7.5 ft] / rear 1.7 [+0.66]) to
+(inner face - 0.28, axle y + 0.2).
+
+Open: the pose. A rest-sag model (hub = static_bpos + min(maxcompr, load / spring_rate); Stillen front 1.31 /
+rear 2.45 ft) puts the rear tyre into the bed, so the GC garage view is not drawn on loaded springs; the garage
+pose still has to be measured in Dolphin (`evo2_gc.create_scene(rest_pose=...)`, default off).
