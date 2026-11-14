@@ -141,3 +141,16 @@ all `PASS_SOURCE_OFF_STATE_EQUIVALENCE`; preview `.research-output/evo1-collecti
 Next: Evo 1 catalog paints (colorList recolouring needs the Evo 1 paint mask; candidate = OPA level 128 or palette
 index ranges, unproven), Sport Trac promo liveries as a paint package, `full` kit for the three stock-only cars,
 brake lamps via the Vehicle SDK Brake Glow-ON module (F-150 Race: high stop only), roster rebuild + EVO class.
+
+## Axle beams on the hub line (2026-11-14)
+
+Owner comparison with the GC original (Stillen monster): the axle hung below the wheels and the body links and
+shocks ended in the air. 4x42.exe draws AxleF/AxleR and builds every suspension point relative to the dynamic axle
+position (FUN_005F6EC0: front = truck+0x2D0/+0x2D4/+0x2490 = hub line; FUN_005FDAD0 offsets from it; the shock
+constants themselves are fixed, as `evo2_suspension.py` has them). The SMF stores the beams at an authored ride
+height, so the adapter now moves each beam until its outer ends lie on the hub line. Offsets found (beam ends minus
+hub, feet): most Evo 1/Evo 2 trucks +0.4..+0.8 (rear solid axles), Grand Cherokee Race +0.06, Durango Rally -0.24,
+Excursion front -0.09, ARB Sierra monster and GC Stillen monster -0.98, Tundra Race +1.23. The simplified suspension
+path is used only for `bigfoot.trk` or low detail, so the full path stays correct for the monsters.
+Remaining difference: Evo shows the truck at rest (springs loaded, wheels ~0.5 ft higher relative to the body than
+`static_bpos`); MR places hubs at `static_bpos` and lets the donor physics settle them.

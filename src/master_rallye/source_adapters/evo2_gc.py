@@ -200,6 +200,21 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
     for side in('L','R'):
         wheels[side],_=model('MODELS/%s%s%s.SMF'%(trk['tireModelBaseName'],wheel_detail,side),'wheel'+side.lower())
     by_id={m['id']:m for m in meshes}
+    # Axle beams: 4x42.exe draws AxleF/AxleR and builds the suspension points relative to the dynamic axle position
+    # (FUN_005F6EC0: front = truck+0x2D0/+0x2D4/+0x2490, i.e. the hub line; FUN_005FDAD0 offsets every point from it),
+    # so in game the beam always runs through the hubs. The SMF stores the beams at an authored ride height (most
+    # trucks 0.4-0.8 ft above static_bpos, the GC Stillen monster 0.98 ft below), so each beam is moved until the mean
+    # of its outer ends (|x| > 85 % of its half-length) lies on the hub line (owner run 2026-11-14: misplaced monster axle).
+    axle_moves={}
+    for mid in body_ids:
+        m=by_id[mid];name=m['name'].upper()
+        if name not in('AXLEF','AXLER'):continue
+        key='faxle' if name=='AXLEF' else 'raxle'
+        hub=[(trk['wheel_positions'][key+'.ltire'][k]+trk['wheel_positions'][key+'.rtire'][k])/2 for k in(1,2)]
+        reach=max(abs(p[0])for p in m['positions']);ends=[p for p in m['positions']if abs(p[0])>.85*reach]
+        dy=hub[0]-sum(p[1]for p in ends)/len(ends);dz=hub[1]-sum(p[2]for p in ends)/len(ends)
+        m['positions']=[[p[0],p[1]+dy,p[2]+dz]for p in m['positions']]
+        m['source']['moved_to_hub_line_ft']=[0.,round(dy,4),round(dz,4)];axle_moves[m['name']]=[round(dy,3),round(dz,3)]
     xs=[p[0]for mid in wheels['R']for p in by_id[mid]['positions']];width=max(xs)-min(xs)
     susp_report=None
     if suspension:
@@ -241,7 +256,7 @@ def create_scene(truck_pod:Path,output:Path,truck:str,*,wheel_detail='16',suspen
         'measurements':{'wheelbase_static_m':(fr[2]-rr[2])*FT,'front_track_m':(fr[0]-fl[0])*FT,'rear_track_m':(rr[0]-rl[0])*FT,
                         'wheelbase_catalog_m':float(trk['truckWheelbase'])*FT},
         'selection':{'wheel_detail':wheel_detail,'visible_rule':'kit %s: BASE objects (+ TRK stock parts for stock, + all accessories for full) + rear lens quads as brake'%kit,'kit':kit,
-                     'stock_parts':trk['stock_parts'],'hidden_objects':hidden},
+                     'stock_parts':trk['stock_parts'],'hidden_objects':hidden,'axle_beams_moved_to_hub_line_ft':axle_moves},
         'unknown_semantics':[{'id':'native-rendering','status':'UNSUPPORTED','meaning':'Evo2 reflections, light passes and alpha are not reproduced'}]}
     result=uvs.save_scene(scene,output,assets,protected_roots=protected)
     return {**result,'truck':truck,'name':trk['truckName'],'hidden':hidden,'measurements':scene['measurements'],'suspension':susp_report}
