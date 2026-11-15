@@ -9,6 +9,7 @@
 #include "ps2_diag.hpp"
 #include "ps2_hud_damage.hpp"
 #include "sma_archive.hpp"
+#include "game_file_roots.hpp"
 #include "fleet_participants.hpp"
 #include <memory>
 #include <unordered_map>
@@ -68,10 +69,9 @@ class CollisionDebugPilot {
     void release_texture() noexcept;
     const char* load_landscape(const std::string& dx_path,colldebug::Mesh& out,CollisionLandscape& info);
     const char* parse_landscape(const std::vector<uint8_t>& bytes,colldebug::Mesh& out,CollisionLandscape& info,const char* ok);
-    // Data.sma (retail courses and race XML), opened on the first course selection.
-    // Game file roots (working directory, then the proxy folder), each with its own Data.sma.
-    struct GameRoot { std::filesystem::path folder; std::unique_ptr<sma::Archive> archive; };
-    std::vector<GameRoot> roots_;bool roots_ready_=false;std::wstring archive_path_;double load_ms_=0;std::string missing_cars_;
+    // Game file roots (game_file_roots.hpp), built on the first course selection: mod overlays (loose only), then the
+    // working directory and the proxy folder, each with its own Data.sma.
+    std::vector<gameroots::Root> roots_;bool roots_ready_=false;std::wstring archive_path_;std::wstring overlay_roots_;double load_ms_=0;std::string missing_cars_;
     void ensure_roots() noexcept;
     bool read_game_file(const std::string& rel,std::vector<uint8_t>& out,std::string& where,uint64_t limit) const;
     // Background load (BSP faces take 1..2 s per landscape): one worker at a time, applied on the render thread.

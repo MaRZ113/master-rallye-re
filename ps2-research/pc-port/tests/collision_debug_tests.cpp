@@ -6,6 +6,7 @@
 #include "collision_debug.hpp"
 #include "retail_layout.hpp"
 #include "sma_archive.hpp"
+#include "game_file_roots.hpp"
 #include <chrono>
 #include <limits>
 #include <filesystem>
@@ -351,13 +352,77 @@ int dump_hull(const char* path,const char* out_path){
     return ok?0:1;
 }
 
+// Stored-only zip in the Data.sma layout (local headers, no data descriptors).
+void write_sma(const std::filesystem::path& path,const std::vector<std::pair<std::string,std::string>>& members){
+    std::vector<uint8_t> b;
+    for(const auto& [name,text]:members){
+        const uint32_t crc=gfx2::sma::crc32(reinterpret_cast<const uint8_t*>(text.data()),text.size());
+        put32(b,0x04034b50u);put16(b,20);put16(b,0);put16(b,0);put16(b,0);put16(b,0);put32(b,crc);
+        put32(b,uint32_t(text.size()));put32(b,uint32_t(text.size()));put16(b,uint16_t(name.size()));put16(b,0);
+        b.insert(b.end(),name.begin(),name.end());b.insert(b.end(),text.begin(),text.end());
+    }
+    std::ofstream(path,std::ios::binary).write(reinterpret_cast<const char*>(b.data()),std::streamsize(b.size()));
+}
+void write_text(const std::filesystem::path& path,const std::string& text){
+    std::filesystem::create_directories(path.parent_path());std::ofstream(path,std::ios::binary)<<text;
+}
+// Game file roots: extra overlay > Vehicle Manager overlay > loose game file > Data.sma; working directory before the
+// proxy folder; overlays are loose only (a Data.sma inside an overlay is never opened).
+void game_roots(){
+    namespace fs=std::filesystem;using namespace gfx2::ps2port;
+    const fs::path tmp=fs::temp_directory_path()/("mrr_collision_roots_"+std::to_string(
+        std::chrono::steady_clock::now().time_since_epoch().count()));
+    std::error_code error;fs::remove_all(tmp,error);
+    const fs::path game=tmp/"game",cwd=tmp/"cwd",extra=tmp/"extra",mods=game/"MRMods"/"Vehicles"/"active"/"resources";
+    fs::create_directories(cwd);
+    write_sma(game/"Data.sma",{{"DataScene/RaceTest/A.xml","sma"},{"DataScene/RaceTest/B.xml","sma"},
+                               {"DataScene/RaceTest/C.xml","sma"},{"DataScene/RaceTest/D.xml","sma"}});
+    write_text(game/"DataScene/RaceTest/B.xml","loose");
+    write_text(game/"DataScene/RaceTest/C.xml","loose");
+    write_text(mods/"DataScene/RaceTest/C.xml","mod");
+    write_text(mods/"DataScene/RaceTest/D.xml","mod");
+    write_text(extra/"DataScene/RaceTest/D.xml","extra");
+    write_sma(mods/"Data.sma",{{"DataScene/RaceTest/E.xml","mod-sma"}});
+    write_text(cwd/"DataScene/RaceTest/F.xml","cwd");
+    write_text(game/"DataScene/RaceTest/F.xml","loose");
+    auto get=[](const std::vector<gameroots::Root>& roots,const char* rel,std::string& where){
+        std::vector<uint8_t> out;if(!gameroots::read(roots,rel,out,where,1<<20))return std::string("<none>");
+        return std::string(out.begin(),out.end());
+    };
+    std::string where;
+    {
+        // Proxy folder only (the usual case: the game runs from its own folder).
+        const auto roots=gameroots::build({game},gameroots::split_list(L" \"" + extra.wstring() + L"\" ; ;"),
+                                          game/"Data.sma",game);
+        CHECK(roots.size()==3&&roots[0].overlay&&roots[1].overlay&&!roots[2].overlay);
+        CHECK(!roots[0].archive&&!roots[1].archive&&roots[2].archive&&roots[2].archive->is_open());
+        CHECK(get(roots,"DataScene/RaceTest/A.xml",where)=="sma"&&where=="DATA.SMA");
+        CHECK(get(roots,"DataScene/RaceTest/B.xml",where)=="loose"&&where=="LOOSE");
+        CHECK(get(roots,"DataScene/RaceTest/C.xml",where)=="mod"&&where=="LOOSE MOD");
+        CHECK(get(roots,"DataScene/RaceTest/D.xml",where)=="extra"&&where=="LOOSE MOD");
+        CHECK(get(roots,"DataScene/RaceTest/E.xml",where)=="<none>");
+        CHECK(get(roots,"datascene\\racetest\\a.xml",where)=="sma");
+    }
+    {
+        // Default overlay only; working directory before the proxy folder; relative overlay spec per game folder.
+        const auto roots=gameroots::build({cwd,game},{},L"Data.sma",game);
+        CHECK(roots.size()==3&&roots[0].overlay&&!roots[1].overlay&&!roots[2].overlay);
+        CHECK(get(roots,"DataScene/RaceTest/D.xml",where)=="mod"&&where=="LOOSE MOD");
+        CHECK(get(roots,"DataScene/RaceTest/F.xml",where)=="cwd"&&where=="LOOSE CWD");
+        CHECK(get(roots,"DataScene/RaceTest/B.xml",where)=="loose"&&where=="LOOSE");
+        CHECK(get(roots,"DataScene/RaceTest/A.xml",where)=="sma"&&where=="DATA.SMA");
+        const auto same=gameroots::build({game,game},{L"MRMods\\Vehicles\\active\\resources",L"missing"},L"Data.sma",game);
+        CHECK(same.size()==2&&same[0].overlay&&!same[1].overlay);
+    }
+    fs::remove_all(tmp,error);
+}
 int main(int argc,char** argv){
     if(argc==4&&!std::strcmp(argv[1],"--dump"))return dump(argv[2],argv[3]);
     if(argc==4&&!std::strcmp(argv[1],"--dump-asset"))return dump_asset(argv[2],argv[3]);
     if(argc==4&&!std::strcmp(argv[1],"--dump-bsp"))return dump_bsp(argv[2],argv[3]);
     if(argc==4&&!std::strcmp(argv[1],"--dump-hull"))return dump_hull(argv[2],argv[3]);
     if(argc==4&&!std::strcmp(argv[1],"--sma-check"))return sma_check(argv[2],argv[3]);
-    parse();asset();modes();geometry();joined();bsp();hulls_and_markers();derivative(std::getenv("MRR_RETAIL_EXE"));
+    parse();asset();modes();geometry();joined();bsp();hulls_and_markers();game_roots();derivative(std::getenv("MRR_RETAIL_EXE"));
     if(failures){std::cerr<<failures<<" failures\n";return 1;}
     std::cout<<"collision debug contracts passed\n";return 0;
 }

@@ -184,6 +184,9 @@ CollisionDebugLegendPosition=TOPCENTER
 ;   CRC-checked), else CollisionDebugAsset (surface only). Objects (banners, posts, rails, bridge ends) come from the
 ;   course BSP (tag100): white "OBJECT" in every mode; mode 7 OBJECTS shows only them. The legend's yellow line gives
 ;   the player car position (Car0) and the collision surface under it.
+; Mod overlays are searched first, loose files only: CollisionDebugOverlayRoots (';'-separated, relative to the game
+;   folder or absolute; default empty), then always MRMods\Vehicles\active\resources (Vehicle Manager courses and cars).
+CollisionDebugOverlayRoots=
 ; CollisionDebugCars: 1 = vehicle collision on CollisionDebugCarsKey (default F9: OFF -> ON through the body -> depth
 ;   tested): the car.dx tag101 convex hull of every race car (player yellow, others orange) and the wheel.dx tag102
 ;   cylinder of every wheel (green), at the matrices the game draws them with. 0 = feature off.

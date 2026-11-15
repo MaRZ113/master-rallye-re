@@ -74,6 +74,10 @@ CollisionDebugPilot::CollisionDebugPilot(bool supported,const std::wstring& ini)
             config::read_string(L"CollisionDebugArchive",L"Data.sma",archive,32768,ini.c_str());
             std::filesystem::path a(archive);if(a.is_relative())a=std::filesystem::path(ini).parent_path()/a;
             archive_path_=a.wstring();
+            // Extra mod overlay roots (';'-separated, relative to each game folder or absolute), searched before the
+            // Vehicle Manager overlay MRMods\Vehicles\active\resources, which is always searched.
+            config::read_string(L"CollisionDebugOverlayRoots",L"",archive,32768,ini.c_str());
+            overlay_roots_=archive;
         }
         wchar_t dir[32768]{},path[32768]{};
         config::read_string(L"GrassAssetDirectory",L".",dir,32768,ini.c_str());
@@ -125,9 +129,11 @@ bool CollisionDebugPilot::poll_hotkey() noexcept {
     return true;
 }
 
-// Game file roots, in the order the game itself resolves them: the process working directory first (the game opens
-// relative "DataGx/..." paths; launchers such as the vehicles SDK runtime start MRallye.exe with their own resource
-// root as working directory), then the proxy folder. In each root a loose file wins over that root's Data.sma.
+// Game file roots, in the order the game itself resolves them (game_file_roots.hpp): mod overlay roots first (loose
+// files the dinput8 VehicleRoster module serves through import hooks: new courses and cars of the Vehicle Manager),
+// then the process working directory (the game opens relative "DataGx/..." paths; launchers such as the vehicles SDK
+// runtime start MRallye.exe with their own resource root as working directory), then the proxy folder. In each game
+// folder a loose file wins over that folder's Data.sma.
 // Opened once on the render thread before any worker starts; read-only afterwards.
 void CollisionDebugPilot::ensure_roots() noexcept {
     if(roots_ready_)return;roots_ready_=true;
@@ -136,28 +142,13 @@ void CollisionDebugPilot::ensure_roots() noexcept {
         wchar_t cwd[32768]{};const DWORD n=GetCurrentDirectoryW(32768,cwd);
         if(n&&n<32768)folders.emplace_back(cwd);
         folders.emplace_back(game_root_);
-        for(const auto& f:folders){
-            std::error_code error;const auto canon=std::filesystem::weakly_canonical(f,error);
-            bool seen=false;for(const auto& r:roots_)if(std::filesystem::equivalent(r.folder,canon,error))seen=true;
-            if(seen)continue;
-            GameRoot r;r.folder=canon;
-            std::filesystem::path archive(archive_path_);
-            if(archive.is_relative()||archive.parent_path()==std::filesystem::path(game_root_))archive=canon/archive.filename();
-            r.archive=std::make_unique<sma::Archive>();r.archive->open(archive.wstring());
-            roots_.push_back(std::move(r));
-        }
+        roots_=gameroots::build(folders,gameroots::split_list(overlay_roots_),archive_path_,game_root_);
     }catch(...){}
 }
 bool CollisionDebugPilot::archive_open() const noexcept {for(const auto& r:roots_)if(r.archive&&r.archive->is_open())return true;return false;}
-// Reads a game file: loose in root 0, Data.sma of root 0, loose in root 1, ... `where` names the source.
+// Reads a game file: mod overlays (loose), then loose in game folder 0, its Data.sma, loose in game folder 1, ...
 bool CollisionDebugPilot::read_game_file(const std::string& rel,std::vector<uint8_t>& out,std::string& where,uint64_t limit) const {
-    out.clear();
-    for(size_t i=0;i<roots_.size();++i){
-        const auto& r=roots_[i];std::error_code error;const auto loose=r.folder/std::filesystem::path(rel);
-        if(std::filesystem::is_regular_file(loose,error)&&read_file(loose,out,limit)){where=i==0&&roots_.size()>1?"LOOSE CWD":"LOOSE";return true;}
-        if(r.archive&&r.archive->is_open()&&r.archive->read(rel,out,limit)){where=i==0&&roots_.size()>1?"SMA CWD":"DATA.SMA";return true;}
-    }
-    out.clear();return false;
+    return gameroots::read(roots_,rel,out,where,limit);
 }
 
 // Wheel collision cylinder of vehicles/<folder>/wheel (tag102 of wheel.dx), cached.
@@ -204,7 +195,7 @@ const char* CollisionDebugPilot::load_landscape(const std::string& dx_path,colld
     std::vector<uint8_t> bytes;std::string where;
     if(read_game_file(dx_path,bytes,where,512ull*1024*1024)){
         info.sha=sha256_bytes(bytes.data(),bytes.size());
-        info.source=where.rfind("LOOSE",0)==0?"LOOSE DX":where;
+        info.source=where=="LOOSE MOD"?"MOD DX":where.rfind("LOOSE",0)==0?"LOOSE DX":where;
         return parse_landscape(bytes,out,info,where.rfind("LOOSE",0)==0?"loose_course_dx_parsed":"data_sma_course_dx_parsed");
     }
     // 2. Optional pinned asset: surface only (no BSP objects).

@@ -263,6 +263,28 @@ the local driver in 0/2/3 as long as every participant is in 0/2/3 (the startup 
 `ps2_race_certificate_contracts.hpp`. With BaselineAllRaceModes=0 the baseline free camera / HUD hide still follow the
 strict baseline rule.
 
+## Round 7: courses and cars of mod overlays
+
+New courses installed by the Vehicle Manager (the 30 "4X4 EVO" Quick Race tracks of `feature/evo2-tracks`:
+`DataScene/RaceTest/Evo2Autumn.xml`, `DataGx/Course/Evo2Autumn/evo2autumn.dx`, ...) live in
+`<game>\MRMods\Vehicles\active\resources`. The dinput8 VehicleRoster module serves that folder to the game through
+import hooks; the proxy reads files itself, found neither the race XML nor the DX and drew nothing.
+
+The file roots are now built by `renderer/game_file_roots.hpp` (header-only, shared with the contract test). First hit
+wins:
+
+1. Mod overlay roots, loose files only (a Data.sma inside an overlay is never opened): first the extra roots of
+   `CollisionDebugOverlayRoots` (PS2Port.ini, `;`-separated, relative to every game folder or absolute; default
+   empty), then the Vehicle Manager root `MRMods\Vehicles\active\resources` (always searched when it exists).
+2. The process working directory: loose file, then its Data.sma.
+3. The proxy folder: loose file, then its Data.sma.
+
+A course DX from an overlay shows as source `MOD DX` in the legend (`LOOSE MOD` in the course log); the `game_roots`
+log field lists the overlay roots first. Add-on cars of the same overlay were already found for rigid props
+(`rigid_props.cpp`); the overlay's car.dx/wheel.dx hulls now also come from it. `collision_debug_tests` `game_roots()`
+checks the order (extra overlay > Vehicle Manager overlay > loose game file > Data.sma, working directory before the
+proxy folder, no Data.sma in an overlay, duplicate and missing roots dropped).
+
 ## Limits
 
 - BSP faces are cell fragments (no polygon merge). Wheel collision (wheel.dx) is not drawn.
