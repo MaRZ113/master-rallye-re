@@ -80,8 +80,18 @@ python tools/verify_course_layer.py <game>
   batch-02 records reached 39,536 vertices / 85,752 indices and rendered scrambled in the game (object parts and
   checkpoint banners scattered over the map) while Blender showed the same project correctly. Records are now cut at
   2,000 vertices / 4,800 indices (Pikes Peak: 19 -> 73 records).
-* **Limits.** Native gaLimitsAI resets at 90 m (inner) / 140 m (outer) from the AI line: free driving across open terrain
-  between the gates, always inside the solid corridor.
+* **Limits** (`safe_limits`, manual lists). gaLimitsAI picks the nearest marker of each list separately (3-D) and
+  tests the car against the region between them. The first builds used Course Studio "auto" offsets of 90/140 m: on the
+  inside of tight Evo turns those lines crossed the AI line and lay next to other legs, the nearest "left" marker could
+  be on the right, and cars were reset while driving on the road (owner test 2). Now Retail-sized targets (inner 45 m,
+  outer 75 m; Retail medians 29/48 m), reduced per station until the offset point is still nearest (3-D) to its own
+  part of the route and on its own side, smoothed, outer >= inner + 10 m. Level or near-level crossings of the route
+  with itself stay narrow (down to 12 m outer) over about 30 m.
+* **Ground tile orientation.** An Evo ground tile's top row faces +Z (cell j+1): an edge-continuity score over the
+  8 orientations picks "flip v" on all six tested maps (Pikes Peak 9.96 vs 13.65 as mapped before). The first builds
+  mapped the top to -Z: roads became saw-tooth stripes (owner test 2). The overview texture follows the same rule.
+* **Checkpoint boards.** The Course Studio boards (four native checkpoint boards per gate) are off: the Evo gate models
+  are the visible gate, and Studio places the boards at the gate centre height (under the slope) and turned 90 deg.
 * **Race.** Start = vehicle 1. Circuits (closed courses) are one lap: the AI route starts at the start line and the
   finish is placed 150 m before it (the grid stands behind the start; a finish on the start line would trigger at once).
   The start/finish gate of the lap is dropped; every other gate is a native checkpoint (`gaRaceSplitTimeAI`) with extra

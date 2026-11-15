@@ -278,7 +278,7 @@ def environment_for(track: Track) -> str:
 
 
 # ----------------------------------------------------------------------------------------------- conversion
-def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, limits_m=(90.0, 140.0), title: str | None = None,
+def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, limits_m=(45.0, 75.0), title: str | None = None,
                   course_key: str | None = None, objects: bool = True, object_collision: str = "all",
                   collision_radius_m: float = 40.0, grounded: bool = True, log=print) -> CourseProject:
     out_dir = Path(out_dir)
@@ -369,14 +369,18 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
         width = min(max(width, off + 8.0), 45.0)
         project.checkpoints.append(Checkpoint(uid=new_uid("cp_"), center=gate,
                                               radius=width, extra_time=extra, heading=head_deg(k),
-                                              board_spacing=min(width * 2, 60.0), name=f"Gate {n + 1}"))
+                                              board_spacing=min(width * 2, 60.0), name=f"Gate {n + 1}",
+                                              # the Evo gate models (banner, towers) are the visible gate; Course Studio
+                                              # boards sit at the gate centre height (under a slope) and turned 90 deg
+                                              boards=False))
         prev_k = k
     first_len = (gates[0][0] if gates else len(route_m)) * ROUTE_STEP_M
     project.environment.time_to_first_checkpoint = round(min(300.0, 30.0 + first_len / 11.0), 0)
-    # Evo 2: free driving across open terrain between the gates. Resets beyond limits_m[1] from the AI line, inside
-    # the solid corridor (corridor_m), so a car never leaves the collision terrain before the native reset.
-    project.limits.mode = "auto"
+    # gaLimitsAI reset lines (see safe_limits): Retail-sized targets, clamped where the route bends or passes itself.
+    project.limits.mode = "manual"
     project.limits.inner, project.limits.outer = limits_m
+    project.limits.lists, limit_stats = safe_limits(project, *limits_m)
+    report["limits"] = limit_stats
     project.build.pacenotes = "auto"
     report.update(closed=closed, route_m=round(len(route_m) * ROUTE_STEP_M), gates=len(gates),
                   start_offset_m=round(dist0 * mm, 1), evo_track_length_m=round(track.sit.track_length_ft * mm))
@@ -413,7 +417,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
             idx = track.cell_shadow[c] if track.cell_shadow[c] >= 0 else track.cell_tex[c]
             if idx not in small_cache:
                 w, h, rgba = tile(idx)
-                small_cache[idx] = Image.frombytes("RGBA", (w, h), rgba).resize((OVERVIEW_PX, OVERVIEW_PX), Image.BOX)
+                small_cache[idx] = Image.frombytes("RGBA", (w, h), rgba).resize((OVERVIEW_PX, OVERVIEW_PX), Image.BOX).transpose(Image.FLIP_TOP_BOTTOM)
             overview.paste(small_cache[idx], (i * OVERVIEW_PX, j * OVERVIEW_PX))
     ov_key = f"evo_{key.lower()}_ov-tga"
     (out_dir / "textures").mkdir(parents=True, exist_ok=True)
@@ -469,7 +473,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                     near.triangles.extend(vid(*q) for q in tri)
                     near.tri_material.append(m)
                     for q in tri:
-                        near.uv.extend((u0 + (q[0] - i) * span, v0 + (q[1] - j) * span))
+                        near.uv.extend((u0 + (q[0] - i) * span, v0 + (j + 1 - q[1]) * span))   # tile top at +Z
     # Far terrain (drawn only): 2x2-cell blocks where all four cells are far, single cells next to the corridor; a block
     # edge that meets single cells gets a skirt dropping below the finer edge (no T-junction cracks against the sky).
     def far_quad(i0, j0, s):
@@ -578,6 +582,65 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                          f"(budget {TEXTURE_BUDGET_BYTES >> 20} MB): the race would thrash the MR model cache")
     project.extras["evo2"] = report
     return project
+
+
+def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step: float = 5.0):
+    """Four gaLimitsAI lists that never fold over the AI line.
+
+    gaLimitsAI (0x4CD9B0, research/g1/limits-executable.md) takes the nearest marker of each list separately and
+    tests the car against the region built between them. Constant offsets of 90/140 m (batch-03, Course Studio
+    "auto") crossed to the wrong side of the line on the inside of tight Evo turns and lay next to other parts of
+    the route, so the nearest "left" marker could sit on the right or at another progress: cars were reset on the
+    road. Here each station gets the largest offset (<= target) whose point is still nearest to its own part of the
+    route and on its own side; offsets are then smoothed (running minimum, then mean) and outer >= inner + 10 m.
+    """
+    import numpy as np
+    from master_rallye.course_entry import RouteFrame
+    from master_rallye.studio.ai import raceline
+    line = raceline(project)
+    frame = RouteFrame(line)
+    xz = np.array([(q[0], q[2]) for q in line])
+    ys = np.array([q[1] for q in line])
+    cum = np.array(frame.cum)
+    spacing = max(5.0, project.route.spacing)
+    count = max(2, int(frame.total / spacing) + 1)
+    stations = [frame.total * k / (count - 1) for k in range(count)]
+    closed_loop = math.dist(line[0], line[-1]) < 250.0
+
+    def ok(s, side, d):
+        p, yaw = frame.place(s, side * d, 0.0)
+        # 3-D like gaLimitsAI's nearest marker: a bridge over another leg does not narrow the limits
+        dd = ((xz[:, 0] - p[0]) ** 2 + (xz[:, 1] - p[2]) ** 2 + (ys - p[1]) ** 2)
+        n = int(dd.argmin())
+        gap = abs(cum[n] - s)
+        if closed_loop:
+            gap = min(gap, frame.total - gap)             # circuit: the line's end lies next to its start
+        if gap > 1.5 * d + 20.0 or math.sqrt(dd[n]) < 0.6 * d:
+            return False                                  # closer to another part of the route, or folded inwards
+        fx, fz = frame.forward(min(n, len(line) - 2))
+        return (fx * (p[2] - xz[n, 1]) - fz * (p[0] - xz[n, 0])) * side > 0
+
+    def widest(s, side, target):
+        d = target
+        while d > minimum and not ok(s, side, d):
+            d -= step
+        return max(d, minimum)
+
+    def smooth(v, w=3):
+        v = np.array(v)
+        m = np.array([v[max(0, i - w):i + w + 1].min() for i in range(len(v))])
+        return np.array([m[max(0, i - w):i + w + 1].mean() for i in range(len(m))])
+
+    lists, stats = {}, {}
+    for side, prefix in ((-1, "Left"), (1, "Right")):
+        o = smooth([widest(s, side, outer) for s in stations])
+        i = smooth([widest(s, side, inner) for s in stations])
+        i = np.minimum(i, np.maximum(o - 10.0, minimum * 0.5))
+        lists[prefix + "InnerLimit"] = [frame.place(s, side * d, 0.0)[0] for s, d in zip(stations, i)]
+        lists[prefix + "OuterLimit"] = [frame.place(s, side * d, 0.0)[0] for s, d in zip(stations, o)]
+        stats[prefix.lower()] = {"inner_min": round(float(i.min()), 1), "inner_median": round(float(np.median(i)), 1),
+                                 "outer_min": round(float(o.min()), 1), "outer_median": round(float(np.median(o)), 1)}
+    return lists, stats
 
 
 def texture_bytes(project, out_dir: Path) -> int:
