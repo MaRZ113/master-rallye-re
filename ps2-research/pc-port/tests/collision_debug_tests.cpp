@@ -374,7 +374,7 @@ void game_roots(){
         std::chrono::steady_clock::now().time_since_epoch().count()));
     std::error_code error;fs::remove_all(tmp,error);
     const fs::path game=tmp/"game",cwd=tmp/"cwd",extra=tmp/"extra",mods=game/"MRMods"/"Vehicles"/"active"/"resources";
-    fs::create_directories(cwd);
+    fs::create_directories(cwd);fs::create_directories(game);
     write_sma(game/"Data.sma",{{"DataScene/RaceTest/A.xml","sma"},{"DataScene/RaceTest/B.xml","sma"},
                                {"DataScene/RaceTest/C.xml","sma"},{"DataScene/RaceTest/D.xml","sma"}});
     write_text(game/"DataScene/RaceTest/B.xml","loose");
