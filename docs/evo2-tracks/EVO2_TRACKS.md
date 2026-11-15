@@ -143,6 +143,22 @@ python tools/verify_course_layer.py <game>
   follows the terrain); `extras.evo2.bridges` records which build shipped. batch-07: decks on Autumn Leaves,
   Treasure Bay, Quarry Lake, Mediterranean, Black Gold, Bayou Flats; fallback on Construction Junction, Castle Rock,
   Thailand Rally, Tibet Cliffside, Vulture Canyon, Arizona (next: ramps at deck ends).
+* **Deck wheel surface.** MR wheels stand on land records (tag1400), not on BSP objects: on decks that were only
+  object solids the cars rode on their bodies over the river-bed land 4-5 m below ("small stones", owner test 5).
+  The top and bottom faces of every used box deck are added to the corridor terrain mesh with a fully transparent
+  cutout material (`add_deck_land`, surface harddirt); Course Studio's finite-footprint land BSP makes them a slab
+  and keeps the space under it open, and the land database gets the deck top. (A separate terrain mesh is rejected:
+  more than 40 % of its faces point down.) Only solids standing on a deck (top 0.5 m or more above it, centre over
+  it) are lifted onto it; everything else that intersects a deck is capped under it (an abutment rock lifted onto
+  the covered bridge was an invisible wall at its entrance).
+* **Crossings.** Where the route passes itself within 25 m (3-D; Autumn Leaves is a figure eight with an at-grade
+  crossing at gate 4 and an overpass), gaLimitsAI's nearest marker could come from the other leg and lie on this
+  road: the later leg has no limit markers within 90 m of the crossing and the earlier leg keeps full-width limits
+  there (`safe_limits`, `crossing_markers_removed`). The 2-D AI heading field (SFL) cannot hold two directions per
+  cell: AI cars can still take the other leg at a crossing.
+* **Splits.** Every Retail race has three split checkpoints and the HUD progress bar draws three marks: the Evo
+  gates nearest to 1/4, 1/2 and 3/4 of the route are the native splits (all gate models stay). ExtraTime of a split
+  now pays for the leg after it (the finish leg had no time before).
 * **Finish.** Every Retail course is a loop with the finish 38-135 m from the start area, so circuits now end
   `FINISH_GAP_M` = 40 m before the start (was 150 m: the last 110 m of the lap had no RaceLine, bots left the road
   there and cars were reset beyond its end). Autumn Leaves: route 2060 m for the 2050 m Evo lap.

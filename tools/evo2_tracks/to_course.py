@@ -43,6 +43,7 @@ OBJECT_MAX_TILE = 128
 # DX, collision pools and every car. Over budget the cache evicts and re-creates textures every frame (in-race
 # 0x5589D0 CreateTexture storm, 100+ per frame in host-evo-tracks-01 on Pikes Peak). Stay well under it.
 TEXTURE_BUDGET_BYTES = 24 << 20
+SPLITS = 3
 FINISH_GAP_M = 40.0                          # Retail start-finish distances: 38..135 m (all Retail courses are loops)
 ROUTE_STEP_M = 10.0
 
@@ -380,7 +381,9 @@ def elevated_decks(track: Track, smf_cache=None) -> list:
                 flat.append(t)
         if flat:
             top = max(sum(q[1] for q in t) for t in flat)
-            decks.append(Deck(index, [t for t in flat if sum(q[1] for q in t) > top - 0.3], "box"))
+            deck = Deck(index, [t for t in flat if sum(q[1] for q in t) > top - 0.3], "box")
+            deck.bottom = [t for t in flat if sum(q[1] for q in t) <= top - 0.3]
+            decks.append(deck)
     return decks
 
 
@@ -459,6 +462,43 @@ def settle_route(route, decks):
                 if t is not None and abs(t - y) < 1e-6:
                     used.add(d.box_index)
     return [(p[0], y, p[2]) for p, y in zip(route, ys)], [d for d in decks if d.box_index in used]
+
+
+def add_deck_land(project, decks, out_dir: Path, terrain) -> int:
+    """The top and bottom faces of the box decks the route uses as invisible terrain: MR wheels stand on land records
+    (tag1400), not on BSP objects, so on a deck that was only an object solid the cars rode on their bodies over the
+    river-bed land 4-5 m below ("small stones", owner test 5). Course Studio's finite-footprint land BSP (layered_bsp:
+    upward faces enter solid, downward faces leave it) turns top + bottom into a slab and keeps the space under it
+    open. Drawn with a fully transparent cutout texture (the Evo bridge model is the visible deck). Added to the
+    corridor terrain mesh: Course Studio rejects a terrain mesh whose faces mostly point down."""
+    tris = []
+    for d in decks:
+        if d.kind != "box":
+            continue
+        for faces, up in ((d.tris, True), (getattr(d, "bottom", []), False)):
+            for a, b, c in faces:
+                n = cross(sub(b, a), sub(c, a))
+                if (n[1] > 0) != up:                     # Course Studio terrain winding: normal up = cross(b-a, c-a)
+                    b, c = c, b
+                tris.append((a, b, c))
+    if not tris:
+        return 0
+    key = "evo_clear-tga"
+    write_png(out_dir / f"textures/{key}.png", 4, 4, bytes(4 * 16))
+    project.textures[key] = Texture(key=key, source=f"textures/{key}.png", width=4, height=4, has_alpha=True)
+    project.materials["evo_deck_land"] = Material("evo_deck_land", "Evo bridge deck (wheel surface)", shader="ground",
+                                                  surface="harddirt", textures=[key, None, None], noise=False,
+                                                  alpha="cutout")
+    terrain.materials.append("evo_deck_land")
+    m = len(terrain.materials) - 1
+    for t in tris:
+        base = len(terrain.positions) // 3
+        for q in t:
+            terrain.positions.extend(q)
+            terrain.uv.extend((0.5, 0.5))
+        terrain.triangles.extend((base, base + 1, base + 2))
+        terrain.tri_material.append(m)
+    return len(tris)
 
 
 def surface_near(x, z, ground, decks, hint):
@@ -548,11 +588,24 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
 
     project.start = Area(center=route_m[1], heading=head_deg(1), width=24.0, depth=12.0)
     project.finish = Area(center=route_m[-2], heading=head_deg(len(route_m) - 2), width=36.0, depth=14.0)
-    prev, prev_k = 0, 0
+    report["evo_gates"] = len(gates)
+    # Every Retail race has exactly three split checkpoints (numberOfSplitTimePoints 3) and the HUD progress bar draws
+    # three marks: the Evo gates nearest to 1/4, 1/2 and 3/4 of the route become the native splits; every Evo gate
+    # model stays visible.
+    if len(gates) > SPLITS:
+        chosen = []
+        for f in [(i + 1) / (SPLITS + 1) for i in range(SPLITS)]:
+            target = f * len(route_m)
+            best = min((g for g in gates if g not in chosen), key=lambda g: abs(g[0] - target))
+            chosen.append(best)
+        gates = sorted(chosen, key=lambda g: g[0])
     for n, (k, b) in enumerate(gates):
         width = min(max(b.size[0] * mm / 2, 18.0), 40.0)
-        seg_len = (k - prev_k) * ROUTE_STEP_M
-        extra = round(min(240.0, 25.0 + seg_len / 11.0), 0)            # ~40 km/h through rough off-road + margin
+        # ExtraTime is added when the gate is passed: it pays for the leg to the next gate (or to the finish);
+        # TimeToFirstCheckpoint pays for the first leg.
+        next_k = gates[n + 1][0] if n + 1 < len(gates) else len(route_m) - 1
+        seg_len = (next_k - k) * ROUTE_STEP_M
+        extra = round(min(300.0, 25.0 + seg_len / 11.0), 0)            # ~40 km/h through rough off-road + margin
         c = route_m[k]
         gate = mirror((b.pos[0] * mm, ground_m(b.pos[0] * mm, b.pos[2] * mm), b.pos[2] * mm))
         off = math.hypot(gate[0] - c[0], gate[2] - c[2])
@@ -571,7 +624,6 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                                               # the Evo gate models (banner, towers) are the visible gate; Course Studio
                                               # boards sit at the gate centre height (under a slope) and turned 90 deg
                                               boards=False))
-        prev_k = k
     first_len = (gates[0][0] if gates else len(route_m)) * ROUTE_STEP_M
     project.environment.time_to_first_checkpoint = round(min(300.0, 30.0 + first_len / 11.0), 0)
     # gaLimitsAI reset lines (see safe_limits): Retail-sized targets, clamped where the route bends or passes itself.
@@ -718,6 +770,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     if far.triangles:
         project.meshes.append(far)
     report.update(corridor_cells=corridor_cells, ground_tiles=len(atlas.slots), ground_pages=len(atlas.pages))
+    report["deck_land_triangles"] = add_deck_land(project, decks, out_dir, near)
 
     # ---- water
     wl = track.level.water_height_ft
@@ -782,6 +835,10 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     return project
 
 
+CROSSING_M = 25.0
+CROSSING_GAP_M = 90.0
+
+
 def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step: float = 5.0):
     """Four gaLimitsAI lists that never fold over the AI line.
 
@@ -805,6 +862,27 @@ def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step
     stations = [frame.total * k / (count - 1) for k in range(count)]
     closed_loop = math.dist(line[0], line[-1]) < 250.0
 
+    # Crossings (the route passing itself at grade or over/under itself, within 25 m in 3-D): gaLimitsAI takes the
+    # nearest marker of each list over the whole list, so markers of the other leg lying on this road made the car
+    # "outside" (Autumn Leaves gate 4, owner test 5). The later leg has no markers within CROSSING_GAP_M of a
+    # crossing (all four lists); the earlier leg keeps full-width limits there, wide enough to hold a car on either
+    # road until the later leg's markers resume.
+    pos = np.array([frame.place(s_, 0.0, 0.0)[0] for s_ in stations])
+    removed, full = set(), set()
+    for a_ in range(len(stations)):
+        d = np.sqrt(((pos[a_ + 1:] - pos[a_]) ** 2).sum(axis=1))
+        gaps = np.abs(np.array(stations[a_ + 1:]) - stations[a_])
+        if closed_loop:
+            gaps = np.minimum(gaps, frame.total - gaps)
+        for b_ in np.nonzero((d < CROSSING_M) & (gaps > 150.0))[0]:
+            b_ = a_ + 1 + int(b_)
+            for k_, s_ in enumerate(stations):
+                if abs(s_ - stations[b_]) <= CROSSING_GAP_M:
+                    removed.add(k_)
+                if abs(s_ - stations[a_]) <= CROSSING_GAP_M:
+                    full.add(k_)
+    full -= removed
+
     def ok(s, side, d):
         p, yaw = frame.place(s, side * d, 0.0)
         # 3-D like gaLimitsAI's nearest marker: a bridge over another leg does not narrow the limits
@@ -819,6 +897,8 @@ def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step
         return (fx * (p[2] - xz[n, 1]) - fz * (p[0] - xz[n, 0])) * side > 0
 
     def widest(s, side, target):
+        if stations.index(s) in full:
+            return target
         d = target
         while d > minimum and not ok(s, side, d):
             d -= step
@@ -834,10 +914,12 @@ def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step
         o = smooth([widest(s, side, outer) for s in stations])
         i = smooth([widest(s, side, inner) for s in stations])
         i = np.minimum(i, np.maximum(o - 10.0, minimum * 0.5))
-        lists[prefix + "InnerLimit"] = [frame.place(s, side * d, 0.0)[0] for s, d in zip(stations, i)]
-        lists[prefix + "OuterLimit"] = [frame.place(s, side * d, 0.0)[0] for s, d in zip(stations, o)]
+        keep = [k_ for k_ in range(len(stations)) if k_ not in removed]
+        lists[prefix + "InnerLimit"] = [frame.place(stations[k_], side * i[k_], 0.0)[0] for k_ in keep]
+        lists[prefix + "OuterLimit"] = [frame.place(stations[k_], side * o[k_], 0.0)[0] for k_ in keep]
         stats[prefix.lower()] = {"inner_min": round(float(i.min()), 1), "inner_median": round(float(np.median(i)), 1),
                                  "outer_min": round(float(o.min()), 1), "outer_median": round(float(np.median(o)), 1)}
+    stats["crossing_markers_removed"] = len(removed)
     return lists, stats
 
 
@@ -1125,7 +1207,10 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             overlap = all(h["lo"][k] < dh["hi"][k] and dh["lo"][k] < h["hi"][k] for k in range(3))
             if not h["tris"] or not overlap or separated(h, dh):
                 continue
-            if h["lo"][1] >= dh["hi"][1] - 1.5:              # standing on the deck: floor onto its top
+            cx_, cz_ = (h["lo"][0] + h["hi"][0]) / 2, (h["lo"][2] + h["hi"][2]) / 2
+            on_footprint = dh["lo"][0] <= cx_ <= dh["hi"][0] and dh["lo"][2] <= cz_ <= dh["hi"][2]
+            if h["lo"][1] >= dh["hi"][1] - 1.5 and h["hi"][1] >= dh["hi"][1] + 0.5 and on_footprint:
+                # standing on the deck (rails, walls): floor onto its top
                 floor = dh["hi"][1] + 0.05
                 pts = [(q[0], max(q[1], floor), q[2]) for q in pts]
                 stats["lifted_onto_decks"] = stats.get("lifted_onto_decks", 0) + 1
