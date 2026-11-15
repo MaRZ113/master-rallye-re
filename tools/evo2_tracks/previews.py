@@ -51,7 +51,7 @@ def export_obj(project, project_dir: Path, out: Path, *, skip_roles=("collision"
         has_uv = len(uv) == ntri * 6
         if has_uv:
             for i in range(0, len(uv), 2):
-                lines.append(f"vt {uv[i]:.5f} {1 - uv[i + 1]:.5f}\n")
+                lines.append(f"vt {uv[i]:.5f} {uv[i + 1]:.5f}\n")   # Course Studio UVs are bottom-origin, like OBJ
         current = None
         for t in range(ntri):
             mat = mesh.materials[mesh.tri_material[t]] if mesh.tri_material else mesh.materials[0]

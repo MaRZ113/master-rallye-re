@@ -32,12 +32,17 @@ from master_rallye.studio.model import (ROLE_COLLISION, ROLE_TERRAIN, ROLE_VISUA
                                         CourseProject, Material, Mesh, Texture, new_uid, safe_key)
 from master_rallye.studio.templates import new_project
 
-TILE = 64
+TILE = 64                                    # largest ground tile; smaller when the corridor needs more tiles
+TILE_CHOICES = (64, 48, 40, 32, 24)
+GROUND_PAGES = 2                             # ground atlas page budget (Evo maps have ~1000 unique ground tiles)
 PAD = 2
 PAGE = 1024
-PER_ROW = PAGE // (TILE + 2 * PAD)          # 15
-PER_PAGE = PER_ROW * PER_ROW                 # 225
-OVERVIEW_PX = 4                              # per cell -> 1024 for the 256-cell map
+OVERVIEW_PX = 2                              # per cell -> 512 for the 256-cell map
+OBJECT_MAX_TILE = 128
+# MR keeps course textures (A8R8G8B8 + full mip chain, D3D managed pool) in the model cache together with the course
+# DX, collision pools and every car. Over budget the cache evicts and re-creates textures every frame (in-race
+# 0x5589D0 CreateTexture storm, 100+ per frame in host-evo-tracks-01 on Pikes Peak). Stay well under it.
+TEXTURE_BUDGET_BYTES = 24 << 20
 FINISH_GAP_M = 150.0
 ROUTE_STEP_M = 10.0
 
@@ -175,24 +180,34 @@ def project_param(route, p):
 
 # ----------------------------------------------------------------------------------------------- atlases
 class Atlas:
-    def __init__(self, prefix, out_dir: Path):
-        self.prefix, self.out_dir = prefix, out_dir
+    def __init__(self, prefix, out_dir: Path, tile: int = TILE):
+        self.prefix, self.out_dir, self.tile = prefix, out_dir, tile
+        self.per_row = PAGE // (tile + 2 * PAD)
+        self.per_page = self.per_row * self.per_row
         self.pages: list[bytearray] = []
         self.slots: dict = {}
+
+    @staticmethod
+    def tile_for(count: int, pages: int = GROUND_PAGES) -> int:
+        for t in TILE_CHOICES:
+            if count <= pages * (PAGE // (t + 2 * PAD)) ** 2:
+                return t
+        return TILE_CHOICES[-1]
 
     def add(self, key, w, h, rgba):
         if key in self.slots:
             return self.slots[key]
-        if (w, h) != (TILE, TILE):
-            rgba = resize_nearest(w, h, rgba, TILE, TILE)
+        t = self.tile
+        if (w, h) != (t, t):
+            rgba = box_mean(w, h, rgba, t, t) if w >= t and h >= t else resize_nearest(w, h, rgba, t, t)
         n = len(self.slots)
-        page, idx = divmod(n, PER_PAGE)
+        page, idx = divmod(n, self.per_page)
         while len(self.pages) <= page:
             self.pages.append(Image.new("RGBA", (PAGE, PAGE)))
-        ox, oy = (idx % PER_ROW) * (TILE + 2 * PAD), (idx // PER_ROW) * (TILE + 2 * PAD)
-        self.pages[page].paste(padded(TILE, TILE, rgba, PAD), (ox, oy))
+        ox, oy = (idx % self.per_row) * (t + 2 * PAD), (idx // self.per_row) * (t + 2 * PAD)
+        self.pages[page].paste(padded(t, t, rgba, PAD), (ox, oy))
         u0, v0 = (ox + PAD) / PAGE, (oy + PAD) / PAGE
-        self.slots[key] = (page, u0, v0, TILE / PAGE)
+        self.slots[key] = (page, u0, v0, t / PAGE)
         return self.slots[key]
 
     def texture_key(self, page):
@@ -209,7 +224,7 @@ class Atlas:
 class ShelfAtlas:
     """Object textures: shelf-packed pages, used only for models whose UVs stay inside [0, 1]."""
 
-    def __init__(self, prefix, out_dir: Path, max_tile=256):
+    def __init__(self, prefix, out_dir: Path, max_tile=OBJECT_MAX_TILE):
         self.prefix, self.out_dir, self.max_tile = prefix, out_dir, max_tile
         self.pages, self.slots, self.cursor = [], {}, None
 
@@ -386,7 +401,9 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
             tile_cache[index] = t or (TILE, TILE, bytes((128, 128, 128, 255)) * TILE * TILE)
         return tile_cache[index]
 
-    atlas = Atlas(f"evo_{key.lower()}_g", out_dir)
+    ground_keys = {track.cell_shadow[c] if track.cell_shadow[c] >= 0 else track.cell_tex[c]
+                   for c in range(GRID * GRID) if corridor[c]}
+    atlas = Atlas(f"evo_{key.lower()}_g", out_dir, Atlas.tile_for(len(ground_keys)))
     ov_side = GRID * OVERVIEW_PX
     overview = Image.new("RGBA", (ov_side, ov_side))
     small_cache = {}
@@ -549,8 +566,31 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                     near[j * GRID + i] = True
     if objects:
         report.update(add_objects(track, project, out_dir, key, near, log, object_collision, grounded, route_m))
+    # Course Studio UVs follow the FEED texture rows (stored bottom-up, uploaded as-is): v = 0 is the bottom row of
+    # the PNG. Evo UVs and every atlas rectangle above are top-origin, so v is flipped once for every mesh here.
+    for mesh in project.meshes:
+        if mesh.uv:
+            mesh.uv[1::2] = [1.0 - v for v in mesh.uv[1::2]]
+    report["texture_bytes"] = texture_bytes(project, out_dir)
+    report["ground_tile_px"] = atlas.tile
+    if report["texture_bytes"] > TEXTURE_BUDGET_BYTES:
+        raise ValueError(f"course textures need {report['texture_bytes'] / 2**20:.1f} MB with mips "
+                         f"(budget {TEXTURE_BUDGET_BYTES >> 20} MB): the race would thrash the MR model cache")
     project.extras["evo2"] = report
     return project
+
+
+def texture_bytes(project, out_dir: Path) -> int:
+    """A8R8G8B8 with a full mip chain, as MR creates course textures."""
+    total = 0
+    for t in project.textures.values():
+        w, h = t.width, t.height
+        while True:
+            total += w * h * 4
+            if w == 1 and h == 1:
+                break
+            w, h = max(1, w // 2), max(1, h // 2)
+    return total
 
 
 def _directions(n=162):
@@ -648,6 +688,10 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             if tkey is None:
                 tkey = safe_key("evo_" + tex_name.rsplit(".", 1)[0]).lower() + "-tga"
                 w, h, rgba = t
+                while w > OBJECT_MAX_TILE or h > OBJECT_MAX_TILE:
+                    nw, nh = max(1, w // 2), max(1, h // 2)
+                    rgba = box_mean(w, h, rgba, nw, nh)
+                    w, h = nw, nh
                 write_png(out_dir / f"textures/{tkey}.png", w, h, rgba)
                 project.textures[tkey] = Texture(key=tkey, source=f"textures/{tkey}.png", width=w, height=h, has_alpha=alpha)
                 loose[tex_name.casefold()] = tkey

@@ -94,8 +94,12 @@ print("maps", sum(map(len, GROUPS)), "races; category count", rd(0x74))
 for n, want in ((8, 1), (7, 0)):
     calls.clear(); wr(0x50, 0xCC); wr(0x34, 0xEE)
     u.mem_write(LIST + 4, struct.pack("<II", 0x4000, 0x4000 + 4 * n))
-    d = call(0x47E605, {UC_X86_REG_EBX: OBJ, UC_X86_REG_ESI: LIST}, stop=0x47E60A)
+    # Retail state at 0x47E605: the object is the local [esp+14h]; EBX holds it with BL overwritten by a bool.
+    u.mem_write(STACK - 4 + 0x14, struct.pack("<I", OBJ))                       # call() puts ESP at STACK-4
+    d = call(0x47E605, {UC_X86_REG_EBX: (OBJ & ~0xFF) | 1, UC_X86_REG_ESI: LIST}, stop=0x47E60A)
     pushed = struct.unpack("<I", u.mem_read(u.reg_read(UC_X86_REG_ESP), 4))[0]
+    if u.reg_read(UC_X86_REG_EBX) != (OBJ & ~0xFF) | 1:
+        fail.append("list hook did not preserve EBX")
     strs = [c[1] for c in calls if c[0] == "str"]
     print(f"list of {n}: flag {rd(0x50)} strings {strs} pushed {pushed:#x} esp {d}")
     if rd(0x50) != want or pushed != 0x6B70D4 or d != -8 or strs != ([label] if want else []) or (want and rd(0x34) != 0):

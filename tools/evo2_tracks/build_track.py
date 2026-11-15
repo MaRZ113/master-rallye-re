@@ -61,6 +61,8 @@ def main(argv=None):
     from master_rallye.studio.model import save_project
     from master_rallye.studio.build import build_course
     import object_bsp
+    import render_batches
+    render_batches.install()                      # Retail-sized draw records (see render_batches.py)
     t0 = time.time()
     track = load_track(a.pod, a.sit)
     pdir = a.work / "projects" / track.key

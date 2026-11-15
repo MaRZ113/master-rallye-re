@@ -307,7 +307,12 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
 
     # ---- category: object size and mode list ---------------------------------------------------------------------
     patch(FACTORY_PUSH, b"\x6a\x74", b"\x6a" + bytes([0x74 + 4]), "raceselect_object_size")
+    # At 0x47E605 EBX is NOT the screen object: the retail code reuses BL as a bool at 0x47E51F/0x47E5A4 (only the
+    # low byte is overwritten). The object is the init's local at [esp+14h] (stored at 0x47E2EF with one push
+    # outstanding; 0x47E633 reloads ESI from the same slot). Writing through EBX corrupted the heap next to the object
+    # and left position[8]/flag uninitialised (owner: "invalid race/menu/stage index" on the first scroll).
     c.label("category_list")
+    c.emit(b"\x53\x8b\x5c\x24\x18")                                                   # push ebx; mov ebx,[esp+18h]
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(0))                                        # mov dword [ebx+50],0
     c.emit(b"\x8b\x46\x08\x2b\x46\x04\x83\xf8\x20"); c.jne("category_list_done")     # 8 retail modes published?
     c.emit(b"\xc7\x43" + bytes([0x14 + CATEGORY * 4]) + u(0))                         # position[8] = 0
@@ -315,7 +320,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(bytes.fromhex("8b46088d0c24516a01508bce")); c.call(LIST_INSERT)
     c.emit(bytes.fromhex("ff3424")); c.call(GAME_FREE); c.emit(bytes.fromhex("83c408"))
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(1))
-    c.label("category_list_done"); c.emit(b"\x68" + u(0x6B70D4)); c.jump(LIST_RESUME)
+    c.label("category_list_done"); c.emit(b"\x5b\x68" + u(0x6B70D4)); c.jump(LIST_RESUME)   # pop ebx; push key
     hook(LIST_HOOK, b"\x68" + u(0x6B70D4), "category_list")
 
     # ---- invalid index stop, data ------------------------------------------------------------------------------

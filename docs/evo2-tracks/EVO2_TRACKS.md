@@ -61,8 +61,25 @@ python tools/verify_course_layer.py <game>
   mirrored. (The R-SURFACE1 grime note calling MR left-handed is a comment, not a measurement.)
 * **Units.** feet x 0.3048.
 * **Terrain.** Cells within `--corridor` (190 m) of the AI route, the gates and the start are solid ROLE_TERRAIN with
-  their own Evo tile (shadow tile when present) in 1024x1024 atlas pages (64 px tiles, 2 px gutter); the remaining map
-  is drawn only, in 2x2-cell blocks with one 1024x1024 overview texture and skirts where blocks meet single cells.
+  their own Evo tile (shadow tile when present) in at most two 1024x1024 atlas pages (2 px gutter; the tile size is the
+  largest of 64/48/40/32/24 px that fits the corridor's distinct tiles, Pikes Peak: 977 tiles -> 40 px); the remaining
+  map is drawn only, in 2x2-cell blocks with one 512x512 overview texture and skirts where blocks meet single cells.
+* **UV origin.** Course Studio UVs are bottom-origin (FEED rows are stored bottom-up and uploaded as-is: v = 0 is the
+  last PNG row). Evo UVs and the atlas rectangles are top-origin, so v is flipped once per mesh at the end of
+  `build_project`. batch-02 had no flip: in the game every texture was upside down and atlas lookups landed in the
+  mirrored page region (black gate towers, wrong terrain tiles), while the Blender previews flipped v themselves and
+  looked right. The previews now export the Course Studio UVs unchanged.
+* **Texture budget.** MR creates course textures as A8R8G8B8 with a full mip chain in the managed pool and keeps them
+  in the model cache with the course DX, the collision pools and every car. batch-02 Pikes Peak needed ~53 MB of
+  textures (ten 1024 pages); in the race the cache evicted and re-created ~125 textures per frame
+  (`CreateTexture` from 0x5589D0, renderer session log: 38,000 creations in six seconds, a Retail race: none) and the
+  game crawled. Builds now fail above 24 MB (`TEXTURE_BUDGET_BYTES`); objects use at most 128 px per texture (one
+  shelf page on Pikes Peak). Pikes Peak: 17.3 MB.
+* **Draw records** (`render_batches.py`, wraps the Course Studio DX builder at build time). Course Studio splits a
+  material only at 65,536 local vertices; Retail courses have ~1,000 records of at most ~2,000 vertices / ~4,700 indices.
+  batch-02 records reached 39,536 vertices / 85,752 indices and rendered scrambled in the game (object parts and
+  checkpoint banners scattered over the map) while Blender showed the same project correctly. Records are now cut at
+  2,000 vertices / 4,800 indices (Pikes Peak: 19 -> 73 records).
 * **Limits.** Native gaLimitsAI resets at 90 m (inner) / 140 m (outer) from the AI line: free driving across open terrain
   between the gates, always inside the solid corridor.
 * **Race.** Start = vehicle 1. Circuits (closed courses) are one lap: the AI route starts at the start line and the
@@ -89,7 +106,7 @@ python tools/verify_course_layer.py <game>
 * **Water.** LVL water height -> flat ROLE_WATER over cells below it (Evo `waterx00` texture, LVL alpha).
 * **Environment.** A retail RaceTest scene supplies sky, physics, cameras and HUD (keyword table in `to_course.py`).
 
-## Results (batch-02, 2026-11-14)
+## Results (batch-02 2026-11-14; batch-03 2026-11-15 rebuilt all 30 with the UV, texture-budget and draw-record fixes, pack 799 MB)
 
 All 30 Evo 2 races with checkpoints (race type 2 and the Pikes Peak hill climb) convert, build and pass the Course
 Studio validation (collision probes, AI line sweep, checkpoints, start/finish). Mission maps (Alaska, El Norte, Skull
@@ -147,7 +164,7 @@ VehicleRoster module installs it), plus a ninth Quick Race mode:
 | 0x47EA6B / 0x47EA9D / 0x47EAF6 | admission: new races are offline single-player Quick Race only (CAP2) |
 | 0x45B1FA / 0x45B22C | explicit stage lists for retail cups / Invitation (CAP2) |
 | 0x47E206 | RaceSelect object 0x74 -> 0x78 (position[8] = +0x34, a retail gap; count[8] = +0x74) |
-| 0x47E605 | mode list: append the category label when the eight retail modes are present; +0x50 = appended |
+| 0x47E605 | mode list: append the category label when the eight retail modes are present; +0x50 = appended. The object is read from the local `[esp+14h]`: EBX is not the object here (BL is reused as a bool at 0x47E51F/0x47E5A4). The first version wrote through EBX: heap corruption next to the object and an uninitialised position[8] (the "invalid race/menu/stage index" stop on the first scroll into the category) |
 | 0x53BA99 | model cache budget 32 -> 96 MB |
 
 The category is listed only when all eight retail modes are open (the mode index is the list position), like the extra
