@@ -156,6 +156,16 @@ python tools/verify_course_layer.py <game>
   road: the later leg has no limit markers within 90 m of the crossing and the earlier leg keeps full-width limits
   there (`safe_limits`, `crossing_markers_removed`). The 2-D AI heading field (SFL) cannot hold two directions per
   cell: AI cars can still take the other leg at a crossing.
+* **Limits guard** (`limits_sim.py`). Exact replay of gaLimitsAI (0x4CD9B0, nearest-marker helper 0x4CE140): per
+  list the 3-D nearest marker n (n-1 when the car is already past P[n+1]'s segment start, clamped to 0..N-3), then
+  the car is beyond a left list when `cr(P[n],P[n+1],car) < 0` and `cr(P[n+1],P[n+2],car) < 0` with
+  `cr(a,b,c) = (b.x-c.x)(b.z-a.z) - (b.z-c.z)(b.x-a.x)` (beyond a right list: both `> 0`). The two segments act as
+  infinite lines, so markers folded on the inside of a tight turn, or the other leg's markers next to a crossing gap,
+  still classed cars on the road as outside (owner test 6: Autumn Leaves final straight reset, "OFF COURSE" at
+  gate 7). Two equal consecutive markers make `cr` exactly 0, so a triple containing such a pair never reports
+  outside. The build replays the test for cars along the route at -10..10 m and duplicates the blamed markers until no
+  road sample is outside the inner limits (report `limits.guard`; Autumn Leaves batch-08 lists: 575 reset and 1884
+  off-course samples -> 0 with 56 of 652 markers doubled). Everywhere else the limits are unchanged.
 * **Splits.** Every Retail race has three split checkpoints and the HUD progress bar draws three marks: the Evo
   gates nearest to 1/4, 1/2 and 3/4 of the route are the native splits (all gate models stay). ExtraTime of a split
   now pays for the leg after it (the finish leg had no time before).

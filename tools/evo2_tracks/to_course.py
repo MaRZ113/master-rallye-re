@@ -920,6 +920,12 @@ def safe_limits(project, inner: float, outer: float, minimum: float = 12.0, step
         stats[prefix.lower()] = {"inner_min": round(float(i.min()), 1), "inner_median": round(float(np.median(i)), 1),
                                  "outer_min": round(float(o.min()), 1), "outer_median": round(float(np.median(o)), 1)}
     stats["crossing_markers_removed"] = len(removed)
+    # Replay the exact gaLimitsAI test over the road (limits_sim): its classification uses only the nearest marker's
+    # two segments as infinite lines, so folds on the inside of tight turns and the other leg's markers at crossings
+    # still put on-road cars "outside" (Autumn Leaves straight and gate 7, owner test 6). Duplicated markers disable
+    # the test exactly there.
+    import limits_sim
+    lists, stats["guard"] = limits_sim.guard(lists, line)
     return lists, stats
 
 
