@@ -113,6 +113,22 @@ python tools/verify_course_layer.py <game>
   left grounded convex solids open. The wrapper groups object polygons by their source solid (recorded in
   `project.extras["evo2_solids"]`), separates the solids by kd planes between them and builds every solid from its
   complete hull. With it Deadman's Gulch (305 solids) validates with zero phantoms and a free AI line.
+* **Bridges and decks.** Evo bridges are visual-only models (Autumn Leaves: AUTCB covered bridge, AUTOB overpass) with
+  CCollisionBox / CCollide type-0 boxes as their deck, walls and rails. The first builds grounded every box down to the
+  terrain: a deck became a block under the bridge, the route sweep removed it, and cars fell through the bridges. Now:
+  boxes whose underside is over 1 m above the terrain float as authored (an overpass leaves the road under it open);
+  route heights come from `settle_route`, a least-total-climb choice per route point between the terrain and every
+  elevated box or drivable-model top (a bridge keeps the road level over a valley; an overpass of another leg would be
+  a jump of metres). Only the surfaces the route settles on are decks: boxes standing on them (rails, walls) get their
+  floor raised onto the deck so they never merge with it, and a drivable model used as a deck becomes 0.8 m slabs of
+  6 m (`deck_slabs`) instead of one hull that would fill the space under its arch. Most elevated drivable models are
+  cliffs, rocks and huts and keep their grounded hull. Before this the AI line, the gates and the finish trigger of a
+  route over a bridge sat on the river bed under it (the finish was never crossed; bots drove into the water).
+* **Solid merging.** Intersecting proxies are merged into the hull of their union unless that hull would close the
+  AI line while the two alone do not (a covered bridge's wall and an entrance rail): then the smaller one is dropped.
+* **Tyre tracks.** Surface.xml names `misc/tracks/<surface>` for every surface, but Retail ships only grass, gravel,
+  harddirt, mud, tarmac and water. On rock and metal ground the game drew the missing-texture checker as tyre marks.
+  The pack adds rock (gravel), metal and rubber (tarmac) and hay (grass) to `DataGx/Misc/Tracks` in the overlay.
 * **Water.** LVL water height -> flat ROLE_WATER over cells below it (Evo `waterx00` texture, LVL alpha).
 * **Environment.** A retail RaceTest scene supplies sky, physics, cameras and HUD (keyword table in `to_course.py`).
 
@@ -179,7 +195,15 @@ VehicleRoster module installs it), plus a ninth Quick Race mode:
 
 The category is listed only when all eight retail modes are open (the mode index is the list position), like the extra
 Vehicle Select classes. Race Select art: two frames per race appended to `RaceSelect/screenshotsheet`, one category
-banner appended to `RaceSelect/logos` (256x64), all in the roster overlay.
+banner appended to `RaceSelect/logos` (256x64), all in the roster overlay. Every Retail logos frame is opaque art in the
+left 196x64 of the 256x64 frame (transparent beyond, which the card does not show); the default category banner follows
+that layout (the first one filled 256 px and was cut on the right).
+
+Race buttons of the category row: the Retail row is one `RaceSelect.xml` egg per race (Masters, cups, challenges,
+Invitation: `gaFrontendXYButtonAI`, `Y ID` = mode, `X ID` = position, `Button<X>XPos` published by 0x47ECB0 for every
+position of the mode, image = a `frontendaceselectlagsheet` frame). The Vehicle Manager appends one flagsheet
+frame per course race (the race screenshot over the Invitation 1 icon's bottom band, its number box repainted) and
+clones the Invitation 1 egg per race with `Y ID` 8. Without them the category row was empty.
 
 ## Rally Trophy and Rally Championship Xtreme (assessment)
 

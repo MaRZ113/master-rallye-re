@@ -36,6 +36,25 @@ def course_entry(build: Path) -> dict:
             "root": root, "title": report.get("title") or key}
 
 
+# Surface.xml names a tyre-track texture for every surface (Surface_TrackTexture_N = misc/tracks/<name>), but the
+# Retail DataGx/Misc/Tracks folder has only grass, gravel, harddirt, mud, tarmac and water. Imported courses use the
+# rock and metal surfaces on drivable ground, where the game then drew the missing-texture checker as tyre marks.
+TRACK_TEXTURE_FALLBACKS = {"rock": "gravel", "metal": "tarmac", "rubber": "tarmac", "hay": "grass"}
+
+
+def add_track_textures(retail_root: Path, resources: Path) -> list:
+    src_dir = retail_root / "DataGx" / "Misc" / "Tracks"
+    added = []
+    for name, donor in TRACK_TEXTURE_FALLBACKS.items():
+        if (src_dir / f"{name}.dxt").is_file():
+            continue
+        target = resources / "DataGx" / "Misc" / "Tracks" / f"{name}.dxt"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(src_dir / f"{donor}.dxt", target)
+        added.append(name)
+    return added
+
+
 def make(args) -> dict:
     out = Path(args.out)
     if out.exists():
@@ -66,6 +85,9 @@ def make(args) -> dict:
         races.append({"key": e["key"], "title": title, "scene": e["scene"], "icont": e["icont"],
                       "progress_key": re.sub(r"[^A-Za-z0-9_-]", "-", e["key"].lower()), "distance_km": round(float(distance), 2),
                       "screenshots": shots})
+    retail = getattr(args, "track_textures_from", None)
+    if retail:
+        add_track_textures(Path(retail), out / "resources")
     meta = {"schema": SCHEMA, "name": args.name, "category": {"label": args.label}, "races": races}
     if args.logo:
         shutil.copyfile(args.logo, out / "art" / "logo.png")

@@ -93,7 +93,8 @@ def main(argv=None):
         args = argparse.Namespace(name=a.pack.name, label=a.label, out=str(a.pack), logo=None,
                                   course=[r["output"] for r in good], title=[r["name"] for r in good],
                                   shots=[str(a.work / "previews" / r["sit"]) for r in good],
-                                  distance_km=[r["length_km"] for r in good])
+                                  distance_km=[r["length_km"] for r in good],
+                                  track_textures_from=str(a.resource_root))
         course_pack.make(args)
         print(f"pack {a.pack}: {len(good)} races", flush=True)
 

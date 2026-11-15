@@ -278,6 +278,195 @@ def environment_for(track: Track) -> str:
 
 
 # ----------------------------------------------------------------------------------------------- conversion
+class Deck:
+    """A candidate driving surface above the terrain: an elevated collision box (Evo bridges are visual-only models
+    with CCollisionBox decks, Autumn Leaves) or a drivable model (CCollide collisionType 1) whose top is over
+    DECK_CLEARANCE_M above the terrain. Only candidates the route actually settles on (settle_route) become decks:
+    most elevated drivable models are cliffs, rocks and huts.
+
+    ``tris``: its up-facing triangles in MR metres; ``kind``: "box" or "model".
+    """
+
+    def __init__(self, box_index, tris, kind="model"):
+        self.box_index, self.tris, self.kind = box_index, tris, kind
+        pts = [q for t in tris for q in t]
+        self.lo = (min(q[0] for q in pts), min(q[2] for q in pts))
+        self.hi = (max(q[0] for q in pts), max(q[2] for q in pts))
+
+    def top(self, x, z):
+        """Driving surface at (x, z): the lowest upward-facing surface of the model (rail caps stay out), or None."""
+        if not (self.lo[0] - 0.01 <= x <= self.hi[0] + 0.01 and self.lo[1] - 0.01 <= z <= self.hi[1] + 0.01):
+            return None
+        best = None
+        for a, b, c in self.tris:
+            d = (b[2] - c[2]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[2] - c[2])
+            if abs(d) < 1e-9:
+                continue
+            l1 = ((b[2] - c[2]) * (x - c[0]) + (c[0] - b[0]) * (z - c[2])) / d
+            l2 = ((c[2] - a[2]) * (x - c[0]) + (a[0] - c[0]) * (z - c[2])) / d
+            l3 = 1.0 - l1 - l2
+            if min(l1, l2, l3) >= -1e-6:
+                y = l1 * a[1] + l2 * b[1] + l3 * c[1]
+                best = y if best is None or y < best else best
+        return best
+
+
+DECK_CLEARANCE_M = 2.0
+DECK_SLICE_M = 6.0
+DECK_THICKNESS_M = 0.8
+
+
+def box_world_triangles(track: Track, b, smf_cache):
+    """World triangles (MR metres) of a SIT box's SMF model, or None."""
+    name = b.model
+    if name.casefold() not in smf_cache:
+        member = track.pod.find(name, ("MODELS", "ART", "DATA"))
+        smf_cache[name.casefold()] = parse_smf(track.pod.read(member)) if member else None
+    smf = smf_cache[name.casefold()]
+    if smf is None:
+        return None
+    mm = FT
+    m = euler_pbh(b.orient[0], b.orient[1], b.orient[2]) if len(b.orient) == 3 else euler_pbh(0, 0, 0)
+    center = (b.pos[0] * mm, b.pos[1] * mm, b.pos[2] * mm)
+    out = []
+    for obj in smf["objects"]:
+        if not obj["visible"] or not obj["faces"]:
+            continue
+        verts = obj["vertices_by_frame"][0]
+        world = [mirror(tuple(center[k] + xform(m, (v[0] * mm, v[1] * mm, v[2] * mm))[k] for k in range(3)))
+                 for v in verts]
+        ny = [xform(m, (v[3], v[4], v[5]))[1] for v in verts]          # mirroring X keeps the normal's Y
+        out.extend(((world[f[0]], world[f[1]], world[f[2]]), (ny[f[0]] + ny[f[1]] + ny[f[2]]) / 3)
+                   for f in obj["faces"])
+    return out
+
+
+def elevated_decks(track: Track, smf_cache=None) -> list:
+    smf_cache = {} if smf_cache is None else smf_cache
+    decks = []
+    for index, b in enumerate(track.sit.boxes):
+        if b.kind != "CCollide" or b.fields.get("collisionType", "0") != "1" or not b.model:
+            continue
+        tris = box_world_triangles(track, b, smf_cache)
+        if not tris:
+            continue
+        up = []
+        for t, ny in tris:
+            n = cross(sub(t[1], t[0]), sub(t[2], t[0]))
+            ln = math.sqrt(dot(n, n))
+            if ln > 1e-9 and abs(n[1]) / ln > 0.6 and ny > 0.5:      # faces looking up (SMF vertex normals)
+                up.append(t)
+        if not up:
+            continue
+        clear = []
+        for t in up:
+            x, y, z = (sum(q[k] for q in t) / 3 for k in range(3))
+            clear.append(y - track.height(-x / FT, z / FT) * FT)       # MR x is mirrored
+        clear.sort()
+        if clear[len(clear) // 2] > DECK_CLEARANCE_M:
+            decks.append(Deck(index, up))
+    for index, b in enumerate(track.sit.boxes):
+        if not (b.kind == "CCollisionBox" or (b.kind == "CCollide" and b.fields.get("collisionType", "0") == "0")):
+            continue
+        if not all(v > 0 for v in b.size) or box_elevation(track, b) < BOX_FLOAT_M:
+            continue
+        m = euler_pbh(b.orient[0], b.orient[1], b.orient[2]) if len(b.orient) == 3 else euler_pbh(0, 0, 0)
+        tris = _box_tris(tuple(v * FT for v in b.pos), tuple(max(v * FT, 0.4) for v in b.size), m)
+        flat = []
+        for t in tris:
+            n = cross(sub(t[1], t[0]), sub(t[2], t[0]))
+            ln = math.sqrt(dot(n, n))
+            if ln > 1e-9 and abs(n[1]) / ln > 0.6:
+                flat.append(t)
+        if flat:
+            top = max(sum(q[1] for q in t) for t in flat)
+            decks.append(Deck(index, [t for t in flat if sum(q[1] for q in t) > top - 0.3], "box"))
+    return decks
+
+
+BOX_FLOAT_M = 1.0
+
+
+def box_elevation(track: Track, b) -> float:
+    """Height of a SIT box's underside above the terrain at its centre (metres)."""
+    return (b.pos[1] - b.size[1] / 2) * FT - track.height(b.pos[0], b.pos[2]) * FT
+
+
+def deck_slabs(deck: Deck) -> list:
+    """Disjoint convex slabs (point sets) under the deck's top surface, DECK_SLICE_M long along its main axis."""
+    pts = [(q[0], q[2]) for t in deck.tris for q in t]
+    cx, cz = sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+    sxx = sum((p[0] - cx) ** 2 for p in pts)
+    szz = sum((p[1] - cz) ** 2 for p in pts)
+    sxz = sum((p[0] - cx) * (p[1] - cz) for p in pts)
+    ang = 0.5 * math.atan2(2 * sxz, sxx - szz)
+    u, w = (math.cos(ang), math.sin(ang)), (-math.sin(ang), math.cos(ang))
+    us = [(p[0] - cx) * u[0] + (p[1] - cz) * u[1] for p in pts]
+    ws = [(p[0] - cx) * w[0] + (p[1] - cz) * w[1] for p in pts]
+    u0, u1, w0, w1 = min(us), max(us), min(ws), max(ws)
+    slabs = []
+    a = u0
+    while a < u1 - 0.05:
+        b = min(u1, a + DECK_SLICE_M)
+        top = []
+        nu = max(2, int((b - a) / 1.0) + 1)
+        nw = max(2, int((w1 - w0) / 1.0) + 1)
+        for i in range(nu):
+            uu = a + 0.05 + (b - a - 0.1) * i / (nu - 1)
+            for j in range(nw):
+                ww = w0 + (w1 - w0) * j / (nw - 1)
+                x, z = cx + u[0] * uu + w[0] * ww, cz + u[1] * uu + w[1] * ww
+                y = deck.top(x, z)
+                if y is not None:
+                    top.append((x, y, z))
+        if len(top) >= 3:
+            slabs.append(top + [(q[0], q[1] - DECK_THICKNESS_M, q[2]) for q in top])
+        a = b
+    return slabs
+
+
+def settle_route(route, decks):
+    """Route heights on the terrain or on a deck. Per point the candidates are the terrain (the given y) and every
+    deck top above it; the sequence with the least total climb wins: a bridge carries the road level over a valley,
+    while an overpass of another leg would be a jump of metres. Returns (route, points on decks)."""
+    cands = []
+    for p in route:
+        c = [p[1]]
+        for d in decks:
+            y = d.top(p[0], p[2])
+            if y is not None and y > p[1] + 0.2:
+                c.append(y)
+        cands.append(c)
+    cost, back = [[0.0] * len(cands[0])], [[0] * len(cands[0])]
+    for i in range(1, len(cands)):
+        row, brow = [], []
+        for y in cands[i]:
+            best = min(range(len(cands[i - 1])), key=lambda k: cost[-1][k] + abs(y - cands[i - 1][k]))
+            row.append(cost[-1][best] + abs(y - cands[i - 1][best]))
+            brow.append(best)
+        cost.append(row)
+        back.append(brow)
+    k = min(range(len(cost[-1])), key=lambda j: cost[-1][j])
+    ys = [0.0] * len(cands)
+    for i in range(len(cands) - 1, -1, -1):
+        ys[i] = cands[i][k]
+        k = back[i][k]
+    used = set()
+    for p, y in zip(route, ys):
+        if y > p[1] + 0.2:
+            for d in decks:
+                t = d.top(p[0], p[2])
+                if t is not None and abs(t - y) < 1e-6:
+                    used.add(d.box_index)
+    return [(p[0], y, p[2]) for p, y in zip(route, ys)], [d for d in decks if d.box_index in used]
+
+
+def surface_near(x, z, ground, decks, hint):
+    """Terrain or deck height at (x, z) nearest to ``hint``."""
+    c = [ground] + [y for y in (d.top(x, z) for d in decks) if y is not None]
+    return min(c, key=lambda y: abs(y - hint))
+
+
 def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, limits_m=(45.0, 75.0), title: str | None = None,
                   course_key: str | None = None, objects: bool = True, object_collision: str = "all",
                   collision_radius_m: float = 40.0, grounded: bool = True, log=print) -> CourseProject:
@@ -324,7 +513,13 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     if not closed and gates:
         lap = lap[:gates[-1][0] + 1]
         gates = gates[:-1]
-    route_m = [mirror((x * mm, ground_m(x * mm, z * mm) + 0.3, z * mm)) for x, z in lap]
+    decks = elevated_decks(track) if objects else []
+    route_m = [mirror((x * mm, ground_m(x * mm, z * mm), z * mm)) for x, z in lap]
+    route_on = route_m
+    route_m, decks = settle_route(route_m, decks)
+    report.update(deck_candidates=len(elevated_decks(track)) if objects else 0, decks=len(decks),
+                  route_points_on_decks=sum(1 for a, b in zip(route_on, route_m) if b[1] > a[1] + 0.2))
+    route_m = [(p[0], p[1] + 0.3, p[2]) for p in route_m]
     # Course Studio draws the RaceLine as straight chords between markers: lift markers so that every chord stays
     # 0.3 m above the terrain surface over crests (else "route leaves the terrain" / AI line inside a hill).
     for _ in range(3):
@@ -366,6 +561,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
             gx, gz = c[0] + (gate[0] - c[0]) * f, c[2] + (gate[2] - c[2]) * f
             gate = (gx, ground_m(-gx, gz), gz)
             off = 37.0
+        gate = (gate[0], surface_near(gate[0], gate[2], gate[1], decks, c[1] - 0.3), gate[2])
         width = min(max(width, off + 8.0), 45.0)
         project.checkpoints.append(Checkpoint(uid=new_uid("cp_"), center=gate,
                                               radius=width, extra_time=extra, heading=head_deg(k),
@@ -569,7 +765,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                 if (i + 0.5 - cx) ** 2 + (j + 0.5 - cz) ** 2 <= rc * rc:
                     near[j * GRID + i] = True
     if objects:
-        report.update(add_objects(track, project, out_dir, key, near, log, object_collision, grounded, route_m))
+        report.update(add_objects(track, project, out_dir, key, near, log, object_collision, grounded, route_m, decks))
     # Course Studio UVs follow the FEED texture rows (stored bottom-up, uploaded as-is): v = 0 is the bottom row of
     # the PNG. Evo UVs and every atlas rectangle above are top-origin, so v is flipped once for every mesh here.
     for mesh in project.meshes:
@@ -698,7 +894,7 @@ def _box_tris(center, size, m):
 
 
 def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, corridor, log, collision: str = "all",
-                grounded: bool = True, route_samples=()) -> dict:
+                grounded: bool = True, route_samples=(), decks=()) -> dict:
     mm = FT
     shelf = ShelfAtlas(f"evo_{key.lower()}_o", out_dir)
     loose = {}                       # texture name -> project texture key (tiling UVs)
@@ -782,7 +978,9 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             mesh.materials.append(mkey)
         return slots[mkey], transform
 
-    for b in track.sit.boxes:
+    deck_boxes = {d.box_index: d for d in decks}
+    deck_solids = []                 # slabs under elevated decks: disjoint by construction, never merged or grounded
+    for box_index, b in enumerate(track.sit.boxes):
         cell_i, cell_j = int(b.pos[0] / CELL_FT), int(b.pos[2] / CELL_FT)
         in_corridor = 0 <= cell_i < GRID and 0 <= cell_j < GRID and corridor[cell_j * GRID + cell_i]
         m = euler_pbh(b.orient[0], b.orient[1], b.orient[2]) if len(b.orient) == 3 else euler_pbh(0, 0, 0)
@@ -791,7 +989,22 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             if in_corridor and all(s > 0 for s in b.size):
                 size = tuple(max(s * mm, 0.4) for s in b.size)         # fences/decks: >= 0.4 m (no sliver faces)
                 corners = sorted({p for tri in _box_tris(center, size, m) for p in tri})
-                if add_grounded(corners):
+                on_deck = [y for y in (d.top(q[0], q[2]) for d in decks if d.box_index != box_index for q in corners)
+                           if y is not None]
+                if box_index in deck_boxes:
+                    solids.append(support_points(corners))                 # a deck the route uses: as authored
+                    stats["deck_boxes"] = stats.get("deck_boxes", 0) + 1
+                elif on_deck and min(q[1] for q in corners) > min(on_deck) - 1.5:
+                    # rails on a deck: floor raised onto the deck (disjoint from it, never merged into a wedge)
+                    floor = max(on_deck) + 0.05
+                    if max(q[1] for q in corners) > floor + 0.2:
+                        solids.append(support_points([(q[0], max(q[1], floor), q[2]) for q in corners]))
+                        stats["deck_box_proxies"] = stats.get("deck_box_proxies", 0) + 1
+                elif box_elevation(track, b) >= BOX_FLOAT_M:
+                    # floating (overpasses, decks of legs not on this route): not grounded, the space under stays open
+                    solids.append(support_points(corners))
+                    stats["floating_boxes"] = stats.get("floating_boxes", 0) + 1
+                elif add_grounded(corners):
                     stats["box_proxies"] += 1
                 else:
                     stats["buried_boxes"] = stats.get("buried_boxes", 0) + 1
@@ -840,7 +1053,10 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
                     if target is visual:
                         target.normals.extend(normals[i])
         stats["objects"] += 1
-        if drivable and hull_points and add_grounded(hull_points):
+        if drivable and box_index in deck_boxes:
+            deck_solids.extend(deck_slabs(deck_boxes[box_index]))
+            stats["deck_objects"] = stats.get("deck_objects", 0) + 1
+        elif drivable and hull_points and add_grounded(hull_points):
             stats["drivable_objects"] += 1
     # Course Studio compiles all collision objects into one solid BSP: overlapping closed solids break its solid-leaf
     # classification (whole regions became solid). Proxies whose convex hulls really intersect (face-normal separating
@@ -870,24 +1086,6 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
                     return True
         return False
 
-    hulls = [h for h in (hull(pts) for pts in solids) if h["tris"]]
-    changed = True
-    while changed:
-        changed = False
-        hulls.sort(key=lambda h: h["lo"][0])
-        for i in range(len(hulls)):
-            a = hulls[i]
-            for j in range(i + 1, len(hulls)):
-                b = hulls[j]
-                if b["lo"][0] > a["hi"][0]:
-                    break
-                if all(a["lo"][k] < b["hi"][k] and b["lo"][k] < a["hi"][k] for k in range(3)) and not separated(a, b):
-                    merged = hull(support_points(a["pts"] + b["pts"]))
-                    hulls = [h for k, h in enumerate(hulls) if k not in (i, j)] + ([merged] if merged["tris"] else [])
-                    changed = True
-                    break
-            if changed:
-                break
     # the Course Studio route sweep: +-1 m beside the AI line, 0.35..2.2 m above the ground (with margin)
     samples = []
     rs = list(route_samples)
@@ -906,11 +1104,44 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             if all(h["lo"][k] - 0.01 <= q[k] <= h["hi"][k] + 0.01 for k in range(3)) and all(dot(n, q) - d <= 0 for n, d in h["planes"]):
                 return True
         return False
+
+    def size(h):
+        return (h["hi"][0] - h["lo"][0]) * (h["hi"][1] - h["lo"][1]) * (h["hi"][2] - h["lo"][2])
+
+    hulls = [h for h in (hull(pts) for pts in solids) if h["tris"]]
+    stats["merge_conflicts_dropped"] = 0
+    changed = True
+    while changed:
+        changed = False
+        hulls.sort(key=lambda h: h["lo"][0])
+        for i in range(len(hulls)):
+            a = hulls[i]
+            for j in range(i + 1, len(hulls)):
+                b = hulls[j]
+                if b["lo"][0] > a["hi"][0]:
+                    break
+                if all(a["lo"][k] < b["hi"][k] and b["lo"][k] < a["hi"][k] for k in range(3)) and not separated(a, b):
+                    merged = hull(support_points(a["pts"] + b["pts"]))
+                    if merged["tris"] and blocks(merged) and not blocks(a) and not blocks(b):
+                        # the hull of the union would close the road (a covered bridge's wall + an entrance rail):
+                        # keep the larger solid, drop the smaller one
+                        keep = a if size(a) >= size(b) else b
+                        hulls = [h for k, h in enumerate(hulls) if k not in (i, j)] + [keep]
+                        stats["merge_conflicts_dropped"] += 1
+                    else:
+                        hulls = [h for k, h in enumerate(hulls) if k not in (i, j)] + ([merged] if merged["tris"] else [])
+                    changed = True
+                    break
+            if changed:
+                break
+    hulls += [h for h in (hull(support_points(pts)) for pts in deck_solids) if h["tris"]]
     stats["collision_solids"] = 0
     stats["route_blocking_solids_dropped"] = 0
     for h in hulls:
         if blocks(h):
             stats["route_blocking_solids_dropped"] += 1
+            stats.setdefault("dropped_solids_at", []).append([round((h["lo"][k] + h["hi"][k]) / 2, 1) for k in range(3)]
+                                                             + [round(h["hi"][1] - h["lo"][1], 1)])
             continue
         stats["collision_solids"] += 1
         first = len(proxies.tri_material)

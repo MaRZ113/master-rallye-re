@@ -451,9 +451,68 @@ def rebuild_classes(v1: bytes, old: dict, new: dict, exe: bytes) -> bytes:
 
 
 # Frame banks the variant artwork is appended to: (bank, template frame giving size/format, variants.ini key).
+ICON_TEMPLATE = 37                # flagsheet frame of Invitation 1: art above y 96, number box and vehicle below
 ART_BANKS = {"carsheet": ("DataGx/Frontend/VehicleSelect/carsheet", 3), "smallcarsheet": ("DataGx/Frontend/RaceResults/smallcarsheet", 9),
-             "raceshot": ("DataGx/Frontend/RaceSelect/screenshotsheet", 0), "racelogo": ("DataGx/Frontend/RaceSelect/logos", 0)}
+             "raceshot": ("DataGx/Frontend/RaceSelect/screenshotsheet", 0), "racelogo": ("DataGx/Frontend/RaceSelect/logos", 0),
+             "raceicon": ("DataGx/Frontend/RaceSelect/flagsheet", ICON_TEMPLATE)}
 ART_KEYS = {"carsheet": "CarSheetFrame", "smallcarsheet": "SmallFrame"}
+
+
+RACE_SELECT_SCENE = "DataScene/FrontendScreens/RaceSelect.xml"
+ICON_EGG_TEMPLATE = "Invitation1"
+
+
+def course_race_icon(template_rgba: bytes, shot_png: bytes, number: int) -> bytes:
+    """Race Select icon of a course race in the Retail style (128x128): the race screenshot above the template's bottom
+    band, the template's number box repainted with ``number`` and its vehicle sign kept."""
+    from PIL import Image, ImageDraw, ImageFont
+    icon = Image.frombytes("RGBA", (128, 128), template_rgba)
+    shot = Image.open(io.BytesIO(shot_png)).convert("RGBA")
+    side = min(shot.width, shot.height * 128 // 96)
+    top = (shot.height - side * 96 // 128) // 2
+    shot = shot.crop(((shot.width - side) // 2, top, (shot.width + side) // 2, top + side * 96 // 128)).resize((128, 96))
+    icon.paste(shot, (0, 0))
+    d = ImageDraw.Draw(icon)
+    box = icon.getpixel((6, 103))
+    d.rectangle((5, 101, 35, 121), fill=box)
+    text = str(number)
+    for size in (22, 20, 18, 16):
+        try:
+            font = ImageFont.truetype("arialbd.ttf", size)
+        except OSError:
+            font = ImageFont.load_default()
+        if d.textlength(text, font=font) <= 28:
+            break
+    l, t, r, b = d.textbbox((0, 0), text, font=font)
+    d.text((20 - (r - l) / 2 - l, 111 - (b - t) / 2 - t), text, font=font, fill=(255, 255, 255, 255))
+    buf = io.BytesIO()
+    icon.save(buf, "PNG")
+    return buf.getvalue()
+
+
+def add_course_buttons(text: str, entries: list[tuple[int, int, int]]) -> str:
+    """RaceSelect.xml: one race button egg per course race, cloned from Invitation 1. ``entries``: (race id, position
+    in the category, flagsheet frame). The retail screen shows the eggs whose Y ID is the current mode and moves them
+    by Frontend/RaceSelect/Button<X ID>XPos (0x47ECB0 publishes one key per position of the mode)."""
+    import re
+    start = text.index(f'<Egg Name="{ICON_EGG_TEMPLATE}">')
+    end = text.index("</Egg>", start) + len("</Egg>")
+    line_start = text.rindex("\n", 0, start) + 1
+    indent = text[line_start:start]
+    template = text[start:end]
+    last = text.index("</Egg>", text.index('<Egg Name="Invitation3">')) + len("</Egg>")
+    eggs = []
+    for race_id, pos, frame in entries:
+        e = template.replace(f'<Egg Name="{ICON_EGG_TEMPLATE}">', f'<Egg Name="CourseRace{race_id}">')
+        e, n1 = re.subn(r'(Name="en2d Image Bank Index" Type="Int" Value=")\d+(")', rf"\g<1>{frame}\2", e)
+        e, n2 = re.subn(r'(Name="X ID" Type="Int" Value=")\d+(")', rf"\g<1>{pos}\2", e)
+        e, n3 = re.subn(r'(Name="Y ID" Type="Int" Value=")\d+(")', r"\g<1>8\2", e)
+        e, n4 = re.subn(r'Frontend/RaceSelect/Button\d+XPos', f"Frontend/RaceSelect/Button{pos}XPos", e)
+        if (n1, n2, n3, n4) != (1, 1, 1, 1):
+            raise ValueError("RaceSelect.xml Invitation1 egg layout differs from the Retail one")
+        eggs.append(indent + e)
+    eol = "\r\n" if "\r\n" in text else "\n"
+    return text[:last] + eol + eol.join(eggs) + text[last:]
 
 
 def game_file(res: Path, game: Path, rel: str) -> bytes:
@@ -523,20 +582,46 @@ def install_course_resources(res: Path, game: Path, races: list[dict], folders: 
     frame = append_art(res, "racelogo", logo, game)
     if frame != category["logo_frame"]:
         raise ValueError(f"category logo frame {frame} differs from the planned {category['logo_frame']}")
+    # race buttons of the category row: one icon per race (flagsheet) and one button egg per race (RaceSelect.xml)
+    bank = res / (RACE_SELECT + "flagsheet.dxb")
+    if not bank.is_file():
+        bank.write_bytes(game_file(res, game, RACE_SELECT + "flagsheet.dxb"))
+    sys.path.insert(0, str(HERE.parents[1] / "master-rallye-re-v-cap" / "src"))
+    from master_rallye.addon_sdk.ui_assets import parse_bank
+    from master_rallye.dxt import parse_dxt_bytes, decode_rgba_pixels
+    tname = parse_bank(bank.read_bytes())["names"][ICON_TEMPLATE]
+    template = bytes(decode_rgba_pixels(parse_dxt_bytes(game_file(res, game, RACE_SELECT + tname + ".dxt"))))
+    entries = []
+    for pos, r in enumerate(races):
+        icon = course_race_icon(template, (r["_pack"] / r["screenshots"][0]).read_bytes(), pos + 1)
+        entries.append((r.get("id", 39 + pos), pos, append_art(res, "raceicon", icon, game)))   # new IDs follow 0..38
+    scene = res / RACE_SELECT_SCENE
+    text = scene.read_bytes().decode("latin-1") if scene.is_file() else game_file(res, game, RACE_SELECT_SCENE).decode("latin-1")
+    scene.parent.mkdir(parents=True, exist_ok=True)
+    scene.write_bytes(add_course_buttons(text, entries).encode("latin-1"))
+
+
+LOGO_ART = (196, 64)               # every Retail logos frame: opaque art in the left 196x64 of the 256x64 frame
 
 
 def default_category_logo(label: str) -> bytes:
-    """A plain MR-style 256x64 banner with the category label (when the pack has no logo)."""
+    """A plain MR-style banner with the category label (when the pack has no logo), laid out like the Retail logos:
+    opaque in the left 196x64, transparent beyond (the Race Select card shows that part only)."""
     from PIL import Image, ImageDraw, ImageFont
     im = Image.new("RGBA", (256, 64), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
-    d.rounded_rectangle((2, 4, 253, 59), 6, fill=(24, 40, 96, 255), outline=(255, 255, 255, 255), width=2)
-    try:
-        font = ImageFont.truetype("arialbi.ttf", 34)
-    except OSError:
-        font = ImageFont.load_default()
-    w = d.textlength(label, font=font)
-    d.text(((256 - w) / 2, 12), label, font=font, fill=(255, 255, 255, 255))
+    w, h = LOGO_ART
+    d.rectangle((0, 0, w - 1, h - 1), fill=(24, 40, 96, 255))
+    d.rectangle((0, 0, w - 1, h - 1), outline=(255, 255, 255, 255), width=2)
+    for size in (36, 32, 28, 24, 20):
+        try:
+            font = ImageFont.truetype("arialbi.ttf", size)
+        except OSError:
+            font = ImageFont.load_default()
+        l, t, r, b = d.textbbox((0, 0), label, font=font)
+        if r - l <= w - 16:
+            break
+    d.text(((w - (r - l)) / 2 - l, (h - (b - t)) / 2 - t), label, font=font, fill=(255, 255, 255, 255))
     buf = io.BytesIO()
     im.save(buf, "PNG")
     return buf.getvalue()
