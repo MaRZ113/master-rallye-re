@@ -22,6 +22,9 @@ from master_rallye.course_bsp import AXIS_CODE, Node
 
 _original = collision.build_solid_bsp
 _original_polygons = collision.collision_polygons
+_original_terrain = collision.terrain_triangles
+import master_rallye.studio.collision_debug as collision_debug
+_original_segments = collision_debug.segment_intervals
 _state = {"provenance": None, "ranges": {}, "solids": {}}
 
 
@@ -106,3 +109,44 @@ def install(project):
                                                     for j in range(3)) for t in range(a, b)]
     collision.build_solid_bsp = build_solid_bsp_objects
     collision.collision_polygons = collision_polygons_recorded
+    _state["deck_tops"] = [tuple(tuple(q) for q in t) for t in project.extras.get("evo2_deck_tops", [])]
+    collision.terrain_triangles = terrain_triangles_with_decks
+    _state["ground"] = collision.HeightField(terrain_triangles_with_decks(project))
+    collision_debug.segment_intervals = segment_intervals_below_camera
+
+
+CAMERA_SWEEP_M = 3.4
+
+
+def segment_intervals_below_camera(root, start, end):
+    """Course Studio's route sweep also tests 3.5 m above the road (chase-camera height) and fails the build there.
+    Evo underpasses are lower than that (Autumn Leaves: the start leg runs under the deck its last leg crosses), and
+    build_track then removed the overpass, i.e. the deck of the other leg. Sweeps at 3.4 m and more above the ground
+    are reported clear; every height a car occupies (0.35..2.2 m) is still checked."""
+    rows = _original_segments(root, start, end)
+    g = _state["ground"].ground(start[0], start[2], below=start[1])
+    if g is not None and start[1] - g >= CAMERA_SWEEP_M:
+        return [dict(r, solid=False) for r in rows]
+    return rows
+
+
+def terrain_triangles_with_decks(project, roles=(collision.ROLE_TERRAIN,)):
+    """Course Studio's validation height field (holes/phantoms, route clearance "above the ground", route leaves the
+    terrain) plus the top faces of the bridge decks the route uses. Without them the route sweep measured the AI line
+    over a bridge from the river bed, reported the deck as a wall and build_track removed it (cars fell through
+    bridges). Only the probes' notion of ground changes; the BSP and the land database are built from ROLE_TERRAIN."""
+    out = _original_terrain(project, roles)
+    if collision.ROLE_TERRAIN in roles:
+        for a, b, c in _state.get("deck_tops", ()):
+            n = (( b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]),
+                 (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]),
+                 (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]))
+            ln = sum(v * v for v in n) ** 0.5
+            if ln < 1e-9:
+                continue
+            n = tuple(v / ln for v in n)
+            if n[1] < 0:
+                n = tuple(-v for v in n)
+            out.append((a, b, c))
+            out.planes.append((n[0], n[1], n[2], -(n[0] * a[0] + n[1] * a[1] + n[2] * a[2])))
+    return out

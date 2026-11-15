@@ -43,7 +43,7 @@ OBJECT_MAX_TILE = 128
 # DX, collision pools and every car. Over budget the cache evicts and re-creates textures every frame (in-race
 # 0x5589D0 CreateTexture storm, 100+ per frame in host-evo-tracks-01 on Pikes Peak). Stay well under it.
 TEXTURE_BUDGET_BYTES = 24 << 20
-FINISH_GAP_M = 150.0
+FINISH_GAP_M = 40.0                          # Retail start-finish distances: 38..135 m (all Retail courses are loops)
 ROUTE_STEP_M = 10.0
 
 
@@ -469,7 +469,8 @@ def surface_near(x, z, ground, decks, hint):
 
 def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, limits_m=(45.0, 75.0), title: str | None = None,
                   course_key: str | None = None, objects: bool = True, object_collision: str = "all",
-                  collision_radius_m: float = 40.0, grounded: bool = True, log=print) -> CourseProject:
+                  collision_radius_m: float = 40.0, grounded: bool = True, bridges: bool = True,
+                  log=print) -> CourseProject:
     out_dir = Path(out_dir)
     key = course_key or safe_key("Evo2" + track.key.capitalize())
     project = new_project(key, title=title or track.sit.name, template=environment_for(track))
@@ -513,10 +514,11 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     if not closed and gates:
         lap = lap[:gates[-1][0] + 1]
         gates = gates[:-1]
-    decks = elevated_decks(track) if objects else []
+    decks = elevated_decks(track) if objects and bridges else []
     route_m = [mirror((x * mm, ground_m(x * mm, z * mm), z * mm)) for x, z in lap]
     route_on = route_m
     route_m, decks = settle_route(route_m, decks)
+    project.extras["evo2_deck_tops"] = [[list(q) for q in tri] for d in decks for tri in d.tris]
     report.update(deck_candidates=len(elevated_decks(track)) if objects else 0, decks=len(decks),
                   route_points_on_decks=sum(1 for a, b in zip(route_on, route_m) if b[1] > a[1] + 0.2))
     route_m = [(p[0], p[1] + 0.3, p[2]) for p in route_m]
@@ -989,10 +991,14 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
             if in_corridor and all(s > 0 for s in b.size):
                 size = tuple(max(s * mm, 0.4) for s in b.size)         # fences/decks: >= 0.4 m (no sliver faces)
                 corners = sorted({p for tri in _box_tris(center, size, m) for p in tri})
-                on_deck = [y for y in (d.top(q[0], q[2]) for d in decks if d.box_index != box_index for q in corners)
+                # deck height under the box: corners, centre and half-way points (a covered bridge's walls stand on the
+                # deck's edge with their corners outside it; missed, they merged with the deck and the deck was lost)
+                cx_, cz_ = sum(q[0] for q in corners) / len(corners), sum(q[2] for q in corners) / len(corners)
+                feet = corners + [(cx_, 0.0, cz_)] + [((q[0] + cx_) / 2, 0.0, (q[2] + cz_) / 2) for q in corners]
+                on_deck = [y for y in (d.top(q[0], q[2]) for d in decks if d.box_index != box_index for q in feet)
                            if y is not None]
                 if box_index in deck_boxes:
-                    solids.append(support_points(corners))                 # a deck the route uses: as authored
+                    deck_solids.append(support_points(corners))            # a deck the route uses: as authored
                     stats["deck_boxes"] = stats.get("deck_boxes", 0) + 1
                 elif on_deck and min(q[1] for q in corners) > min(on_deck) - 1.5:
                     # rails on a deck: floor raised onto the deck (disjoint from it, never merged into a wedge)
@@ -1108,6 +1114,28 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
     def size(h):
         return (h["hi"][0] - h["lo"][0]) * (h["hi"][1] - h["lo"][1]) * (h["hi"][2] - h["lo"][2])
 
+    # Used decks never merge: anything else that reaches into one from at most 1.5 m below its top (end rails,
+    # walls, rocks at the abutments) gets its floor raised onto the deck. A rail touching a deck by 3 cm merged with it
+    # and with the walls into one hull that lost the deck (Autumn Leaves covered bridge).
+    deck_hulls = [h for h in (hull(support_points(pts)) for pts in deck_solids) if h["tris"]]
+    lifted = []
+    for pts in solids:
+        for dh in deck_hulls:
+            h = hull(support_points(pts))
+            overlap = all(h["lo"][k] < dh["hi"][k] and dh["lo"][k] < h["hi"][k] for k in range(3))
+            if not h["tris"] or not overlap or separated(h, dh):
+                continue
+            if h["lo"][1] >= dh["hi"][1] - 1.5:              # standing on the deck: floor onto its top
+                floor = dh["hi"][1] + 0.05
+                pts = [(q[0], max(q[1], floor), q[2]) for q in pts]
+                stats["lifted_onto_decks"] = stats.get("lifted_onto_decks", 0) + 1
+            else:                                            # coming from below (piers, rocks): capped under it
+                ceiling = dh["lo"][1] - 0.05
+                pts = [(q[0], min(q[1], ceiling), q[2]) for q in pts]
+                stats["capped_under_decks"] = stats.get("capped_under_decks", 0) + 1
+        if max(q[1] for q in pts) > min(q[1] for q in pts) + 0.2:
+            lifted.append(support_points(pts))
+    solids[:] = lifted
     hulls = [h for h in (hull(pts) for pts in solids) if h["tris"]]
     stats["merge_conflicts_dropped"] = 0
     changed = True
@@ -1134,11 +1162,13 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
                     break
             if changed:
                 break
-    hulls += [h for h in (hull(support_points(pts)) for pts in deck_solids) if h["tris"]]
+    hulls += deck_hulls
     stats["collision_solids"] = 0
     stats["route_blocking_solids_dropped"] = 0
+    deck_ids = {id(h) for h in deck_hulls}
     for h in hulls:
-        if blocks(h):
+        is_deck = id(h) in deck_ids        # the route runs on it by construction: never dropped as an obstacle
+        if not is_deck and blocks(h):
             stats["route_blocking_solids_dropped"] += 1
             stats.setdefault("dropped_solids_at", []).append([round((h["lo"][k] + h["hi"][k]) / 2, 1) for k in range(3)]
                                                              + [round(h["hi"][1] - h["lo"][1], 1)])
@@ -1146,6 +1176,7 @@ def add_objects(track: Track, project: CourseProject, out_dir: Path, key: str, c
         stats["collision_solids"] += 1
         first = len(proxies.tri_material)
         project.extras.setdefault("evo2_solids", {}).setdefault(proxies.id, []).append([first, first + len(h["tris"])])
+        project.extras.setdefault("evo2_deck_solids", {}).setdefault(proxies.id, []).append(is_deck)
         for tri in h["tris"]:
             for q in tri:
                 proxies.triangles.append(len(proxies.positions) // 3)

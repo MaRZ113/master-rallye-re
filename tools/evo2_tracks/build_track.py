@@ -26,13 +26,14 @@ def drop_solids_at(project, spots, margin=1.5) -> int:
     removed = 0
     for mesh_id, ranges in list(project.extras.get("evo2_solids", {}).items()):
         mesh = meshes[mesh_id]
-        keep_ranges, tris, mats = [], [], []
+        keep_ranges, tris, mats, keep_decks = [], [], [], []
+        decks = project.extras.get("evo2_deck_solids", {}).get(mesh_id) or [False] * len(ranges)
         pos = mesh.positions
-        for a0, b0 in ranges:
+        for (a0, b0), is_deck in zip(ranges, decks):
             pts = [pos[3 * mesh.triangles[3 * t + j]:3 * mesh.triangles[3 * t + j] + 3] for t in range(a0, b0) for j in range(3)]
             lo = [min(q[k] for q in pts) - margin for k in range(3)]
             hi = [max(q[k] for q in pts) + margin for k in range(3)]
-            if any(all(lo[k] <= s[k] <= hi[k] for k in range(3)) for s in spots):
+            if not is_deck and any(all(lo[k] <= s[k] <= hi[k] for k in range(3)) for s in spots):   # decks stay
                 removed += 1
                 continue
             start = len(mats)
@@ -40,8 +41,10 @@ def drop_solids_at(project, spots, margin=1.5) -> int:
                 tris.extend(mesh.triangles[3 * t:3 * t + 3])
                 mats.append(mesh.tri_material[t])
             keep_ranges.append([start, len(mats)])
+            keep_decks.append(is_deck)
         mesh.triangles, mesh.tri_material = tris, mats
         project.extras["evo2_solids"][mesh_id] = keep_ranges
+        project.extras.setdefault("evo2_deck_solids", {})[mesh_id] = keep_decks
     return removed
 
 
@@ -66,39 +69,54 @@ def main(argv=None):
     t0 = time.time()
     track = load_track(a.pod, a.sit)
     pdir = a.work / "projects" / track.key
-    project = build_project(track, pdir, corridor_m=a.corridor, objects=not a.no_objects, object_collision=a.object_collision,
-                            collision_radius_m=a.collision_radius, grounded=not a.ungrounded)
-    save_project(project, pdir)
-    object_bsp.install(project)                   # disjoint object solids: kd split between them (see object_bsp.py)
-    timing = {"convert_s": round(time.time() - t0, 1)}
-    print(json.dumps(project.extras["evo2"]), flush=True)
+    def attempt(bridges):
+        project = build_project(track, pdir, corridor_m=a.corridor, objects=not a.no_objects, object_collision=a.object_collision,
+                                collision_radius_m=a.collision_radius, grounded=not a.ungrounded, bridges=bridges)
+        save_project(project, pdir)
+        object_bsp.install(project)                   # disjoint object solids: kd split between them (see object_bsp.py)
+        timing = {"convert_s": round(time.time() - t0, 1)}
+        print(json.dumps(project.extras["evo2"]), flush=True)
+        marks = {}
+        if a.project_only:
+            return project, None, 0, timing, marks
+
+        def say(stage, fraction=None):
+            if stage not in marks:
+                marks[stage] = round(time.time() - t0, 1)
+                print(f"  [{stage}] t={marks[stage]}s", flush=True)
+        dropped = 0
+        for _try in range(4):
+            result = build_course(project, project_dir=pdir, resource_root=a.resource_root, output=a.work / "builds", progress=say)
+            if result.ok:
+                break
+            # Object solids the Course Studio route sweep still finds next to the AI line (it samples the native
+            # RaceLine, +-1 m, 0.35..2.2 m above the terrain): remove those solids and build again.
+            spots = [i["position"] for i in result.report.get("collision_issues", [])
+                     if i.get("kind") in ("route_sweep", "route_step", "route_blocked") and i.get("position")]
+            others = [f for f in result.findings if f.severity == "error" and f.category != "collision"]
+            if not spots or others:
+                break
+            n = drop_solids_at(project, spots)
+            if not n:
+                break
+            dropped += n
+            save_project(project, pdir)
+            object_bsp.install(project)
+            print(f"  [route sweep] removed {n} object solids at the AI line; rebuilding", flush=True)
+        return project, result, dropped, timing, marks
+
+    marks = {}
+    bridges_used = True
+    project, result, dropped, timing, marks = attempt(True)
     if a.project_only:
         return 0
-    marks = {}
-
-    def say(stage, fraction=None):
-        if stage not in marks:
-            marks[stage] = round(time.time() - t0, 1)
-            print(f"  [{stage}] t={marks[stage]}s", flush=True)
-    dropped = 0
-    for attempt in range(4):
-        result = build_course(project, project_dir=pdir, resource_root=a.resource_root, output=a.work / "builds", progress=say)
-        if result.ok:
-            break
-        # Object solids the Course Studio route sweep still finds next to the AI line (it samples the native
-        # RaceLine, +-1 m, 0.35..2.2 m above the terrain): remove those solids and build again.
-        spots = [i["position"] for i in result.report.get("collision_issues", [])
-                 if i.get("kind") in ("route_sweep", "route_step", "route_blocked") and i.get("position")]
-        others = [f for f in result.findings if f.severity == "error" and f.category != "collision"]
-        if not spots or others:
-            break
-        n = drop_solids_at(project, spots)
-        if not n:
-            break
-        dropped += n
-        save_project(project, pdir)
-        object_bsp.install(project)
-        print(f"  [route sweep] removed {n} object solids at the AI line; rebuilding", flush=True)
+    if not getattr(result, "ok", True) and project.extras["evo2"].get("decks"):
+        # Bridge decks make the Course Studio probes stricter (deck-end steps, holes under decks). A race that does not
+        # pass with them is built as before (no decks: elevated boxes float, the route follows the terrain).
+        print("  [bridges] the build with bridge decks failed; building without them", flush=True)
+        bridges_used = False
+        project, result, dropped, timing, marks = attempt(False)
+    project.extras["evo2"]["bridges"] = bridges_used
     project.extras["evo2"]["route_sweep_solids_dropped"] = dropped
     save_project(project, pdir)
     timing["total_s"] = round(time.time() - t0, 1)

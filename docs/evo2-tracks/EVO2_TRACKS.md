@@ -124,6 +124,28 @@ python tools/verify_course_layer.py <game>
   6 m (`deck_slabs`) instead of one hull that would fill the space under its arch. Most elevated drivable models are
   cliffs, rocks and huts and keep their grounded hull. Before this the AI line, the gates and the finish trigger of a
   route over a bridge sat on the river bed under it (the finish was never crossed; bots drove into the water).
+* **Decks through the Course Studio checks.** The Course Studio route checks measure "above the ground" from
+  ROLE_TERRAIN only, so a route over a bridge was swept from the river bed, the deck was reported as a wall and
+  `build_track` removed it again (owner test 4: still no bridge collision). `object_bsp.install` now adds the used
+  deck tops to the probes' height field (`terrain_triangles` for validation only; the BSP and land records are
+  unchanged), which also makes the hole probes check the decks, and reports route-sweep hits at 3.4 m and more above
+  the ground (the 3.5 m chase-camera sample) as clear: Evo underpasses are lower than that and the overpass is the
+  deck of the other leg. Used decks never merge; a solid that reaches into one from at most 1.5 m below its top (end
+  rails, walls on the deck edge, abutment rocks) gets its floor raised onto it (a rail touching the covered bridge's
+  deck by 3 cm merged deck, rail and walls into one hull without the deck). Autumn Leaves: all four decks solid in the
+  built BSP, the road under the overpass open.
+* **Deck intersections and fallback.** A solid that really intersects a used deck (face-normal separating-axis test)
+  is lifted onto it when it starts at most 1.5 m under its top, otherwise capped 5 cm under its underside (piers,
+  rocks): Course Studio's exact BSP needs disjoint solids (Treasure Bay's 137 m bridge was empty with a pier through
+  it). Deck solids are never dropped as route obstacles (`extras.evo2_deck_solids`, honoured by `drop_solids_at`).
+  A race that still fails the Course Studio checks with decks (deck-end steps of ~0.5 m on the approach, objects
+  beside the deck) is rebuilt without them (`bridges=False`, the previous behaviour: elevated boxes float, the route
+  follows the terrain); `extras.evo2.bridges` records which build shipped. batch-07: decks on Autumn Leaves,
+  Treasure Bay, Quarry Lake, Mediterranean, Black Gold, Bayou Flats; fallback on Construction Junction, Castle Rock,
+  Thailand Rally, Tibet Cliffside, Vulture Canyon, Arizona (next: ramps at deck ends).
+* **Finish.** Every Retail course is a loop with the finish 38-135 m from the start area, so circuits now end
+  `FINISH_GAP_M` = 40 m before the start (was 150 m: the last 110 m of the lap had no RaceLine, bots left the road
+  there and cars were reset beyond its end). Autumn Leaves: route 2060 m for the 2050 m Evo lap.
 * **Solid merging.** Intersecting proxies are merged into the hull of their union unless that hull would close the
   AI line while the two alone do not (a covered bridge's wall and an entrance rail): then the smaller one is dropped.
 * **Tyre tracks.** Surface.xml names `misc/tracks/<surface>` for every surface, but Retail ships only grass, gravel,
@@ -201,7 +223,8 @@ that layout (the first one filled 256 px and was cut on the right).
 
 Race buttons of the category row: the Retail row is one `RaceSelect.xml` egg per race (Masters, cups, challenges,
 Invitation: `gaFrontendXYButtonAI`, `Y ID` = mode, `X ID` = position, `Button<X>XPos` published by 0x47ECB0 for every
-position of the mode, image = a `frontendaceselectlagsheet` frame). The Vehicle Manager appends one flagsheet
+position of the mode, image = a `frontend
+aceselectlagsheet` frame). The Vehicle Manager appends one flagsheet
 frame per course race (the race screenshot over the Invitation 1 icon's bottom band, its number box repainted) and
 clones the Invitation 1 egg per race with `Y ID` 8. Without them the category row was empty.
 
