@@ -7,9 +7,16 @@ Mapping (docs/rcx/RCX_TRACKS.md):
             meshes); MR's world is right-handed with +Y up. Points map (x, y, z) -> (-x, -y, z), a rotation:
             triangle winding is kept and the layout is not mirrored. Units are metres in both.
   geometry  every .map group becomes triangles of one Course Studio mesh by the Rally.exe surface:
-            drivable / solid surfaces -> ROLE_TERRAIN (drawn, collides, MR surface), NO_COLLIDE / Forest /
-            Bushy / Corona -> ROLE_VISUAL, untextured groups -> ROLE_COLLISION (invisible barriers),
-            Water -> ROLE_WATER.
+            ground within --corridor (45 m) of the driving line -> ROLE_TERRAIN (drawn, collides, MR surface);
+            ground beyond it, NO_COLLIDE / Forest / Bushy / Corona, Fence, bridge barriers and rails ->
+            ROLE_VISUAL; Water -> ROLE_WATER; untextured groups (RCX invisible barrier walls) are dropped
+            (--barriers keeps them as ROLE_COLLISION). The whole RCX soup as terrain needed 52 MB of native
+            collision pools (32 MB model cache) and its open walls made phantom solids over the road.
+  bridges   Wood / Metal faces: only deck tops the driving line runs on (8 m, +-2 m) stay solid, each with its own
+            downward face 0.4 m lower (an exact land slab; the RCX underside is narrower than the top and left the
+            deck edges unsupported); piers, beams and undersides are drawn only. Underpasses stay open.
+  repair    the build repeats (--passes): terrain within 4 m of every off-road collision spot Course Studio
+            reports (hole / phantom farther than --keep-m from the route) becomes drawn only.
   textures  RCX TEX (DXT1/DXT3/ARGB) -> PNG; halved until the course stays within the MR model-cache budget.
             UVs are top-origin in RCX, bottom-origin in Course Studio (v flipped once).
   race      route = config.cfg spline "driving line" (oriented from STRT to the last CHKP gate), resampled
@@ -41,6 +48,10 @@ SURFACE_MR = {'Tarmac': 'tarmac', 'Rough tarmac': 'tarmac', 'Cattle Grid': 'meta
               'Rough grass': 'grass', 'Rock': 'rock', 'Fence': 'metal', 'Wood': 'harddirt', 'Metal': 'metal',
               'No Drive': 'rock', 'Unknown': 'rock', 'Water': 'water'}
 DRAW_ONLY = {'NO_COLLIDE', 'Forest', 'Bushy', 'Corona'}
+STRUCTURES = {'Wood', 'Metal'}  # bridges: deck tops the line runs on become exact slabs, underside/piers/beams drawn only
+DECK_SLAB_M = 0.4
+DRAW_ONLY_TEXTURES = ('barrier', 'rail')  # bridge barriers and rails: open soup along the deck edges
+SOLID_PROPS = {'Fence'}    # thin walls: open soup, drawn only (BSP would leak solid); rock/wood/metal can be road
 TEMPLATES = {'kenya': 'Turkey1', 'arctic': 'ItalyW1', 'manx': 'France2', 'scottish': 'Italy1', 'usa': 'Spain1',
              'welsh': 'France1'}
 
@@ -74,7 +85,32 @@ def heading_deg(route, i):
     return math.degrees(math.atan2(b[0] - a[0], b[2] - a[2]))
 
 
-def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, title: str | None = None, log=print):
+def corridor_distance(line, cell=50.0):
+    """XZ distance from a point to the nearest driving-line sample (grid hash; MR frame)."""
+    grid = {}
+    for p in line:
+        grid.setdefault((int(p[0] // cell), int(p[2] // cell)), []).append(p)
+
+    def dist(x, z, reach=2):
+        gi, gj, best = int(x // cell), int(z // cell), float("inf")
+        for di in range(-reach, reach + 1):
+            for dj in range(-reach, reach + 1):
+                for p in grid.get((gi + di, gj + dj), ()):
+                    best = min(best, (p[0] - x) ** 2 + (p[2] - z) ** 2)
+        return math.sqrt(best)
+    return dist
+
+
+def up_normal(a, b, c):
+    u = [b[k] - a[k] for k in range(3)]; w = [c[k] - a[k] for k in range(3)]
+    n = (u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0])
+    ln = math.sqrt(sum(x * x for x in n))
+    return n[1] / ln if ln else 0.0
+
+
+def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, title: str | None = None, log=print,
+                  corridor_m: float = 45.0, min_up: float = -2.0, barriers: bool = False, demote=()):
+    """demote: [(x, z, radius)] MR-frame discs whose terrain triangles become drawn-only (collision repair passes)."""
     stage_dir, out_dir = Path(stage_dir), Path(out_dir)
     name = stage_dir.name
     smap = read_map((stage_dir / f"{name}.map").read_bytes())
@@ -100,19 +136,37 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
 
     used_textures = {}
     tri_counts = {}
+    near = corridor_distance([to_mr(p) for p in cfg.splines["driving line"]])
+    line_mr = [to_mr(p) for p in cfg.splines["driving line"]]
+
+    def on_line(ps, reach=8.0, rise=2.0):
+        """A structure face the driving line runs on (a bridge deck, not its beams or the deck over an underpass)."""
+        return any(math.dist((q[0], q[2]), (l[0], l[2])) <= reach and abs(q[1] - l[1]) <= rise
+                   for q in ps for l in line_mr if abs(q[0] - l[0]) <= reach and abs(q[2] - l[2]) <= reach)
     for g, tri in smap.triangles():
         surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
         if g.texture < 0:
+            if not barriers:
+                tri_counts["dropped_barrier"] = tri_counts.get("dropped_barrier", 0) + 1
+                continue
             role = ROLE_COLLISION
         elif surface == 'Water':
             role = ROLE_WATER
-        elif surface in DRAW_ONLY:
+        elif surface in DRAW_ONLY or surface in SOLID_PROPS or any(k in smap.textures[g.texture].lower() for k in DRAW_ONLY_TEXTURES):
             role = ROLE_VISUAL
         else:
-            role = ROLE_TERRAIN
+            ps = [to_mr(v[:3]) for v in tri]
+            cx, cz = sum(q[0] for q in ps) / 3, sum(q[2] for q in ps) / 3
+            up = up_normal(*ps)
+            solid = (up >= min_up and near(cx, cz) <= corridor_m
+                     and not (surface in STRUCTURES and (up < 0.7 or not on_line(ps)))
+                     and not any((cx - dx) ** 2 + (cz - dz) ** 2 <= dr * dr for dx, dz, dr in demote))
+            role = ROLE_TERRAIN if solid else ROLE_VISUAL
         m = mesh(role)
         tex = smap.textures[g.texture] if g.texture >= 0 else None
         mr_surface = SURFACE_MR.get(surface, 'harddirt') if role in (ROLE_TERRAIN, ROLE_WATER) else None
+        if role == ROLE_VISUAL and g.surface < len(SURFACES) and surface not in DRAW_ONLY | SOLID_PROPS | STRUCTURES                 and not any(k in (tex or "").lower() for k in DRAW_ONLY_TEXTURES):
+            mr_surface = "far"                 # ground outside the collision corridor: ground shader, no surface
         mkey = (tex, mr_surface)
         if mkey not in m._mat:
             m._mat[mkey] = len(m.materials)
@@ -126,6 +180,16 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         m.triangles.extend((base, base + 1, base + 2))
         m.tri_material.append(m._mat[mkey])
         tri_counts[role] = tri_counts.get(role, 0) + 1
+        if role == ROLE_TERRAIN and surface in STRUCTURES:
+            # deck slab: every deck top face gets its own downward face DECK_SLAB_M lower (the RCX underside, drawn
+            # only, is narrower than the top: the overhanging deck edges had no support under them)
+            for v in reversed(tri):
+                x, y, z = to_mr(v[:3])
+                m.positions.extend((x, y - DECK_SLAB_M, z))
+                m.uv.extend((v[4], 1.0 - v[5]))
+            m.triangles.extend((base + 3, base + 4, base + 5))
+            m.tri_material.append(m._mat[mkey])
+            tri_counts["deck_slab"] = tri_counts.get("deck_slab", 0) + 1
     report["triangles"] = tri_counts
 
     # ---- textures (shared PNGs; halved until the model-cache budget holds)
@@ -176,6 +240,10 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                                                          textures=[tkey, None, None], noise=False, alpha="blend")
                     elif role == ROLE_TERRAIN:
                         project.materials[mk] = Material(mk, "RCX " + (surf or ""), shader="ground", surface=surf,
+                                                         textures=[tkey, None, None], noise=False,
+                                                         alpha="cutout" if alpha else "opaque")
+                    elif surf == "far":
+                        project.materials[mk] = Material(mk, "RCX far ground", shader="ground", surface=None,
                                                          textures=[tkey, None, None], noise=False,
                                                          alpha="cutout" if alpha else "opaque")
                     else:
@@ -277,6 +345,11 @@ def main(argv=None):
     ap.add_argument("--resource-root", type=Path, required=True, help="retail data tree (Data.sma_unpacked)")
     ap.add_argument("--title")
     ap.add_argument("--project-only", action="store_true")
+    ap.add_argument("--passes", type=int, default=4, help="collision repair passes (off-road holes -> drawn only)")
+    ap.add_argument("--keep-m", type=float, default=10.0, help="never demote terrain this close to the driving line")
+    ap.add_argument("--corridor", type=float, default=45.0, help="collision corridor around the driving line, m")
+    ap.add_argument("--min-up", type=float, default=-2.0, help="flattest solid ground: minimum normal Y")
+    ap.add_argument("--barriers", action="store_true", help="keep the untextured RCX barrier walls as collision")
     a = ap.parse_args(argv)
     from master_rallye.studio.model import save_project
     from master_rallye.studio.build import build_course
@@ -285,24 +358,37 @@ def main(argv=None):
     render_batches.install()
     t0 = time.time()
     pdir = a.work / "projects" / a.stage.name
-    project = build_project(a.stage, pdir, title=a.title)
-    save_project(project, pdir)
-    object_bsp.install(project)
-    print(json.dumps(project.extras["rcx"]), flush=True)
-    if a.project_only:
-        return 0
-    marks = {}
+    demote, history = [], []
+    for npass in range(a.passes + 1):
+        project = build_project(a.stage, pdir, title=a.title, corridor_m=a.corridor, min_up=a.min_up,
+                                barriers=a.barriers, demote=demote)
+        save_project(project, pdir)
+        object_bsp.install(project)
+        print(json.dumps(project.extras["rcx"]), flush=True)
+        if a.project_only:
+            return 0
+        marks = {}
 
-    def say(stage, fraction=None):
-        if stage not in marks:
-            marks[stage] = round(time.time() - t0, 1)
-            print(f"  [{stage}] t={marks[stage]}s", flush=True)
-    result = build_course(project, project_dir=pdir, resource_root=a.resource_root, output=a.work / "builds", progress=say)
-    errors = [f.to_dict() for f in result.findings if f.severity == "error"]
-    summary = {"ok": result.ok, "output": str(result.output), "stages": marks, "errors": errors[:20],
-               "model_cache": result.report.get("model_cache")}
+        def say(stage, fraction=None):
+            if stage not in marks:
+                marks[stage] = round(time.time() - t0, 1)
+                print(f"  [{stage}] t={marks[stage]}s", flush=True)
+        result = build_course(project, project_dir=pdir, resource_root=a.resource_root, output=a.work / "builds",
+                              progress=say)
+        errors = [f.to_dict() for f in result.findings if f.severity == "error"]
+        near = corridor_distance(project.route.points)
+        spots = [(e["position"][0], e["position"][2]) for e in errors
+                 if e.get("position") and e["category"] == "collision"]
+        fixable = [(x, z) for x, z in spots if near(x, z) > a.keep_m]
+        history.append({"pass": npass, "errors": len(errors), "spots": len(spots), "demoted": len(fixable)})
+        print(f"  pass {npass}: ok={result.ok} errors={len(errors)} off-road spots={len(fixable)}/{len(spots)}", flush=True)
+        if result.ok or not fixable:
+            break
+        demote += [(x, z, 4.0) for x, z in fixable]
+    summary = {"ok": result.ok, "output": str(result.output), "stages": marks, "passes": history,
+               "demoted": demote, "errors": errors[:40], "model_cache": result.report.get("model_cache")}
     (a.work / f"build-{a.stage.name}.json").write_text(json.dumps(summary, indent=1, default=str))
-    print(json.dumps(summary, indent=1, default=str))
+    print(json.dumps({k: summary[k] for k in ("ok", "output", "passes")}, indent=1, default=str))
     return 0 if result.ok else 1
 
 
