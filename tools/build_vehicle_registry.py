@@ -189,7 +189,21 @@ def derive(config):
         delegate=native.branch_target(image,pe,physics.CALL,0xe8)
         image,blob,report=physics.append_reference(source,image,blob,0x10000000,profiles,budget,parent_delegate_va=delegate)
         if report:operations+=report['operations'];bindings['physics']=report
-        unsupported={key for a in authors for key in ('audio_profile','shadow_bounds','mechanical_attachments') if a['report'].get(key)}
+        # Engine waveforms of the new IDs: the SDK engine-name wrapper on each stock tuning's own intern call site.
+        # append_audio refuses a site whose call the parent already redirected (preimage check), so a donor tuning
+        # shared with a parent custom-audio vehicle fails closed instead of overriding it.
+        import vehicle_audio_native as audio
+        profiles=[dict(copy.deepcopy(a['report']['audio_profile']),physical_car_id=a['row']['physical_id']) for a in authors if a['report'].get('audio_profile')]
+        image,blob,report=audio.append_audio(source,image,blob,0x10000000,profiles,budget)
+        if report:operations+=report['operations'];bindings['engine_audio_added']=report
+        for a in authors:
+            prof=a['report'].get('audio_profile')
+            if not prof:continue
+            path='DataAudio/'+audio.engine_resource(prof)+'.wav'
+            if path not in a['resources']:raise ValueError('Authored audio resource missing from build: '+path)
+            if path.casefold() in {k.casefold() for k in output}:raise ValueError('Owned resource collision: '+path)
+            output[path]=a['resources'][path];ownership[path]=a['row']['addon_id']
+        unsupported={key for a in authors for key in ('shadow_bounds','mechanical_attachments') if a['report'].get(key)}
         if unsupported:raise ValueError('Authored native contributors require explicit parent composition: '+', '.join(sorted(unsupported)))
     if config.get('wheel_profiles'):
         import vehicle_wheels_native as wheels
