@@ -85,8 +85,9 @@ def native_delta(old, base, records: int):
             pushes = {i: value(base, b) for i, (a, b) in enumerate(zip(po, pb)) if value(old, a) != value(base, b)}
             if pushes:
                 row["pushes"] = pushes
-        co = [value(old, s) for s in so[cid]]
-        cb = [value(base, s) for s in sb[cid]]
+        # SDK records added after the stock marker tables (e.g. Evo IDs 35-37) have no colour slots
+        co = [value(old, s) for s in so.get(cid, ())]
+        cb = [value(base, s) for s in sb.get(cid, ())]
         if co != cb:
             row["colour"] = cb
         if row:
@@ -101,7 +102,7 @@ def apply_delta(img, delta, unlock: bool):
         pushes = record_pushes(img, cid)
         for i, v in row.get("pushes", {}).items():
             write_push(img, pushes[int(i)], v)
-        for slot, bits in zip(slots[cid], row.get("colour", [])):
+        for slot, bits in zip(slots.get(cid, ()), row.get("colour", [])):
             write_colour(img, slot, bits)
     report = None
     if unlock:
