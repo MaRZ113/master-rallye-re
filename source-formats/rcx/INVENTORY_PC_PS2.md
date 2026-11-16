@@ -92,22 +92,48 @@ the table — directly usable for MR course atmosphere.
 | Rally USA | Canyon Ridge (usa1, **sandstorm**), Truckers Tunnel (usa2, tarmac), The Abyss (usa3), Naked Thunder (usa4, **night thunderstorm**) | |
 
 Plus `carfloor.rcx` (garage floor). 14 stages also exist as `_arcade` archives (same member
-counts; arcade copies). Archive content: `<stage>.map` (world, block/chunk tree, 32-byte vertex
-records in block-local frames), `config.cfg` (`TCFG`: environment, mesh list, insulated objects),
+counts; arcade copies). Archive content: `<stage>.map` (world: node tree with bboxes; about 45 mesh leaves,
+each = 0x80-byte header + u16 indices + 32-byte vertices in **world** coordinates), `config.cfg` (`TCFG`: environment, mesh list, insulated objects),
 5-33 QTO/MSH object meshes, 120-370 TEX textures, optional `.tan` (animation).
 
-### PC vs PS2
+### PC vs PS2 — geometry comparison (2026-11-16)
 
-* Same six rallies, but **different stage names, descriptions, weather and surface mixes**; the
-  PS2 names are real rally locations (several UK ones come from the older Rally Championship
-  line), the PC names are new. The PC Kenya and USA sets include night stages; the PS2 has none.
-* Geometry identity is **not yet established**. The PS2 vertex clouds render as clean stage
-  corridors; PC vertices are block-local, so a fair comparison needs the PC `.map` block tree
-  (offset per block) decoded first. A first FFT occupancy match (`compare_tracks.py`) gave only
-  weak, ambiguous scores (0.5-0.7, no vertex coincidence), so the current working assumption is
-  **different stages** — to be confirmed after the PC `.map` decode.
-* Unique to PS2: Bennon, 8 special stages (incl. snow Hanhikoski), cut MAP29, real-name UK
-  stages. Unique to PC: night stages, sandstorm, the fictional 24-stage set, arcade copies.
+Method (`shared_geometry.py`, `coverage_matrix.py`, `refine_pairs.py`, `overlay.py`): PC leaf
+vertices vs PS2 map vertices. **The PS2 world is the PC world with X negated, same origin**
+(found on manx1 / MAP21, then holds for every shared pair). Measures: share of PC 6-m road cells
+present in the PS2 map, share of PC vertices with a PS2 vertex within 0.1 m. Unrelated pairs
+score <= 0.3 cells / 0.000 vertices.
+
+| PC stage (fictional name) | PS2 map (real name) | PC cells in PS2 | exact vertices | Verdict |
+|---|---|---|---|---|
+| manx1 Harbour Mist | MAP21 Llandudno (Wales 3) | 0.70 | 0.24 | **same geometry**, PC = one route of the PS2 map |
+| manx2 Plantation | MAP32 Gartheiniog (Wales 2) | 0.79 | 0.34 | same |
+| manx3 Coastal Edge | MAP42 Baldrine (Manx 2) | 0.51 | 0.46 | same (PC route partly differs) |
+| manx4 The Curraghs | MAP24 Knocksharry (Manx 3) | 0.85 | 0.29 | same |
+| scottish2 Clashin Darroch | MAP33 Glengap (Scotland 1) | 0.82 | 0.45 | same |
+| scottish3 Sunshine Loch | MAP34 Black Loch (Scotland 2) | 0.80 | 0.40 | same |
+| scottish4 Stormy Loch | MAP35 Bennon (Scotland 5) | 0.63 | 0.29 | same |
+| usa2 Truckers Tunnel | MAP62 Hualapai Nation (USA 3) | 0.88 | 0.40 | same |
+| usa4 Naked Thunder | MAP64 Arizona (USA 1) | 0.34 | 0.17 | partly same |
+| welsh1 Mountain Descent | MAP41 Llanberis (Wales 4) | 0.80 | 0.57 | same |
+| welsh4 Foggy Forest | MAP44 Dumfries (Scotland 4) | 0.77 | 0.26 | same |
+| scottish1 Sunset Stones | MAP22 Pen-y-Coed | — | 0.14 (shifted) | a section re-used at another position, rest new |
+| usa1 Canyon Ridge | MAP41 Llanberis | — | 0.14 (shifted) | section re-used, rest new |
+| welsh3 Lakeside Storm Clouds | MAP43 Glenmooar | — | 0.17 (shifted) | start re-used, rest new |
+| kenya1-4, arctic1-4, usa3, welsh2 | none | <= 0.5 any transform | 0.00 | **PC-only stages** |
+
+* Shared stages: the PS2 maps are larger road networks, the PC stage is one route through the
+  same terrain, often moved to another rally (Welsh/Scottish PS2 maps became PC Manx, Welsh, USA).
+  On the shared area the **PC mesh is denser** (1.0-3.0x vertices: manx1 1.56, manx2 3.04,
+  scottish2 1.01, usa2 2.55, welsh1 3.03) and its textures are DXT/BGRA up to 512.
+* **PS2-only stages:** all Kenya (Tsavo, Rift Valley, Mount Longonot, Turkana River), all Arctic
+  (Kaihuavaara, Rovaniemi, Kemijärvi, Ristilampi), Twiglees, Laxey, Nevada, Bullhead, Glenmooar
+  and Pen-y-Coed (only small sections re-used on PC), the 8 specials and cut MAP29.
+* **PC-only stages:** Fire Rock, Twin Bridges, Vertigo Rift, Dark Safari (night), Frozen Falls,
+  Glacier Run, Lowland Village, Snowy Mountain (night), The Abyss, Lake Llyn Brenig, plus the
+  mostly-new Sunset Stones, Canyon Ridge, Lakeside Storm Clouds.
+* Unique total across both games: 24 PC + 23 PS2-only (4 Kenya, 4 Arctic, 6 UK/USA, 8 specials,
+  MAP29) = **47 stages** (9 snow, 3 night).
 
 ## 3. Weather and snow (for the later stages phase)
 

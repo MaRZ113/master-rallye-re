@@ -38,11 +38,31 @@ def runs(b, stride, lo=-20000.0, hi=20000.0, minrun=300):
     return np.concatenate(out) if out else np.zeros((0, 3), np.float32)
 
 
+def pc_leaves(b):
+    """PC .map mesh leaves: header 0x80 bytes before a run of >=4 0xFFFFFFFF words
+    (u32 index count, u32 vertex count, ...; bbox; 4x4 matrix), then u16 indices,
+    then 32-byte vertices (world xyz float, packed colour, uv)."""
+    out, i = [], 0
+    while True:
+        i = b.find(b'\xff' * 16, i)
+        if i < 0:
+            return out
+        j = i + 16
+        while b[j:j + 4] == b'\xff' * 4:
+            j += 4
+        ni, nv = struct.unpack_from('<2I', b, i - 0x80)
+        idx = np.frombuffer(b[j:j + ni * 2], '<u2')
+        vs = j + ni * 2
+        v = np.frombuffer(b[vs:vs + nv * 32], '<f4').reshape(nv, 8)
+        out.append((idx, v))
+        i = vs + nv * 32
+
+
 def pc_points(path):
     b = path.read_bytes()
     lo = struct.unpack_from('<3f', b, 0x40)
     hi = struct.unpack_from('<3f', b, 0x4C)
-    p = runs(b, 32)
+    p = np.concatenate([v[:, :3] for _, v in pc_leaves(b)])
     keep = np.all((p >= np.array(lo) - 1) & (p <= np.array(hi) + 1), axis=1)
     return p[keep], (lo, hi)
 
