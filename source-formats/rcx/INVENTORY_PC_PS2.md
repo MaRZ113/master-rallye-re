@@ -31,7 +31,7 @@ Both games share the same 27 car models; the PC adds one livery variant.
 | 13 | Mini Cooper | Mini Cooper | COOPER | 1275cc, 115 bhp | same | — |
 | 14 | Nissan Micra | Nissan Micra | NISSAN | 1300, 150 bhp | same | — |
 | 15 | Peugeot 106 Maxi | Peugeot106 | PEUGEOT1 | 1600, 210 bhp | same | — |
-| 16 | Peugeot 206 WRC | peugeot206 | PEUGEOT2 | 2.0, 300 bhp | same | PC has only the arcade-name variant in mixed case |
+| 16 | Peugeot 206 WRC | peugeot206 | PEUGEOT2 | 2.0, 300 bhp | same | — |
 | 17 | Proton Compact / Satria | Proton Compact | PROTON | 1600, 207 bhp | named "Proton Satria" | name |
 | 18 | Renault Megane Maxi | renault megane | RENAULT | 2.0, 260 bhp | same | — |
 | 19 | Seat Cordoba WRC | Seat Cordoba | SEATC | 2.0, 300 bhp | same | — |
