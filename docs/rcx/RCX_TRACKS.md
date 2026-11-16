@@ -45,3 +45,25 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   need a second mode in `tools/course_layer.py`.
 * Without the barrier walls a car can leave the RCX road where RCX blocked it; the MR limits (45 / 75 m) reset it.
 * Previews are the pilot-01 Blender renders (same visuals).
+
+## Set 3 fixes (2026-11-16, owner test of host-rcx-01)
+
+* **Quick Race card showed the previous race's icon** (race 32 selected, icon "31", race 32 loaded). The Quick Race
+  screen publishes `Frontend/QuickRace/FlagImageID` itself at 0x47A889 and 0x47B313: frame = race id, +1 from id 10
+  (flagsheet frame 10 is no race icon). Retail frame 40 is no race icon either, so the appended icons (from frame 41)
+  were one frame off. `course_layer` now calls a small routine there: for race id >= 39 the frame is
+  `flag_frame + (id - 39)`, where `flag_frame` is the flagsheet frame count before the course icons
+  (`course_frame_base`), and `install_course_resources` checks that every icon lands on that frame.
+* **Race titles rendered as "C D"**: the Race Select title font has capital letters only. Titles are upper-cased in
+  `course_layer.plan_catalog` (all 30 Evo 2 titles were affected the same way).
+* **Atmosphere texture seams on the ground**: with no lighting package for a course, Atmosphere lights an unknown
+  texture only as "automatic ground" (renderer `atmosphere_native.hpp` universal_draw: noise stage, opaque texture, no
+  alpha test, CCW cull); everything else stays native. The Evo 2 terrain has `noise=True`, the RCX ground had
+  `noise=False`, so RCX ground stayed native next to lit draws. Opaque RCX ground (collision corridor and far
+  ground) now has `noise=True`; trees, objects and cutout ground stay native as on the Evo 2 tracks.
+* **Ground snags (owner screenshots, Clashin Darroch x -854 z -1992, x -833 z -1789, start x 250 z -83)**: offline,
+  the three places are clean: no two ground layers within 0.6 m at one point, no shared-edge steps, no route-crossing
+  creases (all creases >= 12 deg within 4 m of the route run along the road edge), no BSP hole or solid from the
+  ground up to 0.4 m on a 0.25 m grid, no solid 0.3-1.5 m above ground within 12 m of the route nearby; the land
+  database covers every triangle by its bounds. Cause not found offline; next is a runtime capture (Observatory
+  with `vehicle_manager.py dev-menu on`, collision overlay F11) at the exact place.

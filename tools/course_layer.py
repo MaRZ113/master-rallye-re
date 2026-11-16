@@ -115,7 +115,8 @@ def plan_catalog(new_races: list[dict], vehicle_count: int) -> dict:
         key = r["progress_key"]
         if not re.fullmatch(r"[A-Za-z0-9_-]{1,48}", key) or any(x.get("progress_key") == key for x in races[39:]):
             raise ValueError(f"race {r.get('title')}: invalid or duplicate progress key {key!r}")
-        title = r["title"]
+        # The Race Select title font has capitals only: "Clashin Darroch" rendered as "C D" (owner, 2026-11-16).
+        title = r["title"].upper()
         if not title or len(title) > 60 or not all(32 <= ord(c) < 127 for c in title):
             raise ValueError(f"race title must be 1..60 printable ASCII characters: {title!r}")
         fields = [rid, 0, 0, 0, 0, struct.unpack("<I", struct.pack("<f", float(r.get("distance_km", 5.0))))[0], 0,
@@ -261,6 +262,17 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x68" + u(int(category["logo_frame"])) + b"\x68" + u(LOGO_KEY) + b"\x8d\x4c\x24\x08"); c.call(STRING_ID)
     c.emit(b"\x8d\x44\x24\x04\x50"); c.call(BROKER_GET); c.emit(b"\x8b\xc8"); c.call(BROKER_SET_INT)
     c.label("details_done"); c.emit(b"\x83\xc4\x08\x5e\xc3")
+
+    # ---- Quick Race flag icon (Frontend/QuickRace/FlagImageID) ---------------------------------------------------
+    # 0x47A889 / 0x47B313: frame = race id, +1 from id 10 (flagsheet frame 10 is not a race icon). Retail frame 40 is
+    # not a race icon either, so new races (id >= 39) map to their own appended icons: flag_frame + (id - 39).
+    # Before this hook the Quick Race card showed the icon of the previous race for every new race.
+    flag_base = int(category["flag_frame"])
+    c.label("flag_frame"); c.emit(b"\x83\xfe\x27"); c.jb("flag_retail")             # cmp esi,39; jb retail
+    c.emit(b"\x83\xee\x27\x81\xc6" + u(flag_base) + b"\xc3")                         # sub esi,39; add esi,base; ret
+    c.label("flag_retail"); c.emit(b"\x83\xfe\x0a\x7c\x01\x46\xc3")                  # cmp esi,10; jl +1; inc esi; ret
+    for va in (0x47A889, 0x47B313):
+        hooks.append((va, b"\x83\xfe\x0a\x7c\x01\x46", ("call", "flag_frame")))
     calls = []
     for start, size in [(0x47E2D0, 1859), (0x47F3D0, 111), (0x47F440, 120)]:
         for ins in cs.disasm(bytes(work[start - IMAGE_BASE:start - IMAGE_BASE + size]), start):
@@ -369,7 +381,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     for va, before, label in hooks:
         if isinstance(label, tuple):
             target = c.base_va + c.labels[label[1]]
-            patch(va, before, branch(va, target, 0xE8), label[1] + "@" + hex(va))
+            patch(va, before, branch(va, target, 0xE8) + b"\x90" * (len(before) - 5), label[1] + "@" + hex(va))
         else:
             patch(va, before, branch(va, c.base_va + c.labels[label]) + b"\x90" * (len(before) - 5), label)
     blob = c.build()

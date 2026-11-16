@@ -41,3 +41,38 @@ one wrapper on the Megane intern site 0x40989C for CarIDs 38-41 (Lancer ID 28 ke
 Chain as above with `*-build3` -> `candidate3` -> `runtime-v4b` -> `compiled-new3` -> `rebased-base3` ->
 `roster-v3.mrvr` -> `base-v3`, import-base + apply. Smoke start: `INSTALLED operations=351 records=42`,
 `SDK_BINDING_PROFILE_MATCH`, `BOOT_B_READY`. Not heard in a race yet.
+
+## Roster RCX 04 (set 3, 2026-11-16)
+
+Owner test of set 2 found: RCX cars sit low in the frontend, rear windows crack on the wrong triangles, and the Puma
+is the test car for a native drive layout and a sixth gear.
+
+* **Frontend height**: retail `complete.dx` (Vehicle Select / Quick Race model) is the body raised so that the lowest
+  wheel point is at Y = 0 (Megane: body raised 0.461 m; the same for Forester, Jump, Kangoo, Navara, WildCat).
+  The TXR3-based pilots (RCX) wrote it in the `car.dx` frame (wheels down to -0.34 m). Import
+  `master_rallye.complete_ground.lift_complete_dx` shifts every vertex by -min(Y) and recomputes the marker-1339
+  bounds (collision bytes unchanged); `txr3_classic_pilot` applies it.
+* **Glass panes**: `_split_glass` put the upper rear window and the outer windscreen of slanted RCX glass into the
+  side panes (front = within .55 m of the foremost glass point, rear = within .35 m of the rearmost), so those
+  triangles cracked with the side window. Now a pane is a side window only when its face normal is clearly lateral
+  (|nx| > 1.25 |nz|) and it lies away from the centre line (|x| > .45 of the glass half width); everything else is
+  windscreen / rear window, split at the middle of the glass Z range. Mini (box glass) is unchanged.
+* **DRIVE1 pilot, Ford Puma (ID 42)**: `Engine/DriveType` = 2 (FWD) and the full RCX 6-speed box
+  (`Engine/Gears` = 8: R, N, 6 forward; retail Megane shift points, 88 % for the added step).
+  - Drive layout, from the retail code: 0043C350 maps DriveType 0/1/2 to internal 0/2/1; 0043D480 internal 1 drives
+    the wheels whose LSD bias is `FrontLSDBias` (0043CF10 stores it at +0x24) and leaves the rear free, internal 2 the
+    opposite. So 0 = 4WD, 1 = RWD, 2 = FWD.
+  - Gear count, from the retail code: 0049CEF0 allocates Gear%d / ChangeUpRevs%d / ChangeDownRevs%d by
+    `Engine/Gears` and 0043C350 copies them by it; the only fixed per-gear buffers are the engine's two 11-byte flag
+    arrays (+0x7C, +0x87). The SDK (v-cap `addon_sdk/physics_profile.py`) now resizes the three arrays for
+    `Engine/Gears` in [3, 11] (rows cloned from the last index, values from the profile); the torque table count
+    stays fixed.
+  - Not verified in game: HUD gear digit, GEARBOX set-up page, AI shifting, replay and ghost with 6 forward gears.
+  The other RCX cars keep the donor drive layout and the 5-speed compression until the owner accepts the pilot.
+
+Chain as set 2 with `*-build6` -> `registry-build5.json` -> `candidate5` -> `runtime-v4d` -> `compiled-new5` ->
+`rebased-base5` -> `roster-v5.mrvr` -> `base-v5`, import-base + frontend classes + apply.
+
+**Developer menu**: EXTRA-SET2 stages `DataGame/dev.xml` with `Menues/Enabled=False` in the roster overlay, which wins
+over the game's loose `DataGame/dev.xml`; Broker tools (Observatory) then find no developer menu. `vehicle_manager.py
+dev-menu on|off` (stored in `roster.json`, applied by `apply`) stages it enabled on test hosts.

@@ -273,12 +273,15 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                         project.materials[mk] = Material(mk, "RCX water", shader="water", surface="water",
                                                          textures=[tkey, None, None], noise=False, alpha="blend")
                     elif role == ROLE_TERRAIN:
+                        # noise=True on opaque ground (as the Evo 2 terrain): Atmosphere lights unknown course
+                        # textures only as "automatic ground" (noise stage, opaque, no alpha test, CCW). RCX ground
+                        # without it stayed native next to lit draws: visible texture seams (owner 2026-11-16).
                         project.materials[mk] = Material(mk, "RCX " + (surf or ""), shader="ground", surface=surf,
-                                                         textures=[tkey, None, None], noise=False,
+                                                         textures=[tkey, None, None], noise=not alpha,
                                                          alpha="cutout" if alpha else "opaque")
                     elif surf == "far":
                         project.materials[mk] = Material(mk, "RCX far ground", shader="ground", surface=None,
-                                                         textures=[tkey, None, None], noise=False,
+                                                         textures=[tkey, None, None], noise=not alpha,
                                                          alpha="cutout" if alpha else "opaque")
                     else:
                         project.materials[mk] = Material(mk, "RCX object", shader="tree" if alpha else "object",

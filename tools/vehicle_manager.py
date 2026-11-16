@@ -177,6 +177,12 @@ class Manager:
         self.save_selection(sel)
         return label
 
+    def set_dev_menu(self, enabled: bool) -> dict:
+        sel = self.selection()
+        sel["dev_menu"] = bool(enabled)
+        self.save_selection(sel)
+        return {"dev_menu": bool(enabled), "note": "takes effect on the next apply"}
+
     def course_races(self) -> tuple[list[dict], list[Path], dict]:
         """Enabled packs in selection order -> (races, pack folders, category)."""
         sel = self.selection()
@@ -306,8 +312,10 @@ class Manager:
             for k, r in enumerate(course_races):
                 r["screenshot_pair"] = frames["pair"] + k
             category["logo_frame"] = frames["logo"]
+            category["flag_frame"] = frames["flag"]
             v1, courses = course_layer.apply_native(v1, exe, parse_roster(v1)["writable"], course_races,
-                                                    {"label": category["label"], "logo_frame": category["logo_frame"]})
+                                                    {"label": category["label"], "logo_frame": category["logo_frame"],
+                                                     "flag_frame": category["flag_frame"]})
         masks = {pid: m for pid, m in native["masks"].items()}
         profile, summary = build_profile(v1, exe, core, masks=masks)
         roster = to_v2(v1, profile)
@@ -370,6 +378,16 @@ class Manager:
         if scene.is_file():                              # PAINT row + Broker MODEL caption (idempotent)
             import extra_set2_frontend
             scene.write_bytes(extra_set2_frontend.add_vehicle_options_rows(scene.read_bytes()))
+        # Developer menu: EXTRA-SET2 ships DataGame/dev.xml with Menues/Enabled=False in the overlay, and the overlay wins
+        # over the game's loose DataGame/dev.xml, so Broker tools (Observatory) found no developer menu on test hosts
+        # (owner 2026-11-16). `dev-menu on` stages it enabled.
+        dev = res / "DataGame/dev.xml"
+        if self.selection().get("dev_menu") and dev.is_file():
+            raw = dev.read_bytes()
+            new, count = re.subn(rb'(Name="Menues/Enabled"[^>]*\bValue=")False(")', rb"\g<1>True\2", raw)
+            if count != 1 and b'Name="Menues/Enabled"' not in raw:
+                raise ValueError("dev.xml has no Menues/Enabled value")
+            dev.write_bytes(new)
         catalog_path = staging / "catalog.json"
         catalog = json.loads(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() else {}
         catalog.update({"schema": "mr-vehicle-roster/1", "label": "Vehicle Manager", "classes": plan,
@@ -552,9 +570,10 @@ def course_frame_base(res: Path, game: Path) -> dict:
     from master_rallye.addon_sdk.ui_assets import parse_bank
     shots = parse_bank(game_file(res, game, RACE_SELECT + "screenshotsheet.dxb"))["count"]
     logos = parse_bank(game_file(res, game, RACE_SELECT + "logos.dxb"))["count"]
+    flags = parse_bank(game_file(res, game, RACE_SELECT + "flagsheet.dxb"))["count"]
     if shots % 2:
         raise ValueError("screenshotsheet has an odd frame count")
-    return {"pair": shots // 2, "logo": logos}
+    return {"pair": shots // 2, "logo": logos, "flag": flags}
 
 
 def install_course_resources(res: Path, game: Path, races: list[dict], folders: list[Path], category: dict):
@@ -594,7 +613,10 @@ def install_course_resources(res: Path, game: Path, races: list[dict], folders: 
     entries = []
     for pos, r in enumerate(races):
         icon = course_race_icon(template, (r["_pack"] / r["screenshots"][0]).read_bytes(), pos + 1)
-        entries.append((r.get("id", 39 + pos), pos, append_art(res, "raceicon", icon, game)))   # new IDs follow 0..38
+        frame = append_art(res, "raceicon", icon, game)
+        if "flag_frame" in category and frame != category["flag_frame"] + pos:   # Quick Race card reads base + (id - 39)
+            raise ValueError(f"{r['title']}: race icon frame {frame} differs from the planned {category['flag_frame'] + pos}")
+        entries.append((r.get("id", 39 + pos), pos, frame))   # new IDs follow 0..38
     scene = res / RACE_SELECT_SCENE
     text = scene.read_bytes().decode("latin-1") if scene.is_file() else game_file(res, game, RACE_SELECT_SCENE).decode("latin-1")
     scene.parent.mkdir(parents=True, exist_ok=True)
@@ -919,6 +941,8 @@ def main(argv=None):
     cr = sub.add_parser("course-pack-remove"); cr.add_argument("name")
     cc = sub.add_parser("course-category", help="Quick Race category label of the course packs"); cc.add_argument("label")
     sub.add_parser("seed-course-progress", help="add the course best-time keys to DataGame/PlayerState.xml (backup kept)")
+    dm = sub.add_parser("dev-menu", help="developer menu (Broker editor / Observatory) in the applied overlay: on|off")
+    dm.add_argument("state", choices=("on", "off"))
     k = sub.add_parser("make-kit", help="write a kit package: --choice NAME=FOLDER[:SOURCE_DIR] (no source = the family folder)")
     k.add_argument("--base", required=True); k.add_argument("--label", default="KIT"); k.add_argument("--default", type=int, default=0)
     k.add_argument("--choice", action="append", required=True); k.add_argument("--name"); k.add_argument("--out", type=Path, required=True)
@@ -969,6 +993,7 @@ def main(argv=None):
         "course-pack-remove": lambda: m.remove_course_pack(a.name),
         "course-category": lambda: m.set_course_category(a.label),
         "seed-course-progress": m.seed_course_progress,
+        "dev-menu": lambda: m.set_dev_menu(a.state == "on"),
     }[a.cmd]()
     print(json.dumps(result, indent=1))
 
