@@ -70,6 +70,9 @@ def balance_physics(physics, key, wheel_radius):
     values['Engine/PeakTorque'] = round(DONOR_TORQUE * bhp / DONOR_BHP, 1)
     # same road speed per engine rev as the donor despite the smaller RCX wheel
     values['Engine/GearRatioDiff'] = round(DONOR_DIFF * wheel_radius / DONOR_WHEEL, 3)
+    # retail Megane points at the test tyre "FrontTest"/"RearTest", which has no Vehicles/Tyres rows;
+    # RCX cars take the standard MR rally tyre (harddirt, used by most retail cars)
+    values['Suspension/Front/TyreType'] = values['Suspension/Rear/TyreType'] = 'harddirt'
     physics['notes'] += (' RCX balance: TotalMass = RCX %g kg; PeakTorque = 350 Nm x %d bhp / 260 (power class %s); '
                          'GearRatioDiff scaled by wheel radius %.3f / 0.38. Drive layout %s not applied (MR DriveType 0 for all cars).'
                          % (MASS[key], bhp, spec['power']['class'], wheel_radius, spec['power']['drive']))
