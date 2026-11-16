@@ -31,4 +31,13 @@ Checks: `verify_frontend_classes.py` PASS (counts [8, 13, 13, 3, 1, 2, 1]),
 
 Limits: records stay in race class T2 (opponents, Results, championships); 7 of 8 frontend class slots are used (one left
 for trucks). Race markers of IDs 35-41 use the default colour.
-Engine audio: RCX loops (22 kHz PCM16) pass the SDK audio compiler; not yet in the roster (stock Megane sound).
+## Engine audio (roster RCX 02, same host)
+
+Each car has an `audio-profile.json` (import 320bbcc, `rcx_classic_pilot.add_engine_audio`): the RCX 4000 rpm
+on-throttle exterior loop, whole file, -1 dB, DC removed, native Megane tuning 18 (author slot 27, rebound to 38-41).
+Impreza = `sub`, Astra = `vaux`, Saxo = `peu` (RCX has no Citroen folder; Peugeot 106 is the same 1600 16v class),
+Mini = `mini`. `build_vehicle_registry.py` (v-cap 67122ff) now composes the SDK engine-name wrapper for added IDs:
+one wrapper on the Megane intern site 0x40989C for CarIDs 38-41 (Lancer ID 28 keeps its own at 0x4093A0).
+Chain as above with `*-build3` -> `candidate3` -> `runtime-v4b` -> `compiled-new3` -> `rebased-base3` ->
+`roster-v3.mrvr` -> `base-v3`, import-base + apply. Smoke start: `INSTALLED operations=351 records=42`,
+`SDK_BINDING_PROFILE_MATCH`, `BOOT_B_READY`. Not heard in a race yet.
