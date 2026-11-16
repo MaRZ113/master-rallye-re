@@ -15,7 +15,7 @@ exe=open(os.path.join(H,"MRallye.exe"),"rb").read()
 raw,img=load(open(os.path.join(H,"MRMods","Vehicles","active","roster.mrvr"),"rb").read(),exe)
 u=Uc(UC_ARCH_X86,UC_MODE_32)
 u.mem_map(0x400000,0x400000);u.mem_write(0x400000,bytes(img.recon[:0x300000]))
-u.mem_map(0x10000000,0x100000);u.mem_write(0x10000000,bytes(img.payload))
+u.mem_map(0x10000000,max(0x200000,(len(img.payload)+0xFFFFF)&~0xFFFFF));u.mem_write(0x10000000,bytes(img.payload))
 STACK,OBJ,LIST=0x2000000,0x3000000,0x3100000
 u.mem_map(STACK-0x10000,0x20000);u.mem_map(OBJ,0x1000);u.mem_map(LIST,0x1000)
 calls=[]

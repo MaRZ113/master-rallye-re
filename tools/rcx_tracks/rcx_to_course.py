@@ -50,6 +50,9 @@ SURFACE_MR = {'Tarmac': 'tarmac', 'Rough tarmac': 'tarmac', 'Cattle Grid': 'meta
 DRAW_ONLY = {'NO_COLLIDE', 'Forest', 'Bushy', 'Corona'}
 STRUCTURES = {'Wood', 'Metal'}  # bridges: deck tops the line runs on become exact slabs, underside/piers/beams drawn only
 DECK_SLAB_M = 0.4
+TERRAIN_FACE_BUDGET, CORRIDOR_MIN_M = 30000, 20.0
+NEAR_KEEP_M = 4.0                     # repair never demotes terrain closer than this to the route
+OVERLAY_PASS_FLAG = 0x400             # .map group render flag: not drawn as plain geometry (see build_project)
 DRAW_ONLY_TEXTURES = ('barrier', 'rail')  # bridge barriers and rails: open soup along the deck edges
 SOLID_PROPS = {'Fence'}    # thin walls: open soup, drawn only (BSP would leak solid); rock/wood/metal can be road
 TEMPLATES = {'kenya': 'Turkey1', 'arctic': 'ItalyW1', 'manx': 'France2', 'scottish': 'Italy1', 'usa': 'Spain1',
@@ -109,7 +112,7 @@ def up_normal(a, b, c):
 
 
 def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, title: str | None = None, log=print,
-                  corridor_m: float = 45.0, min_up: float = -2.0, barriers: bool = False, demote=()):
+                  corridor_m: float = 45.0, min_up: float = -0.05, barriers: bool = False, demote=()):
     """demote: [(x, z, radius)] MR-frame discs whose terrain triangles become drawn-only (collision repair passes)."""
     stage_dir, out_dir = Path(stage_dir), Path(out_dir)
     name = stage_dir.name
@@ -143,8 +146,37 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         """A structure face the driving line runs on (a bridge deck, not its beams or the deck over an underpass)."""
         return any(math.dist((q[0], q[2]), (l[0], l[2])) <= reach and abs(q[1] - l[1]) <= rise
                    for q in ps for l in line_mr if abs(q[0] - l[0]) <= reach and abs(q[2] - l[2]) <= reach)
+
+    # Collision corridor within the native pool budget: Fire Rock, 32 k terrain faces in 45 m, needed 20 MB of the
+    # 32 MB model cache; Mountain Descent (41 MB) and Twin Bridges (46 MB) are denser. The corridor shrinks (not
+    # below CORRIDOR_MIN_M) until the ground faces in it fit TERRAIN_FACE_BUDGET.
+    dists = []
     for g, tri in smap.triangles():
         surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
+        if g.texture < 0 or g.flags & OVERLAY_PASS_FLAG or surface == 'Water' or surface in DRAW_ONLY | SOLID_PROPS:
+            continue
+        ps = [to_mr(v[:3]) for v in tri]
+        dists.append(near(sum(q[0] for q in ps) / 3, sum(q[2] for q in ps) / 3))
+    dists.sort()
+    if len(dists) > TERRAIN_FACE_BUDGET and dists[TERRAIN_FACE_BUDGET] < corridor_m:
+        corridor_m = max(CORRIDOR_MIN_M, dists[TERRAIN_FACE_BUDGET])
+    report["corridor_m"] = round(corridor_m, 1)
+    drawn = set()
+    for g, tri in smap.triangles():
+        surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
+        if g.texture >= 0:
+            # Render flag 0x400 marks groups RCX does not draw as plain geometry: the invisible barriers (0x2404,
+            # untextured) and the envmap reflection pass over buildings (0x2406, envmap.tex on the same faces as
+            # the house texture: as a second opaque layer it flickered black / white in MR, owner test 2026-11-16).
+            if g.flags & OVERLAY_PASS_FLAG:
+                tri_counts["dropped_overlay_pass"] = tri_counts.get("dropped_overlay_pass", 0) + 1
+                continue
+            k = [tuple(round(c, 3) for c in v[:3]) for v in tri]
+            k = min(tuple(k[i:] + k[:i]) for i in range(3))     # same face, same winding: drawn once
+            if k in drawn:
+                tri_counts["dropped_duplicate"] = tri_counts.get("dropped_duplicate", 0) + 1
+                continue
+            drawn.add(k)
         if g.texture < 0:
             if not barriers:
                 tri_counts["dropped_barrier"] = tri_counts.get("dropped_barrier", 0) + 1
@@ -196,8 +228,10 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     decoded = {}
     for low, tex in used_textures.items():
         path = stage_dir / tex
-        if not path.is_file():
-            alt = [p for p in stage_dir.iterdir() if p.name.lower() == low]
+        # .tan = texture animation (manx3 lake0000.tan lists lake0000..0031.TEX): its first frame, static for now
+        want = low.rsplit(".", 1)[0] + ".tex" if low.endswith(".tan") else low
+        if not path.is_file() or low.endswith(".tan"):
+            alt = [p for p in stage_dir.iterdir() if p.name.lower() == want]
             path = alt[0] if alt else None
         if path is None:
             log(f"  missing texture {tex}")
@@ -345,10 +379,10 @@ def main(argv=None):
     ap.add_argument("--resource-root", type=Path, required=True, help="retail data tree (Data.sma_unpacked)")
     ap.add_argument("--title")
     ap.add_argument("--project-only", action="store_true")
-    ap.add_argument("--passes", type=int, default=4, help="collision repair passes (off-road holes -> drawn only)")
+    ap.add_argument("--passes", type=int, default=7, help="collision repair passes (off-road holes -> drawn only)")
     ap.add_argument("--keep-m", type=float, default=10.0, help="never demote terrain this close to the driving line")
     ap.add_argument("--corridor", type=float, default=45.0, help="collision corridor around the driving line, m")
-    ap.add_argument("--min-up", type=float, default=-2.0, help="flattest solid ground: minimum normal Y")
+    ap.add_argument("--min-up", type=float, default=-0.05, help="solid ground faces need normal Y >= this (overhangs drawn only)")
     ap.add_argument("--barriers", action="store_true", help="keep the untextured RCX barrier walls as collision")
     a = ap.parse_args(argv)
     from master_rallye.studio.model import save_project
@@ -379,12 +413,20 @@ def main(argv=None):
         near = corridor_distance(project.route.points)
         spots = [(e["position"][0], e["position"][2]) for e in errors
                  if e.get("position") and e["category"] == "collision"]
-        fixable = [(x, z) for x, z in spots if near(x, z) > a.keep_m]
-        history.append({"pass": npass, "errors": len(errors), "spots": len(spots), "demoted": len(fixable)})
-        print(f"  pass {npass}: ok={result.ok} errors={len(errors)} off-road spots={len(fixable)}/{len(spots)}", flush=True)
+        fixable, radius = [(x, z) for x, z in spots if near(x, z) > a.keep_m], 4.0
+        if not fixable:
+            # second stage: spots beside the road (rock faces, verges 4-10 m out), smaller discs; the 4 m the
+            # cars use around the line are never touched
+            fixable, radius = [(x, z) for x, z in spots if near(x, z) > NEAR_KEEP_M and (x, z, 2.0) not in demote], 2.0
+            if not fixable:
+                # the same spots again after their 2 m discs: wider discs that still end NEAR_KEEP_M from the route
+                fixable = [(x, z) for x, z in spots if near(x, z) - NEAR_KEEP_M > 2.0]
+                radius = min(4.0, min((near(x, z) - NEAR_KEEP_M for x, z in fixable), default=2.0))
+        history.append({"pass": npass, "errors": len(errors), "spots": len(spots), "demoted": len(fixable), "radius": radius})
+        print(f"  pass {npass}: ok={result.ok} errors={len(errors)} spots fixed={len(fixable)}/{len(spots)} r={radius}", flush=True)
         if result.ok or not fixable:
             break
-        demote += [(x, z, 4.0) for x, z in fixable]
+        demote += [(x, z, radius) for x, z in fixable]
     summary = {"ok": result.ok, "output": str(result.output), "stages": marks, "passes": history,
                "demoted": demote, "errors": errors[:40], "model_cache": result.report.get("model_cache")}
     (a.work / f"build-{a.stage.name}.json").write_text(json.dumps(summary, indent=1, default=str))
