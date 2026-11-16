@@ -156,6 +156,28 @@ python tools/verify_course_layer.py <game>
   road: the later leg has no limit markers within 90 m of the crossing and the earlier leg keeps full-width limits
   there (`safe_limits`, `crossing_markers_removed`). The 2-D AI heading field (SFL) cannot hold two directions per
   cell: AI cars can still take the other leg at a crossing.
+* **Start grid** (`start_area`). MR places the grid itself (0x48EB40): with P0, P1 the first two StartArea markers,
+  W = |P1 - P0| and d = (P1 - P0)/W, a row holds int(W/6) cars at mid(P0,P1) - k*6*d (one-sided, not centred), rows
+  step 8 m back, and every car gets P1.y. The Course Studio 24 m area put the fourth car 18 m beside the road (Castle
+  Rock hillside, owner test 7). Now W = 12 m (two cars a row, as the Evo grid), mid(P0,P1) 3 m to the right so the row
+  straddles the line, height = highest ground under the first two rows + 0.5 m.
+* **Ramps and approaches** (`route_ramps`, `deck_aprons`, `ramp_land`). Every collision box the route crosses with
+  its top 0.3-10 m above the terrain (jumps: thin pitched CCollisionBox slabs; bridge approaches; platforms) is a
+  route candidate for `settle_route` and otherwise a ramp deck the route stays under. Before, they were plain solids
+  with the AI line under them, the Course Studio sweep reported a wall and build_track removed them: jumps without
+  collision (Final Destination, Arizona, Construction Junction, Costa Rica Rally) and, with decks, six tracks failing
+  into the no-deck fallback. Ramp and model decks get wheel land as a slab cut into ~1.5 m cells (bottom never under
+  the terrain, cells at the terrain left to it). From each deck end the route walks outward to the first surface
+  (terrain, deck or ramp) at or above a 1:4 line from the deck level, and the strip between is an invisible land slab
+  (Evo's 9.75 m terrain cells drop into the river bed metres before a deck begins; Castle Rock stone bridge). The
+  validation sweep (object_bsp) treats as clear a sweep with a drivable surface up to 4.5 m above either end, and a
+  0.5 m step that changes height by more than 0.6 m (it runs between two supports: deck edge, gap, jump lip). Also:
+  a deck or ramp whose underside is under 3 m above the terrain forces the route onto it (Arizona wooden bridge, one
+  tilted box); where decks overlap within 1.5 m only the upper one is a candidate (jump crests); approaches start only
+  from deck edges graded under 15 % (a jump's gap stays open); box deck top/bottom faces are told apart by their
+  outward normal (a long tilted box lost half its top before). build_track reverts only the decks/ramps at spots the
+  checks still reject (`excluded_boxes`) and, as a last resort, drops deck solids whose land slab stays; batch-12:
+  30/30 built, none without decks.
 * **Limits guard** (`limits_sim.py`). Exact replay of gaLimitsAI (0x4CD9B0, nearest-marker helper 0x4CE140): per
   list the 3-D nearest marker n (n-1 when the car is already past P[n+1]'s segment start, clamped to 0..N-3), then
   the car is beyond a left list when `cr(P[n],P[n+1],car) < 0` and `cr(P[n+1],P[n+2],car) < 0` with

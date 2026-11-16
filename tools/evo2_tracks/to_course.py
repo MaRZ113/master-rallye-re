@@ -373,16 +373,15 @@ def elevated_decks(track: Track, smf_cache=None) -> list:
             continue
         m = euler_pbh(b.orient[0], b.orient[1], b.orient[2]) if len(b.orient) == 3 else euler_pbh(0, 0, 0)
         tris = _box_tris(tuple(v * FT for v in b.pos), tuple(max(v * FT, 0.4) for v in b.size), m)
-        flat = []
-        for t in tris:
+        up, down = [], []
+        for t in tris:                           # _box_tris faces point outwards: top and bottom by their normal
             n = cross(sub(t[1], t[0]), sub(t[2], t[0]))
             ln = math.sqrt(dot(n, n))
             if ln > 1e-9 and abs(n[1]) / ln > 0.6:
-                flat.append(t)
-        if flat:
-            top = max(sum(q[1] for q in t) for t in flat)
-            deck = Deck(index, [t for t in flat if sum(q[1] for q in t) > top - 0.3], "box")
-            deck.bottom = [t for t in flat if sum(q[1] for q in t) <= top - 0.3]
+                (up if n[1] > 0 else down).append(t)
+        if up:
+            deck = Deck(index, up, "box")
+            deck.bottom = down
             decks.append(deck)
     return decks
 
@@ -428,18 +427,38 @@ def deck_slabs(deck: Deck) -> list:
     return slabs
 
 
+UNDER_CLEARANCE_M = 3.0
+
+
 def settle_route(route, decks):
     """Route heights on the terrain or on a deck. Per point the candidates are the terrain (the given y) and every
     deck top above it; the sequence with the least total climb wins: a bridge carries the road level over a valley,
     while an overpass of another leg would be a jump of metres. Returns (route, points on decks)."""
+    # A deck or ramp whose underside is less than UNDER_CLEARANCE_M above the terrain is not passable below: there the
+    # terrain is no candidate (Arizona wooden bridge: one tilted box, the route ran under its low end into its side).
+    unders = {}
+    for d in decks:
+        if getattr(d, "bottom", None):
+            unders[id(d)] = Deck(d.box_index, d.bottom, d.kind)
     cands = []
     for p in route:
         c = [p[1]]
+        forced = []
         for d in decks:
             y = d.top(p[0], p[2])
             if y is not None and y > p[1] + 0.2:
                 c.append(y)
-        cands.append(c)
+                u = unders.get(id(d))
+                under = u.top(p[0], p[2]) if u is not None else None
+                if (under if under is not None else y - DECK_THICKNESS_M) < p[1] + UNDER_CLEARANCE_M:
+                    forced.append(y)
+        # overlapping decks less than 1.5 m apart (a jump's crest where the up-ramp ends above the landing): the car
+        # meets the upper one, so only that one is a candidate
+        tops = c[1:]
+        keep = lambda y: not any(y < y2 <= y + 1.5 for y2 in tops)
+        c = [c[0]] + [y for y in tops if keep(y)]
+        forced = [y for y in forced if keep(y)] or ([max(tops)] if forced else [])
+        cands.append(forced or c)
     cost, back = [[0.0] * len(cands[0])], [[0] * len(cands[0])]
     for i in range(1, len(cands)):
         row, brow = [], []
@@ -464,6 +483,187 @@ def settle_route(route, decks):
     return [(p[0], y, p[2]) for p, y in zip(route, ys)], [d for d in decks if d.box_index in used]
 
 
+APRON_MAX_M = 30.0          # longest bridge approach filled
+APRON_SLOPE = 0.25          # the approach ends where the terrain is within this grade of the deck level
+APRON_HALF_W = 4.5
+APRON_MAX_EDGE_SLOPE = 0.15  # deck grade at the edge; steeper ends are jump lips
+APRON_THICKNESS_M = 1.0
+
+
+def deck_aprons(route, decks, ground, supports=()):
+    """Invisible approaches where the route leaves a deck over a hole. Evo terrain cells are 9.75 m, so the ground at a
+    bridge abutment often drops into the river bed metres before the deck box begins; in Evo the bridge model covers the
+    gap visually, in MR the cars fell into it (Castle Rock stone bridge, owner test 7) and the route sample in the gap
+    failed the Course Studio sweep, so six tracks were built without decks at all. From each deck end the route is
+    walked outward (1 m) to the first point whose support (terrain or another used deck) is within APRON_SLOPE of the
+    deck level; the strip between is filled with a slab whose top is the straight line between the two levels (never
+    under the terrain). Returns (route with the filled heights, apron decks)."""
+    on = [any(d.top(p[0], p[2]) is not None and abs(d.top(p[0], p[2]) - p[1]) < 1e-6 for d in decks)
+          and p[1] > ground(p[0], p[2]) + 0.2 for p in route]
+    cum = [0.0]
+    for a, b in zip(route[:-1], route[1:]):
+        cum.append(cum[-1] + math.hypot(b[0] - a[0], b[2] - a[2]))
+
+    def at(s):
+        s = min(max(s, 0.0), cum[-1])
+        i = max(0, min(len(route) - 2, next((k for k in range(len(cum) - 1) if cum[k + 1] >= s), len(route) - 2)))
+        f = (s - cum[i]) / max(cum[i + 1] - cum[i], 1e-9)
+        a, b = route[i], route[i + 1]
+        return a[0] + (b[0] - a[0]) * f, a[2] + (b[2] - a[2]) * f, (b[0] - a[0], b[2] - a[2])
+
+    surfaces = list(decks) + [d for d in supports if d not in decks]
+
+    def landing(x, z, level, k):
+        """The surface the approach ends on: terrain, deck or ramp at or above the APRON_SLOPE line, nearest to level."""
+        c = [ground(x, z)] + [t for t in (d.top(x, z) for d in surfaces) if t is not None]
+        ok = [y for y in c if y >= level - APRON_SLOPE * k]
+        return min(ok, key=lambda y: abs(y - level)) if ok else None
+
+    route = list(route)
+    aprons, covered = [], []
+    for i in range(len(route)):
+        for step in (-1, 1):
+            j = i + step
+            if not on[i] or not (0 <= j < len(route)) or on[j]:
+                continue
+            s0, level = cum[i], route[i][1]
+            if any(lo - 1.0 <= s0 <= hi + 1.0 for lo, hi in covered):
+                continue
+            # only from a level deck edge: a jump's lip is steep and its gap stays open (Final Destination)
+            x_in, z_in, _ = at(s0 - step * 3.0)
+            inner = [t for t in (d.top(x_in, z_in) for d in decks) if t is not None]
+            if inner and min(abs(t - level) for t in inner) / 3.0 > APRON_MAX_EDGE_SLOPE:
+                continue
+            # walk to the deck edge (k0: last 1 m sample still on the deck), then on to the landing surface
+            end, k, k0 = None, 1.0, 0.0
+            while k <= APRON_MAX_M + k0:
+                x, z, _ = at(s0 + step * k)
+                if decks_cover(decks, x, z, level):
+                    k0 = k
+                else:
+                    sup = landing(x, z, level, k - k0)
+                    if sup is not None:
+                        end = (k, sup)
+                        break
+                k += 1.0
+            if end is None or end[0] - k0 <= 1.0:
+                continue
+            k_end, end_level = end
+            length = k_end - k0
+            prof = []
+            for n in range(int(length) + 1):
+                x, z, d = at(s0 + step * (k0 + n))
+                y = max(ground(x, z), level + (end_level - level) * n / length)
+                prof.append((x, y, z, d))
+            tris = []
+            for (x0, y0, z0, d0), (x1, y1, z1, d1) in zip(prof[:-1], prof[1:]):
+                q = []
+                for x, y, z, d in ((x0, y0, z0, d0), (x1, y1, z1, d1)):
+                    ln = math.hypot(d[0], d[1]) or 1.0
+                    rx, rz = d[1] / ln * APRON_HALF_W, -d[0] / ln * APRON_HALF_W
+                    q.append(((x - rx, y, z - rz), (x + rx, y, z + rz)))
+                (a, b), (c, e) = q
+                tris += [(a, b, e), (a, e, c)]
+            apron = Deck(-1000 - len(aprons), tris, "apron")
+            apron.bottom = [tuple((p[0], p[1] - APRON_THICKNESS_M, p[2]) for p in t) for t in tris]
+            aprons.append(apron)
+            lo, hi = sorted((s0, s0 + step * k_end))
+            covered.append((lo, hi))
+            for m in range(len(route)):
+                if lo < cum[m] < hi and not on[m]:
+                    y = apron.top(route[m][0], route[m][2])
+                    if y is not None and y > route[m][1]:
+                        route[m] = (route[m][0], y, route[m][2])
+    return route, aprons
+
+
+RAMP_MIN_SPAN_M = 2.5       # top face at least this wide both ways (fence and wall tops stay obstacles)
+RAMP_MAX_RISE_M = 10.0
+
+
+def route_ramps(track: Track, route, decks) -> list:
+    """Collision boxes the route runs over without settling on them: jumps (thin pitched CCollisionBox slabs), low
+    platforms and boxes over gaps. They were plain object solids with the AI line on the terrain under them, so the
+    Course Studio route sweep saw a wall and build_track removed them: the jumps had no collision at all (Final
+    Destination, Arizona, Construction Junction, Costa Rica Rally; owner test 7). Each becomes a box deck that the
+    route stays under: kept as authored (never merged, grounded or dropped), its top is wheel land and part of the
+    validation ground (object_bsp), its bottom is land only where it is clear of the terrain."""
+    used = {d.box_index for d in decks}
+    samples = []
+    for a, b in zip(route[:-1], route[1:]):
+        n = max(1, int(math.dist(a, b) / 2.0))
+        samples += [tuple(a[k] + (b[k] - a[k]) * i / n for k in range(3)) for i in range(n)]
+    out = []
+    for index, b in enumerate(track.sit.boxes):
+        if index in used or not (b.kind == "CCollisionBox" or (b.kind == "CCollide" and b.fields.get("collisionType", "0") == "0")):
+            continue
+        if not all(v > 0 for v in b.size) or min(b.size[0], b.size[2]) * FT < RAMP_MIN_SPAN_M:
+            continue
+        m = euler_pbh(b.orient[0], b.orient[1], b.orient[2]) if len(b.orient) == 3 else euler_pbh(0, 0, 0)
+        center = tuple(v * FT for v in b.pos)
+        tris = _box_tris(center, tuple(max(v * FT, 0.4) for v in b.size), m)
+        top, bottom = [], []
+        c = mirror(center)
+        for t in tris:
+            n = cross(sub(t[1], t[0]), sub(t[2], t[0]))
+            ln = math.sqrt(dot(n, n))
+            if ln < 1e-9:
+                continue
+            if abs(n[1]) / ln > 0.6:
+                (top if n[1] > 0 else bottom).append(t)
+        if not top:
+            continue
+        deck = Deck(index, top, "box")
+        hit = False
+        for p in samples:
+            y = deck.top(p[0], p[2])
+            if y is None:
+                continue
+            g = track.height(-p[0] / FT, p[2] / FT) * FT
+            if g + 0.3 < y < g + RAMP_MAX_RISE_M:
+                hit = True
+                break
+        if not hit:
+            continue
+        deck.bottom = bottom
+        deck.land = ramp_land(top, b.size[1] * FT, lambda x, z: track.height(-x / FT, z / FT) * FT)
+        out.append(deck)
+    return out
+
+
+RAMP_CELL_M = 1.5
+
+
+def ramp_land(top, thickness, ground):
+    """Wheel land of a ramp box as a slab: its top face cut into ~RAMP_CELL_M triangles, each with a bottom
+    ``thickness`` lower (vertical) but never under the terrain; cells within 0.15 m of the terrain or under it are left
+    to the terrain. Returns (top triangles, bottom triangles)."""
+    tops, bottoms = [], []
+    for a, b, c in top:
+        n = max(1, math.ceil(max(math.dist(a, b), math.dist(b, c), math.dist(c, a)) / RAMP_CELL_M))
+
+        def pt(i, j):
+            u, v = i / n, j / n
+            return tuple(a[k] + (b[k] - a[k]) * u + (c[k] - a[k]) * v for k in range(3))
+        cells = []
+        for i in range(n):
+            for j in range(n - i):
+                cells.append((pt(i, j), pt(i + 1, j), pt(i, j + 1)))
+                if i + j < n - 1:
+                    cells.append((pt(i + 1, j), pt(i + 1, j + 1), pt(i, j + 1)))
+        for t in cells:
+            g = [ground(q[0], q[2]) for q in t]
+            if any(q[1] < gq + 0.15 for q, gq in zip(t, g)):
+                continue
+            tops.append(t)
+            bottoms.append(tuple((q[0], min(q[1] - 0.05, max(q[1] - thickness, gq + 0.05)), q[2]) for q, gq in zip(t, g)))
+    return tops, bottoms
+
+
+def decks_cover(decks, x, z, level):
+    return any(t is not None and abs(t - level) < 0.05 for t in (d.top(x, z) for d in decks))
+
+
 def add_deck_land(project, decks, out_dir: Path, terrain) -> int:
     """The top and bottom faces of the box decks the route uses as invisible terrain: MR wheels stand on land records
     (tag1400), not on BSP objects, so on a deck that was only an object solid the cars rode on their bodies over the
@@ -473,9 +673,10 @@ def add_deck_land(project, decks, out_dir: Path, terrain) -> int:
     corridor terrain mesh: Course Studio rejects a terrain mesh whose faces mostly point down."""
     tris = []
     for d in decks:
-        if d.kind != "box":
+        if d.kind not in ("box", "apron") and getattr(d, "land", None) is None:
             continue
-        for faces, up in ((d.tris, True), (getattr(d, "bottom", []), False)):
+        land = getattr(d, "land", None) or (d.tris, getattr(d, "bottom", []))
+        for faces, up in ((land[0], True), (land[1], False)):
             for a, b, c in faces:
                 n = cross(sub(b, a), sub(c, a))
                 if (n[1] > 0) != up:                     # Course Studio terrain winding: normal up = cross(b-a, c-a)
@@ -510,7 +711,7 @@ def surface_near(x, z, ground, decks, hint):
 def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, limits_m=(45.0, 75.0), title: str | None = None,
                   course_key: str | None = None, objects: bool = True, object_collision: str = "all",
                   collision_radius_m: float = 40.0, grounded: bool = True, bridges: bool = True,
-                  log=print) -> CourseProject:
+                  exclude_boxes=(), log=print) -> CourseProject:
     out_dir = Path(out_dir)
     key = course_key or safe_key("Evo2" + track.key.capitalize())
     project = new_project(key, title=title or track.sit.name, template=environment_for(track))
@@ -554,12 +755,25 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     if not closed and gates:
         lap = lap[:gates[-1][0] + 1]
         gates = gates[:-1]
-    decks = elevated_decks(track) if objects and bridges else []
+    decks = [d for d in elevated_decks(track) if d.box_index not in exclude_boxes] if objects and bridges else []
     route_m = [mirror((x * mm, ground_m(x * mm, z * mm), z * mm)) for x, z in lap]
     route_on = route_m
-    route_m, decks = settle_route(route_m, decks)
-    project.extras["evo2_deck_tops"] = [[list(q) for q in tri] for d in decks for tri in d.tris]
-    report.update(deck_candidates=len(elevated_decks(track)) if objects else 0, decks=len(decks),
+    # Boxes the route crosses (jumps, bridge approaches) are route candidates too: the least-climb route takes an
+    # approach that leads onto a bridge and stays under a jump (route_ramps); the others stay solid ramps.
+    ramps = ([r for r in route_ramps(track, route_m, decks) if r.box_index not in exclude_boxes]
+             if objects and bridges else [])
+    route_m, used = settle_route(route_m, decks + ramps)
+    decks = [d for d in used]
+    ramps = [r for r in ramps if r not in used]
+    for d in decks:
+        if d.kind == "model":         # drivable model decks (wooden bridges) get the same wheel-land slab
+            d.land = ramp_land(d.tris, DECK_THICKNESS_M, lambda x, z: ground_m(-x, z))
+    route_m, aprons = (deck_aprons(route_m, decks, lambda x, z: ground_m(-x, z), ramps) if decks else (route_m, []))
+    project.extras["evo2_deck_tops"] = [[list(q) for q in tri] for d in decks + aprons + ramps for tri in d.tris]
+    # footprints of the decks and ramps (build_track reverts the ones at spots the Course Studio checks still reject)
+    project.extras["evo2_deck_boxes"] = {str(d.box_index): [d.lo[0], d.lo[1], d.hi[0], d.hi[1]] for d in decks + ramps}
+    report.update(excluded_boxes=sorted(exclude_boxes))
+    report.update(deck_candidates=len(elevated_decks(track)) if objects else 0, decks=len(decks), deck_aprons=len(aprons), ramps=len(ramps),
                   route_points_on_decks=sum(1 for a, b in zip(route_on, route_m) if b[1] > a[1] + 0.2))
     route_m = [(p[0], p[1] + 0.3, p[2]) for p in route_m]
     # Course Studio draws the RaceLine as straight chords between markers: lift markers so that every chord stays
@@ -586,7 +800,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
         a, b = route_m[max(0, i - 1)], route_m[min(len(route_m) - 1, i + 1)]
         return math.degrees(math.atan2(b[0] - a[0], b[2] - a[2]))
 
-    project.start = Area(center=route_m[1], heading=head_deg(1), width=24.0, depth=12.0)
+    project.start = start_area(route_m, head_deg(1), lambda x, z: ground_m(-x, z))
     project.finish = Area(center=route_m[-2], heading=head_deg(len(route_m) - 2), width=36.0, depth=14.0)
     report["evo_gates"] = len(gates)
     # Every Retail race has exactly three split checkpoints (numberOfSplitTimePoints 3) and the HUD progress bar draws
@@ -770,7 +984,7 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
     if far.triangles:
         project.meshes.append(far)
     report.update(corridor_cells=corridor_cells, ground_tiles=len(atlas.slots), ground_pages=len(atlas.pages))
-    report["deck_land_triangles"] = add_deck_land(project, decks, out_dir, near)
+    report["deck_land_triangles"] = add_deck_land(project, decks + aprons + ramps, out_dir, near)
 
     # ---- water
     wl = track.level.water_height_ft
@@ -820,7 +1034,8 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                 if (i + 0.5 - cx) ** 2 + (j + 0.5 - cz) ** 2 <= rc * rc:
                     near[j * GRID + i] = True
     if objects:
-        report.update(add_objects(track, project, out_dir, key, near, log, object_collision, grounded, route_m, decks))
+        report.update(add_objects(track, project, out_dir, key, near, log, object_collision, grounded, route_m,
+                                  decks + ramps))
     # Course Studio UVs follow the FEED texture rows (stored bottom-up, uploaded as-is): v = 0 is the bottom row of
     # the PNG. Evo UVs and every atlas rectangle above are top-origin, so v is flipped once for every mesh here.
     for mesh in project.meshes:
@@ -833,6 +1048,33 @@ def build_project(track: Track, out_dir: Path, *, corridor_m: float = 190.0, lim
                          f"(budget {TEXTURE_BUDGET_BYTES >> 20} MB): the race would thrash the MR model cache")
     project.extras["evo2"] = report
     return project
+
+
+GRID_SPACING_M, GRID_ROW_M = 6.0, 8.0
+
+
+def start_area(route_m, heading_deg, ground):
+    """StartArea for MR's grid placement (0x48EB40): with P0, P1 the first two StartArea markers, W = |P1 - P0| and
+    d = (P1 - P0) / W in X/Z, a row holds n = int(W / 6) cars; car k of a row stands at mid(P0, P1) - k * 6 * d (one-
+    sided, not centred), rows step 8 m back along the normal, and every car gets P1.y. The Course Studio 24 m area put
+    the fourth car 18 m to the side of the road, on the Castle Rock hillside (owner test 7). Here W = 12 m (two cars a
+    row, like the Evo grid) with mid(P0, P1) 3 m right of the line so the row is centred on it, and the height is the
+    highest ground under the first two rows (the cars drop onto the road)."""
+    cx, cy, cz = route_m[1]
+    h = math.radians(heading_deg)
+    fx, fz = math.sin(h), math.cos(h)
+    rx, rz = fz, -fx
+    hd, hw = 6.0, 6.0
+    bx, bz = cx - hd * fx + GRID_SPACING_M / 2 * rx, cz - hd * fz + GRID_SPACING_M / 2 * rz   # mid(P0, P1)
+    spots = [(bx - k * GRID_SPACING_M * rx - r * GRID_ROW_M * fx, bz - k * GRID_SPACING_M * rz - r * GRID_ROW_M * fz)
+             for r in range(2) for k in range(2)]
+    y = max([cy - 0.3] + [ground(x, z) for x, z in spots]) + 0.5
+    p0 = (bx - hw * rx, y, bz - hw * rz)
+    p1 = (bx + hw * rx, y, bz + hw * rz)
+    p2 = (p1[0] + 2 * hd * fx, y, p1[2] + 2 * hd * fz)
+    p3 = (p0[0] + 2 * hd * fx, y, p0[2] + 2 * hd * fz)
+    return Area(center=(bx + hd * fx, y, bz + hd * fz), heading=heading_deg, width=2 * hw, depth=2 * hd,
+                corners=[p0, p1, p2, p3])
 
 
 CROSSING_M = 25.0

@@ -112,10 +112,13 @@ def install(project):
     _state["deck_tops"] = [tuple(tuple(q) for q in t) for t in project.extras.get("evo2_deck_tops", [])]
     collision.terrain_triangles = terrain_triangles_with_decks
     _state["ground"] = collision.HeightField(terrain_triangles_with_decks(project))
+    _state["decks_hf"] = collision.HeightField(list(_state["deck_tops"]))
     collision_debug.segment_intervals = segment_intervals_below_camera
 
 
 CAMERA_SWEEP_M = 3.4
+UNDER_DECK_M = 4.5
+SUPPORT_JUMP_M = 0.6
 
 
 def segment_intervals_below_camera(root, start, end):
@@ -126,6 +129,16 @@ def segment_intervals_below_camera(root, start, end):
     rows = _original_segments(root, start, end)
     g = _state["ground"].ground(start[0], start[2], below=start[1])
     if g is not None and start[1] - g >= CAMERA_SWEEP_M:
+        return [dict(r, solid=False) for r in rows]
+    # Under a deck or jump the route does not use (route_ramps in to_course.py: it stays on the terrain while the cars
+    # drive over the box) the sweep would hit the box itself: a drivable surface less than UNDER_DECK_M above is clear.
+    # A 0.5 m sweep step that changes height by more than SUPPORT_JUMP_M (50 deg) runs between two different supports (deck to
+    # terrain at a deck edge or a gap in a model deck's top faces, a jump's lip): it cuts through the deck itself.
+    if abs(end[1] - start[1]) > SUPPORT_JUMP_M:
+        return [dict(r, solid=False) for r in rows]
+    # Checked at both ends: at a jump's edge the sweep runs from the box top down to the terrain beyond it.
+    # (from 0.4 m below: a 0.35 m sweep grazing a second deck surface, e.g. a jump crest where two ramps overlap)
+    if any(q[1] - 0.4 < h < q[1] + UNDER_DECK_M for q in (start, end) for h in _state["decks_hf"].heights(q[0], q[2])):
         return [dict(r, solid=False) for r in rows]
     return rows
 
