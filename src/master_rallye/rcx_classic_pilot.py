@@ -79,6 +79,35 @@ def balance_physics(physics, key, wheel_radius):
     return physics
 
 
+# RCX engine loops (Data/Sound/cars/<folder>/<FILE>, 22.05 kHz PCM16 mono): the 4000 rpm on-throttle exterior
+# sample of each car's sound folder. RCX has no Citroen folder; the Saxo takes the Peugeot 106 (peu) loop of the
+# same 1600 16v class. One waveform drives MR's native engine synthesizer (wsDsFxRevs) with the donor's tuning.
+ENGINE_SOUNDS = {'IMPREZA00': ('sub', 'sub_4000_1_ext.wav'), 'ASTRA': ('vaux', 'VAUX_4000_1_EXT.wav'),
+                 'SAXO': ('peu', 'PEU_4000_1_EXT.wav'), 'MINI': ('mini', 'MINI_4000_1_EXT.wav')}
+RCX_SOUND_ROOT = 'E:/RallyWorkshop_Sources/sources/Rally Championship Xtreme/Data/Sound/cars'
+AUTHOR_SLOT_ID = 27          # author projects build in slot 27; the roster builder rebinds the profile to the final ID
+
+
+def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
+    """audio-profile.json + pinned audio/engine.wav (SDK addon_sdk/audio_profile.py schema)."""
+    import hashlib, json, shutil, wave
+    from pathlib import Path
+    folder, name = ENGINE_SOUNDS[car]
+    author = Path(author); dst = author / 'audio' / 'engine.wav'
+    dst.parent.mkdir(exist_ok=True); shutil.copyfile(Path(sound_root) / folder / name, dst)
+    with wave.open(str(dst)) as w:
+        frames = w.getnframes()
+    profile = {'audio_profile_version': 1, 'policy': 'native_custom_engine', 'physical_car_id': AUTHOR_SLOT_ID,
+               'stock_audio_profile_id': base.VEHICLES[car]['audio'], 'namespace': 'rcx_' + car.lower(),
+               'engine': {'source_path': 'audio/engine.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
+                          'trim_frames': [0, frames], 'gain_db': -1, 'remove_dc': True, 'crossfade_frames': 0},
+               'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop, whole '
+                        'file (-1 dB: DC removal would clip at 0 dB); one waveform through the native MR engine '
+                        'synthesizer with the donor tuning.' % (folder, name)}
+    (author / 'audio-profile.json').write_text(json.dumps(profile, indent=1), encoding='utf-8')
+    return profile
+
+
 def create_pilot(scene_path, car, retail_sma, retail_root, output, **kw):
     import json
     from pathlib import Path
@@ -86,6 +115,7 @@ def create_pilot(scene_path, car, retail_sma, retail_root, output, **kw):
     path = Path(summary['author']) / 'physics-profile.json'
     physics = balance_physics(json.loads(path.read_text()), car, summary['dimensions']['wheel_radius'])
     path.write_text(json.dumps(physics, indent=2) + chr(10))
+    summary['engine_audio'] = add_engine_audio(summary['author'], car)['namespace']
     summary['physics_balance'] = {k: v for k, v in physics['overrides'][next(iter(physics['overrides']))].items()
                                   if k in ('Chassis/TotalMass', 'Engine/PeakTorque', 'Engine/GearRatioDiff')}
     return summary
