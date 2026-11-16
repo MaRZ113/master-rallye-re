@@ -7,7 +7,8 @@
   u32 group count, u32, u32, u32 stored vertex count, u32 index count, ...; bbox; 4x4 matrix) followed by >= 4 words 0xFFFFFFFF, u16 indices (leaf-local),
   32-byte vertices (world xyz f32, u32 colour, uv f32 x2, 2 x f32 0), then per-leaf extra arrays.
   group table near the end: u32 count, 57-byte records (same layout as QTO groups: u32 0, u32 texture
-  index (-1 = untextured), u32 0, u32 render flags, u8 surface, u32 global first index, u32 index
+  index (-1 = untextured), u32 second texture index (render flag 0x8: the group blends texture -> texture2 by the
+  vertex colour alpha, 0 = texture, 255 = texture2), u32 render flags, u8 surface, u32 global first index, u32 index
   count, u32 triangle count, 7 x u32), then u32 texture count and 0x104-byte texture names.
   surface = index into the Rally.exe surface table (36-byte records, "Tarmac" record at file 0xB32F8):
   SURFACES below.
@@ -19,6 +20,7 @@ from __future__ import annotations
 import struct
 from dataclasses import dataclass, field
 
+BLEND_FLAG = 0x8                # group render flag: texture -> texture2 blend by vertex alpha (Clashin Darroch: 1027 groups)
 SURFACES = ['Unknown', 'No Drive', 'Tarmac', 'Gravel', 'Mud', 'Snow', 'Water', 'Dust', 'Grass', 'Rough', 'Ice',
             'Cattle Grid', 'THS', 'Soft grass', 'NO_COLLIDE', 'Rough grass', 'Rough gravel', 'Rough tarmac', 'Rock',
             'Fence', 'Forest', 'Bushy', 'Wood', 'Metal', 'Corona']
@@ -31,6 +33,7 @@ class Group:
     surface: int
     first: int
     count: int
+    texture2: int = -1          # flag 0x8 groups: second texture, blended by vertex alpha (0 = texture, 255 = texture2)
 
 
 @dataclass
@@ -98,9 +101,10 @@ def read_map(b: bytes) -> StageMap:
     groups = []
     for k in range(n_group):
         p = gpos + 4 + k * 57
-        tex, flags = struct.unpack_from('<I', b, p + 4)[0], struct.unpack_from('<I', b, p + 12)[0]
+        tex, tex2, flags = struct.unpack_from('<3I', b, p + 4)
         first, count = struct.unpack_from('<2I', b, p + 17)
-        groups.append(Group(-1 if tex == 0xFFFFFFFF else tex, flags, b[p + 16], first, count))
+        groups.append(Group(-1 if tex == 0xFFFFFFFF else tex, flags, b[p + 16], first, count,
+                            tex2 if flags & BLEND_FLAG and tex2 != 0xFFFFFFFF else -1))
     p = gpos + 4 + n_group * 57
     n_tex = struct.unpack_from('<I', b, p)[0]; p += 4
     textures = []

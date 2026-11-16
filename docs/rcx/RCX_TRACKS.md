@@ -67,3 +67,19 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   ground up to 0.4 m on a 0.25 m grid, no solid 0.3-1.5 m above ground within 12 m of the route nearby; the land
   database covers every triangle by its bounds. Cause not found offline; next is a runtime capture (Observatory
   with `vehicle_manager.py dev-menu on`, collision overlay F11) at the exact place.
+
+## Set 4: ground splat and solid props (pack RCX-05)
+
+* **Ground seams.** RCX `.map` groups with flag 0x8 carry a second texture (+8). The vertex colour alpha blends
+  between them (0 = texture1, 255 = texture2; verified against neighbouring groups). The importer now writes
+  texture1 as the opaque ground, or texture2 when every alpha is at least 250. Partially blended faces get a ROLE_VISUAL
+  overlay with texture2, the per-corner alpha and the baked light. The overlay is lifted 0.02 m and uses material `RCX blend layer`
+  (alpha `blend`). The native shader honours vertex alpha (0x57FED5, material +0x22).
+  Ground `noise` is back to False: noise ground mixed Atmosphere-lit and native draws (orange and green patches).
+* **Solid trees and fences.** These are closed `box_proxy` boxes in the mesh "RCX prop collision" (surface rock).
+  - Tree trunks are 0.5 × 3 m, clustered on a 1.5 m grid, within 25 m of the line.
+  - Fence panels are near-vertical faces turned into 0.15 m slabs, at most 3 m long with 0.1 m end gaps, within 45 m.
+  - Props stay more than 5 m from the dense driving line and never overlap.
+  - Boxes near a reported collision spot are dropped in the repair loop.
+  - At most 1800 boxes are kept, nearest the route first: 4170 boxes needed 35.7 MB of collision pools against the 32 MB cache.
+* Results: Fire Rock was OK after 3 passes, with 31.5 MB of pools. Clashin Darroch was OK after 8 passes, with 29.2 MB.
