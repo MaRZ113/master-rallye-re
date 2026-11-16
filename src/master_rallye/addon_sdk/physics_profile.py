@@ -113,13 +113,43 @@ def _base_validate(data,family,additions=None):
     for key in ('CentreLSDBias','FrontLSDBias','RearLSDBias'):
         if not 1<=f('Engine/'+key)<=20:raise AddonValidationError('LSD torque bias outside SDK [1,20] guard')
     if not f('Engine/IdleRevs')<f('Engine/RevLimit'):raise AddonValidationError('idle must be below rev limit')
-    # No array-size growth in phase 1: existing native counts/allocations remain.
+    # Gear arrays may be resized within MIN_GEARS..MAX_GEARS (above); the torque table keeps its native count.
+    if not MIN_GEARS<=int(fields['Engine/Gears']['value'])<=MAX_GEARS:raise AddonValidationError('Engine/Gears outside the native per-gear flag arrays')
     revs=[float(fields[f'Engine/TorqueEntry{i}']['value'].split()[0]) for i in range(int(fields['Engine/TorqueEntries']['value']))]
     if any(b<=a for a,b in zip(revs,revs[1:])):raise AddonValidationError('torque curve abscissae must increase')
     prefixes={n.get('Name','').split('/')[2].rstrip('0123456789') for n in ET.fromstring(data).iter('Value') if n.get('Name','').startswith('Vehicles/Tyres/')}
     for axle in ('Front','Rear'):
         if fields[f'Suspension/{axle}/TyreType']['value'] not in prefixes:raise AddonValidationError('unresolved shared tyre prefix')
     return audit.to_dict()
+
+# Engine/Gears counts R and N (retail 6..7). The native reader 0049CEF0 allocates Gear%d / ChangeUpRevs%d /
+# ChangeDownRevs%d by this count and 0043C350 copies them by it; the only fixed buffers are the two 11-byte per-gear
+# flag arrays of the engine object (+0x7C, +0x87). So 11 (R, N, 9 forward) is the native ceiling (DRIVE1, 2026-11-16).
+MIN_GEARS,MAX_GEARS=3,11
+GEAR_ARRAYS=('Gear','ChangeUpRevs','ChangeDownRevs')
+
+
+def _resize_gear_arrays(data,prefix,old,new):
+    """Grow or shrink the three count-driven gear arrays of one family in place (rows cloned from the last index;
+    the profile then sets their values)."""
+    out=data
+    for name in GEAR_ARRAYS:
+        if new<old:
+            for i in range(new,old):
+                pat=rb'[ \t]*<Value\s+Name="'+re.escape(f'{prefix}Engine/{name}{i}'.encode())+rb'"[^>]*/>\r?\n'
+                found=list(re.finditer(pat,out))
+                if len(found)!=1:raise AddonValidationError('ambiguous gear row serialization')
+                out=out[:found[0].start()]+out[found[0].end():]
+            continue
+        pat=rb'[ \t]*<Value\s+Name="'+re.escape(f'{prefix}Engine/{name}{old-1}'.encode())+rb'"[^>]*/>\r?\n'
+        found=list(re.finditer(pat,out))
+        if len(found)!=1:raise AddonValidationError('ambiguous gear row serialization')
+        line=found[0].group(0);extra=b''
+        for i in range(old,new):
+            extra+=line.replace(f'{prefix}Engine/{name}{old-1}"'.encode(),f'{prefix}Engine/{name}{i}"'.encode())
+        out=out[:found[0].end()]+extra+out[found[0].end():]
+    return out
+
 
 def apply_profile(data,profile,*,donor_family,runtime_family,source_label):
     """Edit only existing target rows. Caller first makes the independent clone.
@@ -133,10 +163,17 @@ def apply_profile(data,profile,*,donor_family,runtime_family,source_label):
     root=ET.fromstring(data);rows={n.get('Name','')[len(prefix):]:n for n in root.iter('Value') if n.get('Name','').startswith(prefix)}
     overrides=profile['overrides'].get(source_label,{})
     output=data;edits=[]
+    if source_label==MEMBERS[0] and 'Engine/Gears' in overrides and 'Engine/Gears' in rows:
+        count=overrides['Engine/Gears']
+        if type(count) is not int or not MIN_GEARS<=count<=MAX_GEARS:raise AddonValidationError(f'Engine/Gears must be an Int in [{MIN_GEARS},{MAX_GEARS}]')
+        if str(count)!=rows['Engine/Gears'].get('Value'):
+            output=_resize_gear_arrays(output,prefix,int(rows['Engine/Gears'].get('Value')),count)
+            edits.append({'path':'Engine/Gears (arrays)','type':'Int','before':rows['Engine/Gears'].get('Value'),'after':str(count)})
+            rows={n.get('Name','')[len(prefix):]:n for n in ET.fromstring(output).iter('Value') if n.get('Name','').startswith(prefix)}
     for path,value in sorted(overrides.items()):
         if path not in rows:raise AddonValidationError('unknown physics field '+path)
         row=rows[path];kind=row.get('Type');encoded=_encode(value,kind)
-        if source_label==MEMBERS[0] and path in ('Engine/Gears','Engine/TorqueEntries') and encoded!=row.get('Value'):raise AddonValidationError('array count edits require a future qualified schema revision')
+        if source_label==MEMBERS[0] and path=='Engine/TorqueEntries' and encoded!=row.get('Value'):raise AddonValidationError('array count edits require a future qualified schema revision')
         pattern=rb'(<Value\s+Name="'+re.escape((prefix+path).encode())+rb'"[^>]*\bValue=")([^"]*)(")'
         matches=list(re.finditer(pattern,output))
         if len(matches)!=1:raise AddonValidationError('ambiguous physics row serialization')

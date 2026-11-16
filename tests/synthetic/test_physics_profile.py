@@ -120,13 +120,24 @@ class PhysicsProfileTests(unittest.TestCase):
         d=parse_vehicle_config_bytes(out,build='fixture');self.assertEqual(d.families['AddonOne']['Dimensions/WheelBase']['value'],'2.51');self.assertEqual(d.families['AddonTwo']['Dimensions/WheelBase']['value'],'3.1');self.assertEqual(d.families['Navara']['Dimensions/WheelBase']['value'],'1')
     def test_bad_types_ranges_counts_and_names_fail(self):
         sources,p=fixture();raw=sources['DataGame/vehicles.xml'];kw=dict(donor_family='Navara',runtime_family='AddonOne',source_label='DataGame/vehicles.xml')
-        for path,value in [('Dimensions/WheelBase',True),('Dimensions/WheelBase',float('nan')),('Dimensions/WheelBase',0),('Chassis/TotalMass',100),('Chassis/MomentOfInertia',[0,1,1]),('Chassis/CentreOfGravity',[1,2]),('Engine/AutoGears',1),('Engine/DriveType',4),('Engine/Gears',4),('Engine/RevLimit',100),('Suspension/Front/RideHeight',3),('Suspension/Front/SpringRate',-1),('Suspension/Rear/TyreType','missing'),('Vehicles/Navara/Chassis/TotalMass',5),('Engine/TorqueEntry1',[0,.8]),('Engine/MagicAWD',1)]:
+        for path,value in [('Dimensions/WheelBase',True),('Dimensions/WheelBase',float('nan')),('Dimensions/WheelBase',0),('Chassis/TotalMass',100),('Chassis/MomentOfInertia',[0,1,1]),('Chassis/CentreOfGravity',[1,2]),('Engine/AutoGears',1),('Engine/DriveType',4),('Engine/Gears',12),('Engine/Gears',2),('Engine/Gears',7.0),('Engine/RevLimit',100),('Suspension/Front/RideHeight',3),('Suspension/Front/SpringRate',-1),('Suspension/Rear/TyreType','missing'),('Vehicles/Navara/Chassis/TotalMass',5),('Engine/TorqueEntry1',[0,.8]),('Engine/MagicAWD',1)]:
             with self.subTest(path=path,value=value):
                 q=copy.deepcopy(p);q['overrides']={'DataGame/vehicles.xml':{path:value}}
                 with self.assertRaises(AddonValidationError):compile_family(raw,q,**kw)
         q=copy.deepcopy(p);q['source_sha256']['DataGame/vehicles.xml']='0'*64
         with self.assertRaises(AddonValidationError):compile_family(raw,q,**kw)
         with self.assertRaises(AddonValidationError):compile_family(raw,p,**{**kw,'runtime_family':'Navara'})
+    def test_gear_count_resizes_all_three_arrays(self):
+        # DRIVE1: Engine/Gears is count-driven natively (0049CEF0); up to 11 fits the engine's per-gear flag arrays.
+        sources,p=fixture();raw=sources['DataGame/vehicles.xml'];kw=dict(donor_family='Navara',runtime_family='AddonOne',source_label='DataGame/vehicles.xml')
+        old=parse_vehicle_config_bytes(raw,build='fixture').families['Navara'];n=int(old['Engine/Gears']['value'])
+        for count in sorted({n+1,max(3,n-1)}-{n}):
+            q=copy.deepcopy(p);q['overrides']={'DataGame/vehicles.xml':{'Engine/Gears':count}}
+            out,_=compile_family(raw,q,**kw);f=parse_vehicle_config_bytes(out,build='fixture').families['AddonOne']
+            self.assertEqual(f['Engine/Gears']['value'],str(count))
+            for name in ('Gear','ChangeUpRevs','ChangeDownRevs'):
+                self.assertEqual(sorted(int(k[len('Engine/'+name):]) for k in f if k.startswith('Engine/'+name) and k[len('Engine/'+name):].isdigit()),list(range(count)))
+            self.assertEqual(parse_vehicle_config_bytes(out,build='fixture').families['Navara'],old)
     def test_player_defaults_have_independent_ownership(self):
         sources,p=fixture();member='DataGame/Modifications.xml';p['overrides']={member:{'Player1/Modifications/Suspension/Front/RideHeight':.1}}
         out,r=compile_family(sources[member],p,donor_family='Navara',runtime_family='AddonOne',source_label=member)
