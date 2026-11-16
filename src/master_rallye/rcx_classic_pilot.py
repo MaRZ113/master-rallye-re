@@ -100,6 +100,8 @@ def read_pc_car_table(exe_path=RALLY_EXE):
 # to its own redline, PeakTorque = 350 * (peak / 460) * (6500 / redline).
 DONOR_TORQUE, DONOR_REV, RCX_DONOR_PEAK = 350., 6500., 460.
 DEFAULT_FINAL_DRIVE = 2          # middle of the five RCX final-drive choices (the default set-up)
+# DRIVE1 (owner 2026-11-16): the Puma is the test car for the native drive layout (DriveType) and a 6-speed box.
+DRIVE1_PILOTS = {'PUMA'}
 
 
 def _geometric(first, last, n):
@@ -126,22 +128,37 @@ def balance_physics(physics, key, wheel_radius, table=None):
         x = i / 5 * (len(curve) - 1); j = min(int(x), len(curve) - 2); t = x - j
         values['Engine/TorqueEntry%d' % i] = [round(i / 5, 2), round((curve[j] * (1 - t) + curve[j + 1] * t) / peak, 3)]
     fwd = rec['gears_forward']
-    five = fwd if len(fwd) == 5 else _geometric(fwd[0], fwd[-1], 5)
+    split = rec['torque_split']
+    layout = 'FWD' if split >= .99 else 'RWD' if split <= .01 else '4WD'
+    pilot = key in DRIVE1_PILOTS
+    # DRIVE1 pilot: the real RCX gearbox (Engine/Gears grows with SDK physics_profile MAX_GEARS) and drive layout.
+    box = fwd if pilot or len(fwd) == 5 else _geometric(fwd[0], fwd[-1], 5)
     values['Engine/Gear0'] = round(rec['gears_reverse'], 3)
     values['Engine/Gear1'] = 0.0
-    for i, g in enumerate(five):
+    for i, g in enumerate(box):
         values['Engine/Gear%d' % (i + 2)] = round(g, 3)
+    if pilot:
+        n = len(box) + 2
+        values['Engine/Gears'] = n
+        # retail Megane shift points (% of rev limit): R 75/25, N 35/55, forward 75, 84, then 88..90 up / 55 down
+        up = [75., 35., 75., 84.] + [88.] * max(0, n - 7) + [90.] * min(3, n - 4)
+        for i in range(n):
+            values['Engine/ChangeUpRevs%d' % i] = up[i]
+            values['Engine/ChangeDownRevs%d' % i] = 25. if i == 0 else 55.
+        # 0043C350: DriveType 0 -> 4WD, 2 -> front axle only (FrontLSDBias), 1 -> rear axle only
+        values['Engine/DriveType'] = {'4WD': 0, 'FWD': 2, 'RWD': 1}[layout]
     values['Engine/GearRatioDiff'] = round(rec['final_drive'][DEFAULT_FINAL_DRIVE] * wheel_radius / rec['wheel_radius'], 3)
     # retail Megane points at the test tyre "FrontTest"/"RearTest", which has no Vehicles/Tyres rows;
     # RCX cars take the standard MR rally tyre (harddirt, used by most retail cars)
     values['Suspension/Front/TyreType'] = values['Suspension/Rear/TyreType'] = 'harddirt'
-    split = rec['torque_split']
     physics['notes'] += (' RCX PC car table (Rally.exe record %d "%s"): mass %g kg, torque curve x TorqueBoost %.2f '
                          '(peak %.0f), redline %g, idle %g, forward gears %s, final drive %.2f (wheel %.3f -> model %.3f). '
-                         'Drive layout %s (TorqueSplit %.2f) not applied: MR DriveType stays the donor value.'
+                         'Drive layout %s (TorqueSplit %.2f) %s.'
                          % (rec['record'], rec['name'], rec['mass'], rec['torque_boost'], peak, redline, rec['idle'],
                             [round(g, 3) for g in fwd], rec['final_drive'][DEFAULT_FINAL_DRIVE], rec['wheel_radius'],
-                            wheel_radius, 'FWD' if split >= .99 else 'RWD' if split <= .01 else '4WD', split))
+                            wheel_radius, layout, split,
+                            'applied with the full RCX gearbox (DRIVE1 pilot)' if pilot else
+                            'not applied: MR DriveType stays the donor value'))
     return physics
 
 

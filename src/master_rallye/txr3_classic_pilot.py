@@ -94,19 +94,25 @@ def _scaled_fit(fit,scale):
 
 
 def _split_glass(part):
-    """MR frame: +Z front, +X vehicle left. Front/rear by Z, then sides by X."""
+    """MR frame: +Z front, +X vehicle left.
+
+    A pane is a side window only when its face normal is clearly lateral (|nx| > 1.25 |nz|) and it lies away from the
+    centre line (|x| > 0.45 of the glass half width); everything else is windscreen or rear window, split at the
+    middle of the glass Z range. The old rule (front = within .55 m of the foremost glass point, rear = within .35 m
+    of the rearmost) put the upper rear window and the outer windscreen of slanted RCX glass into the side panes, so
+    those triangles cracked with the wrong pane (owner 2026-11-16; Quattro: a 0.17 m2 rear triangle was 'left')."""
     from .glass_authoring import subset
-    g=part.geometry;zs=[v.position[2]for v in g.vertices];zmax,zmin=max(zs),min(zs)
+    g=part.geometry;P=[v.position for v in g.vertices]
+    zs=[p[2]for p in P];zmid=(max(zs)+min(zs))/2;xhalf=max(abs(p[0])for p in P)or 1.
     bins={'screenfront':[],'screenrear':[],'screenleft':[],'screenright':[]}
     for i,t in enumerate(g.triangles):
-        c=[sum(g.vertices[k].position[j]for k in t)/3 for j in range(3)]
-        n=[0,0,0]
-        for k in t:
-            for j in range(3):n[j]+=g.vertices[k].normal[j]
-        if c[2]>zmax-.55 and abs(n[2])>abs(n[0]):bins['screenfront'].append(i)
-        elif c[2]<zmin+.35 and abs(n[2])>abs(n[0]):bins['screenrear'].append(i)
-        elif c[0]>0:bins['screenleft'].append(i)
-        else:bins['screenright'].append(i)
+        a,b,c=(P[k]for k in t);c3=[(a[j]+b[j]+c[j])/3 for j in range(3)]
+        u=[b[j]-a[j]for j in range(3)];w=[c[j]-a[j]for j in range(3)]
+        n=[u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]]
+        if not any(n):                           # degenerate: fall back to the vertex normals
+            n=[sum(g.vertices[k].normal[j]for k in t)for j in range(3)]
+        if abs(n[0])>1.25*abs(n[2])and abs(c3[0])>.45*xhalf:bins['screenleft'if c3[0]>0 else'screenright'].append(i)
+        else:bins['screenfront'if c3[2]>zmid else'screenrear'].append(i)
     return {k:replace(part,geometry=subset(g,v))for k,v in bins.items()if v}
 
 
@@ -182,7 +188,9 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
                      'evidence':spec.get('brake_evidence','TXR3 tail lamp (TIM 43) and roof high stop lamp (TIM 39) meshes.')}}
     car,states=author_states(raw,recipe)
     (assets/'car.dx').write_bytes(car)
-    (assets/'complete.dx').write_bytes(write_scene_dx((donor/'complete.dx').read_bytes(),parts+complete_wheels))
+    # Frontend frame: wheels on Y=0 like retail complete.dx (owner 2026-11-16: RCX cars sat low in Vehicle Select).
+    from .complete_ground import lift_complete_dx
+    (assets/'complete.dx').write_bytes(lift_complete_dx(write_scene_dx((donor/'complete.dx').read_bytes(),parts+complete_wheels))[0])
     (assets/'wheel.dx').write_bytes(write_scene_dx((donor/'wheel.dx').read_bytes(),wheel_slots['front_right']))
     _json(output/'native-state-recipe.json',recipe)
     wheel_resources={}
