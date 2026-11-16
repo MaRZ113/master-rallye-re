@@ -40,7 +40,8 @@ def read(path):
     for i in range(1,count):
         h=0x110+i*0x128; name=b[h-0x104:h-4].split(b'\0',1)[0].decode('ascii')
         typ,expanded,stored,off,idx,*rest=struct.unpack_from('<9I',b,h)
-        if idx!=i or typ not in (5,6) or off+stored>len(b) or expanded>64*1024*1024 or (typ==6 and off<table_end): raise ValueError(f'bad entry {i}')
+        # type 5 = directory record; its offset field is not a payload offset (usa3.rcx entry 300)
+        if idx!=i or typ not in (5,6) or (typ==6 and off+stored>len(b)) or expanded>64*1024*1024 or (typ==6 and off<table_end): raise ValueError(f'bad entry {i}')
         if typ==6:
             if not name or any(c in name for c in '/\\:') or name in ('.','..') or name.rstrip(' .')!=name or name.lower() in seen:raise ValueError(f'unsafe or duplicate name {i}')
             seen.add(name.lower())

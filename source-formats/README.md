@@ -16,7 +16,8 @@ The import pipeline (Universal Vehicle Scene, Workshop, native DX writers) stays
 | `evo2/` | 4x4 Evolution 2 (PC) | migrated; 4Runner in MR |
 | `michelin/` | Michelin Rally Masters | migrated; RAV4 in MR |
 | `paris-dakar/` | Paris-Dakar Rally (PC) | migrated; Pajero Silver in MR |
-| `rcx/` | Rally Championship Xtreme | migrated from `exclusive_research`; Astra pilot |
+| `rcx/` | Rally Championship Xtreme | migrated from `exclusive_research`; Astra pilot; PC/PS2 inventory `INVENTORY_PC_PS2.md` |
+| `rally-championship-ps2/` | Rally Championship (PS2) | new: WH codec via emulation, stage table from STABS, 34 maps decoded |
 | `txr3/` | Tokyo Xtreme Racer 3 (PS2) | new: container + model + textures, VehiCROSS extracted |
 | `CLASSES.md` | class map (T4 = trucks) | owner decision 2026-11-13 |
 | `total-drivin/` | Total Drivin' / Grand Tour Racing '98 (PS1) | new: LZW, levels, car geometry; textures open |
