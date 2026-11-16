@@ -45,5 +45,6 @@ Source: `E:\RallyWorkshop_Sources\sources\Rally Championship PS2\Rally Champions
 | `ps2_tables.py` | dump `TRACK_DEFINITIONS[]` with resolved weather/surface strings |
 | `compare_tracks.py` | PC `.map` vs PS2 `MAPnn.DAT` vertex-cloud comparison (heuristic, see report) |
 | `topdown.py` | top-down point renders for visual checks |
+| `car_definitions.py` | runs CarDefs.cpp (0x1596F8) under Unicorn and dumps the 27 CAR_DEFINITION records (group, mass, curves, gears, brakes, suspension, engine sound) |
 
 Inventory and PC/PS2 comparison: [`../rcx/INVENTORY_PC_PS2.md`](../rcx/INVENTORY_PC_PS2.md).

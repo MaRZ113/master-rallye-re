@@ -12,22 +12,19 @@ planned. The targeted checks are listed per phase.
 * **Stage source by geometry:** for the 11 shared stages use the **PC mesh** (denser, better
   textures) and keep the PS2 table data (real name, fog, sun, rain flag) as metadata. PC-only and
   PS2-only stages come from their own version. Coordinates: PS2 = PC with X negated.
-* **Classes (pilot for all future games):** three new frontend classes, named by category, not
-  by game, so later imports (Michelin, Rally Trophy, CMR, GT) join them:
-
-  | Class | RCX cars |
-  |---|---|
-  | `WRC` | Impreza 98 / 2000 / 2001, Lancer Evo V / VI, Peugeot 206, Focus, Cordoba, Octavia, Accent (10) |
-  | `KIT CAR` | 2.0 kit cars Astra, Golf, Megane, Ibiza, Escort Maxi, Hyundai Coupe; 1600 Saxo, Civic, 106, Proton, Puma SP; road Puma, Felicia, Micra (14) |
-  | `CLASSIC` | Audi Quattro, Lancia Stratos, Mini Cooper (3; Michelin Group B and Rally Trophy cars later) |
-
-  With "4X4 EVO" and the planned trucks class this uses all 5 extra frontend classes of
-  `tools/frontend_classes.py`. The Impreza 2000 "sun" livery is a PAINT variant.
+* **Classes by power (owner 2026-11-16, fair for future championships, shared by all games):**
+  `A (290 HP AND UP)`, `B (240-289 HP)`, `C (170-239 HP)`, `D (UP TO 169 HP)`. Group B / classic cars
+  go by power too (Quattro 370 bhp -> A, Stratos 270 -> B, Mini 115 -> D). RCX: A = Impreza 98/2000/2001,
+  Lancer Evo V/VI, 206, Focus, Cordoba, Octavia, Accent, Quattro (11); B = Astra, Ibiza, Escort Maxi,
+  Stratos, Hyundai Coupe, Golf, Megane (7); C = Puma SP, Saxo, Civic, 106, Proton (5); D = Micra, Puma,
+  Mini, Felicia (4). The PS2 game's own CAR_DEFINITION groups 0-3 nearly match D-A
+  (`rally-championship-ps2/car_definitions.py`). The Impreza 2000 "sun" archive is a different model
+  build, not only a livery; decide later.
 
 ## Phase order (first -> last)
 
-### 1. Car pilot: one car per class
-Impreza 2000 (+ sun paint), Astra (existing pilot), Audi Quattro.
+### 1. Car pilot: one car per class (DONE offline, host-rcx-01)
+Impreza 2000 (A), Astra (B), Saxo (C), Mini (D): `docs/rcx/ROSTER_RCX_01.md` on feature/evo2-tracks.
 * Generalise `rcx_scene_adapter.py` from Astra to any car (parts, wheels, glass, brake lamps,
   texture/UV conventions incl. the mirrored-livery issue) -> shared MR Classic pilot.
 * Physics: map RCX `CarStats/*.cog` and PS2 `TWEAK0.PAR` (`<Car>.twk`) to an MR donor of
