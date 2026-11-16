@@ -26,6 +26,70 @@ BODY_PARTS = ('body', 'bonnet', 'bumper front', 'bumper back', 'wing', 'mirror l
 # skeleton), so they are left out; the MR crew is added separately.
 SLOTS = {'FL_WHEEL': 'wheelfront l', 'FR_WHEEL': 'wheelfront r', 'BL_WHEEL': 'wheelback l', 'BR_WHEEL': 'wheelback r'}
 GLASS_ALPHA = 140
+# Coplanar layers (RCX draws them in order; MR's depth test flickers): the higher part of each pair moves this far.
+LAYER_RANK = {'body': 0, 'bonnet': 1, 'bumper front': 1, 'bumper back': 1, 'wing': 1, 'windows': 2, 'interior': 3,
+              'dashboard': 4}
+LAYER_PUSH_M = 0.006
+CABIN_PARTS = ('interior', 'dashboard')
+
+
+def separate_coplanar(meshes, push=LAYER_PUSH_M, plane_tol=0.004, reach=0.05):
+    """Move the faces of one part off the coincident faces of another (body meshes only, source frame).
+
+    For each pair of faces of different meshes that are parallel, < plane_tol apart and < reach apart, the mesh
+    with the higher rank moves by `push` (part LAYER_RANK, lamps / mirrors / wipers highest; within one part the
+    later QTO group, which RCX draws on top: gauges on the dashboard): along its own normal, except a cabin part
+    lying on an outward-facing body panel, which goes inside (-normal), so the panel stays the visible face.
+    Returns {part pair: moved faces}."""
+    import math
+    rank = lambda m: (LAYER_RANK.get(m['name'], 5), m.get('source', {}).get('group', 0))
+    tris = []
+    for mi, m in enumerate(meshes):
+        P = m['positions']
+        for ti, t in enumerate(m['triangles']):
+            a, b, c = (P[k] for k in t)
+            u = [b[k] - a[k] for k in range(3)]; w = [c[k] - a[k] for k in range(3)]
+            n = (u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0])
+            ln = math.sqrt(sum(x * x for x in n))
+            if ln < 1e-12: continue
+            tris.append((mi, ti, tuple((a[k] + b[k] + c[k]) / 3 for k in range(3)), tuple(x / ln for x in n)))
+    cabin = [q[2] for q in tris if meshes[q[0]]['name'] in CABIN_PARTS]
+    centre = [sum(c[k] for c in cabin) / len(cabin) for k in range(3)] if cabin else None
+    grid = {}
+    for i, (_, _, c, _) in enumerate(tris):
+        grid.setdefault(tuple(int(math.floor(x / reach)) for x in c), []).append(i)
+    moves, report = {}, {}
+    for i, (mi, ti, c, n) in enumerate(tris):
+        g = tuple(int(math.floor(x / reach)) for x in c)
+        for d in ((x, y, z) for x in (-1, 0, 1) for y in (-1, 0, 1) for z in (-1, 0, 1)):
+            for j in grid.get((g[0] + d[0], g[1] + d[1], g[2] + d[2]), ()):
+                if j <= i: continue
+                mj, tj, c2, n2 = tris[j]
+                na, nb = meshes[mi]['name'], meshes[mj]['name']
+                if mi == mj or rank(meshes[mi]) == rank(meshes[mj]): continue
+                dot = sum(n[k] * n2[k] for k in range(3))
+                if abs(dot) < .995 or abs(sum((c2[k] - c[k]) * n[k] for k in range(3))) >= plane_tol or math.dist(c, c2) >= reach:
+                    continue
+                hi = (mi, ti, c, n) if rank(meshes[mi]) > rank(meshes[mj]) else (mj, tj, c2, n2)
+                lo_name = nb if hi[0] == mi else na
+                sign = 1.
+                if dot > 0 and meshes[hi[0]]['name'] in CABIN_PARTS and lo_name not in CABIN_PARTS and centre is not None:
+                    # same facing: a cabin face seen from outside (normal away from the cabin centre) goes behind
+                    if sum(hi[3][k] * (centre[k] - hi[2][k]) for k in range(3)) < 0: sign = -1.
+                key = (hi[0], hi[1])
+                if key not in moves:
+                    moves[key] = tuple(sign * push * x for x in hi[3])
+                    pair = ' / '.join(sorted((na, nb)))
+                    report[pair] = report.get(pair, 0) + 1
+    for (mi, ti), v in moves.items():
+        m = meshes[mi]; m.setdefault('_moved', {})
+        for k in m['triangles'][ti]:
+            old = m['_moved'].get(k)
+            if old is None or sum(x * x for x in v) > sum(x * x for x in old): m['_moved'][k] = v
+    for m in meshes:
+        for k, v in m.pop('_moved', {}).items():
+            m['positions'][k] = [m['positions'][k][a] + v[a] for a in range(3)]
+    return report
 
 
 def _hub(msh, qto_bytes, name):
@@ -84,6 +148,11 @@ def create_scene(rcx_path, output, *, protected=()):
     for part in BODY_PARTS:
         if part + '.qto' in files and part in msh:
             body_ids += add_part(part, msh[part]['matrix'], 'body'); present.append(part)
+    layers = {}
+    for _ in range(3):                      # a face that shares vertices with a moved one can come out half moved
+        done = separate_coplanar([m for m in meshes if m['id'] in set(body_ids)])
+        for k, v in done.items(): layers[k] = layers.get(k, 0) + v
+        if not done: break
     nodes.append({'id': 'body', 'name': 'BODY', 'parent_id': None, 'mesh_ids': body_ids, 'visible': True, 'source_visible': True,
                   'role': 'body', 'local_transform': uvs.IDENTITY[:], 'source_local_transform': None,
                   'transform_evidence': 'QTO parts baked with their MSH matrices into the car frame'})
@@ -122,7 +191,7 @@ def create_scene(rcx_path, output, *, protected=()):
              'meshes': meshes, 'materials': materials, 'textures': textures, 'nodes': nodes,
              'measurements': {'wheelbase_m': abs(fl[2] - bl[2]), 'front_track_m': abs(fl[0] - fr[0]), 'rear_track_m': abs(bl[0] - br[0]),
                               'wheel_radius_m': radius['FL_WHEEL']},
-             'selection': {'body_parts': present, 'wheels': wheel_report},
+             'selection': {'body_parts': present, 'wheels': wheel_report, 'coplanar_layers_moved': layers},
              'unknown_semantics': [{'id': 'native-rendering', 'status': 'UNSUPPORTED', 'meaning': 'RCX reflections, light halos and blend states are not reproduced'}]}
     result = uvs.save_scene(scene, output, assets, protected_roots=list(protected))
     return {**result, 'measurements': scene['measurements'], 'selection': scene['selection']}
