@@ -454,8 +454,8 @@ inline bool body_pose_close(const BodyShadeEntry& e,const D3DMATRIX& world,bool 
     float dd=0,ll=0;for(unsigned i=0;i<3;++i){const float x=camera_local[i]-e.camera_local[i];dd+=x*x;ll+=e.camera_local[i]*e.camera_local[i];}
     return dd<=ll*4e-4f;}
 struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0,log_at=0,stale_hits=0,miss_new=0,miss_identity=0,miss_source=0,miss_pose=0;};
-// RCX-PERF2: an entry computed `refresh` frames ago or less is still used while the body moves (shading lags at most
-// refresh-1 frames); each entry's age starts at a key-dependent offset so the refreshes of the cars spread over frames.
+// RCX-PERF2: an entry computed less than `refresh` frames ago is still used while the body moves (shading lags at most
+// refresh-1 frames); a NEW entry's age starts at a key-dependent offset so the refreshes of the cars spread over frames.
 inline bool body_shade_fresh(const BodyShadeEntry& e,uint64_t frame,unsigned refresh)noexcept{return refresh>1&&frame>=e.frame&&frame-e.frame<refresh;}
 inline uint64_t body_shade_birth(uint64_t frame,uint64_t key,unsigned refresh)noexcept{const uint64_t k=refresh>1?(key>>7)%refresh:0;return frame>=k?frame-k:0;}
 inline BodyShadeCache& body_shade_cache()noexcept{static BodyShadeCache c;return c;}
@@ -554,8 +554,10 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
         const float k=float((atmosphere::world_environment_factor(p->lighting)>>8)&255)/255;
         for(size_t at=27;at<g.bytes.size();at+=36)g.bytes[at]=uint8_t(std::lround(float(g.bytes[at])*k));}
     ++cache.misses;if(cache.entries.size()>=1024)cache.entries.clear();
+    // RCX-PERF2: only a new entry starts at a staggered age; a refreshed one lives the full BodyShadeRefresh frames.
+    const bool fresh_entry=cache.entries.find(cache_key)==cache.entries.end();
     auto& e=cache.entries[cache_key];e.stream=reinterpret_cast<uintptr_t>(p->pending.stream);e.min=min;e.vertices=vertices;e.fvf=fvf;e.stage=stage_op;e.role=capability->role;
-    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.camera_local=camera_local;e.instance=uintptr_t(owner.owner.instance);e.frame=body_shade_birth(d.trace.frame_number(),cache_key,p->body_shade_refresh);e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
+    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.camera_local=camera_local;e.instance=uintptr_t(owner.owner.instance);e.frame=fresh_entry?body_shade_birth(d.trace.frame_number(),cache_key,p->body_shade_refresh):d.trace.frame_number();e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
     stage(ps2port::perf::AtmoBodyShade);
     if(const auto now=GetTickCount64();now-cache.log_at>10000){if(cache.log_at)try{session().write("{\"type\":\"atmosphere_body_shade_cache\",\"hits\":"+std::to_string(cache.hits)+",\"misses\":"+std::to_string(cache.misses)+",\"entries\":"+std::to_string(cache.entries.size())+",\"stale_hits\":"+std::to_string(cache.stale_hits)+",\"miss_new\":"+std::to_string(cache.miss_new)+",\"miss_identity\":"+std::to_string(cache.miss_identity)+",\"miss_source\":"+std::to_string(cache.miss_source)+",\"miss_pose\":"+std::to_string(cache.miss_pose)+",\"refresh\":"+std::to_string(p->body_shade_refresh)+"}");}catch(...){}cache.log_at=now;cache.hits=cache.misses=cache.stale_hits=cache.miss_new=cache.miss_identity=cache.miss_source=cache.miss_pose=0;}
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
