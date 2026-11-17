@@ -440,7 +440,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
 // constant, so the hit test is rotation within kBodyShadeRotationTolerance and object-space camera within 2 % of its
 // distance, against the pose the entry was shaded at (no drift accumulates). Translation alone never invalidates.
 constexpr float kBodyShadeRotationTolerance=.008f;   // max |dR| element, about 0.45 degree (Lambert change <= ~2/255)
-struct BodyShadeEntry {uintptr_t stream=0;UINT min=0,vertices=0;DWORD fvf=0,stage=0;uint32_t role=0;uint64_t lighting=0;bool rim=false;D3DMATRIX world{},view{};std::array<float,3> camera_local{};std::vector<uint8_t> source,out;uint64_t changed=0;};
+struct BodyShadeEntry {uintptr_t stream=0;UINT min=0,vertices=0;DWORD fvf=0,stage=0;uint32_t role=0;uint64_t lighting=0;bool rim=false;D3DMATRIX world{},view{};std::array<float,3> camera_local{};std::vector<uint8_t> source,out;uint64_t changed=0,frame=0;uintptr_t instance=0;};
 // Camera position in the body's object space (rows 0..2 of WORLD are the model axes, row 3 the translation).
 inline bool body_camera_local(const D3DMATRIX& world,const D3DMATRIX& view,std::array<float,3>& out)noexcept{
     std::array<float,16> vm{};std::memcpy(vm.data(),&view,64);std::array<float,3> eye{};if(!atmosphere::rigid_camera_position(vm,eye))return false;
@@ -453,7 +453,11 @@ inline bool body_pose_close(const BodyShadeEntry& e,const D3DMATRIX& world,bool 
     if(!rim)return true;
     float dd=0,ll=0;for(unsigned i=0;i<3;++i){const float x=camera_local[i]-e.camera_local[i];dd+=x*x;ll+=e.camera_local[i]*e.camera_local[i];}
     return dd<=ll*4e-4f;}
-struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0,log_at=0;};
+struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0,log_at=0,stale_hits=0;};
+// RCX-PERF2: an entry computed `refresh` frames ago or less is still used while the body moves (shading lags at most
+// refresh-1 frames); each entry's age starts at a key-dependent offset so the refreshes of the cars spread over frames.
+inline bool body_shade_fresh(const BodyShadeEntry& e,uint64_t frame,unsigned refresh)noexcept{return refresh>1&&frame>=e.frame&&frame-e.frame<refresh;}
+inline uint64_t body_shade_birth(uint64_t frame,uint64_t key,unsigned refresh)noexcept{const uint64_t k=refresh>1?(key>>7)%refresh:0;return frame>=k?frame-k:0;}
 inline BodyShadeCache& body_shade_cache()noexcept{static BodyShadeCache c;return c;}
 // Every Lighting field the body colour reads (regional atmospheres change it without an INI reload).
 inline uint64_t lighting_key(const atmosphere::Lighting& s)noexcept{
@@ -524,13 +528,15 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     uint64_t changed=0;
     D3DMATRIX view{};const bool have_view=p->lighting.rim&&SUCCEEDED(n.GetTransform(D3DTS_VIEW,&view));
     auto& cache=body_shade_cache();if(cache.race!=cert.race_generation){cache.entries.clear();cache.race=cert.race_generation;}
-    const uint64_t cache_key=(uint64_t(reinterpret_cast<uintptr_t>(p->pending.stream))*0x9E3779B97F4A7C15ull)^(uint64_t(min)<<40)^(uint64_t(vertices)<<20)^(uint64_t(fvf)<<8)^capability->role;
+    const uint64_t cache_key=(uint64_t(reinterpret_cast<uintptr_t>(p->pending.stream))*0x9E3779B97F4A7C15ull)^(uint64_t(min)<<40)^(uint64_t(vertices)<<20)^(uint64_t(fvf)<<8)^capability->role^(uint64_t(owner.owner.instance)*0xC2B2AE3D27D4EB4Full);   // RCX-PERF2: per car
     BodyShadeEntry* cached=nullptr;const uint64_t light_key=lighting_key(p->lighting);
     std::array<float,3> camera_local{};const bool rim_pose=have_view&&body_camera_local(world,view,camera_local);
     if(!implicit){auto it=cache.entries.find(cache_key);
         if(it!=cache.entries.end()){auto& e=it->second;
             if(e.stream==reinterpret_cast<uintptr_t>(p->pending.stream)&&e.min==min&&e.vertices==vertices&&e.fvf==fvf&&e.stage==stage_op&&e.role==capability->role&&e.lighting==light_key&&
-               e.rim==have_view&&(have_view==rim_pose)&&body_pose_close(e,world,rim_pose,camera_local)&&e.source==g.bytes)cached=&e;}}
+               e.rim==have_view&&(have_view==rim_pose)&&e.instance==uintptr_t(owner.owner.instance)&&e.source==g.bytes){
+                if(body_pose_close(e,world,rim_pose,camera_local))cached=&e;
+                else if(body_shade_fresh(e,d.trace.frame_number(),p->body_shade_refresh)){cached=&e;++cache.stale_hits;}}}}
     if(cached){g.bytes=cached->out;changed=cached->changed;++cache.hits;}
     else if(implicit){const auto hr=atmosphere::native_wheel_energy(*p,n,[&](uint32_t slot,const Args& a,HRESULT h){atmosphereintegration::notify(d,slot,a,h);});
         if(hr!=S_OK)return FAILED(hr)?hr:reject("body_wheel_energy_unsupported");changed=vertices;}
@@ -546,9 +552,9 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
         for(size_t at=27;at<g.bytes.size();at+=36)g.bytes[at]=uint8_t(std::lround(float(g.bytes[at])*k));}
     ++cache.misses;if(cache.entries.size()>=1024)cache.entries.clear();
     auto& e=cache.entries[cache_key];e.stream=reinterpret_cast<uintptr_t>(p->pending.stream);e.min=min;e.vertices=vertices;e.fvf=fvf;e.stage=stage_op;e.role=capability->role;
-    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.camera_local=camera_local;e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
+    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.camera_local=camera_local;e.instance=uintptr_t(owner.owner.instance);e.frame=body_shade_birth(d.trace.frame_number(),cache_key,p->body_shade_refresh);e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
     stage(ps2port::perf::AtmoBodyShade);
-    if(const auto now=GetTickCount64();now-cache.log_at>10000){if(cache.log_at)try{session().write("{\"type\":\"atmosphere_body_shade_cache\",\"hits\":"+std::to_string(cache.hits)+",\"misses\":"+std::to_string(cache.misses)+",\"entries\":"+std::to_string(cache.entries.size())+"}");}catch(...){}cache.log_at=now;cache.hits=cache.misses=0;}
+    if(const auto now=GetTickCount64();now-cache.log_at>10000){if(cache.log_at)try{session().write("{\"type\":\"atmosphere_body_shade_cache\",\"hits\":"+std::to_string(cache.hits)+",\"misses\":"+std::to_string(cache.misses)+",\"entries\":"+std::to_string(cache.entries.size())+",\"stale_hits\":"+std::to_string(cache.stale_hits)+",\"refresh\":"+std::to_string(p->body_shade_refresh)+"}");}catch(...){}cache.log_at=now;cache.hits=cache.misses=cache.stale_hits=0;}
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
     if(FAILED(environment_exposure(d,*p)))return atmosphereintegration::repair(d);
     applied=true;p->body_vertices+=changed;

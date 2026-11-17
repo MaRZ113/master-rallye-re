@@ -5,12 +5,13 @@
 #include "sdk.hpp"
 namespace gfx2::grimeintegration {
 struct StateBlocks { IDirect3DDevice8* device = nullptr; DWORD apply = 0, save = 0; bool failed = false; uint64_t created = 0;
-                     DWORD sheen_apply = 0, sheen_save = 0; bool sheen_failed = false; };   // G3.1 wet sheen pass
+                     DWORD sheen_apply = 0, sheen_save = 0; bool sheen_failed = false;   // G3.1 wet sheen pass
+                     DWORD head_apply[2] = {}, head_save = 0; bool head_failed = false; uint64_t head_created = 0; };   // RCX-PERF2 headlight passes
 inline StateBlocks& state_blocks() noexcept { static StateBlocks b; return b; }
 inline void grime_blocks_before_reset() noexcept {
     auto& b = state_blocks();
-    if (b.device) { for (DWORD* t : {&b.apply, &b.save, &b.sheen_apply, &b.sheen_save}) if (*t) b.device->DeleteStateBlock(*t); }
-    b.apply = b.save = b.sheen_apply = b.sheen_save = 0; b.device = nullptr; b.failed = b.sheen_failed = false;
+    if (b.device) { for (DWORD* t : {&b.apply, &b.save, &b.sheen_apply, &b.sheen_save, &b.head_apply[0], &b.head_apply[1], &b.head_save}) if (*t) b.device->DeleteStateBlock(*t); }
+    b.apply = b.save = b.sheen_apply = b.sheen_save = b.head_apply[0] = b.head_apply[1] = b.head_save = 0; b.device = nullptr; b.failed = b.sheen_failed = b.head_failed = false;
 }
 // G3.1: called by the reflection scope right after a native draw, while the draw's reflection (PC live reflection or PS2
 // reflection: texture, env coordinates, transform) is still applied, so the wet sheen boosts exactly that reflection.

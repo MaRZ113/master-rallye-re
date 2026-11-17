@@ -56,3 +56,19 @@ installed packs.
   the runtime sector traversal (render queue 0x562810 is fed by it); the renderer cull covers the cost now.
 * The flat layout still makes the game traverse every record on the CPU (cheap: the per-draw cost is in the
   renderer and the GPU).
+
+## RCX-PERF2: night with many cars
+
+Logs 2026-11-17 (Fire Rock, culling on): 1 car day ~52 fps, night ~41 fps (`atmo_headlight` 3.5-4.6 ms:
+1 map render + ~80 course map passes); 8 cars night 20-23 fps, p50 42 ms: `atmo_headlight` 7-11 ms
+(100-130 map passes + 10-270 exact passes on other cars' bodies), `atmo_body` 6 ms (`atmo_body_shade`
+3.4 ms, shade cache hit 13 %: moving cars leave the 0.45 degree pose tolerance every frame).
+
+* Headlight passes use recorded state blocks (apply: projected lamp / map variant; save: same state set,
+  captured before each pass), as the grime pass does, instead of HeadlightPass Get/Set/notify/restore of
+  ~40 states (~200 device calls per pass). Blocks are deleted with the grime blocks before Reset;
+  HeadlightPass remains the fallback when recording fails (`atmosphere_headlight_stateblock` record).
+* Body shade cache: key and entry carry the car instance; an entry is reused while the pose drifts for
+  up to `Atmosphere.ini [Atmosphere] BodyShadeRefresh` frames (default 3, 1 = old exact-pose rule),
+  with per-entry offsets so the cars refresh on different frames. `atmosphere_body_shade_cache` logs
+  `stale_hits` and `refresh`.

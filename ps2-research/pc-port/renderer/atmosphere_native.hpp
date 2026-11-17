@@ -319,7 +319,48 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
         const auto& lp=p->lamp_projectors;const auto& style=p->headlight_style;
         // One additive pass over the draw that just ran: stage 0 = its own diffuse texture x TFACTOR,
         // stages 1/2 = textures t1/t2 addressed by camera-space position through m1/m2.
+        // RCX-PERF2: the ~40 pass states are applied by one recorded state block and the game's values come back
+        // from a second (Capture + Apply), as the grime pass does, instead of a Get/Set/notify per state (~30-45 us a
+        // pass, 100-400 passes a frame at night with 8 cars). HeadlightPass stays as the fallback.
+        auto& sb=grimeintegration::state_blocks();
+        if(sb.device&&sb.device!=&n)grimeintegration::grime_blocks_before_reset();
+        if(!sb.head_save&&!sb.head_failed){
+            auto record=[&](DWORD& token,bool projected)->bool{
+                if(FAILED(n.BeginStateBlock()))return false;
+                n.SetRenderState(D3DRS_ZWRITEENABLE,FALSE);n.SetRenderState(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);n.SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
+                n.SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);n.SetRenderState(D3DRS_DESTBLEND,D3DBLEND_ONE);n.SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+                n.SetRenderState(D3DRS_FOGCOLOR,0);n.SetRenderState(D3DRS_TEXTUREFACTOR,0);n.SetRenderState(D3DRS_WRAP1,0);n.SetRenderState(D3DRS_WRAP2,0);n.SetRenderState(D3DRS_SPECULARENABLE,FALSE);
+                n.SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);n.SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);n.SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_TFACTOR);
+                n.SetTextureStageState(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);n.SetTextureStageState(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);n.SetTextureStageState(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
+                for(unsigned st=1;st<3;++st){n.SetTextureStageState(st,D3DTSS_COLOROP,st==1?D3DTOP_MODULATE:D3DTOP_MODULATE2X);n.SetTextureStageState(st,D3DTSS_COLORARG1,D3DTA_TEXTURE);
+                    n.SetTextureStageState(st,D3DTSS_COLORARG2,D3DTA_CURRENT);n.SetTextureStageState(st,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);n.SetTextureStageState(st,D3DTSS_ALPHAARG1,D3DTA_CURRENT);
+                    n.SetTextureStageState(st,D3DTSS_RESULTARG,D3DTA_CURRENT);n.SetTextureStageState(st,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACEPOSITION);
+                    n.SetTextureStageState(st,D3DTSS_TEXTURETRANSFORMFLAGS,st==1&&projected?(D3DTTFF_COUNT3|D3DTTFF_PROJECTED):D3DTTFF_COUNT2);
+                    n.SetTextureStageState(st,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);n.SetTextureStageState(st,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+                    n.SetTextureStageState(st,D3DTSS_MINFILTER,D3DTEXF_LINEAR);n.SetTextureStageState(st,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);n.SetTextureStageState(st,D3DTSS_MIPFILTER,D3DTEXF_NONE);}
+                n.SetTextureStageState(3,D3DTSS_COLOROP,D3DTOP_DISABLE);n.SetTextureStageState(3,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+                n.SetTexture(1,nullptr);n.SetTexture(2,nullptr);
+                D3DMATRIX id{};id._11=id._22=id._33=id._44=1;n.SetTransform(D3DTS_TEXTURE1,&id);n.SetTransform(D3DTS_TEXTURE2,&id);
+                return SUCCEEDED(n.EndStateBlock(&token))&&token;};
+            // The save block records the same state set (its values are captured before every pass).
+            if(!record(sb.head_save,true)||!record(sb.head_apply[0],false)||!record(sb.head_apply[1],true)){
+                for(DWORD* t:{&sb.head_save,&sb.head_apply[0],&sb.head_apply[1]})if(*t){n.DeleteStateBlock(*t);*t=0;}sb.head_failed=true;
+                session().write("{\"type\":\"atmosphere_headlight_stateblock\",\"ok\":false}");}
+            else{sb.device=&n;++sb.head_created;session().write("{\"type\":\"atmosphere_headlight_stateblock\",\"ok\":true,\"created\":"+std::to_string(sb.head_created)+"}");}
+        }
         auto issue=[&](IDirect3DTexture8* t1,IDirect3DTexture8* t2,const atmosphere::Mat4& m1,const atmosphere::Mat4& m2,DWORD factor,bool projected,const char* what,unsigned car,bool brake)->HRESULT{
+            if(sb.head_save){
+                HRESULT hr=n.CaptureStateBlock(sb.head_save);if(FAILED(hr))return S_OK;
+                hr=n.ApplyStateBlock(sb.head_apply[projected?1:0]);
+                if(SUCCEEDED(hr))hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,factor);
+                if(SUCCEEDED(hr))hr=n.SetTexture(1,t1);if(SUCCEEDED(hr))hr=n.SetTexture(2,t2);
+                D3DMATRIX x1{},x2{};std::memcpy(&x1,m1.data(),64);std::memcpy(&x2,m2.data(),64);
+                if(SUCCEEDED(hr))hr=n.SetTransform(D3DTS_TEXTURE1,&x1);if(SUCCEEDED(hr))hr=n.SetTransform(D3DTS_TEXTURE2,&x2);
+                if(SUCCEEDED(hr))hr=n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,cand.min,cand.vertices,cand.start,cand.count);
+                if(FAILED(n.ApplyStateBlock(sb.head_save)))return E_FAIL;
+                if(SUCCEEDED(hr))++p->headlight_draws;
+                if(p->first_reason(what))session().write("{\"type\":\"atmosphere_headlight\",\"pass\":"+quote(std::string(what))+",\"car\":"+std::to_string(car)+",\"frame\":"+std::to_string(frame)+",\"hresult\":"+std::to_string(uint32_t(hr))+",\"brake\":"+std::string(brake?"true":"false")+",\"stateblock\":true}");
+                return S_OK;}
             HeadlightPass pass;HRESULT hr=S_OK;
             auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_rs(d,n,k,v);};auto ts=[&](unsigned st,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_ts(d,n,st,k,v);};
             rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);rs(D3DRS_DESTBLEND,D3DBLEND_ONE);
