@@ -52,6 +52,9 @@ def fit_collision(raw,definition):
     bounds=lambda points:[[f(p[k] for p in points) for k in range(3)] for f in (min,max)]
     before=bounds(hull.representation_a.geometry_a.vertices);target=bounds(selected)
     target=[[target[j][k]+(-1 if j==0 else 1)*definition['padding_m'][k] for k in range(3)] for j in range(2)]
+    # Optional hull floor (MR car Y): the retail hull bottom sits well above the body bottom (Megane body -0.246,
+    # hull -0.002), so a fit to the sills of a small-wheeled car would put the hull below the suspension travel.
+    if definition.get('floor_y_m') is not None:target[0][1]=max(target[0][1],definition['floor_y_m'])
     factors=[(target[1][k]-target[0][k])/(before[1][k]-before[0][k]) for k in range(3)]
     if any(not .5<=s<=1.5 for s in factors):raise ValueError('collision fit exceeds conservative [0.5,1.5] affine guard')
     scaled=scale_dx_collision(raw,factors,before[0]);delta=[target[0][k]-before[0][k] for k in range(3)]
@@ -64,5 +67,5 @@ def fit_collision(raw,definition):
     if any(abs(after[j][k]-target[j][k])>2e-5 for j in range(2) for k in range(3)):raise ValueError('collision target bounds mismatch')
     return out,{'source_sha256':definition['source_sha256'],'output_sha256':hashlib.sha256(out).hexdigest(),
         'core_draw_indices':definition['core_draw_indices'],'evidence':definition['evidence'],'before_aabb_m':before,'after_aabb_m':after,
-        'scale':factors,'translation_m':delta,'render_bytes_unchanged':True,'topology_preserved':True,
+        'floor_y_m':definition.get('floor_y_m'),'scale':factors,'translation_m':delta,'render_bytes_unchanged':True,'topology_preserved':True,
         'boundary':'affine donor hull approximation to explicitly selected core shell; obstacle, grounding and damage contacts require gameplay confirmation'}

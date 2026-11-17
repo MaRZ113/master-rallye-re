@@ -58,7 +58,7 @@ for key, (family, name, make, model, results, cls, bhp, drive) in CARS.items():
         'power': {'bhp': bhp, 'drive': drive, 'class': cls},
         'label': 'RCX', 'source_label': 'Rally Championship Xtreme (PC)', 'source_format': 'RCX Universal Vehicle Scene',
         'adapter_id': 'rcx-pc/1', 'long_axis': 11, 'role_fn': _role, 'glass_key': 'mat-body-windows-00',
-        'keep_source_scale': True, 'source_track': True,
+        'keep_source_scale': True, 'source_track': True, 'lens_textures': True,
         'brake_evidence': 'RCX brakelight l/r parts (exterior atlas).'}
 
 RALLY_EXE = 'E:/RallyWorkshop_Sources/sources/Rally Championship Xtreme/Rally.exe'

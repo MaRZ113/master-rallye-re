@@ -123,7 +123,6 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     from .addon_sdk.auto_features import procedural_cracks,lamp_textures
     from .addon_sdk.wheel_orientation import orient_parts
     from .addon_sdk.import_project import prepare
-    from .addon_sdk.physics_collision import fit_collision
     from .dxt import parse_dxt_bytes
     spec=VEHICLES[vehicle];family=spec['family'];L=spec.get('label','TXR3')
     path=Path(scene_path).absolute();retail_sma=Path(retail_sma).absolute();retail_root=Path(retail_root).absolute()
@@ -164,19 +163,30 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     for env in sorted({e for e in MR_MATERIALS.values()if e}):
         (assets/(env+'.dxt')).write_bytes(read_sma_member(retail_sma,f'DataGx/Vehicles/{MATERIAL_FAMILY}/{env}.dxt'))
     # semantic body: ordinary draws, glass panes, one brake draw; core = paint draws
-    ordinary=[];core=[];lamps=[];glass=None
+    ordinary=[];core=[];lamps=[];glass=None;heads=[]
     for part,rec in zip(body,report['body_draws']):
         role=roles[rec['material_id']]
         if rec['material_id']==(spec.get('glass_key')or'mat-%02d'%spec['glass_material']):glass=part
         elif role=='brake':lamps.append(part)
         else:
             if role=='paint':core.append(len(ordinary))
+            if role=='lamp':heads.append(len(ordinary))
             ordinary.append(part)
     parts=list(ordinary);panes={}
     for label,p in _split_glass(glass).items():panes[label]=len(parts);parts.append(p)
     lamp=len(parts);parts.append(_merge(lamps))
+    fam=family.lower();lens=[]
+    if spec.get('lens_textures'):
+        # Renderer lamp contract (retail_vehicle_contract 3): lens draws are found by texture name, so the head and
+        # brake lamps get their own crops of the atlas named like retail lenses (headlight / brakelight).
+        from .retail_vehicle_contract import lens_crop
+        if heads:lens+=lens_crop(parts,heads,assets,f'{fam}-headlight-tga')
+        lens+=lens_crop(parts,[lamp],assets,f'{fam}-brakelight-tga')
     lit,glow,_=lamp_textures(parse_dxt_bytes((assets/(parts[lamp].textures[0]+'.dxt')).read_bytes()))
-    names=(f'{family.lower()}-stop-lit-tga',f'{family.lower()}-stop-glow-tga',f'{family.lower()}-cracks-tga')
+    # Retail names of the brake ON layer and glow card: the renderer's night lamp code keys on
+    # "breaklightson" (brake sections / brake glints) and "glow" (glow card); RCX set 1-3 used stop-lit/stop-glow.
+    names=((f'{fam}-breaklightson-tga',f'{fam}-breaklightsonglow-tga',f'{fam}-cracks-tga')if spec.get('lens_textures')else
+           (f'{fam}-stop-lit-tga',f'{fam}-stop-glow-tga',f'{fam}-cracks-tga'))
     # Cracked glass: the donor's own retail MR cracked windscreen (owner 2026-11-14: the procedural one looks artificial).
     cracked=donor/'windscreenc32-tga.dxt'
     for name,raw in zip(names,(lit,glow,cracked.read_bytes()if cracked.is_file()else procedural_cracks())):(assets/(name+'.dxt')).write_bytes(raw)
@@ -187,10 +197,18 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
             'brake':{'source_draw':lamp,'triangles':list(range(len(parts[lamp].geometry.triangles))),'lit_texture':names[0],'glow_texture':names[1],
                      'evidence':spec.get('brake_evidence','TXR3 tail lamp (TIM 43) and roof high stop lamp (TIM 39) meshes.')}}
     car,states=author_states(raw,recipe)
+    from .retail_vehicle_contract import prelight_dx
+    prelight={}
+    if spec.get('retail_prelight',True):
+        # Retail vertex prelight (retail_vehicle_contract 1): converter colours were 255 -> too bright in the menu
+        # and under the grime pass (owner 2026-11-17).
+        car,prelight['car.dx']=prelight_dx(car)
     (assets/'car.dx').write_bytes(car)
     # Frontend frame: wheels on Y=0 like retail complete.dx (owner 2026-11-16: RCX cars sat low in Vehicle Select).
     from .complete_ground import lift_complete_dx
-    (assets/'complete.dx').write_bytes(lift_complete_dx(write_scene_dx((donor/'complete.dx').read_bytes(),parts+complete_wheels))[0])
+    complete=lift_complete_dx(write_scene_dx((donor/'complete.dx').read_bytes(),parts+complete_wheels))[0]
+    if spec.get('retail_prelight',True):complete,prelight['complete.dx']=prelight_dx(complete)
+    (assets/'complete.dx').write_bytes(complete)
     (assets/'wheel.dx').write_bytes(write_scene_dx((donor/'wheel.dx').read_bytes(),wheel_slots['front_right']))
     _json(output/'native-state-recipe.json',recipe)
     wheel_resources={}
@@ -203,6 +221,19 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
         'race_wheel_resources':list(wheel_resources),'provenance':'Retail donor wheels on '+L+' hubs.'})
     lo,hi=_bounds(parts)
     dims={**hub_report,'length':hi[2]-lo[2],'width':hi[0]-lo[0],'height':hi[1]-lo[1],'wheel_radius':_wheel_radius(wheel_slots['front_right'])}
+    # Hull ground clearance (retail_vehicle_contract 2): the donor hull is fitted to the paint draws, but its bottom is
+    # kept at the donor's height above the tyre contact (hub Y = -RideHeight, minus the wheel radius). A hull on the
+    # sills of a small-wheeled car sits lower than MaxBounce above the contact and catches the course BSP on every
+    # compression (owner 2026-11-17: RCX cars snag on Clashin Darroch / Fire Rock where stock cars do not).
+    from .retail_vehicle_contract import ride_heights,donor_clearance,contact_y,fit_collision_floor
+    suspension=ride_heights(retail_sma,spec['donor'])
+    clearance=donor_clearance((donor/'car.dx').read_bytes(),suspension,g['wheel_radius'])
+    floor=contact_y(suspension,dims['wheel_radius'])+clearance
+    _,hull=fit_collision_floor(car,core,floor)
+    hull.update(donor_clearance_m=clearance,contact_y_m=contact_y(suspension,dims['wheel_radius']),suspension=suspension,
+                rest_clearance_m=hull['hull_floor_y_m']-contact_y(suspension,dims['wheel_radius']),
+                bump_margin_m=hull['hull_floor_y_m']-contact_y(suspension,dims['wheel_radius'])-max(suspension['FrontMaxBounce'],suspension['RearMaxBounce']),
+                evidence=L+' body paint draws; affine fit of the retail donor hull with the donor hull ground clearance.')
     _json(output/'identity.json',{'addon':{'name':spec['name'],'family':family,'manufacturer':spec['manufacturer'],'model':spec['model']}})
     author=prepare(output/'converted',donor,output/'identity.json',output/'author',render_ui=render_ui or _renderer,
                    source_format=spec.get('source_format','TXR3 PS2 Universal Vehicle Scene'),vehicle_class=spec['class'])
@@ -211,10 +242,13 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     for name,data in wheel_resources.items():(folder/name).write_bytes(data)
     physics=_physics(retail_sma,family,spec['donor'],dims)
     physics['notes']=physics['notes'].replace('Dakar 2',L)
-    physics['collision_fit']={'source_sha256':uvs.sha(car),'core_draw_indices':core,'padding_m':[0.,0.,0.],
-                              'evidence':L+' body paint draws; affine fit of the retail donor hull.'}
-    _,collision=fit_collision(car,physics['collision_fit'])
-    _json(output/'collision-fit-report.json',collision);_json(author/'physics-profile.json',physics)
+    physics['collision_fit']={'source_sha256':uvs.sha(car),'core_draw_indices':core,'padding_m':[0.,0.,0.],'floor_y_m':round(floor,5),
+                              'evidence':L+' body paint draws; affine fit of the retail donor hull, floor = donor hull clearance above the tyre contact.'}
+    from .addon_sdk.physics_collision import fit_collision
+    _,collision=fit_collision(car,physics['collision_fit']);hull['sdk_fit']=collision
+    physics['notes']+=(' Collision: donor hull fitted to the paint draws, floor at %.3f m (body %.3f m) = donor clearance %.3f m above the '
+                       'tyre contact.'%(hull['hull_floor_y_m'],hull['body_floor_y_m'],clearance))
+    _json(output/'collision-fit-report.json',hull);_json(author/'physics-profile.json',physics)
     addon=json.loads((author/'addon.json').read_text())
     addon['audio']['stock_audio_profile_id']=spec['audio'];addon['assets']['required_roles'].extend(wheel_resources)
     addon['results']['display_name']=spec['results']
@@ -229,7 +263,8 @@ def create_pilot(scene_path,vehicle,retail_sma,retail_root,output,*,render_ui=No
     workshop.save()
     summary={'schema':'txr3-classic-pilot/1','vehicle':vehicle,'family':family,'output':str(output),'author':str(author),
              'workshop':str(workshop.root),'dimensions':dims,'body_scale':scale,'hub_fit':fit,'orientation_ledger':ledger,
-             'native_states':states,'collision_core_draws':core,'panes':{k:len(parts[v].geometry.triangles)for k,v in panes.items()},
+             'native_states':states,'collision_core_draws':core,'hull':{k:hull[k]for k in('body_floor_y_m','hull_floor_y_m','rest_clearance_m','bump_margin_m')},
+             'prelight':prelight,'lens_textures':lens,'panes':{k:len(parts[v].geometry.triangles)for k,v in panes.items()},
              'gameplay':'NOT TESTED'}
     _json(output/'pilot-report.json',summary)
     return summary

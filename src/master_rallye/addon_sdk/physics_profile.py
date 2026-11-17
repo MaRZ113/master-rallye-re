@@ -47,7 +47,11 @@ def validate_profile(profile,*,donor_family,runtime_family):
             if abs(value)>.5:raise AddonValidationError('ride height reference exceeds SDK +/-0.5 m guard')
     if 'collision_fit' in profile:
         c=profile['collision_fit']
-        if not isinstance(c,dict) or set(c)!={'source_sha256','core_draw_indices','padding_m','evidence'}:raise AddonValidationError('invalid collision fit declaration')
+        base={'source_sha256','core_draw_indices','padding_m','evidence'}
+        if not isinstance(c,dict) or not base<=set(c) or set(c)-base-{'floor_y_m'}:raise AddonValidationError('invalid collision fit declaration')
+        if 'floor_y_m' in c:
+            _number(c['floor_y_m'])
+            if not -1<=c['floor_y_m']<=1:raise AddonValidationError('collision floor outside SDK +/-1 m guard')
         if not isinstance(c['source_sha256'],str) or not re.fullmatch('[0-9a-f]{64}',c['source_sha256']):raise AddonValidationError('collision source pin required')
         ids=c['core_draw_indices']
         if not isinstance(ids,list) or not ids or len(ids)>512 or any(type(i) is not int or i<0 or i>8192 for i in ids) or len(set(ids))!=len(ids):raise AddonValidationError('collision core draw selection invalid')
