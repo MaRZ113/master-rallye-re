@@ -40,7 +40,12 @@ STOCK_STAGES = [list(range(10, 13)), list(range(13, 16)), list(range(16, 19)), l
                 list(range(22, 25)), list(range(36, 39))]
 GROUPS = 9                                   # 8 retail modes + the category (one category; see categories_of)
 CATEGORY = 8                                 # first extra mode
-MAX_CATEGORIES = 6                           # RCX-CAT2: position[8..13] = +0x34..+0x48 (unused), flag +0x50
+MAX_CATEGORIES = 4                           # RCX-CAT2: position[8..11] = +0x34..+0x40 (unused), flag +0x50
+REPEAT_DIR, REPEAT_NEXT = 0x44, 0x48         # RCX-CAT2: held-arrow repeat state in the RaceSelect object (unused fields)
+REPEAT_HOOK = 0x47EA51                       # E8 -> 0x45D930: the screen's per-frame action poll (UI/Control)
+ACTION_POLL = 0x45D930
+IAT_GETASYNCKEYSTATE, IAT_GETTICKCOUNT = 0x68F308, 0x68F0D8
+REPEAT_DELAY_MS, REPEAT_RATE_MS = 400, 70
 FACTORY_PUSH = 0x47E206                      # 6A 74
 LIST_HOOK = 0x47E605                         # 68 D4 70 6B 00  push "Frontend/RaceSelect/RaceList"
 LIST_RESUME = 0x47E60A
@@ -83,6 +88,9 @@ class Emitter:
     def ja(self, t): self._rel(b"\x0f\x87", t)
     def jb(self, t): self._rel(b"\x0f\x82", t)
     def jae(self, t): self._rel(b"\x0f\x83", t)
+    def jl(self, t): self._rel(b"\x0f\x8c", t)
+    def jg(self, t): self._rel(b"\x0f\x8f", t)
+    def js(self, t): self._rel(b"\x0f\x88", t)
 
     def push_literal(self, label):
         self.emit(b"\x68\0\0\0\0")
@@ -347,6 +355,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.label("category_list")
     c.emit(b"\x53\x8b\x5c\x24\x18")                                                   # push ebx; mov ebx,[esp+18h]
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(0))                                        # mov dword [ebx+50],0
+    c.emit(b"\xc7\x43" + bytes([REPEAT_DIR]) + u(0) + b"\xc7\x43" + bytes([REPEAT_NEXT]) + u(0))   # repeat state
     c.emit(b"\x8b\x46\x08\x2b\x46\x04\x83\xf8\x20"); c.jne("category_list_done")     # 8 retail modes published?
     for k in range(len(cats)):                                                        # position[8 + k] = 0, label k
         c.emit(b"\xc7\x43" + bytes([0x14 + (CATEGORY + k) * 4]) + u(0))
@@ -356,6 +365,36 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(1))
     c.label("category_list_done"); c.emit(b"\x5b\x68" + u(0x6B70D4)); c.jump(LIST_RESUME)   # pop ebx; push key
     hook(LIST_HOOK, b"\x68" + u(0x6B70D4), "category_list")
+
+    # ---- held arrows repeat (RCX-CAT2, owner: long lists scroll slowly) -----------------------------------------
+    # The screen polls one action per frame (0x45D930 -> UI/Control); a held key yields one press only. While the
+    # poll is idle (-2..0) and Left/Right is held (GetAsyncKeyState), the poll returns that press again after
+    # REPEAT_DELAY_MS and then every REPEAT_RATE_MS, so the native left/right cases (race or mode step, sound,
+    # publish) run unchanged. -5 = left (previous), -4 = right (next). ESI = the RaceSelect object (callee-saved).
+    c.label("race_repeat")
+    c.emit(b"\xff\x74\x24\x04"); c.call(ACTION_POLL)                                 # push [esp+4]; call poll
+    c.emit(b"\x83\xf8\xfb"); c.je("repeat_pressed"); c.emit(b"\x83\xf8\xfc"); c.je("repeat_pressed")
+    c.emit(b"\x83\xf8\xfe"); c.jl("repeat_done"); c.emit(b"\x83\xf8\x00"); c.jg("repeat_done")
+    c.emit(b"\x50")                                                                    # push eax (idle action)
+    for vk, code in ((0x27, -4), (0x25, -5)):
+        c.emit(b"\x6a" + bytes([vk]) + b"\xff\x15" + u(IAT_GETASYNCKEYSTATE) + b"\x66\xa9\x00\x80")
+        c.emit(b"\xba" + u(code)); c.jne("repeat_held")                                # mov edx,code (flags kept)
+    c.emit(b"\xc7\x46" + bytes([REPEAT_DIR]) + u(0) + b"\x58\xc2\x04\x00")           # no arrow: reset; pop eax; ret 4
+    c.label("repeat_held")
+    c.emit(b"\x52\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x5a")                           # push edx; GetTickCount; pop edx
+    c.emit(b"\x39\x56" + bytes([REPEAT_DIR])); c.je("repeat_same")
+    c.emit(b"\x89\x56" + bytes([REPEAT_DIR]) + b"\x05" + u(REPEAT_DELAY_MS) + b"\x89\x46" + bytes([REPEAT_NEXT]))
+    c.emit(b"\x58\xc2\x04\x00")
+    c.label("repeat_same")
+    c.emit(b"\x8b\xc8\x2b\x4e" + bytes([REPEAT_NEXT])); c.js("repeat_wait")          # now - next < 0: wait
+    c.emit(b"\x83\xc0" + bytes([REPEAT_RATE_MS]) + b"\x89\x46" + bytes([REPEAT_NEXT]))
+    c.emit(b"\x83\xc4\x04\x8b\xc2\xc2\x04\x00")                                       # drop idle; eax = press; ret 4
+    c.label("repeat_wait"); c.emit(b"\x58\xc2\x04\x00")
+    c.label("repeat_pressed")                                                          # a real press starts the delay
+    c.emit(b"\x50\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x05" + u(REPEAT_DELAY_MS) + b"\x89\x46" + bytes([REPEAT_NEXT]))
+    c.emit(b"\x58\x89\x46" + bytes([REPEAT_DIR]) + b"\xc2\x04\x00")
+    c.label("repeat_done"); c.emit(b"\xc2\x04\x00")
+    hooks.append((REPEAT_HOOK, branch(REPEAT_HOOK, ACTION_POLL, 0xE8), ("call", "race_repeat")))
 
     # ---- invalid index stop, data ------------------------------------------------------------------------------
     c.label("invalid"); c.emit(b"\x6a\x10"); c.push_literal("invalid_message"); c.push_literal("invalid_message")

@@ -135,5 +135,42 @@ for g, flag, rid in cases:
             want += [("get", b"Frontend/RaceSelect/Logo"), ("set_int", CATS[g - 8]["logo_frame"])]
     if sets != want or d != 0 or u.reg_read(UC_X86_REG_ESI) != 0x5151:
         fail.append(f"details g{g} flag{flag}: {sets} != {want}")
+# held-arrow repeat (RCX-CAT2): the action poll at 0x47EA51 goes through race_repeat
+FAKE_KEY, FAKE_TICK, POLL = 0x3300000, 0x3300010, 0x45D930
+u.mem_map(0x3300000, 0x1000)
+u.mem_write(0x68F308, struct.pack("<I", FAKE_KEY)); u.mem_write(0x68F0D8, struct.pack("<I", FAKE_TICK))
+state = {"action": -2, "held": None, "tick": 0}
+
+
+def stub2(uc, addr, size, ud):
+    esp = uc.reg_read(UC_X86_REG_ESP)
+    ret, a1 = struct.unpack("<II", uc.mem_read(esp, 8))
+    if addr == POLL:
+        uc.reg_write(UC_X86_REG_EAX, state["action"] & 0xFFFFFFFF); pop = 8
+    elif addr == FAKE_KEY:
+        uc.reg_write(UC_X86_REG_EAX, 0x8000 if a1 == state["held"] else 0); pop = 8
+    elif addr == FAKE_TICK:
+        uc.reg_write(UC_X86_REG_EAX, state["tick"]); pop = 4
+    else:
+        return
+    uc.reg_write(UC_X86_REG_ESP, esp + pop); uc.reg_write(UC_X86_REG_EIP, ret)
+
+
+u.hook_add(UC_HOOK_CODE, stub2, begin=0x45D930, end=0x45D930)
+u.hook_add(UC_HOOK_CODE, stub2, begin=0x3300000, end=0x3300010)
+rel = struct.unpack("<i", bytes(img.recon[0x47EA52 - 0x400000:0x47EA56 - 0x400000]))[0]
+repeat = 0x47EA56 + rel
+seen = []
+wr(0x44, 0); wr(0x48, 0)
+script = [(0, -5, 0x25), (100, -2, 0x25), (390, -2, 0x25), (410, -2, 0x25), (450, -2, 0x25), (485, -2, 0x25),
+          (500, -2, None), (600, -4, 0x27), (700, -2, None), (1200, -2, 0x27)]
+for tick, action, held in script:
+    state.update(tick=tick, action=action, held=held)
+    call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+    seen.append(u.reg_read(UC_X86_REG_EAX) - (1 << 32) if u.reg_read(UC_X86_REG_EAX) >= 1 << 31 else u.reg_read(UC_X86_REG_EAX))
+want = [-5, -2, -2, -5, -2, -5, -2, -4, -2, -2]
+print("repeat", seen)
+if seen != want:
+    fail.append(f"repeat {seen} != {want}")
 print("FAIL", fail) if fail else print("PASS course layer emulation")
 sys.exit(1 if fail else 0)
