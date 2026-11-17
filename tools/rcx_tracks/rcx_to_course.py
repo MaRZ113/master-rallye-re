@@ -767,12 +767,14 @@ def main(argv=None):
     ap.add_argument("--min-up", type=float, default=-0.05, help="solid ground faces need normal Y >= this (overhangs drawn only)")
     ap.add_argument("--barriers", action="store_true", help="keep the untextured RCX barrier walls as collision")
     ap.add_argument("--seed", type=Path, help="start from a previous build-<stage>.json (its repair discs and dropped props)")
+    ap.add_argument("--authoring-order", action="store_true",
+                    help="chunk draw records in authoring order (before RCX-PERF1: records spanned the whole stage)")
     a = ap.parse_args(argv)
     from master_rallye.studio.model import save_project
     from master_rallye.studio.build import build_course
     import object_bsp
     import render_batches
-    render_batches.install()
+    render_batches.install(spatial=not a.authoring_order)   # RCX-PERF1: compact records for view culling
     t0 = time.time()
     pdir = a.work / "projects" / a.stage.name
     demote, drop_props, history = [], [], []
