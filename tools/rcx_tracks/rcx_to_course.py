@@ -62,6 +62,7 @@ DRAW_ONLY_TEXTURES = ('barrier', 'rail')  # bridge barriers and rails: open soup
 # texture alpha by the vertex alpha when the material's vertex-lighting byte is set: Rally.exe-independent, MR
 # 0x57FED5). Without it only the first texture was drawn: patches and hard stripes on grass / gravel / tarmac.
 BLEND_LIFT_M = 0.02
+OVERLAY_SUFFIX = "#ovl"
 # Props that collide in RCX (owner 2026-11-16/17: trees, woodpiles and 2D fences are solid there, passable in MR).
 # RCX's own collision for trees, woodpiles and buildings is the untextured render-flag-0x2404 geometry ("hulls": a
 # 0.9 m pyramid on every tree trunk, closed boxes on each woodpile); the drawn trees are NO_COLLIDE star planes.
@@ -76,7 +77,8 @@ PROP_ROUTE_CLEAR_M = 3.5              # no prop closer than this to the driving 
 PROP_BOX_BUDGET = 2400                # closed boxes kept nearest the route first (35.7 MB pools at 4170 boxes > 32 MB cache)
 FENCE_PIECE_M = 3.0                   # fence runs: abutting slabs of at most this length (long thin solids broke the BSP union)
 FENCE_JOINT_M = 0.1                   # gap between abutting slabs of one run (0.02: near-coplanar BSP slivers, phantom cells)
-PROP_DROP_M = 6.0                     # repair: props within this of a reported collision spot get no box
+PROP_ROAD_DROP_M = 15.0               # ... and road spots (phantom cells over the route) this far
+PROP_DROP_M = 3.0                     # repair: props within this of a reported collision spot get no box
 # Lighting: RCX vertex RGB is its baked light (slopes, tree shadows; shared corners, so smooth). MR draws it as the
 # vertex colour of every layer, scaled so the 90th percentile of the ground reaches LIGHT_TOP. Course Studio's own bake
 # lit each unwelded RCX face by its face normal: faceted ground, and the blend layer (unnormalised normal) differed.
@@ -168,6 +170,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         return meshes[role]
 
     used_textures = {}
+    blend_lows = set()
     tri_counts = {}
     near = corridor_distance([to_mr(p) for p in cfg.splines["driving line"]])
     line_mr = [to_mr(p) for p in cfg.splines["driving line"]]
@@ -227,7 +230,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         corridor_m = max(CORRIDOR_MIN_M, dists[TERRAIN_FACE_BUDGET])
     report["corridor_m"] = round(corridor_m, 1)
     drawn = set()
-    hull_tris, fence_tris = [], []            # MR-frame props for the collision boxes (after the ground exists)
+    hull_tris, fence_tris, struct_tris = [], [], []            # MR-frame props for the collision boxes (after the ground exists)
     for g, tri in smap.triangles():
         surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
         tex_index, blend_index = g.texture, -1
@@ -237,7 +240,9 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 tex_index = g.texture2            # fully texture2: one opaque layer
             elif max(alphas) > 5:
                 blend_index = g.texture2          # mixed: texture opaque + texture2 blended by the vertex alpha
-        if g.texture < 0:
+        if g.texture < 0 or (surface == 'Unknown' and g.flags & OVERLAY_PASS_FLAG):
+            # untextured 0x2404 and textured 0x2506 / 0x2406 groups of the Unknown surface: RCX collision hulls
+            # (tree pyramids, woodpile boxes, telegraph poles, advert boxes)
             hull_tris.append([to_mr(v[:3]) for v in tri])
         elif not g.flags & OVERLAY_PASS_FLAG and surface == "Fence":
             fence_tris.append([to_mr(v[:3]) for v in tri])
@@ -274,6 +279,8 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                      and not (stacked_low and tuple(round(c, 3) for c in
                                                     (cx, sum(q[1] for q in ps) / 3, cz)) in stacked_low))
             role = ROLE_TERRAIN if solid else ROLE_VISUAL
+        if role == ROLE_VISUAL and surface in STRUCTURES:
+            struct_tris.append([to_mr(v[:3]) for v in tri])   # woodpiles, sheds, bridge piers: solid in RCX
         m = mesh(role)
         tex = smap.textures[tex_index] if tex_index >= 0 else None
         mr_surface = SURFACE_MR.get(surface, 'harddirt') if role in (ROLE_TERRAIN, ROLE_WATER) else None
@@ -299,16 +306,20 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             # Course Studio gives the opaque layer (unwelded corners: the face normal), so both layers match
             bm = mesh("blend")
             btex = smap.textures[blend_index]
-            bkey = (btex, "blend")
+            # its own texture: a horizontally mirrored copy sampled at -u (identical look, distinct texture hash), so
+            # Atmosphere can give the blended layer its own lighting record (blended draws need category 3 / 4 with
+            # AlphaTest; the opaque ground under it is terrain / road)
+            bkey = (btex + OVERLAY_SUFFIX, "blend")
             if bkey not in bm._mat:
                 bm._mat[bkey] = len(bm.materials)
                 bm.materials.append(bkey)
                 used_textures[btex.lower()] = btex
+                blend_lows.add(btex.lower())
             pts = [to_mr(v[:3]) for v in tri]
             bb = len(bm.positions) // 3
             for v, q in zip(tri, pts):
                 bm.positions.extend((q[0], q[1] + BLEND_LIFT_M, q[2]))
-                bm.uv.extend((v[4], 1.0 - v[5]))
+                bm.uv.extend((-v[4], 1.0 - v[5]))
                 bm.colors.extend(rgb_of(v) + (v[3] >> 24,))
             bm.triangles.extend((bb, bb + 1, bb + 2))
             bm.tri_material.append(bm._mat[bkey])
@@ -340,6 +351,12 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             continue
         d = decode_tex(path.read_bytes())
         decoded[low] = [d["width"], d["height"], d["rgba"]]
+    for low in blend_lows:
+        if low in decoded:
+            w, h, rgba = decoded[low]
+            rgba = bytes(rgba)
+            decoded[low + OVERLAY_SUFFIX] = [w, h, b"".join(
+                b"".join(rgba[(y * w + x) * 4:(y * w + x) * 4 + 4] for x in range(w - 1, -1, -1)) for y in range(h))]
 
     def budget():
         return sum(int(w * h * 4 * 4 / 3) for w, h, _ in decoded.values())
@@ -352,7 +369,8 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     report["texture_halvings"] = halvings
     tex_keys = {}
     for low, (w, h, rgba) in decoded.items():
-        tkey = safe_key("rcx_" + low.rsplit(".", 1)[0]).lower()[:40] + "-tga"
+        base_low = low.removesuffix(OVERLAY_SUFFIX)
+        tkey = safe_key("rcx_" + base_low.rsplit(".", 1)[0]).lower()[:40] + ("_ovl" if low != base_low else "") + "-tga"
         alpha = any(a < 250 for a in rgba[3::4])
         write_png(out_dir / f"textures/{tkey}.png", w, h, rgba)
         project.textures[tkey] = Texture(key=tkey, source=f"textures/{tkey}.png", width=w, height=h, has_alpha=alpha)
@@ -404,6 +422,67 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         m.tri_material = [remap[i] for i in m.tri_material]
         del m._index, m._mat
         project.meshes.append(m)
+
+    # ---- Atmosphere: smooth ground normals and explicit lighting roles
+    # The lighting package takes its normals from the DX vertex normals; Course Studio would give every unwelded RCX
+    # face its own (faceted light). Ground faces (terrain, far ground, blend layer) get area-weighted normals welded
+    # by position across meshes; objects keep face normals.
+    def is_ground(role, mk):
+        return role in (ROLE_TERRAIN, "blend") or mk.endswith("_far")
+    acc = {}
+
+    def wkey(q, lift):
+        return (round(q[0], 2), round(q[1] - lift, 2), round(q[2], 2))
+    for role, m in meshes.items():
+        if role == ROLE_COLLISION:
+            continue
+        lift = BLEND_LIFT_M if role == "blend" else 0.0
+        for t in range(len(m.triangles) // 3):
+            if not is_ground(role, m.materials[m.tri_material[t]]):
+                continue
+            q = [tuple(m.positions[3 * m.triangles[3 * t + k] + c] for c in range(3)) for k in range(3)]
+            u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
+            n = (u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0])
+            for p in q:
+                a = acc.setdefault(wkey(p, lift), [0.0, 0.0, 0.0])
+                a[0] += n[0]; a[1] += n[1]; a[2] += n[2]
+
+    def unit(v):
+        ln = math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
+        return (v[0] / ln, v[1] / ln, v[2] / ln) if ln > 1e-12 else (0.0, 1.0, 0.0)
+    for role, m in meshes.items():
+        if role == ROLE_COLLISION:
+            continue
+        lift = BLEND_LIFT_M if role == "blend" else 0.0
+        m.normals = []
+        for t in range(len(m.triangles) // 3):
+            q = [tuple(m.positions[3 * m.triangles[3 * t + k] + c] for c in range(3)) for k in range(3)]
+            if is_ground(role, m.materials[m.tri_material[t]]):
+                for p in q:
+                    m.normals.extend(unit(acc[wkey(p, lift)]))
+            else:
+                u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
+                n = unit((u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]))
+                m.normals.extend(n * 3)
+    # roles by texture label (course_lighting.material_role): road / terrain ground, vegetation for cutout objects and
+    # the blend layer (category 3 carries AlphaTest), static for opaque objects, water excluded
+    rank = {"road": 0, "terrain": 1, "static": 2, "vegetation": 3, "exclude": 4}
+    roles = {}
+    for mk, mat in project.materials.items():
+        if not mat.textures or not mat.textures[0]:
+            continue
+        label = mat.textures[0]
+        if mat.shader == "water":
+            role = "exclude"
+        elif mat.alpha == "blend":
+            role = "vegetation"
+        elif mat.shader == "ground":
+            role = "road" if mat.surface in ("tarmac", "gravel") else "terrain"
+        else:
+            role = "vegetation" if mat.alpha == "cutout" else "static"
+        if label not in roles or rank[role] < rank[roles[label]]:
+            roles[label] = role
+    report["lighting_roles"] = roles
 
     # ---- ground queries on the drivable surface (Course Studio height field, MR frame)
     from master_rallye.studio.collision import HeightField, terrain_triangles
@@ -485,13 +564,17 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             parent[k] = parent[parent[k]]
             k = parent[k]
         return k
-    for t in hull_tris:
-        ks = [tuple(round(c, 2) for c in q) for q in t]
-        for k in ks[1:]:
-            parent[find(ks[0])] = find(k)
+    # Wood / Metal faces off the driving line (woodpiles, sheds, piers) are solid in RCX without a hull: their own
+    # components, keyed apart from the hulls ("s" prefix) so a woodpile and its neighbouring hull stay two boxes
+    for tag, tris in (("h", hull_tris), ("s", struct_tris)):
+        for t in tris:
+            ks = [(tag,) + tuple(round(c, 2) for c in q) for q in t]
+            for k in ks[1:]:
+                parent[find(ks[0])] = find(k)
     components = {}
-    for t in hull_tris:
-        components.setdefault(find(tuple(round(c, 2) for c in t[0])), []).append(t)
+    for tag, tris in (("h", hull_tris), ("s", struct_tris)):
+        for t in tris:
+            components.setdefault(find((tag,) + tuple(round(c, 2) for c in t[0])), []).append(t)
     hull_slabs = []
     for comp in components.values():
         P = [q for t in comp for q in t]
@@ -591,7 +674,18 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     finish_gate = gates[-1]
     fmid = tuple((finish_gate[1][k] + finish_gate[2][k]) / 2 for k in range(3))
     i1 = nearest(route, fmid)
-    route = route[i0:i1 + 1]
+    route = route[i0:min(len(route), i1 + 3)]           # two samples past the gate: the finish is not the route end
+    # finish = the gate centre projected on the route (route[-2] was a 10 m sample, up to 15 m before the gate)
+    best = None
+    for i in range(len(route) - 1):
+        a, b = route[i], route[i + 1]
+        dx, dz = b[0] - a[0], b[2] - a[2]
+        f = max(0.0, min(1.0, ((fmid[0] - a[0]) * dx + (fmid[2] - a[2]) * dz) / ((dx * dx + dz * dz) or 1)))
+        q = (a[0] + dx * f, a[1] + (b[1] - a[1]) * f, a[2] + dz * f)
+        d = math.hypot(q[0] - fmid[0], q[2] - fmid[2])
+        if best is None or d < best[0]:
+            best = (d, i, q)
+    finish_i, finish_pt = best[1], best[2]
     route = [(x, ground(x, z, y) + 0.3, z) for x, y, z in route]
     for _ in range(3):                                   # chords stay above the surface over crests
         lifted = False
@@ -610,7 +704,8 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     project.route.points = route
     project.route.spacing = ROUTE_STEP_M
     project.start = start_area(route, heading_deg(route, 1), lambda x, z: ground(x, z, route[1][1]))
-    project.finish = Area(center=route[-2], heading=heading_deg(route, len(route) - 2), width=36.0, depth=14.0)
+    finish_pt = (finish_pt[0], ground(finish_pt[0], finish_pt[2], finish_pt[1]), finish_pt[2])
+    project.finish = Area(center=finish_pt, heading=heading_deg(route, finish_i), width=36.0, depth=14.0)
 
     # ---- splits: the RCX gates between start and finish nearest 1/4, 1/2, 3/4 of the route
     inner = []
@@ -631,7 +726,9 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         centre = (route[k][0], route[k][1] - 0.3, route[k][2])
         project.checkpoints.append(Checkpoint(uid=new_uid("cp_"), center=centre, radius=width, extra_time=extra,
                                               heading=heading_deg(route, k), board_spacing=min(width * 2, 60.0),
-                                              name=gname, boards=True))
+                                              # RCX gates are in the course model; Course Studio boards stood off the
+                                              # road, above the ground and turned 90 deg (owner 2026-11-17, Evo too)
+                                              name=gname, boards=False))
     first_len = (chosen[0][0] if chosen else len(route)) * ROUTE_STEP_M
     project.environment.time_to_first_checkpoint = round(min(300.0, 30.0 + first_len / 14.0), 0)
     project.limits.mode = "manual"
@@ -697,10 +794,16 @@ def main(argv=None):
         # props first: a spot within PROP_DROP_M of a prop box drops the props there (solid union of thin boxes can
         # leave unexplained cells next to them); terrain is demoted only where no prop is near
         boxes_here = project.extras["rcx"].get("prop_boxes", [])
-        prop_spots = [(x, z) for x, z in spots
+        prop_spots = [(x, z, PROP_DROP_M) for x, z in spots
                       if any(math.hypot(x - bx, z - bz) - bh <= PROP_DROP_M for bx, bz, bh in boxes_here)]
+        # on the road no terrain may go: a phantom BSP cell there (set by boxes farther away) drops props up to
+        # PROP_ROAD_DROP_M around it (Fire Rock x 374 z 629: nearest box 9.5 m)
+        prop_spots += [(x, z, PROP_ROAD_DROP_M) for x, z in spots if near(x, z) <= NEAR_KEEP_M
+                       and (x, z, PROP_ROAD_DROP_M) not in drop_props
+                       and not any(math.hypot(x - bx, z - bz) - bh <= PROP_DROP_M for bx, bz, bh in boxes_here)
+                       and any(math.hypot(x - bx, z - bz) - bh <= PROP_ROAD_DROP_M for bx, bz, bh in boxes_here)]
         if prop_spots:
-            drop_props += [(x, z, PROP_DROP_M) for x, z in prop_spots]
+            drop_props += prop_spots
             history.append({"pass": npass, "errors": len(errors), "spots": len(spots), "dropped_props_at": len(prop_spots)})
             print(f"  pass {npass}: ok={result.ok} errors={len(errors)} props dropped at {len(prop_spots)} spots", flush=True)
             continue

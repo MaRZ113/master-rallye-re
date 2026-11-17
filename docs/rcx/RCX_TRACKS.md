@@ -119,3 +119,32 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   - The terrain is smooth.
   - BSP probes at 0.02 to 1 m above the ground and 0.1 m below it are clean at all four reported spots.
   - It is not geometry. A model-cache hitch is suspected (Fire Rock pools were 31.5 of 32 MB).
+
+## Set 6: missed props, finish, Atmosphere lighting (pack RCX-07)
+
+* **Textured hulls.** Unknown-surface groups with render flag 0x400 are hulls too, textured or not: 0x2506 is used for telegraph poles and trees, 0x2406 for advert boxes.
+* **Woodpiles.** Woodpiles have no hull in RCX; the Wood surface itself collides. Wood and Metal faces that stay drawn-only (off the line) are now their own components and become boxes or slabs, like hulls.
+* **Repair loop.**
+  - Props within 3 m of a spot are dropped. The 6 m radius had removed a whole advert fence.
+  - A spot on the road (within 4 m of the line) drops props within 15 m, because it is a phantom BSP cell set by boxes farther away (Fire Rock x 374 z 629).
+* **Finish.**
+  - The finish is the RCX gate centre projected on the route; `route[-2]` was a 10 m sample, up to 15 m early.
+  - The route runs two samples past the gate.
+* **Checkpoints.** `boards=False`: Course Studio boards stood off the road, in the air and turned 90 degrees (as on Evo 2).
+* **Atmosphere.**
+  - Ground faces (terrain, far ground and the blend layer) get area-weighted normals welded by position across meshes, written as `Mesh.normals`. The lighting package reads DX vertex normals.
+  - The blend layer uses a horizontally mirrored texture copy (`*_ovl-tga`, sampled at -u). Its texture hash differs from the opaque ground under it, so it gets its own record: blended draws are lit only for category 3/4 with AlphaTest (`atmosphere_native.hpp` resolver).
+  - Roles are written to `extras.rcx.lighting_roles`:
+    - road: Tarmac and Gravel ground;
+    - terrain: the other ground;
+    - vegetation: cutout objects and blend copies;
+    - static: opaque objects;
+    - exclude: water.
+  - `tools/rcx_tracks/rcx_lighting.py --pack --projects --host` runs `course_lighting_batch.export_batch` from the base repo and installs `Atmosphere/courses/<scene>`.
+    - RcxKenya1: 135 materials, 177 k normals.
+    - RcxScottish2: 250 materials, 98 k normals.
+  - Gameplay is not tested.
+* **Results.**
+  - Fire Rock: OK, 25.3 MB of pools, 1355 boxes.
+  - Clashin Darroch: OK, 26.1 MB.
+  - Both were built with `--seed` from set 5; the inherited drops were narrowed to 3 m.
