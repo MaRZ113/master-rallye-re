@@ -488,6 +488,136 @@ def solve(root, car):
     ctx = dict(m=m, P=P, draws=draws, tri=tri, lens=lens, classified=classified, brakes=brakes, glow=glow_draws, on=on_layer, lo=lo, hi=hi)
     return report, ctx
 
+def texel_clusters(texels, link=.03):
+    """Spatial clusters of rasterised texels (pos, rgb, per, ...): cells of `link` metres joined over their 26
+    neighbours. Returns lists of texels."""
+    cells = {}
+    for q in texels:
+        cells.setdefault(tuple(int(math.floor(q[0][k] / link)) for k in range(3)), []).append(q)
+    parent = {c: c for c in cells}
+    def find(a):
+        while parent[a] != a: parent[a] = parent[parent[a]]; a = parent[a]
+        return a
+    for c in cells:
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    o = (c[0] + dx, c[1] + dy, c[2] + dz)
+                    if o in cells:
+                        a, b = find(c), find(o)
+                        if a != b: parent[b] = a
+    out = {}
+    for c, qs in cells.items(): out.setdefault(find(c), []).extend(qs)
+    return list(out.values())
+
+def rear_class(rgb):
+    """Rear lens texel: red also covers the pink / magenta tail glass of imported cars (hue 285..20 deg)."""
+    r, g, b = [c / 255 for c in rgb]; hi, lo = max(r, g, b), min(r, g, b)
+    if hi < .2: return 'dark'
+    sat = (hi - lo) / hi if hi else 0
+    if sat < .22: return 'white' if hi >= .45 else None
+    if hi == r: h = (60 * (g - b) / (hi - lo)) % 360
+    elif hi == g: h = 60 * (b - r) / (hi - lo) + 120
+    else: h = 60 * (r - g) / (hi - lo) + 240
+    if (h >= 340 or h <= 20) and sat >= .3: return 'red'
+    if 285 <= h < 340 and sat >= .3: return 'pink'      # magenta / pink glass section (Evo VI, Quattro, 206)
+    if 20 < h <= 65: return 'amber'
+    return None
+
+def addon_points(root, car, report, ctx):
+    """Imported (add-on) cars: the converter names every lamp part, so the lamp sections come from the lamp parts
+    themselves instead of the retail heuristics (owner 2026-11-17, RCX: no head glints on Puma, one on Astra, one
+    glint per rear lamp although it holds tail, indicator and reverse sections).
+      * head: all faces of the *headlight* lens draws (any texel colour: RCX lamp glass is dark or tinted), per side
+        texel clusters (3 cm); up to 2 per side >= 35 % of the side's largest; glint at the luminance^2-weighted
+        centre (bulb / reflector) snapped to a lens texel, preferring faces that face the axis (|nz| >= .6), so the
+        runtime anchor binds to a forward-facing face.
+      * rear: the $switch(blight) OFF lens split by texel class (rear_class): red/pink sections, 1.5 cm apart, = brake
+        and tail glints (up to 3 per side >= 12 % of the largest), white = reverse, amber (indicators) and dark = none.
+    Lens draws, masks and the blight OFF fingerprints of the generic solve are kept."""
+    m, P, tri = ctx['m'], ctx['P'], ctx['tri']; UV = m.uv_sets[0].values if m.uv_sets else None
+    lo, hi = ctx['lo'], ctx['hi']; L = hi[2] - lo[2]; front_z = hi[2] - .30 * L; rear_z = lo[2] + .30 * L
+    lum = lambda rgb: .3 * rgb[0] + .59 * rgb[1] + .11 * rgb[2]
+    def texels(draw_list, end):
+        out = []
+        for d in draw_list:
+            tx = Tex.get(root, car, d.texture_tuple[0].lower())
+            if tx.t is None or UV is None: continue
+            for t in tri(d):
+                n, a, c = tri_info(P, t)
+                if a < 1e-7 or abs(n[2]) < .35 or (c[2] <= front_z if end == 'front' else c[2] >= rear_z): continue
+                out += [q + (abs(n[2]),) for q in raster(P, UV, tx, t)]
+        return out
+    def place(cl, weight):
+        good = [q for q in cl if q[-1] >= .6]
+        if sum(q[2] for q in good) >= .25 * sum(q[2] for q in cl): cl = good
+        w = [q[2] * weight(q) for q in cl]; sw = sum(w) or 1e-12
+        if sum(w) <= 1e-12: w = [q[2] for q in cl]; sw = sum(w)
+        c = [sum(q[0][k] * wi for q, wi in zip(cl, w)) / sw for k in range(3)]
+        near = min(cl, key=lambda q: (q[0][0] - c[0]) ** 2 + (q[0][1] - c[1]) ** 2)
+        return [round(c[0], 4), round(c[1], 4), round(near[0][2], 4)]
+    def pick(clusters, share, cap):
+        out = []
+        for s in (0, 1):
+            cs = sorted([cl for cl in clusters if (sum(q[0][0] for q in cl) < 0) == (s == 0)], key=lambda cl: -sum(q[2] for q in cl))
+            if not cs: continue
+            top = sum(q[2] for q in cs[0])
+            out += [cl for cl in cs[:cap] if sum(q[2] for q in cl) >= share * top and sum(q[2] for q in cl) >= 2e-4]
+        return out
+    pts = []; warn = []
+    def pt(role, cl, pos, tail=False, cls=None):
+        area = sum(q[2] for q in cl)
+        return {'role': role, 'side': 'L' if pos[0] < 0 else 'R', 'pos': pos, 'size': round(math.sqrt(area), 4), 'extent': [0, 0, 0],
+                'also_tail': tail, 'sources': ['addon'], 'class': cls or role}
+    heads = [d for d in ctx['lens'] if 'headlight' in d.texture_tuple[0].lower()]
+    ht = [q for q in texels(heads, 'front') if tclass(q[1]) not in ('red', 'amber')]   # side markers / indicators
+    for cl in pick(texel_clusters(ht), .35, 2):
+        med = sorted(lum(q[1]) for q in cl)[len(cl) // 2]
+        pts.append(pt('head', cl, place(cl, lambda q: 1 + ((max(0., lum(q[1]) - med)) / 255) ** 2 * 50)))
+    off = [d for d in ctx['draws'] if d.group_label == 'blight']
+    group = {str(d.record_path) for d in off}
+    off = [d for d in ctx['draws'] if any(str(d.record_path) == g or str(d.record_path).startswith(g + '.') for g in group)
+           and not re.search('lightson|glow', d.texture_tuple[0].lower())]
+    rt = texels(off, 'rear')
+    whites = [q for q in rt if rear_class(q[1]) == 'white']
+    # sections of one lamp are often separated by a thin frame or a white/amber band only: 1.5 cm links; red and
+    # pink glass of one lamp are separate sections even where they touch
+    red_cl = pick(texel_clusters([q for q in rt if rear_class(q[1]) == 'red'], .015) +
+                  texel_clusters([q for q in rt if rear_class(q[1]) == 'pink'], .015), .12, 3)
+    # symmetric car: a section found on one side only gets its mirror when the other side has red/pink lens texels
+    # there (a frame line may split a section on one side and not on the other)
+    def centre(cl): a = sum(q[2] for q in cl); return [sum(q[0][k] * q[2] for q in cl) / a for k in range(3)]
+    reds_all = [q for q in rt if rear_class(q[1]) in ('red', 'pink')]
+    extra = []
+    for cl in red_cl:
+        c = centre(cl)
+        if any(abs(centre(o)[0] + c[0]) < .06 and abs(centre(o)[1] - c[1]) < .05 for o in red_cl if o is not cl): continue
+        mir = [q for q in reds_all if (q[0][0] + c[0]) ** 2 + (q[0][1] - c[1]) ** 2 < .03 ** 2]
+        if sum(q[2] for q in mir) >= 1e-4: extra.append(mir)
+    red_cl += extra
+    # one glint per lamp section: a section whose centre is within 6 cm of a larger one adds nothing visible
+    red_cl.sort(key=lambda cl: -sum(q[2] for q in cl)); kept = []
+    for cl in red_cl:
+        c = centre(cl)
+        if all(sum((c[k] - centre(o)[k]) ** 2 for k in (0, 1)) >= .06 ** 2 for o in kept): kept.append(cl)
+    red_cl = kept
+    for cl in red_cl: pts.append(pt('brake', cl, place(cl, lambda q: 1), tail=True))
+    rev = pick(texel_clusters(whites, .015), .5, 1)
+    for cl in rev: pts.append(pt('reverse', cl, place(cl, lambda q: 1)))
+    if not rev:
+        warn.append('no white rear section: synthetic reverse at the largest red section')
+        for s in (0, 1):
+            cs = [cl for cl in red_cl if (sum(q[0][0] for q in cl) < 0) == (s == 0)]
+            if cs:
+                cl = max(cs, key=lambda cl: sum(q[2] for q in cl)); p = pt('reverse', cl, place(cl, lambda q: 1), cls='synthetic')
+                p['size'] = round(p['size'] * .6, 4); pts.append(p)
+    for s in 'LR':
+        if not any(p['role'] == 'head' and p['side'] == s for p in pts): warn.append(f'no head on {s}')
+        if not any(p['role'] == 'brake' and p['side'] == s for p in pts): warn.append(f'no tail/brake on {s}')
+    report['points'] = pts; report['warnings'] = ['addon lamp parts'] + warn
+    ctx['brakes'] = []
+    return report
+
 def render(root, car, report, ctx, path):
     P = ctx['P']; lo, hi = ctx['lo'], ctx['hi']
     W, H = 1500, 560
@@ -579,12 +709,15 @@ def write_txt(rigs, path):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('out'); ap.add_argument('--root', default=r'D:/Game/Master Rallye/Data.sma_unpacked/DataGx/Vehicles')
+    ap.add_argument('--addon', action='store_true', help='imported cars: lamp sections from the named lamp parts (addon_points)')
     ap.add_argument('cars', nargs='*'); a = ap.parse_args()
     root = Path(a.root); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     cars = a.cars or sorted(p.name for p in root.iterdir() if (p / 'car.dx').exists())
     rigs = {}; imgs = []
     for car in cars:
-        try: rep, ctx = solve(root, car)
+        try:
+            rep, ctx = solve(root, car)
+            if a.addon: rep = addon_points(root, car, rep, ctx)
         except Exception as e: print(car, 'ERR', repr(e)); continue
         rigs[car] = rep; imgs.append(render(root, car, rep, ctx, out / f'{car}.png'))
         roles = {}
