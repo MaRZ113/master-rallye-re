@@ -59,6 +59,17 @@ inline bool outside(const Frustum& f,const Box& b,float margin,float max_distanc
         if(s>max_distance*max_distance)return true;}
     return false;
 }
+// Smallest view depth of the box: the normalised near plane measures z_eye - znear.
+inline float min_depth(const Frustum& f,const Box& b) noexcept {
+    const auto& p=f.planes[4];
+    const float x=p.a>=0?b.lo[0]:b.hi[0],y=p.b>=0?b.lo[1]:b.hi[1],z=p.c>=0?b.lo[2]:b.hi[2];
+    return p.a*x+p.b*y+p.c*z+p.d+f.znear;
+}
+// Linear vertex fog reaches the full fog colour at FOGEND (eye depth): a box
+// whose nearest point is deeper than that draws as pure fog.
+inline bool beyond_fog(const Frustum& f,const Box& b,float fog_end,float margin) noexcept {
+    return f.valid&&b.valid&&fog_end>0&&min_depth(f,b)>fog_end+margin;
+}
 // Positions are the first 12 bytes of each vertex (FVF XYZ).
 inline Box box(const uint8_t* bytes,size_t count,size_t stride) noexcept {
     Box b{};if(!bytes||!count||stride<12)return b;
@@ -85,7 +96,8 @@ struct KeyHash {size_t operator()(const Key& k)const noexcept{uint64_t h=k.strea
 struct Entry {Box box;uint64_t revision=0;};
 
 struct State {
-    bool loaded=false,enabled=true,stats=true,toggle_down=false;std::string courses="Rcx,Evo2";float margin=2.f,max_distance=0.f;
+    bool loaded=false,enabled=true,stats=true,toggle_down=false,fog_cull=true;std::string courses="Rcx,Evo2";float margin=2.f,max_distance=0.f,fog_end=0.f;
+    uint64_t fog_culled=0;
     // Course gate, cached per race generation.
     uint64_t gate_race=UINT64_MAX;bool gate=false;std::string gate_course;
     // Per frame.
@@ -105,6 +117,7 @@ struct State {
         courses.clear();for(const wchar_t* c=text;*c;++c)courses.push_back(*c<128?char(*c):'?');
         margin=float(GetPrivateProfileIntW(L"CourseCull",L"Margin",2,ini.c_str()));if(margin<0)margin=0;
         max_distance=float(GetPrivateProfileIntW(L"CourseCull",L"MaxDistance",0,ini.c_str()));if(max_distance<0)max_distance=0;
+        fog_cull=GetPrivateProfileIntW(L"CourseCull",L"FogCull",1,ini.c_str())==1;
     }
     bool take(uint64_t frame,UINT min,UINT vertices,UINT start,UINT count) noexcept {
         if(!pending)return false;pending=false;

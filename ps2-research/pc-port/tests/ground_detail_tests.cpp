@@ -146,6 +146,8 @@ void course_cull_tests(){
     float moved[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{-100,0,-200,1}};auto g=frustum(moved,proj);
     CHECK(std::fabs(g.eye[0]-100)<1e-3f&&std::fabs(g.eye[2]-200)<1e-3f&&!outside(g,make(95,-5,250,105,5,260),2,0)&&outside(g,make(-5,-5,50,5,5,60),2,0));
     CHECK(!outside(Frustum{},make(0,0,0,1,1,1),2,0)&&!outside(f,Box{},2,0));   // unknown = drawn
+    CHECK(std::fabs(min_depth(f,make(-5,-5,300,5,5,310))-300)<0.5f&&beyond_fog(f,make(-5,-5,300,5,5,310),250,2)&&!beyond_fog(f,make(-5,-5,240,5,5,310),250,2)&&!beyond_fog(f,make(-5,-5,300,5,5,310),0,2));
+    CHECK(!beyond_fog(f,make(200,-5,240,400,5,260),250,2));   // depth, not radial distance
     std::vector<uint8_t> v(3*24,0);float a[3]={1,2,3},b[3]={-4,5,-6},c[3]={7,-8,9};std::memcpy(v.data(),a,12);std::memcpy(v.data()+24,b,12);std::memcpy(v.data()+48,c,12);
     auto bx=box(v.data(),3,24);CHECK(bx.valid&&bx.lo[0]==-4&&bx.hi[0]==7&&bx.lo[1]==-8&&bx.hi[2]==9);
     CHECK(course_listed("Rcx,Evo2","RaceTest/RcxScottish2")&&course_listed("Rcx, Evo2","Evo2Peak")&&!course_listed("Rcx,Evo2","RaceTest/France1")&&course_listed("*","France1")&&!course_listed("","RcxKenya1"));

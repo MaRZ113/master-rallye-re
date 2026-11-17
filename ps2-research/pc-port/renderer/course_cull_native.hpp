@@ -20,8 +20,9 @@ inline void flush_stats(Device8& d,State& s,uint64_t frame) noexcept {
         ",\"kept_vertices\":"+std::to_string(s.kept_vertices)+",\"culled_vertices\":"+std::to_string(s.culled_vertices)+
         ",\"boxes\":"+std::to_string(s.boxes.size())+",\"box_builds\":"+std::to_string(s.box_builds)+",\"box_failures\":"+std::to_string(s.box_failures)+
         ",\"revision_rebuilds\":"+std::to_string(s.revision_rebuilds)+",\"znear\":"+std::to_string(s.frust.znear)+",\"zfar\":"+std::to_string(s.frust.zfar)+
-        ",\"margin\":"+std::to_string(s.margin)+",\"max_distance\":"+std::to_string(s.max_distance)+"}");}catch(...){}
-    s.stats_frame=frame;s.considered=s.culled=s.kept_vertices=s.culled_vertices=s.box_builds=s.box_failures=s.revision_rebuilds=0;
+        ",\"margin\":"+std::to_string(s.margin)+",\"max_distance\":"+std::to_string(s.max_distance)+
+        ",\"fog_cull\":"+std::string(s.fog_cull?"true":"false")+",\"fog_end\":"+std::to_string(s.fog_end)+",\"fog_culled_draws\":"+std::to_string(s.fog_culled)+"}");}catch(...){}
+    s.stats_frame=frame;s.considered=s.culled=s.kept_vertices=s.culled_vertices=s.box_builds=s.box_failures=s.revision_rebuilds=s.fog_culled=0;
 }
 
 inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
@@ -66,7 +67,17 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT
             if(!d.copy_buffer_shadow(reinterpret_cast<void*>(raw),BufferKind::Vertex,generation,uint64_t(key.first)*stride,size_t(vertices)*stride,bytes,full)){++s.box_failures;return;}
             Entry e{box(bytes.data(),vertices,stride),full};if(!e.box.valid){++s.box_failures;return;}
             ++s.box_builds;it=s.boxes.insert_or_assign(key,e).first;}
-        if(outside(s.frust,it->second.box,s.margin,s.max_distance)){
+        // Linear vertex fog (the course loop state): FOGEND is an eye depth.
+        float fog_end=0;
+        if(s.fog_cull){const auto& rs=d.trace.effective_shadow.rs;
+            const auto& on=rs[D3DRS_FOGENABLE];const auto& vertex=rs[D3DRS_FOGVERTEXMODE];const auto& table=rs[D3DRS_FOGTABLEMODE];const auto& end=rs[D3DRS_FOGEND];
+            if(on.known&&on.value&&vertex.known&&table.known&&end.known&&
+               ((vertex.value==D3DFOG_LINEAR&&table.value==D3DFOG_NONE)||table.value==D3DFOG_LINEAR)){
+                std::memcpy(&fog_end,&end.value,4);if(!std::isfinite(fog_end)||fog_end<50.f)fog_end=0;}}
+        s.fog_end=fog_end;
+        const bool fogged=beyond_fog(s.frust,it->second.box,fog_end,s.margin);
+        if(fogged||outside(s.frust,it->second.box,s.margin,s.max_distance)){
+            if(fogged)++s.fog_culled;
             s.pending=true;s.pending_frame=frame;s.pending_args[0]=min;s.pending_args[1]=vertices;s.pending_args[2]=start;s.pending_args[3]=count;
             ++s.culled;s.culled_vertices+=vertices;}
         else s.kept_vertices+=vertices;
