@@ -549,7 +549,7 @@ private:
         course_sky_anchor=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyAnchor",1,ini_.c_str())==1;   // RCX-SKY1
         course_sky_fog=std::clamp(number(L"CourseSkyFog",.7f),0.f,1.f);course_sky_ambient=std::clamp(number(L"CourseSkyAmbient",.5f),0.f,1.f);sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;off_lens_timeout_ms=unsigned(std::clamp(GetPrivateProfileIntW(L"Atmosphere",L"OffLensTimeoutMs",8000,ini_.c_str()),0,600000));
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;off_lens_timeout_ms=unsigned(std::min(GetPrivateProfileIntW(L"Atmosphere",L"OffLensTimeoutMs",8000,ini_.c_str()),600000u));
         {wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",L"OverlayDepthBias",L"",b,64,ini_.c_str());wchar_t* end=nullptr;const float v=std::wcstof(b,&end);
          overlay_depth_bias=end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,0.f,1e-4f):1e-6f;}   // RCX-OVL1
         {auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.sha!=lamp_rigs.sha){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}
