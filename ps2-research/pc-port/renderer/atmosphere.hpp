@@ -230,6 +230,7 @@ inline void configure_selection(bool supported,const std::wstring& ini) {
 
 class Pilot {
     bool enabled_=false;std::wstring ini_;std::filesystem::path set_;
+    std::filesystem::path course_set_,loaded_set_;   // RCX-SKY1: course sky (Atmosphere/courses/<scene>/sky) over CustomSet
     std::array<IDirect3DTexture8*,2> textures_{};
     std::array<Pixels,2> pixels_;
     bool custom_ready_=false,custom_failed_=false;
@@ -266,8 +267,22 @@ public:
             if(!package_failed){LightingMetadata catalogue;catalogue.load_reused_materials(package_root);metadata.inherit_reused_materials(catalogue);}}
         if(metadata.ready&&package_failed){metadata.ready=false;metadata.reason="course_package_scope_mismatch";}
         if(normal_hints.ready&&!normal_hints.only_course(course)){normal_hints=NormalHints{};normal_hints.attempted=true;normal_hints.reason="normal_package_scope_mismatch";}
+        select_course_sky(dir);
         reason_count=0;return !package_failed;
     }
+    // RCX-SKY1: a course package may carry its own sky pair (sky/clouds.dxt + layer.dxt, native preset-3 alpha).
+    // It replaces CustomSet while that course is active (CourseSky=1), not at night unless CourseSkyNight=1.
+    bool course_sky=true,course_sky_night=false,course_sky_anchor=true;uint64_t course_sky_switches=0,course_sky_anchor_misses=0;
+    void select_course_sky(const std::filesystem::path& dir)noexcept{
+        try{std::filesystem::path next;std::error_code ec;
+            if(course_sky&&(course_sky_night||lighting.mode!=Lighting::Mode::Night)&&std::filesystem::is_regular_file(dir/L"sky"/L"clouds.dxt",ec)&&
+               std::filesystem::is_regular_file(dir/L"sky"/L"layer.dxt",ec))next=dir/L"sky";
+            if(next==course_set_)return;course_set_=next;
+            if((course_set_.empty()?set_:course_set_)!=loaded_set_){release_sky();++course_sky_switches;
+                session().write("{\"type\":\"atmosphere_course_sky\",\"course\":"+quote(active_course)+",\"course_sky\":"+(course_set_.empty()?"false":"true")+",\"switches\":"+std::to_string(course_sky_switches)+"}");}
+        }catch(...){}
+    }
+    bool course_sky_active()const noexcept{return !course_set_.empty();}
     CourseCoverage coverage;
     bool vehicle_glow_fix=false;uint64_t vehicle_glow_draws=0;
     // 5.13: the draw classifier proved this exact call a blended vehicle body
@@ -510,7 +525,9 @@ private:
         const auto fog=setting(L"FogColor",night?L"0x0b1322":L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)fresh.fog=0xff000000u|static_cast<DWORD>(fog_value);else fresh.fog_enabled=false;
         lighting=fresh;
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
-        sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
+        sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;
+        course_sky=GetPrivateProfileIntW(L"Atmosphere",L"CourseSky",1,ini_.c_str())==1;course_sky_night=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyNight",0,ini_.c_str())==1;
+        course_sky_anchor=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyAnchor",1,ini_.c_str())==1;   // RCX-SKY1sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;
         {wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",L"OverlayDepthBias",L"",b,64,ini_.c_str());wchar_t* end=nullptr;const float v=std::wcstof(b,&end);
@@ -527,15 +544,17 @@ private:
 public:
     ~Pilot(){pending.release();reset();}
     bool enabled()const noexcept{return enabled_;}
-    bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
+    bool custom()const noexcept{return enabled_&&!(set_.empty()&&course_set_.empty())&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
+    void release_sky()noexcept{for(auto*& t:textures_){if(t)t->Release();t=nullptr;}custom_ready_=false;custom_failed_=false;loaded_set_.clear();}
     void disable()noexcept{enabled_=false;}
     void reset()noexcept{release_headlights();release_lens_night();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;if(ring)ring->Release();ring=nullptr;ring_size=ring_cursor=0;ring_failed=false;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;
         try {
+        const auto base=course_set_.empty()?set_:course_set_;
         for(unsigned i=0;i<2;++i){
-            std::ifstream f(set_/(i?L"layer.dxt":L"clouds.dxt"),std::ios::binary|std::ios::ate);
+            std::ifstream f(base/(i?L"layer.dxt":L"clouds.dxt"),std::ios::binary|std::ios::ate);
             if(!f||f.tellg()!=std::streamoff(20+256*256*4)){custom_failed_=true;reset();return false;}
             f.seekg(0);std::vector<uint8_t> bytes(20+256*256*4);f.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
             if(!f||!decode_sky(bytes,pixels_[i])){custom_failed_=true;reset();return false;}
@@ -548,7 +567,7 @@ public:
             if(valid)for(unsigned y=0;y<256;++y)std::memcpy(static_cast<BYTE*>(l.pBits)+y*l.Pitch,pixels_[i].bgra.data()+y*256,1024);
             const HRESULT hr=textures_[i]->UnlockRect(0);if(!valid||FAILED(hr)){custom_failed_=true;reset();return false;}
         }
-        custom_ready_=true;return true;
+        custom_ready_=true;loaded_set_=base;return true;
         }catch(...){custom_failed_=true;reset();return false;}
     }
     IDirect3DTexture8* texture(unsigned layer)noexcept{return textures_[layer];}

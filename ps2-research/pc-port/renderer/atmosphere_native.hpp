@@ -1414,11 +1414,27 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
             const atmosphere::Pilot::SkyCache* identity=nullptr;
             for(const auto& c:p->sky_cache)if(c.pointer==pointer&&c.generation==serial&&c.preset==int(p->custom_base)&&c.layer>=0){identity=&c;break;}
             if(!identity||!p->load(n))return S_OK;
-            if((identity->layer==0&&p->sky_u_scale!=1)||p->sky_projection){Geometry g;if(!geometry(d,*p,min,vertices,start,count,g)||saved.stride!=20)return fail("custom_sky_source_range_unavailable");
-                std::array<float,16> w{},view{};if(p->sky_projection&&(FAILED(n.GetTransform(D3DTS_WORLD,reinterpret_cast<D3DMATRIX*>(w.data())))||FAILED(n.GetTransform(D3DTS_VIEW,reinterpret_cast<D3DMATRIX*>(view.data())))))return fail("custom_sky_view_unavailable");
+            const bool anchor=identity->layer==0&&p->course_sky_active()&&p->course_sky_anchor;   // RCX-SKY1
+            if((identity->layer==0&&p->sky_u_scale!=1)||p->sky_projection||anchor){Geometry g;if(!geometry(d,*p,min,vertices,start,count,g)||saved.stride!=20)return fail("custom_sky_source_range_unavailable");
+                std::array<float,16> w{},view{};if((p->sky_projection||anchor)&&(FAILED(n.GetTransform(D3DTS_WORLD,reinterpret_cast<D3DMATRIX*>(w.data())))||FAILED(n.GetTransform(D3DTS_VIEW,reinterpret_cast<D3DMATRIX*>(view.data())))))return fail("custom_sky_view_unavailable");
                 for(unsigned i=0;i<vertices;++i){auto* vertex=g.bytes.data()+i*20;float u=0,v=0;std::memcpy(&u,vertex+12,4);std::memcpy(&v,vertex+16,4);if(identity->layer==0)u*=p->sky_u_scale;
                     if(p->sky_projection){std::array<float,3> position{};std::memcpy(position.data(),vertex,12);if(!atmosphere::sky_panorama_v(w,view,position,v,v))return fail("custom_sky_nonrigid_projection_rejected");}
                     std::memcpy(vertex+12,&u,4);std::memcpy(vertex+16,&v,4);}
+                // RCX-SKY1: course skies are authored with u = world azimuth atan2(z,x)/2pi. The native dome U runs
+                // one turn per unit after CustomSkyUScale; re-anchor it (sign + offset from the dome vertices).
+                if(anchor){auto az=[&](unsigned i){float q[3];std::memcpy(q,g.bytes.data()+i*20,12);const float x=q[0]*w[0]+q[2]*w[8],z=q[0]*w[2]+q[2]*w[10];
+                        return std::hypot(x,z)>1e-3f?std::atan2(z,x)*.15915494f:NAN;};
+                    auto uu=[&](unsigned i){float x=0;std::memcpy(&x,g.bytes.data()+i*20+12,4);return x;};
+                    auto wrap=[](float x){return x-std::floor(x+.5f);};
+                    int i0=-1,i1=-1;for(unsigned i=0;i<vertices&&i1<0;++i){if(!std::isfinite(az(i)))continue;if(i0<0){i0=int(i);continue;}
+                        const float da=wrap(az(i)-az(unsigned(i0)));if(std::abs(da)>.05f&&std::abs(da)<.45f)i1=int(i);}
+                    bool ok=i0>=0&&i1>=0;float s=1,c=0;
+                    if(ok){const float da=wrap(az(unsigned(i1))-az(unsigned(i0))),du=wrap(uu(unsigned(i1))-uu(unsigned(i0)));s=(da>0)==(du>0)?1.f:-1.f;
+                        c=az(unsigned(i0))-s*uu(unsigned(i0));
+                        for(unsigned i=0;i<vertices&&ok;++i)if(std::isfinite(az(i))&&std::abs(wrap(az(i)-(s*uu(i)+c)))>.02f)ok=false;}
+                    if(ok)for(unsigned i=0;i<vertices;++i){float x=s*uu(i)+c;std::memcpy(g.bytes.data()+i*20+12,&x,4);}
+                    else if(p->first_reason("course_sky_anchor_miss")){++p->course_sky_anchor_misses;session().write("{\"type\":\"atmosphere_course_sky_anchor\",\"ok\":false,\"vertices\":"+std::to_string(vertices)+"}");}
+                    if(ok&&p->first_reason("course_sky_anchor_ok"))session().write("{\"type\":\"atmosphere_course_sky_anchor\",\"ok\":true,\"sign\":"+std::to_string(int(s))+",\"offset\":"+std::to_string(c)+"}");}
                 const auto hr=upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(saved.any())return repair(d);return fail("custom_sky_private_uv_upload_failed");}}
             constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_ADDRESSV,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_ALPHAARG2};
             auto sky_stage=[&](unsigned i,DWORD value){auto hr=n.GetTextureStageState(0,keys[i],&saved.sky_stage[i]);if(FAILED(hr))return hr;saved.sky_pending|=1u<<i;hr=n.SetTextureStageState(0,keys[i],value);notify(d,63,pack(0,keys[i],value),hr);return hr;};
