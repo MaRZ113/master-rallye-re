@@ -13,6 +13,8 @@ inline void note(uintptr_t instance,uint64_t frame)noexcept{
     if(!slot){slot=&entries[0];for(auto& e:entries){if(!e.instance){slot=&e;break;}if(e.frame<slot->frame)slot=&e;}}
     slot->instance=instance;slot->frame=frame;
 }
+// drawn in this very frame (read at the end of the frame, after every car draw)
+inline bool now(uintptr_t instance,uint64_t frame)noexcept{for(const auto& e:entries)if(e.instance==instance)return e.frame==frame;return false;}
 inline bool recent(uintptr_t instance,uint64_t frame)noexcept{
     for(const auto& e:entries)if(e.instance==instance)return e.frame!=UINT64_MAX&&e.frame+2>=frame;return false;
 }

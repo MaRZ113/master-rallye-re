@@ -50,11 +50,10 @@ inline void fleet_observe(Device8& d,uintptr_t instance,const D3DMATRIX& w,const
             session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p->lamp_rigs.rigs[size_t(r)].car)+",\"route\":\"ps2_fleet_family\"}");}
         if(o->emitted==frame)return;o->emitted=frame;
         if(p->lamp_points_frame!=frame){p->lamp_points.clear();p->lamp_points_frame=frame;}
-        if(brakesignal::recent(instance,frame)){if(o->braking!=frame)++p->rig_brake_frames;o->braking=frame;}   // RCX-GLINT1c
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;const auto forward=atmosphere::normalized({w._31,w._32,w._33});
         const auto& rig=p->lamp_rigs.rigs[size_t(o->rig)];
         for(size_t i=0;i<rig.points.size()&&p->lamp_points.size()<128;++i){const auto& q=rig.points[i];
-            const bool front=q.kind==0||q.kind==4;uint8_t kind=q.kind==4?0:q.kind;if(q.kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
+            const bool front=q.kind==0||q.kind==4;uint8_t kind=q.kind==4?0:q.kind;(void)braking;   // RCX-GLINT1d: brake state resolved in lamp_glints
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=front;lp.kind=kind;lp.size=q.kind==4?q.size*.8f:q.size;lp.rig_point=i;
             // PS2 lenses are not the PC lens surface: 3 cm outwards keeps the sprite centre in front of the PS2 shell.
             for(unsigned k=0;k<3;++k){lp.axis[k]=front?forward[k]:-forward[k];

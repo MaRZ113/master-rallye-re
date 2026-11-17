@@ -639,7 +639,15 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
     std::vector<atmosphere::SunVertex> glow,streak;glow.reserve(p.lamp_points.size()*12);streak.reserve(p.lamp_points.size()*12);
     auto colour=[](const std::array<float,3>& rgb,float k){DWORD c=0xff000000u;for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(rgb[i]*k*255),0l,255l))<<((2-i)*8);return c;};
     const auto& style=p.headlight_style;const auto& lp=p.lamp_projectors;
-    for(const auto& l:p.lamp_points){
+    for(auto l:p.lamp_points){
+        // RCX-GLINT1d: rig brake points: brake state of THIS frame (no lag): the PS2 fleet ON layer drawn, the night
+        // glow card seen, or (rigs with a blight OFF lens) the car drawn without its OFF lens. Else tail or hidden.
+        if(l.kind==2&&l.rig_point!=SIZE_MAX&&p.lamp_rigs.loaded)if(auto* o=p.rig_owner(l.instance,frame,false);o&&o->rig>=0&&size_t(o->rig)<p.lamp_rigs.rigs.size()){
+            const auto& rig=p.lamp_rigs.rigs[size_t(o->rig)];
+            if(l.rig_point<rig.points.size()){
+                const bool now=brakesignal::now(l.instance,frame)||o->braking==frame||
+                    (!rig.off.empty()&&o->off_seen!=UINT64_MAX&&o->lens_last==frame&&o->off_seen!=frame);
+                if(now)++p.rig_brake_frames;else{if(!rig.points[l.rig_point].tail)continue;l.kind=1;}}}
         std::array<float,3> to{eye[0]-l.world[0],eye[1]-l.world[1],eye[2]-l.world[2]};const float dist=std::sqrt(atmosphere::dot3(to,to));if(dist<.5f||dist>400)continue;
         for(auto& x:to)x/=dist;const float facing=std::clamp(atmosphere::dot3(to,l.axis),0.f,1.f);
         // 6.13 roles: head (front white), tail (rear red, always), brake (breaklightson parts, present only

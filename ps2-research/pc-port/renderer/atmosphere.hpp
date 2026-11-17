@@ -558,7 +558,7 @@ inline void resolve_lamp_attachments(Pilot& p,uint64_t frame,uint64_t race,uint6
             LampVec position{},normal{};if(!row.anchor.evaluate(draw.positions,position,normal))continue;
             const auto& point=p.lamp_rigs.rigs[size_t(owner->rig)].points[row.anchor.point];
             uint8_t kind=point.kind==4?0:point.kind;
-            if(kind==2){const bool braking=owner->braking!=UINT64_MAX&&owner->braking+2>=frame;if(!braking){if(!point.tail)continue;kind=1;}}
+            // RCX-GLINT1d: brake state resolved in lamp_glints
             Pilot::LampPoint lamp;lamp.instance=instance;lamp.rig_point=row.anchor.point;lamp.surface_error=row.anchor.distance;
             lamp.kind=kind;lamp.front=point.kind==0||point.kind==4;lamp.size=point.kind==4?point.size*.8f:point.size;
             for(unsigned k=0;k<3;++k)lamp.world[k]=position[0]*draw.world[k]+position[1]*draw.world[4+k]+position[2]*draw.world[8+k]+draw.world[12+k];

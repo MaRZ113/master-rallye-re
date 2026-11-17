@@ -204,20 +204,17 @@ inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instan
         }
         lamp_points_begin(p,frame);
         if(o->lens_last!=frame){o->lens_prev=o->lens_last;o->lens_last=frame;}
-        // RCX-GLINT1c: brake state = PS2 fleet ON layer drawn, or (rigs with a blight OFF lens) the OFF lens
-        // was not drawn last frame while this car was.
-        if(brakesignal::recent(instance,frame)||(!rig.off.empty()&&o->off_seen!=UINT64_MAX&&o->lens_prev+1==frame&&o->off_seen+1<frame)){if(o->braking!=frame)++p.rig_brake_frames;o->braking=frame;}
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;
         if(o->emitted!=frame){o->emitted=frame;const auto forward=atmosphere::normalized({w._31,w._32,w._33});
             for(size_t i=0;i<rig.points.size()&&p.lamp_points.size()<128;++i){const auto& q=rig.points[i];if(q.kind==0||q.kind==4||p.lamp_attachments.manages(o->rig,i))continue;
-                uint8_t kind=q.kind;if(kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
+                uint8_t kind=q.kind;(void)braking;   // RCX-GLINT1d: brake state resolved in lamp_glints
                 atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.kind=kind;lp.size=q.size;lp.rig_point=i;
                 for(unsigned k=0;k<3;++k){lp.world[k]=q.pos[0]*(&w._11)[k]+q.pos[1]*(&w._11)[4+k]+q.pos[2]*(&w._11)[8+k]+(&w._11)[12+k];lp.axis[k]=-forward[k];}
                 p.lamp_points.push_back(lp);}}
         for(const auto& a:surface->anchors){const auto& q=rig.points[a.point];
             atmosphere::LampVec position{},normal{};if(!a.evaluate(positions,position,normal)){
                 p.lamp_points.erase(std::remove_if(p.lamp_points.begin(),p.lamp_points.end(),[&](const auto& point){return point.instance==instance&&point.rig_point==a.point;}),p.lamp_points.end());continue;}
-            uint8_t kind=q.kind==4?0:q.kind;if(q.kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
+            uint8_t kind=q.kind==4?0:q.kind;   // RCX-GLINT1d: brake state resolved in lamp_glints
             const bool front=q.kind==0||q.kind==4;const float x=position[0],y=position[1],z=position[2];
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=front;lp.kind=kind;lp.size=q.kind==4?q.size*.8f:q.size;
             lp.rig_point=a.point;lp.surface_error=a.distance;
