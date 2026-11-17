@@ -160,3 +160,12 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   - Blended and alpha-tested draws are admitted for category 4 with AlphaTest (`source_opaque_pass`, resolver).
   - Clashin Darroch now has 125 k normal hints, up from 98 k.
 * **Course Studio water** stays native: its material binds a second texture slot, which `material_role` denies.
+
+### Set 7: culvert pipe and water (pack RCX-08, 2026-11-17)
+
+* **Culvert texture tex04576 was denied.** Its faces point every way (floor, walls, vault). Welding the normals with the neighbouring ground made them oppose the faces, so `orientation_policy` (90 % agreement) set DENY. The draw stayed native: a bright triangle at the pipe mouth.
+  Ground normals now weld only faces within 60 degrees (`CREASE_COS` 0.5); other faces keep their own normal.
+* **Water.** The Course Studio water shader (fvf 0x252, reflection stage) failed the PC-water state contract. Atmosphere then dropped the draw ("Not reached": day-bright at night).
+  RCX water is drawn as blended plain ground instead (role `static_alpha`), still ROLE_WATER (surface water).
+* **Result.** Both courses passed on the first seeded pass; no denied lighting records.
+* **Not fixed (owner decision).** Headlight seams from the coarse RCX triangles (median 9 m). A finer render copy of the ground was declined.

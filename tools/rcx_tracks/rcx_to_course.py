@@ -393,7 +393,10 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                         project.materials[mk] = Material(mk, "RCX blend layer", shader="ground", surface=None,
                                                          textures=[tkey, None, None], noise=False, alpha="blend")
                     elif role == ROLE_WATER:
-                        project.materials[mk] = Material(mk, "RCX water", shader="water", surface="water",
+                        # plain blended ground, not Course Studio's water shader: its second (reflection) stage
+                        # missed the PC-water contract and Atmosphere dropped the draw unlit (day-bright at
+                        # night); RCX water is a plain blended texture anyway. Surface stays water (ROLE_WATER).
+                        project.materials[mk] = Material(mk, "RCX water", shader="ground", surface="water",
                                                          textures=[tkey, None, None], noise=False, alpha="blend")
                     elif role == ROLE_TERRAIN:
                         # noise=False: Atmosphere would light opaque noise ground as "automatic ground" but leave the
@@ -430,6 +433,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     def is_ground(role, mk):
         return role in (ROLE_TERRAIN, "blend") or mk.endswith("_far")
     acc = {}
+    CREASE_COS = 0.5                          # weld only faces within 60 deg (culvert pipe walls kept their own)
 
     def wkey(q, lift):
         return (round(q[0], 2), round(q[1] - lift, 2), round(q[2], 2))
@@ -444,8 +448,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
             n = (u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0])
             for p in q:
-                a = acc.setdefault(wkey(p, lift), [0.0, 0.0, 0.0])
-                a[0] += n[0]; a[1] += n[1]; a[2] += n[2]
+                acc.setdefault(wkey(p, lift), []).append(n)
 
     def unit(v):
         ln = math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
@@ -458,8 +461,15 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         for t in range(len(m.triangles) // 3):
             q = [tuple(m.positions[3 * m.triangles[3 * t + k] + c] for c in range(3)) for k in range(3)]
             if is_ground(role, m.materials[m.tri_material[t]]):
+                u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
+                own = unit((u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]))
                 for p in q:
-                    m.normals.extend(unit(acc[wkey(p, lift)]))
+                    s = [0.0, 0.0, 0.0]
+                    for n in acc[wkey(p, lift)]:
+                        un = unit(n)
+                        if un[0] * own[0] + un[1] * own[1] + un[2] * own[2] >= CREASE_COS:
+                            s[0] += n[0]; s[1] += n[1]; s[2] += n[2]
+                    m.normals.extend(unit(s) if any(s) else own)
             else:
                 u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
                 n = unit((u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]))
