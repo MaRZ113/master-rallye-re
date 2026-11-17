@@ -45,7 +45,9 @@ REPEAT_DIR, REPEAT_NEXT = 0x44, 0x48         # RCX-CAT2: held-arrow repeat state
 REPEAT_HOOK = 0x47EA51                       # E8 -> 0x45D930: the screen's per-frame action poll (UI/Control)
 ACTION_POLL = 0x45D930
 IAT_GETASYNCKEYSTATE, IAT_GETTICKCOUNT = 0x68F308, 0x68F0D8
-REPEAT_DELAY_MS, REPEAT_RATE_MS = 400, 70
+REPEAT_DELAY_MS, REPEAT_RATE_MS = 300, 50
+REPEAT_COUNT = 0x4C                          # repeats since the press: acceleration (x2 after 4, x4 after 10)
+RACE_STEP, UI_STATE, UI_ACTIVE = 0x47F440, 0x525A80, 0x525800
 FACTORY_PUSH = 0x47E206                      # 6A 74
 LIST_HOOK = 0x47E605                         # 68 D4 70 6B 00  push "Frontend/RaceSelect/RaceList"
 LIST_RESUME = 0x47E60A
@@ -355,7 +357,8 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.label("category_list")
     c.emit(b"\x53\x8b\x5c\x24\x18")                                                   # push ebx; mov ebx,[esp+18h]
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(0))                                        # mov dword [ebx+50],0
-    c.emit(b"\xc7\x43" + bytes([REPEAT_DIR]) + u(0) + b"\xc7\x43" + bytes([REPEAT_NEXT]) + u(0))   # repeat state
+    c.emit(b"\xc7\x43" + bytes([REPEAT_DIR]) + u(0) + b"\xc7\x43" + bytes([REPEAT_NEXT]) + u(0) +
+           b"\xc7\x43" + bytes([REPEAT_COUNT]) + u(0))                                   # repeat state
     c.emit(b"\x8b\x46\x08\x2b\x46\x04\x83\xf8\x20"); c.jne("category_list_done")     # 8 retail modes published?
     for k in range(len(cats)):                                                        # position[8 + k] = 0, label k
         c.emit(b"\xc7\x43" + bytes([0x14 + (CATEGORY + k) * 4]) + u(0))
@@ -379,20 +382,28 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     for vk, code in ((0x27, -4), (0x25, -5)):
         c.emit(b"\x6a" + bytes([vk]) + b"\xff\x15" + u(IAT_GETASYNCKEYSTATE) + b"\x66\xa9\x00\x80")
         c.emit(b"\xba" + u(code)); c.jne("repeat_held")                                # mov edx,code (flags kept)
-    c.emit(b"\xc7\x46" + bytes([REPEAT_DIR]) + u(0) + b"\x58\xc2\x04\x00")           # no arrow: reset; pop eax; ret 4
+    c.emit(b"\xc7\x46" + bytes([REPEAT_DIR]) + u(0) + b"\xc7\x46" + bytes([REPEAT_COUNT]) + u(0) + b"\x58\xc2\x04\x00")   # no arrow: reset
     c.label("repeat_held")
     c.emit(b"\x52\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x5a")                           # push edx; GetTickCount; pop edx
     c.emit(b"\x39\x56" + bytes([REPEAT_DIR])); c.je("repeat_same")
     c.emit(b"\x89\x56" + bytes([REPEAT_DIR]) + b"\x05" + u(REPEAT_DELAY_MS) + b"\x89\x46" + bytes([REPEAT_NEXT]))
-    c.emit(b"\x58\xc2\x04\x00")
+    c.emit(b"\xc7\x46" + bytes([REPEAT_COUNT]) + u(0) + b"\x58\xc2\x04\x00")
     c.label("repeat_same")
     c.emit(b"\x8b\xc8\x2b\x4e" + bytes([REPEAT_NEXT])); c.js("repeat_wait")          # now - next < 0: wait
     c.emit(b"\x83\xc0" + bytes([REPEAT_RATE_MS]) + b"\x89\x46" + bytes([REPEAT_NEXT]))
+    c.emit(b"\xff\x46" + bytes([REPEAT_COUNT]) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + b"\x04"); c.jl("repeat_fire")
+    c.emit(b"\x52"); c.call(UI_STATE); c.emit(b"\x8b\xc8"); c.call(UI_ACTIVE); c.emit(b"\x83\xf8\x02"); c.jne("repeat_extra_done")
+    for k in range(3):
+        if k == 1:
+            c.emit(b"\x83\x7e" + bytes([REPEAT_COUNT]) + b"\x0a"); c.jl("repeat_extra_done")
+        c.emit(b"\x8b\x14\x24\x33\xc0\x83\xfa\xfb\x0f\x94\xc0\x50\x8b\xce"); c.call(RACE_STEP)   # left -> 1, right -> 0
+    c.label("repeat_extra_done"); c.emit(b"\x5a")
+    c.label("repeat_fire")
     c.emit(b"\x83\xc4\x04\x8b\xc2\xc2\x04\x00")                                       # drop idle; eax = press; ret 4
     c.label("repeat_wait"); c.emit(b"\x58\xc2\x04\x00")
     c.label("repeat_pressed")                                                          # a real press starts the delay
     c.emit(b"\x50\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x05" + u(REPEAT_DELAY_MS) + b"\x89\x46" + bytes([REPEAT_NEXT]))
-    c.emit(b"\x58\x89\x46" + bytes([REPEAT_DIR]) + b"\xc2\x04\x00")
+    c.emit(b"\x58\x89\x46" + bytes([REPEAT_DIR]) + b"\xc7\x46" + bytes([REPEAT_COUNT]) + u(0) + b"\xc2\x04\x00")
     c.label("repeat_done"); c.emit(b"\xc2\x04\x00")
     hooks.append((REPEAT_HOOK, branch(REPEAT_HOOK, ACTION_POLL, 0xE8), ("call", "race_repeat")))
 

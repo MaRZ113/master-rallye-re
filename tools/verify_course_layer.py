@@ -162,8 +162,8 @@ rel = struct.unpack("<i", bytes(img.recon[0x47EA52 - 0x400000:0x47EA56 - 0x40000
 repeat = 0x47EA56 + rel
 seen = []
 wr(0x44, 0); wr(0x48, 0)
-script = [(0, -5, 0x25), (100, -2, 0x25), (390, -2, 0x25), (410, -2, 0x25), (450, -2, 0x25), (485, -2, 0x25),
-          (500, -2, None), (600, -4, 0x27), (700, -2, None), (1200, -2, 0x27)]
+script = [(0, -5, 0x25), (100, -2, 0x25), (290, -2, 0x25), (310, -2, 0x25), (340, -2, 0x25), (365, -2, 0x25),
+          (400, -2, None), (500, -4, 0x27), (600, -2, None), (1200, -2, 0x27)]
 for tick, action, held in script:
     state.update(tick=tick, action=action, held=held)
     call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
@@ -172,5 +172,38 @@ want = [-5, -2, -2, -5, -2, -5, -2, -4, -2, -2]
 print("repeat", seen)
 if seen != want:
     fail.append(f"repeat {seen} != {want}")
+# acceleration: after 4 repeats one extra race step per repeat, after 10 three (race row only, UI/Active == 2)
+steps = []
+
+
+def stub3(uc, addr, size, ud):
+    esp = uc.reg_read(UC_X86_REG_ESP)
+    ret, a1 = struct.unpack("<II", uc.mem_read(esp, 8))
+    if addr == 0x525A80:
+        uc.reg_write(UC_X86_REG_EAX, 0x5252); pop = 4
+    elif addr == 0x525800:
+        uc.reg_write(UC_X86_REG_EAX, 2); pop = 4
+    elif addr == 0x47F440:
+        if uc.reg_read(UC_X86_REG_ECX) != OBJ:
+            fail.append("race step this")
+        steps.append(a1); pop = 8
+    else:
+        return
+    uc.reg_write(UC_X86_REG_ESP, esp + pop); uc.reg_write(UC_X86_REG_EIP, ret)
+
+
+for a in (0x525A80, 0x525800, 0x47F440):
+    u.hook_add(UC_HOOK_CODE, stub3, begin=a, end=a)
+wr(0x44, 0); wr(0x48, 0); wr(0x4C, 0)
+state.update(tick=0, action=-4, held=0x27); call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+fires = []
+for k in range(14):
+    state.update(tick=300 + 50 * k, action=-2, held=0x27); before = len(steps)
+    call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+    fires.append((u.reg_read(UC_X86_REG_EAX) & 0xFFFFFFFF == (-4 & 0xFFFFFFFF), len(steps) - before))
+print("accel", fires, "args", set(steps))
+want_extra = [0, 0, 0, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3]
+if [f[1] for f in fires] != want_extra or not all(f[0] for f in fires) or set(steps) != {0}:
+    fail.append(f"acceleration {fires}")
 print("FAIL", fail) if fail else print("PASS course layer emulation")
 sys.exit(1 if fail else 0)
