@@ -663,7 +663,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         // RCX-GLINT1: by day, or with LampGlints off, only brake glints (BrakeGlints=Always), at BrakeGlintDayIntensity.
         // RCX-GLINT1: by day (or with LampGlints off): brake glints (BrakeGlints=Always) and, with the day lamps on,
         // rear tail / reverse glints; head lamps never by day.
-        if(day||!g.lamps){const bool allowed=l.kind==2?g.brake_always:(!l.front&&p.day_lamps&&l.kind!=0);if(!allowed)continue;}
+        if(day||!g.lamps){const bool allowed=l.kind==2?g.brake_always:(!l.front&&l.kind!=0&&(p.day_lamps||((l.kind==3||l.kind==4)&&g.reverse_always)));if(!allowed)continue;}   // RCX-GLINT1e
         const float rear_k=(l.kind==2?g.rear*g.brake:l.kind>=3?g.reverse:g.rear*.55f)*(day?g.day_brake:1.f);
         if(facing<=0)continue;
         float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f));

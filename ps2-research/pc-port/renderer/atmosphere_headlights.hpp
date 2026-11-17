@@ -31,15 +31,17 @@ struct HeadlightStyle {
 };
 // 6.6 GT3-like lamp glints (sprites at every lit lamp lens).
 // RCX-GLINT1: BrakeGlints=Always also lights brake glints by day (brake ON layer only; head/tail/reverse stay night).
-struct GlintStyle {std::wstring texture;bool enabled=false,lamps=false,brake_always=false,day_lamps=false;int day_key=0;float day_brake=.6f;float glow_degrees=1.3f,streak_degrees=7.5f,front=.9f,rear=.95f,streak=.6f,brake=1.8f,reverse=.9f;};
+struct GlintStyle {std::wstring texture;bool enabled=false,lamps=false,brake_always=false,reverse_always=false,day_lamps=false;int day_key=0;float day_brake=.6f;float glow_degrees=1.3f,streak_degrees=7.5f,front=.9f,rear=.95f,streak=.6f,brake=1.8f,reverse=.9f;};
 inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
     GlintStyle s;
     auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());
         wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
     s.lamps=GetPrivateProfileIntW(L"Atmosphere",L"LampGlints",night?1:0,ini.c_str())==1;
-    {wchar_t m[16]{};GetPrivateProfileStringW(L"Atmosphere",L"BrakeGlints",L"Night",m,16,ini.c_str());s.brake_always=_wcsicmp(m,L"Always")==0;}
+    {wchar_t m[16]{};GetPrivateProfileStringW(L"Atmosphere",L"BrakeGlints",L"Night",m,16,ini.c_str());s.brake_always=_wcsicmp(m,L"Always")==0;
+     // RCX-GLINT1e: reverse glints by day without the day lamps key (default: same as BrakeGlints)
+     wchar_t r[16]{};GetPrivateProfileStringW(L"Atmosphere",L"ReverseGlints",m,r,16,ini.c_str());s.reverse_always=_wcsicmp(r,L"Always")==0;}
     s.day_lamps=GetPrivateProfileIntW(L"Atmosphere",L"DayLamps",0,ini.c_str())==1;s.day_key=GetPrivateProfileIntW(L"Atmosphere",L"DayLampsKey",0,ini.c_str());   // VK code, 0 = no key
-    s.enabled=s.lamps||s.brake_always||s.day_lamps||s.day_key;s.day_brake=number(L"BrakeGlintDayIntensity",s.day_brake,0,3);
+    s.enabled=s.lamps||s.brake_always||s.reverse_always||s.day_lamps||s.day_key;s.day_brake=number(L"BrakeGlintDayIntensity",s.day_brake,0,3);
     s.glow_degrees=number(L"LampGlintSize",s.glow_degrees,.2f,6);s.streak_degrees=number(L"LampGlintStreak",s.streak_degrees,0,20);
     wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"LampGlintTexture",L"",path,512,ini.c_str());
     if(path[0]){std::wstring t(path);if(t.size()<2||(t[1]!=L':'&&t[0]!=L'\\'&&t[0]!=L'/')){const auto slash=ini.find_last_of(L"\\/");t=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+t;}s.texture=t;}

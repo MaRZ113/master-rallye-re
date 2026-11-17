@@ -10,7 +10,7 @@ namespace gfx2::atmospherebody {
 // their parent's verified draw: owner resolution happens once at before-UI.
 inline void collect_lamp_attachment(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept {
     auto* p=atmosphereintegration::pilot(d);
-    if(!p||!p->enabled()||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->day_lamps)||!p->glint_style.enabled||!p->lamp_attachments.ready||
+    if(!p||!p->enabled()||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->glint_style.reverse_always&&!p->day_lamps)||!p->glint_style.enabled||!p->lamp_attachments.ready||
        type!=D3DPT_TRIANGLELIST||!count||!vertices||vertices>4096||count>32768||p->pending.any()||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||
        d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return;
@@ -294,7 +294,7 @@ inline bool rig_blight_off_draw(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8
 inline void day_lamp_observer(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept {
     auto* p=atmosphereintegration::pilot(d);
     if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength<.5f||!p->glint_style.enabled||
-       (!p->glint_style.brake_always&&!p->day_lamps)||type!=D3DPT_TRIANGLELIST||!count||!vertices||vertices>4096||
+       (!p->glint_style.brake_always&&!p->glint_style.reverse_always&&!p->day_lamps)||type!=D3DPT_TRIANGLELIST||!count||!vertices||vertices>4096||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||
        d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||p->pending.any())return;
     try{

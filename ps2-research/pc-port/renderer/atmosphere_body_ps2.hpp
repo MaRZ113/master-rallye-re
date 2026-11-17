@@ -40,7 +40,7 @@ inline void fleet_observe(Device8& d,uintptr_t instance,const D3DMATRIX& w,const
     try{
         const auto frame=d.trace.frame_number();atmosphere::Mat4 pose{};std::memcpy(pose.data(),&w,64);for(float x:pose)if(!std::isfinite(x))return;
         p->observe_car(instance,pose,frame);
-        if(!p->glint_style.enabled||!p->lamp_rigs.loaded||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->day_lamps))return;
+        if(!p->glint_style.enabled||!p->lamp_rigs.loaded||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->glint_style.reverse_always&&!p->day_lamps))return;
         bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
         if(p->rig_race!=cert.race_generation){for(auto& owner:p->rig_owners)owner={};p->rig_race=cert.race_generation;}
         auto* o=p->rig_owner(instance,frame,true);if(!o)return;
