@@ -306,14 +306,14 @@ public:
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
-    GlintStyle glint_style;bool day_lamps=false,day_lamps_key_down=false;uint64_t day_lamp_draws=0,day_brake_layers=0,day_lens_draws=0,day_glints=0,day_log_frame=0;   // RCX-GLINT1
+    GlintStyle glint_style;bool day_lamps=false,day_lamps_key_down=false;uint64_t day_lamp_draws=0,day_brake_layers=0,day_lens_draws=0,day_glints=0,day_log_frame=0,off_lens_draws=0,rig_brake_frames=0;   // RCX-GLINT1
    struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;size_t rig_point=SIZE_MAX;float surface_error=1e30f;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
     LampAttachments lamp_attachments;LampAttachmentQueue lamp_attachment_queue;
     struct AttachmentTexture{uintptr_t pointer=0;uint64_t generation=0;std::string sha;};
     std::array<AttachmentTexture,256> attachment_textures{};size_t attachment_texture_next=0;
     // 6.15 lamp rigs (tools/atmosphere_lamp_rig.py): instance -> rig, matched once from a lens draw; braking = glow card seen.
-    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX;std::vector<LampDrawAnchors> surfaces;};std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
+    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX,off_seen=UINT64_MAX,lens_prev=UINT64_MAX,lens_last=UINT64_MAX;std::vector<LampDrawAnchors> surfaces;};std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
     // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
     struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
     void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}

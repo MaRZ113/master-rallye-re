@@ -3,6 +3,7 @@
 #include "addon_lamp_identity.hpp"
 #include "ps2_body_presence.hpp"
 #include "fleet_private_off_native.hpp"
+#include "brake_signal.hpp"
 namespace gfx2::lampintegration {
 static_assert(std::size(ps2port::off_followup::profiles)<=std::tuple_size<decltype(ps2port::BrakeGlow::private_off_reference)>::value,"private OFF reference storage must cover every private OFF profile");
 // VEHICLE-FIX2: a PC-presented car (no PS2 body this frame: MODEL=PC or the PS2 fleet off) keeps the PS2 brake lamp
@@ -79,6 +80,7 @@ inline dipintegration::Result draw_fleet_lamp(Device8& d,D3DPRIMITIVETYPE type,U
   DWORD state=0;for(auto expected:std::array<std::pair<D3DRENDERSTATETYPE,DWORD>,6>{{{D3DRS_ALPHATESTENABLE,FALSE},{D3DRS_ALPHABLENDENABLE,layer==0?FALSE:TRUE},{D3DRS_SRCBLEND,D3DBLEND_SRCALPHA},{D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA},{D3DRS_ZWRITEENABLE,TRUE},{D3DRS_BLENDOP,D3DBLENDOP_ADD}}})if(FAILED(n.GetRenderState(expected.first,&state))||state!=expected.second){log(false,E_PENDING,E_PENDING,E_PENDING,"native_lamp_state_rejected");return {};}
   D3DCAPS8 caps{};if(!courseintegration::native_dependencies(n)||FAILED(n.GetDeviceCaps(&caps))||!(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)||(layer==1&&(!(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)||!(caps.DestBlendCaps&D3DPBLENDCAPS_ONE)))){log(false,E_PENDING,E_PENDING,E_PENDING,"native_dependencies_or_caps_rejected");return {};}
   if(!(layer==0?p->initialize_brake_on(n):p->initialize(n))){log(false,E_PENDING,E_PENDING,E_PENDING,"original_ps2_lamp_asset_missing");return {};}auto writer=[&](uint32_t slot,const Args& a,HRESULT h)noexcept{dipintegration::notify(d,slot,a,h);};auto& tx=p->transaction;auto hr=tx.capture(n);if(FAILED(hr)){log(false,hr,E_PENDING,E_PENDING,"transaction_capture_failed");return {};}hr=layer==0?tx.brake_on_pass(n,writer):tx.emissive_pass(n,writer);if(SUCCEEDED(hr))hr=tx.bind_primary(n,layer==0?p->brake_on_texture():p->texture(),writer);if(FAILED(hr)||!current()){const auto restored=tx.restore(n,writer);log(false,hr,E_PENDING,restored,FAILED(hr)?"transaction_apply_failed":"current_owner_or_buffer_changed");if(FAILED(restored)){p->disable();return {true,restored};}return {};}
+  if(layer<=1)brakesignal::note(owner.instance,frame);   // RCX-GLINT1c: ON core / glow = this car brakes now
   committed=true;submitted=n.DrawIndexedPrimitive(type,min,vertices,start,count);writer(71,pack(type,min,vertices,start,count),submitted);const auto restored=tx.restore(n,writer);log(SUCCEEDED(submitted)&&SUCCEEDED(restored),hr,submitted,restored,reason);if(FAILED(restored))p->disable();return {true,FAILED(restored)?restored:submitted};
  }catch(...){const auto restored=lampintegration::repair(d);if(FAILED(restored)){p->disable();return {true,restored};}return committed?dipintegration::Result{true,submitted}:dipintegration::Result{};}
 }

@@ -66,10 +66,11 @@ struct LampRigs {
     }
     bool owns_texture(int rig,const std::string& texture)const noexcept{if(rig<0||size_t(rig)>=rigs.size())return false;for(const auto& d:rigs[size_t(rig)].draws)if(d.texture==texture)return true;return false;}
     // blight OFF lens of any rig: same vertex-range bounds within 1.5 cm (the draw has no fleet owner: $switch node)
-    bool blight_off(unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{
-        for(const auto& r:rigs)for(const auto& o:r.off){float e=0;for(unsigned k=0;k<3;++k)e=std::max({e,std::abs(o.lo[k]-lo[k]),std::abs(o.hi[k]-hi[k])});
-            if(e<.015f&&(o.vertices==vertices||vertices+2>=o.vertices&&vertices<=o.vertices+2))return true;}
-        return false;
+    bool blight_off(unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{return blight_off_rig(vertices,lo,hi)>=0;}
+    int blight_off_rig(unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{
+        for(size_t ri=0;ri<rigs.size();++ri)for(const auto& o:rigs[ri].off){float e=0;for(unsigned k=0;k<3;++k)e=std::max({e,std::abs(o.lo[k]-lo[k]),std::abs(o.hi[k]-hi[k])});
+            if(e<.015f&&(o.vertices==vertices||vertices+2>=o.vertices&&vertices<=o.vertices+2))return int(ri);}
+        return -1;
     }
 };
 inline LampRigs read_lamp_rigs(const std::wstring& ini){

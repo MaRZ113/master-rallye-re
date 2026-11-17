@@ -5,6 +5,7 @@
 #include "atmosphere.hpp"
 #include "buffer_provenance.hpp"
 #include "brake_glow.hpp"
+#include "brake_signal.hpp"
 #include "ps2_hud_damage_feed.hpp"
 #include "ps2_perf_timing.hpp"
 #include "vehicle_grime_native.hpp"
@@ -745,7 +746,9 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
             session().write("{\"type\":\"atmosphere_glint_day_stats\",\"frame\":"+std::to_string(frame)+",\"day\":"+std::string(p->lighting.ambient_strength>=.5f?"true":"false")+
                 ",\"brake_always\":"+std::string(p->glint_style.brake_always?"true":"false")+",\"day_lamps\":"+std::string(p->day_lamps?"true":"false")+
                 ",\"car_draws\":"+std::to_string(p->day_lamp_draws)+",\"brake_layers\":"+std::to_string(p->day_brake_layers)+",\"lens_draws\":"+std::to_string(p->day_lens_draws)+
-                ",\"glints\":"+std::to_string(p->day_glints)+",\"points\":"+std::to_string(p->lamp_points.size())+"}");}
+                ",\"glints\":"+std::to_string(p->day_glints)+",\"points\":"+std::to_string(p->lamp_points.size())+
+                ",\"brake_signals\":"+std::to_string(brakesignal::notes)+",\"rig_brake_frames\":"+std::to_string(p->rig_brake_frames)+",\"off_lens\":"+std::to_string(p->off_lens_draws)+
+                ",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+"}");}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;

@@ -10,7 +10,7 @@ namespace gfx2::atmospherebody {
 // their parent's verified draw: owner resolution happens once at before-UI.
 inline void collect_lamp_attachment(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept {
     auto* p=atmosphereintegration::pilot(d);
-    if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!p->glint_style.enabled||!p->lamp_attachments.ready||
+    if(!p||!p->enabled()||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->day_lamps)||!p->glint_style.enabled||!p->lamp_attachments.ready||
        type!=D3DPT_TRIANGLELIST||!count||!vertices||vertices>4096||count>32768||p->pending.any()||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||
        d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return;
@@ -203,6 +203,10 @@ inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instan
             o->surfaces.push_back(std::move(s));surface=&o->surfaces.back();
         }
         lamp_points_begin(p,frame);
+        if(o->lens_last!=frame){o->lens_prev=o->lens_last;o->lens_last=frame;}
+        // RCX-GLINT1c: brake state = PS2 fleet ON layer drawn, or (rigs with a blight OFF lens) the OFF lens
+        // was not drawn last frame while this car was.
+        if(brakesignal::recent(instance,frame)||(!rig.off.empty()&&o->off_seen!=UINT64_MAX&&o->lens_prev+1==frame&&o->off_seen+1<frame)){if(o->braking!=frame)++p.rig_brake_frames;o->braking=frame;}
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;
         if(o->emitted!=frame){o->emitted=frame;const auto forward=atmosphere::normalized({w._31,w._32,w._33});
             for(size_t i=0;i<rig.points.size()&&p.lamp_points.size()<128;++i){const auto& q=rig.points[i];if(q.kind==0||q.kind==4||p.lamp_attachments.manages(o->rig,i))continue;
@@ -266,19 +270,25 @@ inline bool reverse_texel(const atmosphere::Pilot::LensTexture& t,float u,float 
 }
 // 6.15.1: the $switch(blight) OFF lens (no fleet owner) is the rear lamp at night: recognised by the vertex-range
 // bounds of a rig's 'off' entry (1.5 cm); it then gets the same emissive stage as the other lamp lenses.
-inline bool rig_blight_off_draw(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,DWORD fvf,UINT min,UINT vertices)noexcept{
+inline int blight_off_rig(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,DWORD fvf,UINT min,UINT vertices)noexcept{
     try{
-        if(!p.lamp_rigs.loaded||!p.headlight_style.enabled||p.headlight_style.lamp_emissive<=0||(fvf!=0x152&&fvf!=0x142)||!vertices||vertices>256)return false;
-        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return false;
-        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return false;
-        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return false;
+        if(!p.lamp_rigs.loaded||(fvf!=0x152&&fvf!=0x142)||!vertices||vertices>256)return -1;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return -1;
+        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return -1;
+        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return -1;
         std::vector<uint8_t> bytes;uint64_t revision=0;
-        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return false;
+        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return -1;
         std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
-        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return false;for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
-        if(hi[2]>-.5f)return false;   // rear lamps only
-        return p.lamp_rigs.blight_off(vertices,lo,hi);
-    }catch(...){return false;}
+        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return -1;for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
+        if(hi[2]>-.5f)return -1;   // rear lamps only
+        const int r=p.lamp_rigs.blight_off_rig(vertices,lo,hi);
+        if(r>=0){const auto frame=d.trace.frame_number();++p.off_lens_draws;for(auto& o:p.rig_owners)if(o.instance&&o.rig==r)o.off_seen=frame;}
+        return r;
+    }catch(...){return -1;}
+}
+inline bool rig_blight_off_draw(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,DWORD fvf,UINT min,UINT vertices)noexcept{
+    if(!p.headlight_style.enabled||p.headlight_style.lamp_emissive<=0)return false;
+    return blight_off_rig(d,p,n,fvf,min,vertices)>=0;
 }
 // RCX-GLINT1: daytime lamp observer, run before the body relight (which owns most car draws by day and returned
 // before night_energy). Read-only: it records lamp points from the car's brake ON layer (BrakeGlints=Always, drawn
@@ -293,14 +303,15 @@ inline void day_lamp_observer(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT ver
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||(fvf!=0x152&&fvf!=0x142)||FAILED(n.GetPixelShader(&pixel))||pixel)return;
-        frontendmodelintegration::Context owner;if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner))return;
+        frontendmodelintegration::Context owner;if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
+            blight_off_rig(d,*p,n,fvf,min,vertices);return;}   // RCX-GLINT1c: OFF lens ($switch node, no fleet owner) = not braking
         atmosphere::NativeMaterialBinding binding;const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
         if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return;
         std::string primary=binding.names[0];for(auto& c:primary)c=char(std::tolower(static_cast<unsigned char>(c)));
         ++p->day_lamp_draws;
         const bool brake=p->glint_style.brake_always&&primary.find("breaklightson")!=std::string::npos&&primary.find("glow")==std::string::npos;
         const auto stem=primary.substr(0,primary.find("-tga"));const bool bl_stem=stem=="bl"||(stem.size()==3&&stem.compare(1,2,"bl")==0);
-        const bool lens=!brake&&p->day_lamps&&primary.find("lightson")==std::string::npos&&primary.find("glow")==std::string::npos&&
+        const bool lens=!brake&&primary.find("lightson")==std::string::npos&&primary.find("glow")==std::string::npos&&
             (primary.find("light")!=std::string::npos||primary.find("lamp")!=std::string::npos||bl_stem)&&
             primary.find("windscreen")==std::string::npos&&primary.find("glass")==std::string::npos;
         if(!brake&&!lens)return;
@@ -308,7 +319,9 @@ inline void day_lamp_observer(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT ver
         const bool ok=atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&g.bytes.size()>=size_t(vertices)*st&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w));
         if(ok){const auto frame=d.trace.frame_number();
             if(brake){record_lamp_points(*p,frame,owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);++p->day_brake_layers;}
-            else{const auto* tex=lens_texture(d,*p,n);record_lamp_points(*p,frame,owner.owner.instance,g.bytes,st,g.indices,w,tex,(fvf==0x152?24u:12u)+4,false,false);++p->day_lens_draws;}}
+            else{++p->day_lens_draws;   // RCX-GLINT1c: rig points (head/tail/brake/reverse) like at night; non-rig cars: lens sections
+                if(!(p->lamp_rigs.loaded&&rig_lamp_points(*p,frame,owner.owner.instance,primary,g.bytes,st,g.indices,w,cert.race_generation))&&p->day_lamps){
+                    const auto* tex=lens_texture(d,*p,n);record_lamp_points(*p,frame,owner.owner.instance,g.bytes,st,g.indices,w,tex,(fvf==0x152?24u:12u)+4,false,false);}}}
         if(!p->pending.any())p->pending.release();
     }catch(...){if(!p->pending.any())p->pending.release();}
 }

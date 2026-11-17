@@ -40,7 +40,7 @@ inline void fleet_observe(Device8& d,uintptr_t instance,const D3DMATRIX& w,const
     try{
         const auto frame=d.trace.frame_number();atmosphere::Mat4 pose{};std::memcpy(pose.data(),&w,64);for(float x:pose)if(!std::isfinite(x))return;
         p->observe_car(instance,pose,frame);
-        if(!p->glint_style.enabled||!p->lamp_rigs.loaded||!p->lighting.active()||p->lighting.ambient_strength>=.5f)return;
+        if(!p->glint_style.enabled||!p->lamp_rigs.loaded||!p->lighting.active()||(p->lighting.ambient_strength>=.5f&&!p->glint_style.brake_always&&!p->day_lamps))return;
         bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
         if(p->rig_race!=cert.race_generation){for(auto& owner:p->rig_owners)owner={};p->rig_race=cert.race_generation;}
         auto* o=p->rig_owner(instance,frame,true);if(!o)return;
@@ -50,6 +50,7 @@ inline void fleet_observe(Device8& d,uintptr_t instance,const D3DMATRIX& w,const
             session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p->lamp_rigs.rigs[size_t(r)].car)+",\"route\":\"ps2_fleet_family\"}");}
         if(o->emitted==frame)return;o->emitted=frame;
         if(p->lamp_points_frame!=frame){p->lamp_points.clear();p->lamp_points_frame=frame;}
+        if(brakesignal::recent(instance,frame)){if(o->braking!=frame)++p->rig_brake_frames;o->braking=frame;}   // RCX-GLINT1c
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;const auto forward=atmosphere::normalized({w._31,w._32,w._33});
         const auto& rig=p->lamp_rigs.rigs[size_t(o->rig)];
         for(size_t i=0;i<rig.points.size()&&p->lamp_points.size()<128;++i){const auto& q=rig.points[i];
