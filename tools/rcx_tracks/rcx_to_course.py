@@ -464,18 +464,19 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 u = [q[1][c] - q[0][c] for c in range(3)]; w = [q[2][c] - q[0][c] for c in range(3)]
                 n = unit((u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]))
                 m.normals.extend(n * 3)
-    # roles by texture label (course_lighting.material_role): road / terrain ground, vegetation for cutout objects and
-    # the blend layer (category 3 carries AlphaTest), static for opaque objects, water excluded
-    rank = {"road": 0, "terrain": 1, "static": 2, "vegetation": 3, "exclude": 4}
+    # roles by texture label (course_lighting.material_role): road / terrain ground, vegetation for cutout objects,
+    # static for opaque objects. "static_alpha" (rcx_lighting.py: static + AlphaTest) for the blend layer, cutout
+    # ground and water: blended / alpha-tested draws are lit only as category 3 or 4 with AlphaTest, and category 3
+    # (vegetation) gets no normal hints and turns its normals to the sun / moon: the blend layer lit apart from the
+    # ground under it, hard edges in the headlights (owner 2026-11-17); cutout ground and water stayed native.
+    rank = {"road": 0, "terrain": 1, "static_alpha": 2, "static": 3, "vegetation": 4, "exclude": 5}
     roles = {}
     for mk, mat in project.materials.items():
         if not mat.textures or not mat.textures[0]:
             continue
         label = mat.textures[0]
-        if mat.shader == "water":
-            role = "exclude"
-        elif mat.alpha == "blend":
-            role = "vegetation"
+        if mat.shader == "water" or mat.alpha == "blend" or (mat.shader == "ground" and mat.alpha == "cutout"):
+            role = "static_alpha"
         elif mat.shader == "ground":
             role = "road" if mat.surface in ("tarmac", "gravel") else "terrain"
         else:

@@ -148,3 +148,15 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   - Fire Rock: OK, 25.3 MB of pools, 1355 boxes.
   - Clashin Darroch: OK, 26.1 MB.
   - Both were built with `--seed` from set 5; the inherited drops were narrowed to 3 m.
+
+### Set 6b: lighting roles after the night test (2026-11-17)
+
+* **Coverage ledger** (`MRRRenderer/logs/coverage-*.json`, Clashin Darroch).
+  - 189 RCX materials are Lit.
+  - Cutout ground at the ford (tex03364/03365/03367/04577) is `metadata_live_shader_mismatch`: terrain with an alpha-tested draw, so it stays native and day-bright at night.
+* **Blend layer as vegetation.** Category 3 gets no normal hints and turns its normals towards the sun or moon (`scene_resolver.hpp` light_geometry). The blend layer was therefore lit apart from the ground under it, and its edges were hard in the headlights.
+* **New role `static_alpha`** for the blend layer, cutout ground and water.
+  - `rcx_lighting.py` exports it as static: category 4, PLAIN|ALPHA_TEST for alpha textures, with normal hints.
+  - Blended and alpha-tested draws are admitted for category 4 with AlphaTest (`source_opaque_pass`, resolver).
+  - Clashin Darroch now has 125 k normal hints, up from 98 k.
+* **Course Studio water** stays native: its material binds a second texture slot, which `material_role` denies.

@@ -49,6 +49,9 @@ def main(argv=None) -> int:
     sys.path.insert(0, str(tool.parent))
     spec.loader.exec_module(batch)
     roles = roles_by_scene(a.projects)
+    alpha_labels = {course: {label for label, role in r.items() if role == "static_alpha"} for course, r in roles.items()}
+    roles = {course: {label: ("static" if role == "static_alpha" else role) for label, role in r.items()}
+             for course, r in roles.items()}
     source = a.pack / "resources/DataGx/Course"
     scenes = a.pack / "resources/DataScene/RaceTest"
     courses = sorted(p.name for p in source.iterdir() if p.is_dir() and p.name in roles)
@@ -61,13 +64,30 @@ def main(argv=None) -> int:
         bindings = json.loads((out / "scene-bindings.json").read_text())
         target = a.host / "Atmosphere/courses"
         installed = []
+        sys.path.insert(0, str(a.base_repo / "src"))
+        from master_rallye.course_lighting import ALPHA_TEST, decode_metadata, encode_metadata
         for b in bindings["bindings"]:
             src = out / bindings["runtime_package_dir"] / b["scene"]
+            # static_alpha: the exported static (category 4, plain) record gains AlphaTest; its normal hints are
+            # already in normals.lnh (exported for categories 1, 2, 4)
+            labels = alpha_labels.get(b["scene"], set())
+            rows = decode_metadata((src / "materials.lsm").read_bytes())
+            patched = 0
+            for row in rows:
+                if row["material"] in labels and row["category"] == 4 and not row["flags"] & ALPHA_TEST:
+                    row["flags"] |= ALPHA_TEST
+                    patched += 1
+            (src / "materials.lsm").write_bytes(encode_metadata(rows))
+            pkg = json.loads((src / "package.json").read_text())
+            pkg["files"] = {n: batch.digest(src / n) for n in ("materials.lsm", "normals.lnh")}
+            pkg["static_alpha_records"] = patched
+            (src / "package.json").write_text(json.dumps(pkg, indent=2) + "\n")
             dest = target / b["scene"]
             if dest.exists():
                 shutil.rmtree(dest)
             shutil.copytree(src, dest)
-            installed.append({"scene": b["scene"], "materials": b["material_records"], "normals": b["normal_records"]})
+            installed.append({"scene": b["scene"], "materials": b["material_records"], "normals": b["normal_records"],
+                              "static_alpha": patched})
         report = {"courses": [{k: c.get(k) for k in ("course", "status", "counts", "error")} for c in index["courses"]],
                   "installed": installed, "unbound": bindings["unbound_scenes"]}
         print(json.dumps(report, indent=1))
