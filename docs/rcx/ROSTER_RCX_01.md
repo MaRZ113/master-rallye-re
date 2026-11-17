@@ -76,3 +76,53 @@ Chain as set 2 with `*-build6` -> `registry-build5.json` -> `candidate5` -> `run
 **Developer menu**: EXTRA-SET2 stages `DataGame/dev.xml` with `Menues/Enabled=False` in the roster overlay, which wins
 over the game's loose `DataGame/dev.xml`; Broker tools (Observatory) then find no developer menu. `vehicle_manager.py
 dev-menu on|off` (stored in `roster.json`, applied by `apply`) stages it enabled on test hosts.
+
+## Roster RCX 07 (cars set 7, 2026-11-17)
+
+Owner test of host-rcx-01 found three car problems. All of them have the same kind of cause: the converter did not
+follow a retail MR convention. The conventions, with their evidence, are in import
+`master_rallye/retail_vehicle_contract.py`.
+
+* **Snags on Clashin Darroch / Fire Rock (RCX cars only, not FPS):**
+  - Retail hulls (tag101) end well above the body. The Megane body goes down to -0.246 m, its hull only to -0.002 m.
+  - At rest a retail hull is 0.34-0.50 m above the tyre contact (hub Y = -RideHeight, minus the wheel radius). That
+    leaves 0.09-0.20 m above MaxBounce (0.25-0.30 m).
+  - The RCX pilots fitted the donor hull to the paint draws, so the hull bottom sat on the sills (-0.10 .. -0.17 m).
+    With the real RCX wheels (radius 0.25-0.34 m), the hull was 0.20-0.35 m above the contact, which is a margin of
+    -0.10 .. +0.05 m.
+  - So the hull reached the course BSP on every compression.
+  - Fix: SDK `collision_fit` takes an optional `floor_y_m` (import and v-cap `addon_sdk/physics_collision.py` and
+    `physics_profile.py`, guard ±1 m). `txr3_classic_pilot` sets that floor to the donor's hull clearance above the
+    tyre contact: 0.468 m, which leaves a margin of 0.168 m for every RCX car.
+  - The 4x4 Evo hulls were already +0.22 .. +0.29 m.
+* **Too bright in Vehicle Select, and dust too bright:**
+  - Every retail car.dx and complete.dx vertex carries a baked grey,
+    `round(255*(0.4+0.3*sqrt(max(0,n.y))))`, with R = G = B. It matches exactly on 99.8-100 % of the vertices of
+    Megane, Forester, Pajero, Navara and X-Trail. Only the brake glow card is 255.
+  - The converters wrote 255 everywhere, so RCX and Evo cars were about 1.8x brighter in the frontend and in race.
+  - The R-SURFACE1 grime pass is `DIFFUSE x tint`, so the dust on those cars was too bright as well.
+  - Fix for RCX: `txr3_classic_pilot` applies `prelight_dx` to car.dx and complete.dx.
+  - Fix for the 4X4 EVO cars (35-37): `tools/vehicle_prelight.py` patches the colour bytes in the roster base. Their
+    resources carry later lamp work. The brake-lamp registry digests cover positions and UVs only, so they stay
+    valid.
+* **No tail or brake glints at night:**
+  - Glints are drawn for cars that have a lamp rig in `Atmosphere/vehicles/lamp_rigs.txt`. The host file listed the
+    25 retail families only.
+  - A rig is matched by a lens draw, and lenses are found by texture name (light | lamp | indicat | *bl). The brake
+    layer is found by the name `breaklightson`.
+  - RCX textures were content hashes (`uvs-<sha>`), and the brake layers were named `stop-lit` / `stop-glow`.
+  - Fix (`lens_textures` in the RCX spec):
+    - the head and brake lamp parts get power-of-two crops of their atlas, named `<family>-headlight[N]-tga` and
+      `<family>-brakelight-tga`;
+    - the brake layers are named `<family>-breaklightson-tga` and `<family>-breaklightsonglow-tga`;
+    - `tools/addon_lamp_rigs.py` solves the rigs with `atmosphere_lamp_rig.py` and merges them into the host file,
+      together with the night lens masks.
+  - Puma: the solver finds no white headlamp texels, so it has tail and brake glints only.
+
+Chain: build.py (`build-set7.log`) -> `*-build7` -> `registry-build6.json` -> `candidate6` -> `runtime-v4e` ->
+`compiled-new6` -> `rebased-base6` -> `roster-v6.mrvr` -> `base-v6`. Then `vehicle_prelight.py base-v6` for the
+three 4X4 EVO families, `import-base --force`, `apply` (`apply-cars07.log`), `seed-course-progress`, and
+`addon_lamp_rigs.py` (rigs in `rcx-class-01/lamp-rigs-07`).
+
+Checks: verify_course_layer PASS, verify_frontend_classes PASS, all 9 project-builds PASS, record_count 47.
+Not tested in game.
