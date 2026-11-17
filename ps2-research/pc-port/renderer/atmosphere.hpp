@@ -306,7 +306,8 @@ public:
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
-    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;size_t rig_point=SIZE_MAX;float surface_error=1e30f;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
+    GlintStyle glint_style;bool day_lamps=false,day_lamps_key_down=false;uint64_t day_lamp_draws=0,day_brake_layers=0,day_lens_draws=0,day_glints=0,day_log_frame=0;   // RCX-GLINT1
+   struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;size_t rig_point=SIZE_MAX;float surface_error=1e30f;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
     LampAttachments lamp_attachments;LampAttachmentQueue lamp_attachment_queue;
     struct AttachmentTexture{uintptr_t pointer=0;uint64_t generation=0;std::string sha;};
@@ -503,7 +504,7 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;
         {auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.sha!=lamp_rigs.sha){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}
          lamp_attachments=LampAttachments{};lamp_attachment_queue.clear();
          if(lamp_rigs.loaded)lamp_attachments.load(std::filesystem::path(lamp_rigs.path).parent_path()/L"lamp_attachments.lpa",lamp_rigs);

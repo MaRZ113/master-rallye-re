@@ -8,6 +8,7 @@ namespace gfx2::atmospherebody {
 inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;
     collect_lamp_attachment(d,type,min,vertices,start,count,pc);
+    day_lamp_observer(d,type,min,vertices,start,count,pc);   // RCX-GLINT1: by day, before the body relight owns the draw
     try{const auto result=general(d,type,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}catch(...){return atmosphereintegration::repair(d);}
     grime_blended(d,type,min,vertices,start,count,pc);   // R-SURFACE1 G1.1: glass, lamps, grille, decals (candidate only)
     {const auto result=night_energy(d,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}

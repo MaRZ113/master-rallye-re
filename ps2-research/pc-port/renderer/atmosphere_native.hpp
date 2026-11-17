@@ -644,10 +644,17 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         // 6.13 roles: head (front white), tail (rear red, always), brake (breaklightson parts, present only
         // while braking), reverse (rear white, only while the car is in reverse).
         const auto* owner_lamps=lp.frame!=UINT64_MAX&&lp.frame+2>=frame?lp.find(l.instance):nullptr;
-        if((l.kind==3||l.kind==4)&&!(owner_lamps&&owner_lamps->reversing))continue;
+        // RCX-GLINT1: by day the reverse state comes from the car moving backwards (the projectors run at night only)
+        const bool day=p.lighting.ambient_strength>=.5f;
+        bool reversing=owner_lamps&&owner_lamps->reversing;
+        if(day&&!owner_lamps&&(l.kind==3||l.kind==4))for(const auto& c:p.car_poses)if(c.instance==l.instance&&c.prev_frame+1==c.frame){
+            const auto f=atmosphere::normalized({c.m[8],c.m[9],c.m[10]});reversing=(c.m[12]-c.prev[12])*f[0]+(c.m[13]-c.prev[13])*f[1]+(c.m[14]-c.prev[14])*f[2]<-.01f;break;}
+        if((l.kind==3||l.kind==4)&&!reversing)continue;
         if(l.kind==4){bool white=false;for(const auto& o:p.lamp_points)if(o.instance==l.instance&&o.kind==3){white=true;break;}if(white)continue;}   // fallback only
         // RCX-GLINT1: by day, or with LampGlints off, only brake glints (BrakeGlints=Always), at BrakeGlintDayIntensity.
-        const bool day=p.lighting.ambient_strength>=.5f;if((day||!g.lamps)&&l.kind!=2)continue;
+        // RCX-GLINT1: by day (or with LampGlints off): brake glints (BrakeGlints=Always) and, with the day lamps on,
+        // rear tail / reverse glints; head lamps never by day.
+        if(day||!g.lamps){const bool allowed=l.kind==2?g.brake_always:(!l.front&&p.day_lamps&&l.kind!=0);if(!allowed)continue;}
         const float rear_k=(l.kind==2?g.rear*g.brake:l.kind>=3?g.reverse:g.rear*.55f)*(day?g.day_brake:1.f);
         if(facing<=0)continue;
         float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f));
@@ -664,7 +671,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
             const atmosphere::SunVertex a{px-rx-.5f,py-ry-.5f,nz,rhw,c,0,0,0,0},b{px+rx-.5f,py-ry-.5f,nz,rhw,c,1,0,0,0},e{px-rx-.5f,py+ry-.5f,nz,rhw,c,0,1,0,0},f{px+rx-.5f,py+ry-.5f,nz,rhw,c,1,1,0,0};
             for(const auto& q:{a,b,e,e,b,f})out.push_back(q);};
         const auto rgb=l.front?style.rgb:style.tail_rgb;const std::array<float,3> glint_rgb=l.front?std::array<float,3>{1.f,.93f,.78f}:l.kind>=3?std::array<float,3>{1.f,.97f,.92f}:std::array<float,3>{1.f,.22f,.14f};const float unit=l.size>0?std::clamp(l.size/.25f,.7f,1.3f):1.f;const float r=std::max(1.5f,pixels(g.glow_degrees)*unit*(.55f+.45f*std::min(1.f,k)));
-        quad(glow,r,r,colour(glint_rgb,std::min(1.f,k)));(void)rgb;
+        quad(glow,r,r,colour(glint_rgb,std::min(1.f,k)));(void)rgb;++p.day_glints;
         if(g.streak>0&&g.streak_degrees>0){const float star=std::max(r*1.5f,pixels(g.streak_degrees)*(l.front?1.f:.75f)*std::min(1.f,k+.25f));quad(streak,star,star,colour(glint_rgb,std::min(1.f,k*g.streak)));}
     }
     const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
@@ -729,6 +736,16 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
                 float s=0,e=0;std::memcpy(&s,&start,4);std::memcpy(&e,&end,4);
                 if(((vertex==D3DFOG_LINEAR&&table==D3DFOG_NONE)||(table!=D3DFOG_NONE&&table<=D3DFOG_LINEAR))&&std::isfinite(s)&&std::isfinite(e)&&s>=0&&s<e)
                     p->course_fog={frame,vertex,table,start,end,color};}}
+        // RCX-GLINT1: DayLampsKey toggles the rear lamps (tail + reverse glints) by day; counters every 600 frames.
+        if(p->glint_style.day_key>0&&p->glint_style.day_key<256){DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
+            const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(p->glint_style.day_key)&0x8000)&&!(GetAsyncKeyState(VK_CONTROL)&0x8000)&&!(GetAsyncKeyState(VK_MENU)&0x8000);
+            if(down&&!p->day_lamps_key_down){p->day_lamps=!p->day_lamps;session().write("{\"type\":\"atmosphere_day_lamps\",\"on\":"+std::string(p->day_lamps?"true":"false")+",\"frame\":"+std::to_string(frame)+"}");}
+            p->day_lamps_key_down=down;}
+        if(p->glint_style.enabled&&frame>=p->day_log_frame+600){p->day_log_frame=frame;
+            session().write("{\"type\":\"atmosphere_glint_day_stats\",\"frame\":"+std::to_string(frame)+",\"day\":"+std::string(p->lighting.ambient_strength>=.5f?"true":"false")+
+                ",\"brake_always\":"+std::string(p->glint_style.brake_always?"true":"false")+",\"day_lamps\":"+std::string(p->day_lamps?"true":"false")+
+                ",\"car_draws\":"+std::to_string(p->day_lamp_draws)+",\"brake_layers\":"+std::to_string(p->day_brake_layers)+",\"lens_draws\":"+std::to_string(p->day_lens_draws)+
+                ",\"glints\":"+std::to_string(p->day_glints)+",\"points\":"+std::to_string(p->lamp_points.size())+"}");}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;
