@@ -184,18 +184,32 @@ class Manager:
         return {"dev_menu": bool(enabled), "note": "takes effect on the next apply"}
 
     def course_races(self) -> tuple[list[dict], list[Path], dict]:
-        """Enabled packs in selection order -> (races, pack folders, category)."""
+        """Enabled packs in selection order -> (races, pack folders, categories).
+
+        RCX-CAT2: every pack goes to the Quick Race category of its own label (course-pack.json category.label); packs
+        with the same label share one. Races are ordered by category (IDs 39.. follow that order, so each category's
+        race icons are contiguous). The legacy single label (course-category) applies only when all packs share one."""
         sel = self.selection()
-        races, folders, category = [], [], {"label": sel.get("course_category", "NEW RACES"), "logo": None}
+        cats, folders, by_cat = [], [], []
         for name in sel.get("course_packs", []):
             folder = self.courses / name
             meta = json.loads((folder / "course-pack.json").read_text(encoding="utf-8"))
             folders.append(folder)
-            if category["logo"] is None and meta.get("category", {}).get("logo"):
-                category["logo"] = folder / meta["category"]["logo"]
+            label = meta.get("category", {}).get("label") or "NEW RACES"
+            k = next((i for i, c in enumerate(cats) if c["key"] == label), None)
+            if k is None:
+                k = len(cats)
+                cats.append({"key": label, "label": label, "logo": None})
+                by_cat.append([])
+            if cats[k]["logo"] is None and meta.get("category", {}).get("logo"):
+                cats[k]["logo"] = folder / meta["category"]["logo"]
             for r in meta["races"]:
-                races.append({**r, "_pack": folder})
-        return races, folders, category
+                by_cat[k].append({**r, "_pack": folder, "category": k})
+        if len(cats) == 1 and sel.get("course_category"):
+            cats[0]["label"] = sel["course_category"]
+        for c in cats:
+            c["label"] = c["label"].upper()
+        return [r for rows in by_cat for r in rows], folders, {"categories": cats}
 
     def seed_course_progress(self) -> dict:
         """Best-time keys of the installed course races in the game's PlayerState.xml (backup kept), so records
@@ -311,11 +325,13 @@ class Manager:
             frames = course_frame_base(self.base / "resources", self.game)
             for k, r in enumerate(course_races):
                 r["screenshot_pair"] = frames["pair"] + k
-            category["logo_frame"] = frames["logo"]
+            for k, c in enumerate(category["categories"]):          # RCX-CAT2: one logo frame per category
+                c["logo_frame"] = frames["logo"] + k
             category["flag_frame"] = frames["flag"]
-            v1, courses = course_layer.apply_native(v1, exe, parse_roster(v1)["writable"], course_races,
-                                                    {"label": category["label"], "logo_frame": category["logo_frame"],
-                                                     "flag_frame": category["flag_frame"]})
+            v1, courses = course_layer.apply_native(
+                v1, exe, parse_roster(v1)["writable"], course_races,
+                {"categories": [{"label": c["label"], "logo_frame": c["logo_frame"]} for c in category["categories"]],
+                 "flag_frame": category["flag_frame"]})
         masks = {pid: m for pid, m in native["masks"].items()}
         profile, summary = build_profile(v1, exe, core, masks=masks)
         roster = to_v2(v1, profile)
@@ -510,7 +526,7 @@ def course_race_icon(template_rgba: bytes, shot_png: bytes, number: int) -> byte
 
 def add_course_buttons(text: str, entries: list[tuple[int, int, int]]) -> str:
     """RaceSelect.xml: one race button egg per course race, cloned from Invitation 1. ``entries``: (race id, position
-    in the category, flagsheet frame). The retail screen shows the eggs whose Y ID is the current mode and moves them
+    in the category, flagsheet frame, mode = 8 + category). The retail screen shows the eggs whose Y ID is the current mode and moves them
     by Frontend/RaceSelect/Button<X ID>XPos (0x47ECB0 publishes one key per position of the mode)."""
     import re
     start = text.index(f'<Egg Name="{ICON_EGG_TEMPLATE}">')
@@ -520,11 +536,11 @@ def add_course_buttons(text: str, entries: list[tuple[int, int, int]]) -> str:
     template = text[start:end]
     last = text.index("</Egg>", text.index('<Egg Name="Invitation3">')) + len("</Egg>")
     eggs = []
-    for race_id, pos, frame in entries:
+    for race_id, pos, frame, mode in entries:
         e = template.replace(f'<Egg Name="{ICON_EGG_TEMPLATE}">', f'<Egg Name="CourseRace{race_id}">')
         e, n1 = re.subn(r'(Name="en2d Image Bank Index" Type="Int" Value=")\d+(")', rf"\g<1>{frame}\2", e)
         e, n2 = re.subn(r'(Name="X ID" Type="Int" Value=")\d+(")', rf"\g<1>{pos}\2", e)
-        e, n3 = re.subn(r'(Name="Y ID" Type="Int" Value=")\d+(")', r"\g<1>8\2", e)
+        e, n3 = re.subn(r'(Name="Y ID" Type="Int" Value=")\d+(")', rf"\g<1>{mode}\2", e)
         e, n4 = re.subn(r'Frontend/RaceSelect/Button\d+XPos', f"Frontend/RaceSelect/Button{pos}XPos", e)
         if (n1, n2, n3, n4) != (1, 1, 1, 1):
             raise ValueError("RaceSelect.xml Invitation1 egg layout differs from the Retail one")
@@ -597,10 +613,11 @@ def install_course_resources(res: Path, game: Path, races: list[dict], folders: 
         frames = [append_art(res, "raceshot", (r["_pack"] / s).read_bytes(), game) for s in r["screenshots"]]
         if frames != [2 * r["screenshot_pair"], 2 * r["screenshot_pair"] + 1]:
             raise ValueError(f"{r['title']}: screenshot frames {frames} differ from pair {r['screenshot_pair']}")
-    logo = category["logo"].read_bytes() if category.get("logo") else default_category_logo(category["label"])
-    frame = append_art(res, "racelogo", logo, game)
-    if frame != category["logo_frame"]:
-        raise ValueError(f"category logo frame {frame} differs from the planned {category['logo_frame']}")
+    for cat in category["categories"]:                   # RCX-CAT2: logos in category order
+        logo = cat["logo"].read_bytes() if cat.get("logo") else default_category_logo(cat["label"])
+        frame = append_art(res, "racelogo", logo, game)
+        if frame != cat["logo_frame"]:
+            raise ValueError(f"category {cat['label']} logo frame {frame} differs from the planned {cat['logo_frame']}")
     # race buttons of the category row: one icon per race (flagsheet) and one button egg per race (RaceSelect.xml)
     bank = res / (RACE_SELECT + "flagsheet.dxb")
     if not bank.is_file():
@@ -610,13 +627,15 @@ def install_course_resources(res: Path, game: Path, races: list[dict], folders: 
     from master_rallye.dxt import parse_dxt_bytes, decode_rgba_pixels
     tname = parse_bank(bank.read_bytes())["names"][ICON_TEMPLATE]
     template = bytes(decode_rgba_pixels(parse_dxt_bytes(game_file(res, game, RACE_SELECT + tname + ".dxt"))))
-    entries = []
+    entries, local = [], {}
     for pos, r in enumerate(races):
-        icon = course_race_icon(template, (r["_pack"] / r["screenshots"][0]).read_bytes(), pos + 1)
+        k = int(r.get("category", 0))
+        x = local.get(k, 0); local[k] = x + 1             # position inside its category row
+        icon = course_race_icon(template, (r["_pack"] / r["screenshots"][0]).read_bytes(), x + 1)
         frame = append_art(res, "raceicon", icon, game)
         if "flag_frame" in category and frame != category["flag_frame"] + pos:   # Quick Race card reads base + (id - 39)
             raise ValueError(f"{r['title']}: race icon frame {frame} differs from the planned {category['flag_frame'] + pos}")
-        entries.append((r.get("id", 39 + pos), pos, frame))   # new IDs follow 0..38
+        entries.append((r.get("id", 39 + pos), x, frame, 8 + k))   # new IDs follow 0..38; Y ID = mode 8 + category
     scene = res / RACE_SELECT_SCENE
     text = scene.read_bytes().decode("latin-1") if scene.is_file() else game_file(res, game, RACE_SELECT_SCENE).decode("latin-1")
     scene.parent.mkdir(parents=True, exist_ok=True)

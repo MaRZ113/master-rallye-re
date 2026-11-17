@@ -38,8 +38,9 @@ STOCK_MENU = [list(range(10, 13)), list(range(13, 16)), list(range(16, 19)), lis
               list(range(25, 36)), list(range(10)), list(range(36, 39))]
 STOCK_STAGES = [list(range(10, 13)), list(range(13, 16)), list(range(16, 19)), list(range(19, 22)),
                 list(range(22, 25)), list(range(36, 39))]
-GROUPS = 9                                   # 8 retail modes + the category
-CATEGORY = 8
+GROUPS = 9                                   # 8 retail modes + the category (one category; see categories_of)
+CATEGORY = 8                                 # first extra mode
+MAX_CATEGORIES = 6                           # RCX-CAT2: position[8..13] = +0x34..+0x48 (unused), flag +0x50
 FACTORY_PUSH = 0x47E206                      # 6A 74
 LIST_HOOK = 0x47E605                         # 68 D4 70 6B 00  push "Frontend/RaceSelect/RaceList"
 LIST_RESUME = 0x47E60A
@@ -106,8 +107,16 @@ def storage(vehicle_count, race_count):
     return base, base + race_count * 44
 
 
-def plan_catalog(new_races: list[dict], vehicle_count: int) -> dict:
-    """Retail 39 + new races in the category group (positions in the given order)."""
+def categories_of(category: dict) -> list[dict]:
+    """RCX-CAT2: {"categories": [{label, logo_frame}, ...], "flag_frame"} or the single-category form {label, logo_frame}."""
+    cats = category.get("categories") or [{"label": category["label"], "logo_frame": category["logo_frame"]}]
+    if not 1 <= len(cats) <= MAX_CATEGORIES:
+        raise ValueError(f"1..{MAX_CATEGORIES} course categories supported, got {len(cats)}")
+    return cats
+
+
+def plan_catalog(new_races: list[dict], vehicle_count: int, categories: int = 1) -> dict:
+    """Retail 39 + new races, each in its category group 8 + race["category"] (positions in the given order)."""
     retail = json.loads(RETAIL_CATALOG.read_text())
     races = copy.deepcopy(retail["races"])
     for k, r in enumerate(new_races):
@@ -121,9 +130,14 @@ def plan_catalog(new_races: list[dict], vehicle_count: int) -> dict:
             raise ValueError(f"race title must be 1..60 printable ASCII characters: {title!r}")
         fields = [rid, 0, 0, 0, 0, struct.unpack("<I", struct.pack("<f", float(r.get("distance_km", 5.0))))[0], 0,
                   0xFFFFFFFF, 0xFFFFFFFF]
+        cat = int(r.get("category", 0))
+        if not 0 <= cat < categories:
+            raise ValueError(f"race {title}: category {cat} outside 0..{categories - 1}")
         races.append({"id": rid, "scene": r["scene"], "icont": r["icont"], "native_fields": fields, "title": title,
-                      "progress_key": key, "screenshot_pair": int(r["screenshot_pair"])})
-    menu = copy.deepcopy(STOCK_MENU) + [[r["id"] for r in races[39:]]]
+                      "progress_key": key, "screenshot_pair": int(r["screenshot_pair"]), "category": cat})
+    menu = copy.deepcopy(STOCK_MENU) + [[r["id"] for r in races[39:] if r["category"] == k] for k in range(categories)]
+    if any(not rows for rows in menu[8:]):
+        raise ValueError("every course category needs at least one race")
     reverse = {i: (g, p) for g, rows in enumerate(menu) for p, i in enumerate(rows)}
     if sorted(reverse) != list(range(len(races))):
         raise ValueError("menu and registry are not bijective")
@@ -137,6 +151,10 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     """CAP2 append_native + category, applied to the roster image. Returns a report."""
     layout = catalog["layout"]
     count, base = layout["race_count"], layout["race_base"]
+    cats = categories_of(category)
+    groups = CATEGORY + len(cats)                        # RCX-CAT2: one extra Quick Race mode per category
+    if len(catalog["menu_groups"]) != groups:
+        raise ValueError("catalog groups differ from the categories")
     while len(img.payload) % 16:
         img.payload.append(0)
     c = Emitter(PAYLOAD_VA + len(img.payload))
@@ -186,7 +204,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     hook(0x459FD7, branch(0x459FD7, 0x45A330, 0xE8), "initialize_additions")
 
     # ---- menu maps over nine groups ----------------------------------------------------------------------------
-    c.label("menu_forward"); c.emit(b"\x8b\x41\x10\x83\xf8" + bytes([GROUPS - 1])); c.ja("invalid")
+    c.label("menu_forward"); c.emit(b"\x8b\x41\x10\x83\xf8" + bytes([groups - 1])); c.ja("invalid")
     c.emit(b"\x8b\x54\x81\x14\x3b\x14\x85"); c.imm32.append((len(c.code), "menu_counts")); c.emit(b"\0" * 4)
     c.jae("invalid")
     c.emit(b"\x8b\x04\x85"); c.imm32.append((len(c.code), "menu_pointers")); c.emit(b"\0" * 4 + b"\x8b\x04\x90\xc3")
@@ -194,7 +212,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.label("menu_reverse"); c.emit(b"\x8b\x44\x24\x04\x3d" + u(count)); c.jae("invalid")
     for g, rows in enumerate(catalog["menu_groups"]):
         if g >= len(STOCK_MENU) or rows != STOCK_MENU[g]:
-            c.emit(b"\xc7\x41" + bytes([0x54 + g * 4]) + u(len(rows)))
+            c.emit(b"\xc7\x81" + u(0x54 + g * 4) + u(len(rows)))          # count[g] (disp32: g >= 11 passes 0x7F)
     c.emit(b"\x8b\x14\x85"); c.imm32.append((len(c.code), "reverse_group")); c.emit(b"\0" * 4 + b"\x89\x51\x10\x8b\x04\x85")
     c.imm32.append((len(c.code), "reverse_local")); c.emit(b"\0" * 4 + b"\x89\x44\x91\x14\xc2\x04\x00")
     hook(0x47F320, b"\x8b\x44\x24\x04\x83\xf8\x0a", "menu_reverse")
@@ -254,13 +272,16 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x8d\x54\x24\x04\x8d\x04\x24\x52\x50"); c.call(BROKER_GET); c.emit(b"\x8b\xc8"); c.call(0x4D85F0)
     c.label("details_category")
     c.emit(b"\x83\x7e" + bytes([FLAG]) + b"\x01"); c.jne("details_done")             # cmp dword [esi+50],1
-    # ModeRightArrow = mode < 8
-    c.emit(b"\x31\xc0\x83\x7e\x10" + bytes([CATEGORY]) + b"\x0f\x9c\xc0")           # xor eax,eax; cmp [esi+10],8; setl al
+    # ModeRightArrow = mode < last mode
+    c.emit(b"\x31\xc0\x83\x7e\x10" + bytes([groups - 1]) + b"\x0f\x9c\xc0")         # xor eax,eax; cmp [esi+10],last; setl al
     c.emit(b"\x50\x68" + u(RIGHT_ARROW_KEY) + b"\x8d\x4c\x24\x08"); c.call(STRING_ID)  # push eax; push key; lea ecx,[esp+8]
     c.emit(b"\x8d\x44\x24\x04\x50"); c.call(BROKER_GET); c.emit(b"\x8b\xc8"); c.call(BROKER_SET_INT)
-    c.emit(b"\x83\x7e\x10" + bytes([CATEGORY])); c.jne("details_done")
-    c.emit(b"\x68" + u(int(category["logo_frame"])) + b"\x68" + u(LOGO_KEY) + b"\x8d\x4c\x24\x08"); c.call(STRING_ID)
-    c.emit(b"\x8d\x44\x24\x04\x50"); c.call(BROKER_GET); c.emit(b"\x8b\xc8"); c.call(BROKER_SET_INT)
+    for k, cat in enumerate(cats):                                                   # category k = mode 8 + k: its logo
+        c.emit(b"\x83\x7e\x10" + bytes([CATEGORY + k])); c.jne(f"details_logo_{k + 1}")
+        c.emit(b"\x68" + u(int(cat["logo_frame"])) + b"\x68" + u(LOGO_KEY) + b"\x8d\x4c\x24\x08"); c.call(STRING_ID)
+        c.emit(b"\x8d\x44\x24\x04\x50"); c.call(BROKER_GET); c.emit(b"\x8b\xc8"); c.call(BROKER_SET_INT)
+        c.jump("details_done")
+        c.label(f"details_logo_{k + 1}")
     c.label("details_done"); c.emit(b"\x83\xc4\x08\x5e\xc3")
 
     # ---- Quick Race flag icon (Frontend/QuickRace/FlagImageID) ---------------------------------------------------
@@ -318,7 +339,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
         patch(0x53BA99, u(32 << 20), u(mb << 20), "model_cache_budget")
 
     # ---- category: object size and mode list ---------------------------------------------------------------------
-    patch(FACTORY_PUSH, b"\x6a\x74", b"\x6a" + bytes([0x74 + 4]), "raceselect_object_size")
+    patch(FACTORY_PUSH, b"\x6a\x74", b"\x6a" + bytes([0x74 + 4 * len(cats)]), "raceselect_object_size")   # count[8..] at +0x74..
     # At 0x47E605 EBX is NOT the screen object: the retail code reuses BL as a bool at 0x47E51F/0x47E5A4 (only the
     # low byte is overwritten). The object is the init's local at [esp+14h] (stored at 0x47E2EF with one push
     # outstanding; 0x47E633 reloads ESI from the same slot). Writing through EBX corrupted the heap next to the object
@@ -327,10 +348,11 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x53\x8b\x5c\x24\x18")                                                   # push ebx; mov ebx,[esp+18h]
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(0))                                        # mov dword [ebx+50],0
     c.emit(b"\x8b\x46\x08\x2b\x46\x04\x83\xf8\x20"); c.jne("category_list_done")     # 8 retail modes published?
-    c.emit(b"\xc7\x43" + bytes([0x14 + CATEGORY * 4]) + u(0))                         # position[8] = 0
-    c.emit(b"\x83\xec\x04"); c.push_literal("category_label"); c.emit(b"\x8d\x4c\x24\x04"); c.call(STRING_FROM_CSTR)
-    c.emit(bytes.fromhex("8b46088d0c24516a01508bce")); c.call(LIST_INSERT)
-    c.emit(bytes.fromhex("ff3424")); c.call(GAME_FREE); c.emit(bytes.fromhex("83c408"))
+    for k in range(len(cats)):                                                        # position[8 + k] = 0, label k
+        c.emit(b"\xc7\x43" + bytes([0x14 + (CATEGORY + k) * 4]) + u(0))
+        c.emit(b"\x83\xec\x04"); c.push_literal(f"category_label_{k}"); c.emit(b"\x8d\x4c\x24\x04"); c.call(STRING_FROM_CSTR)
+        c.emit(bytes.fromhex("8b46088d0c24516a01508bce")); c.call(LIST_INSERT)
+        c.emit(bytes.fromhex("ff3424")); c.call(GAME_FREE); c.emit(bytes.fromhex("83c408"))
     c.emit(b"\xc7\x43" + bytes([FLAG]) + u(1))
     c.label("category_list_done"); c.emit(b"\x5b\x68" + u(0x6B70D4)); c.jump(LIST_RESUME)   # pop ebx; push key
     hook(LIST_HOOK, b"\x68" + u(0x6B70D4), "category_list")
@@ -340,7 +362,8 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x6a\x00\xff\x15" + u(0x68F2B4) + b"\x6a\x01\xff\x15" + u(0x68F114) + b"\x0f\x0b")
     c.label("invalid_message"); c.emit(b"Course Registry: invalid race/menu/stage index. Stopped before resource or progress access.\0")
     c.label("admission_message"); c.emit(b"Course Registry: these races support offline single-player Quick Race only. Selection was not changed.\0")
-    c.label("category_label"); c.emit(category["label"].encode("ascii") + b"\0")
+    for k, cat in enumerate(cats):
+        c.label(f"category_label_{k}"); c.emit(cat["label"].encode("ascii") + b"\0")
     c.align(4); c.label("no_time"); c.emit(struct.pack("<f", 86400.0))
     for r in catalog["races"][39:]:
         c.label("scene_" + str(r["id"])); c.emit(r["scene"].removeprefix("DataScene/").removesuffix(".xml").encode("ascii") + b"\0")
@@ -348,7 +371,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
         c.label("title_" + str(r["id"])); c.emit(r["title"].encode("ascii") + b"\0")
     c.align(4); c.label("menu_counts"); c.emit(b"".join(u(len(rows)) for rows in catalog["menu_groups"]))
     c.label("menu_pointers")
-    for g in range(GROUPS):
+    for g in range(groups):
         c.imm32.append((len(c.code), "menu_" + str(g))); c.emit(b"\0" * 4)
     for g, rows in enumerate(catalog["menu_groups"]):
         c.label("menu_" + str(g)); c.emit(b"".join(u(i) for i in rows))
@@ -399,7 +422,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
         own(img, IMAGE_BASE + a, bytes(work[a:b]))
     return {"operations": ops, "payload_va": hex(c.base_va), "payload_bytes": len(blob),
             "entries": {k: hex(c.base_va + v) for k, v in c.labels.items() if not k.startswith(("scene_", "progress_", "title_"))},
-            "layout": layout, "category": category, "races": [{k: r[k] for k in ("id", "title", "scene", "progress_key", "screenshot_pair")}
+            "layout": layout, "category": category, "races": [{k: r[k] for k in ("id", "title", "scene", "progress_key", "screenshot_pair", "category")}
                                                                for r in catalog["races"][39:]]}
 
 
@@ -410,7 +433,7 @@ def apply_native(v1: bytes, exe: bytes, writable, new_races: list[dict], categor
         raise ValueError("unexpected MRVR v1 layout")
     img = Image(v1[ext_off:], Rvp(v1[rvp_off:ext_off]), writable, exe)
     vehicle_count = struct.unpack_from("<I", v1, 168)[0]
-    catalog = plan_catalog(new_races, vehicle_count)
+    catalog = plan_catalog(new_races, vehicle_count, len(categories_of(category)))
     info = compose(img, exe, catalog, category)
     rvp = img.rvp.build()
     payload = bytes(img.payload)
