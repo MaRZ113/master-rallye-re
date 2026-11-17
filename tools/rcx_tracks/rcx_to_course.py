@@ -52,6 +52,8 @@ STRUCTURES = {'Wood', 'Metal'}  # bridges: deck tops the line runs on become exa
 DECK_SLAB_M = 0.4
 TERRAIN_FACE_BUDGET, CORRIDOR_MIN_M = 30000, 20.0
 NEAR_KEEP_M = 4.0                     # repair never demotes terrain closer than this to the route
+UNSTACK_M = 3.0                       # last repair: discs where only the top of stacked ground layers stays solid
+EDGE_KEEP_M = 3.5                     # ... except the last-stage 1 m discs, which end this far out
 OVERLAY_PASS_FLAG = 0x400             # .map group render flag: not drawn as plain geometry (see build_project)
 DRAW_ONLY_TEXTURES = ('barrier', 'rail')  # bridge barriers and rails: open soup along the deck edges
 # Blend layers (.map group flag 0x8, rcx_map.BLEND_FLAG): RCX blends texture -> texture2 by the vertex alpha (0 =
@@ -60,18 +62,25 @@ DRAW_ONLY_TEXTURES = ('barrier', 'rail')  # bridge barriers and rails: open soup
 # texture alpha by the vertex alpha when the material's vertex-lighting byte is set: Rally.exe-independent, MR
 # 0x57FED5). Without it only the first texture was drawn: patches and hard stripes on grass / gravel / tarmac.
 BLEND_LIFT_M = 0.02
-# Props that collide in RCX (owner 2026-11-16: trees and 2D fences are solid there, passable in MR): closed boxes in
-# a collision mesh near the driving line. Trees: trunk boxes under every tree; fences: thin slabs along each panel.
-PROP_REACH_M = 45.0                   # fence panels farther from the driving line than this get no collision
-TREE_REACH_M = 25.0                   # trees: trunk boxes only this close (native BSP pool budget)
-TREE_TRUNK_M, TREE_TRUNK_H = 0.5, 3.0
+# Props that collide in RCX (owner 2026-11-16/17: trees, woodpiles and 2D fences are solid there, passable in MR).
+# RCX's own collision for trees, woodpiles and buildings is the untextured render-flag-0x2404 geometry ("hulls": a
+# 0.9 m pyramid on every tree trunk, closed boxes on each woodpile); the drawn trees are NO_COLLIDE star planes.
+# Each hull component becomes one closed oriented box (ROLE_COLLISION); Fence-surface panels (RCX collides with them
+# directly) become continuous thin slabs. The open hull soup itself made phantom solids in MR's BSP.
+PROP_REACH_M = 35.0                   # props farther from the driving line than this get no collision
+HULL_MAX_H = 4.0                      # pyramid hulls reach 20+ m up: boxes stop this far above their base
+HULL_BOX_MAX_M = 12.0                 # bigger / non-boxy hull components: thin slabs along their vertical faces
 FENCE_THICK_M, FENCE_MAX_H = 0.15, 1.6
-PROP_BURY_M = 0.5
-PROP_ROUTE_CLEAR_M = 5.0              # props closer than this to the driving line (box extent included): no box
-FENCE_GAP_M = 0.1                     # each fence slab is shortened by this at both ends
-PROP_BOX_BUDGET = 1800                # closed boxes kept nearest the route first (35.7 MB pools at 4170 boxes > 32 MB cache)
-FENCE_PIECE_M = 3.0                   # long panels: slabs of at most this length (long thin solids broke the BSP union)
-PROP_DROP_M = 15.0                    # repair: props within this of a reported collision spot get no box                     # Course Studio rule: solids reach 0.5 m under the ground, no deeper
+PROP_BURY_M = 0.5                     # Course Studio rule: solids reach 0.5 m under the ground, no deeper
+PROP_ROUTE_CLEAR_M = 3.5              # no prop closer than this to the driving line (Course Studio route sweep +-3 m)
+PROP_BOX_BUDGET = 2400                # closed boxes kept nearest the route first (35.7 MB pools at 4170 boxes > 32 MB cache)
+FENCE_PIECE_M = 3.0                   # fence runs: abutting slabs of at most this length (long thin solids broke the BSP union)
+FENCE_JOINT_M = 0.1                   # gap between abutting slabs of one run (0.02: near-coplanar BSP slivers, phantom cells)
+PROP_DROP_M = 6.0                     # repair: props within this of a reported collision spot get no box
+# Lighting: RCX vertex RGB is its baked light (slopes, tree shadows; shared corners, so smooth). MR draws it as the
+# vertex colour of every layer, scaled so the 90th percentile of the ground reaches LIGHT_TOP. Course Studio's own bake
+# lit each unwelded RCX face by its face normal: faceted ground, and the blend layer (unnormalised normal) differed.
+LIGHT_TOP = 245
 SOLID_PROPS = {'Fence'}    # thin walls: open soup, drawn only (BSP would leak solid); rock/wood/metal can be road
 TEMPLATES = {'kenya': 'Turkey1', 'arctic': 'ItalyW1', 'manx': 'France2', 'scottish': 'Italy1', 'usa': 'Spain1',
              'welsh': 'France1'}
@@ -152,7 +161,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             real = ROLE_VISUAL if role == "blend" else role
             meshes[role] = Mesh(id=new_uid("mesh_"), name=f"RCX {role}", role=real, source="rcx:" + name, group=role)
             meshes[role].uv = []
-            if role == "blend":
+            if role != ROLE_COLLISION:
                 meshes[role].colors = []
             meshes[role]._index = {}
             meshes[role]._mat = {}
@@ -171,21 +180,54 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
     # Collision corridor within the native pool budget: Fire Rock, 32 k terrain faces in 45 m, needed 20 MB of the
     # 32 MB model cache; Mountain Descent (41 MB) and Twin Bridges (46 MB) are denser. The corridor shrinks (not
     # below CORRIDOR_MIN_M) until the ground faces in it fit TERRAIN_FACE_BUDGET.
-    dists = []
+    unstack = [(x, z, -r) for x, z, r in demote if r < 0]
+    protect = [(x, z) for x, z, r in demote if r == 0]
+    demote = [d for d in demote if d[2] > 0]
+    stacked_low = set()                        # ground faces under another ground face in an unstack disc
+    stack_faces = []
+    dists, lums = [], []
     for g, tri in smap.triangles():
         surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
         if g.texture < 0 or g.flags & OVERLAY_PASS_FLAG or surface == 'Water' or surface in DRAW_ONLY | SOLID_PROPS:
             continue
         ps = [to_mr(v[:3]) for v in tri]
         dists.append(near(sum(q[0] for q in ps) / 3, sum(q[2] for q in ps) / 3))
+        lums.extend(max((v[3] >> 16) & 255, (v[3] >> 8) & 255, v[3] & 255) for v in tri)
+        if unstack:
+            cx, cz = sum(q[0] for q in ps) / 3, sum(q[2] for q in ps) / 3
+            if any((cx - ux) ** 2 + (cz - uz) ** 2 <= ur * ur for ux, uz, ur in unstack):
+                stack_faces.append(ps)
+    def y_on(t, x, z):
+        (x0, y0, z0), (x1, y1, z1), (x2, y2, z2) = t
+        d = (z1 - z2) * (x0 - x2) + (x2 - x1) * (z0 - z2)
+        if abs(d) < 1e-9:
+            return None
+        l0 = ((z1 - z2) * (x - x2) + (x2 - x1) * (z - z2)) / d
+        l1 = ((z2 - z0) * (x - x2) + (x0 - x2) * (z - z2)) / d
+        l2 = 1 - l0 - l1
+        return l0 * y0 + l1 * y1 + l2 * y2 if min(l0, l1, l2) >= -1e-6 else None
+    for t in stack_faces:
+        cx, cy, cz = (sum(q[k] for q in t) / 3 for k in range(3))
+        for o in stack_faces:
+            if o is not t:
+                y = y_on(o, cx, cz)
+                if y is not None and y > cy + 0.05:
+                    stacked_low.add(tuple(round(c, 3) for c in (cx, cy, cz)))
+                    break
+    report["unstacked"] = len(stacked_low)
     dists.sort()
+    lums.sort()
+    light_scale = LIGHT_TOP / max(1, lums[int(len(lums) * 0.9)] if lums else 128)
+    report["light_scale"] = round(light_scale, 3)
+
+    def rgb_of(v):
+        c = v[3]
+        return tuple(min(255, int(((c >> sh) & 255) * light_scale)) for sh in (16, 8, 0))
     if len(dists) > TERRAIN_FACE_BUDGET and dists[TERRAIN_FACE_BUDGET] < corridor_m:
         corridor_m = max(CORRIDOR_MIN_M, dists[TERRAIN_FACE_BUDGET])
     report["corridor_m"] = round(corridor_m, 1)
     drawn = set()
-    from master_rallye.studio.dx_build import _bake, triangle_normal
-    light = project.environment.vertex_light
-    tree_tris, fence_tris = [], []            # MR-frame props for the collision boxes (after the ground exists)
+    hull_tris, fence_tris = [], []            # MR-frame props for the collision boxes (after the ground exists)
     for g, tri in smap.triangles():
         surface = SURFACES[g.surface] if g.surface < len(SURFACES) else 'Unknown'
         tex_index, blend_index = g.texture, -1
@@ -195,12 +237,10 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 tex_index = g.texture2            # fully texture2: one opaque layer
             elif max(alphas) > 5:
                 blend_index = g.texture2          # mixed: texture opaque + texture2 blended by the vertex alpha
-        if g.texture >= 0 and not g.flags & OVERLAY_PASS_FLAG:
-            low = smap.textures[g.texture].lower()
-            if "tree" in low:
-                tree_tris.append([to_mr(v[:3]) for v in tri])
-            elif surface == "Fence":
-                fence_tris.append([to_mr(v[:3]) for v in tri])
+        if g.texture < 0:
+            hull_tris.append([to_mr(v[:3]) for v in tri])
+        elif not g.flags & OVERLAY_PASS_FLAG and surface == "Fence":
+            fence_tris.append([to_mr(v[:3]) for v in tri])
         if g.texture >= 0:
             # Render flag 0x400 marks groups RCX does not draw as plain geometry: the invisible barriers (0x2404,
             # untextured) and the envmap reflection pass over buildings (0x2406, envmap.tex on the same faces as
@@ -229,7 +269,10 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             up = up_normal(*ps)
             solid = (up >= min_up and near(cx, cz) <= corridor_m
                      and not (surface in STRUCTURES and (up < 0.7 or not on_line(ps)))
-                     and not any((cx - dx) ** 2 + (cz - dz) ** 2 <= dr * dr for dx, dz, dr in demote))
+                     and (not any((cx - dx) ** 2 + (cz - dz) ** 2 <= dr * dr for dx, dz, dr in demote)
+                          or any(y_on(ps, px, pz) is not None for px, pz in protect))
+                     and not (stacked_low and tuple(round(c, 3) for c in
+                                                    (cx, sum(q[1] for q in ps) / 3, cz)) in stacked_low))
             role = ROLE_TERRAIN if solid else ROLE_VISUAL
         m = mesh(role)
         tex = smap.textures[tex_index] if tex_index >= 0 else None
@@ -246,6 +289,8 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
         for v in tri:
             m.positions.extend(to_mr(v[:3]))
             m.uv.extend((v[4], 1.0 - v[5]))
+            if m.colors is not None:
+                m.colors.extend(rgb_of(v) + (255,))
         m.triangles.extend((base, base + 1, base + 2))
         m.tri_material.append(m._mat[mkey])
         tri_counts[role] = tri_counts.get(role, 0) + 1
@@ -260,12 +305,11 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 bm.materials.append(bkey)
                 used_textures[btex.lower()] = btex
             pts = [to_mr(v[:3]) for v in tri]
-            rgb = _bake(triangle_normal(*pts), light)
             bb = len(bm.positions) // 3
             for v, q in zip(tri, pts):
                 bm.positions.extend((q[0], q[1] + BLEND_LIFT_M, q[2]))
                 bm.uv.extend((v[4], 1.0 - v[5]))
-                bm.colors.extend((rgb[0], rgb[1], rgb[2], v[3] >> 24))
+                bm.colors.extend(rgb_of(v) + (v[3] >> 24,))
             bm.triangles.extend((bb, bb + 1, bb + 2))
             bm.tri_material.append(bm._mat[bkey])
             tri_counts["blend_layer"] = tri_counts.get("blend_layer", 0) + 1
@@ -276,6 +320,7 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 x, y, z = to_mr(v[:3])
                 m.positions.extend((x, y - DECK_SLAB_M, z))
                 m.uv.extend((v[4], 1.0 - v[5]))
+                m.colors.extend(rgb_of(v) + (255,))
             m.triangles.extend((base + 3, base + 4, base + 5))
             m.tri_material.append(m._mat[mkey])
             tri_counts["deck_slab"] = tri_counts.get("deck_slab", 0) + 1
@@ -370,88 +415,154 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
             return hint if hint is not None else 0.0
         return min(hs, key=lambda h: abs(h - hint)) if hint is not None else max(hs)
 
-    # ---- solid props: tree trunks and fence panels near the driving line (closed boxes, ROLE_COLLISION)
+    # ---- solid props: RCX hulls (trees, woodpiles, buildings) and Fence panels near the driving line
     from master_rallye.studio.collision import box_proxy
-    boxes, centres, prop_boxes = [], {}, []
     dense, _len = resample3(line_mr, 2.0)
     near_dense = corridor_distance(dense, cell=10.0)
+    candidates = []                                   # (route distance, kind, cx, cz, ux, uz, half_len, half_wid, y0, y1)
 
-    def clear_of_route(cx, cz, half):
-        # props never stand on or beside the road the cars and the AI use (Course Studio route sweep +-3 m)
-        return near_dense(cx, cz) - half > PROP_ROUTE_CLEAR_M
+    def obb(points):
+        """Minimum-area oriented rectangle of xz points: (cx, cz, ux, uz, half_len, half_wid), u along the length."""
+        pts = sorted(set((round(q[0], 3), round(q[2], 3)) for q in points))
+        if len(pts) < 3:
+            (x0, z0), (x1, z1) = pts[0], pts[-1]
+            ln = math.dist(pts[0], pts[-1]) or 1e-3
+            return ((x0 + x1) / 2, (z0 + z1) / 2, (x1 - x0) / ln, (z1 - z0) / ln, ln / 2, 0.0)
 
-    def apart(cx, cz, radius):
-        # closed boxes must not overlap (the solid union of overlapping proxies leaves unexplained cells)
-        k = (int(cx // 2), int(cz // 2))
-        for i in (-1, 0, 1):
-            for j in (-1, 0, 1):
-                for ox, oz, orad in centres.get((k[0] + i, k[1] + j), ()):
-                    if math.hypot(ox - cx, oz - cz) < radius + orad:
-                        return False
-        return True
+        def cross(o, a1, b1):
+            return (a1[0] - o[0]) * (b1[1] - o[1]) - (a1[1] - o[1]) * (b1[0] - o[0])
+        lower, upper = [], []
+        for q in pts:
+            while len(lower) >= 2 and cross(lower[-2], lower[-1], q) <= 0:
+                lower.pop()
+            lower.append(q)
+        for q in reversed(pts):
+            while len(upper) >= 2 and cross(upper[-2], upper[-1], q) <= 0:
+                upper.pop()
+            upper.append(q)
+        hull = lower[:-1] + upper[:-1]
+        best = None
+        for i in range(len(hull)):
+            (x0, z0), (x1, z1) = hull[i], hull[(i + 1) % len(hull)]
+            ln = math.hypot(x1 - x0, z1 - z0)
+            if ln < 1e-6:
+                continue
+            ux, uz = (x1 - x0) / ln, (z1 - z0) / ln
+            us = [q[0] * ux + q[1] * uz for q in hull]
+            vs = [-q[0] * uz + q[1] * ux for q in hull]
+            area = (max(us) - min(us)) * (max(vs) - min(vs))
+            if best is None or area < best[0]:
+                mu, mv = (max(us) + min(us)) / 2, (max(vs) + min(vs)) / 2
+                best = (area, (mu * ux - mv * uz, mu * uz + mv * ux, ux, uz,
+                               (max(us) - min(us)) / 2, (max(vs) - min(vs)) / 2))
+        if best is None:
+            return obb(pts[:1] + pts[-1:])
+        o = best[1]
+        return o if o[4] >= o[5] else (o[0], o[1], -o[3], o[2], o[5], o[4])
 
-    def remember(cx, cz, radius):
-        centres.setdefault((int(cx // 2), int(cz // 2)), []).append((cx, cz, radius))
+    def corners(c):
+        _d, _k, cx, cz, ux, uz, hl, hw = c[:8]
+        return [(cx + sl * hl * ux - sw * hw * uz, cz + sl * hl * uz + sw * hw * ux)
+                for sl, sw in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
 
-    def dropped(cx, cz, half):
-        # repair: no box within the reach of a collision spot the build reported (drop_props: x, z, r)
-        return any(math.hypot(cx - dx, cz - dz) - half <= dr for dx, dz, dr in drop_props)
+    def route_gap(cx, cz, ux, uz, hl, hw):
+        # nearest driving-line distance over the rectangle outline (every <= 1 m along the long edges)
+        steps = max(1, int(math.ceil(2 * hl)))
+        pts = [(cx + (-hl + 2 * hl * i / steps) * ux - sw * hw * uz, cz + (-hl + 2 * hl * i / steps) * uz + sw * hw * ux)
+               for i in range(steps + 1) for sw in (-1, 1)]
+        return min(near_dense(x, z) for x, z in pts + [(cx, cz)])
 
-    candidates = []
-
-    def grounded_box(*args):
-        candidates.append((near(args[0], args[1]), args))
-
-    def emit_box(cx, cz, length, width, yaw, height, hint=None):
-        if dropped(cx, cz, max(length, width) / 2):
+    def add(kind, cx, cz, ux, uz, hl, hw, y0, y1):
+        if near(cx, cz) - hl > PROP_REACH_M or route_gap(cx, cz, ux, uz, hl, hw) <= PROP_ROUTE_CLEAR_M:
             return
-        prop_boxes.append((round(cx, 2), round(cz, 2), round(max(length, width) / 2, 2)))
-        g0 = ground(cx, cz, hint)
-        boxes.append(box_proxy((cx - length / 2, g0 - PROP_BURY_M, cz - width / 2),
-                               (cx + length / 2, g0 + height, cz + width / 2), yaw=yaw, center=(cx, cz)))
+        candidates.append((near(cx, cz), kind, cx, cz, ux, uz, hl, hw, y0, y1))
 
-    # trees: the crossed quads of one tree centre on its trunk; triangles join by centroid on a 1.5 m grid
-    feet = {}
-    for t in tree_tris:
-        cx, cz = sum(q[0] for q in t) / 3, sum(q[2] for q in t) / 3
-        f = feet.setdefault((round(cx / 1.5), round(cz / 1.5)), [0.0, 0.0, 0, min(q[1] for q in t)])
-        f[0] += cx; f[1] += cz; f[2] += 1; f[3] = min(f[3], min(q[1] for q in t))
-    trees = 0
-    for fx, fz, n, fy in feet.values():
-        x, z = fx / n, fz / n
-        if near(x, z) > TREE_REACH_M or not clear_of_route(x, z, TREE_TRUNK_M) or not apart(x, z, TREE_TRUNK_M):
-            continue
-        remember(x, z, TREE_TRUNK_M)
-        grounded_box(x, z, TREE_TRUNK_M, TREE_TRUNK_M, 0.0, TREE_TRUNK_H, fy)
-        trees += 1
-    # fences: every near-vertical panel face -> thin slab along its widest horizontal extent (panels de-duplicated)
-    seen, fences = set(), 0
-    for t in fence_tris:
+    # hulls: connected components of the untextured soup (shared corners)
+    parent = {}
+
+    def find(k):
+        while parent.setdefault(k, k) != k:
+            parent[k] = parent[parent[k]]
+            k = parent[k]
+        return k
+    for t in hull_tris:
+        ks = [tuple(round(c, 2) for c in q) for q in t]
+        for k in ks[1:]:
+            parent[find(ks[0])] = find(k)
+    components = {}
+    for t in hull_tris:
+        components.setdefault(find(tuple(round(c, 2) for c in t[0])), []).append(t)
+    hull_slabs = []
+    for comp in components.values():
+        P = [q for t in comp for q in t]
+        cx, cz, ux, uz, hl, hw = obb(P)
+        y0, y1 = min(q[1] for q in P), max(q[1] for q in P)
+        if 2 * hl <= HULL_BOX_MAX_M and hw >= 0.05:
+            add("hull", cx, cz, ux, uz, max(hl, 0.25), max(hw, 0.25), y0, min(y1, y0 + HULL_MAX_H))
+        else:
+            hull_slabs += [t for t in comp if abs(up_normal(*t)) <= 0.35]   # long walls / buildings: their faces
+    # fence panels (and big hulls): vertical faces -> xz segments, de-duplicated (both sides, rails at two heights)
+    segs = {}
+    for t in fence_tris + hull_slabs:
         if abs(up_normal(*t)) > 0.35:
             continue
-        a, b = max(((p, q) for i, p in enumerate(t) for q in t[i + 1:]), key=lambda pq: math.dist((pq[0][0], pq[0][2]), (pq[1][0], pq[1][2])))
-        length = math.dist((a[0], a[2]), (b[0], b[2]))
-        cx, cz = (a[0] + b[0]) / 2, (a[2] + b[2]) / 2
-        key2 = tuple(sorted(((round(a[0], 1), round(a[2], 1)), (round(b[0], 1), round(b[2], 1)))))
-        if length < 0.5 or key2 in seen or near(cx, cz) > PROP_REACH_M or not clear_of_route(cx, cz, length / 2):
+        a1, b1 = max(((p1, q1) for i, p1 in enumerate(t) for q1 in t[i + 1:]),
+                     key=lambda pq: math.dist((pq[0][0], pq[0][2]), (pq[1][0], pq[1][2])))
+        if math.dist((a1[0], a1[2]), (b1[0], b1[2])) < 0.3:
             continue
-        seen.add(key2)
-        length -= 2 * FENCE_GAP_M                 # panel ends stay apart (no overlapping solids at the posts)
-        top = max(q[1] for q in t)
-        yaw = math.degrees(math.atan2(-(b[2] - a[2]), b[0] - a[0]))
-        pieces = max(1, math.ceil(length / FENCE_PIECE_M))
-        full = length + 2 * FENCE_GAP_M
+        ka, kb = (round(a1[0] * 4), round(a1[2] * 4)), (round(b1[0] * 4), round(b1[2] * 4))
+        key = (ka, kb) if ka <= kb else (kb, ka)
+        lo, hi = min(q[1] for q in t), max(q[1] for q in t)
+        if key in segs:
+            s0 = segs[key]
+            segs[key] = (s0[0], s0[1], min(s0[2], lo), max(s0[3], hi))
+        else:
+            segs[key] = (a1, b1, lo, hi)
+    for a1, b1, lo, hi in segs.values():
+        ln = math.dist((a1[0], a1[2]), (b1[0], b1[2]))
+        ux, uz = (b1[0] - a1[0]) / ln, (b1[2] - a1[2]) / ln
+        run = ln - 2 * FENCE_THICK_M                  # ends stay clear of the neighbouring segment at the joints
+        if run < 0.2:
+            continue
+        pieces = max(1, math.ceil(run / FENCE_PIECE_M))
+        piece = run / pieces
         for i in range(pieces):
-            f = (i + 0.5) / pieces
-            px, pz = a[0] + (b[0] - a[0]) * f, a[2] + (b[2] - a[2]) * f
-            g0 = ground(px, pz, min(q[1] for q in t))
-            grounded_box(px, pz, full / pieces - 2 * FENCE_GAP_M, FENCE_THICK_M, yaw,
-                         max(0.4, min(FENCE_MAX_H, top - g0)), min(q[1] for q in t))
-        fences += 1
-    for _d, args in sorted(candidates, key=lambda c: c[0]):
+            f = FENCE_THICK_M + piece * (i + 0.5)
+            add("fence", a1[0] + ux * f, a1[2] + uz * f, ux, uz, piece / 2 - FENCE_JOINT_M / 2, FENCE_THICK_M / 2, lo, hi)
+
+    # nearest first, no overlaps (overlapping closed solids left unexplained BSP cells), within the pool budget
+    def separated(c1, c2):
+        for c in (c1, c2):
+            for ax, az in ((c[4], c[5]), (-c[5], c[4])):
+                p1 = [x * ax + z * az for x, z in corners(c1)]
+                p2 = [x * ax + z * az for x, z in corners(c2)]
+                if max(p1) <= min(p2) or max(p2) <= min(p1):
+                    return True
+        return False
+
+    cells, boxes, prop_boxes = {}, [], []
+    kinds = {"hull": 0, "fence": 0}
+    for c in sorted(candidates, key=lambda c: c[0]):
         if len(boxes) >= PROP_BOX_BUDGET:
             break
-        emit_box(*args)
+        _d, kind, cx, cz, ux, uz, hl, hw, y0, y1 = c
+        r = math.hypot(hl, hw)
+        if any(math.hypot(cx - dx, cz - dz) - r <= dr for dx, dz, dr in drop_props):
+            continue
+        k0 = (int(cx // 8), int(cz // 8))
+        others = [o for i in (-2, -1, 0, 1, 2) for j in (-2, -1, 0, 1, 2) for o in cells.get((k0[0] + i, k0[1] + j), ())]
+        if any(math.hypot(cx - o[2], cz - o[3]) < r + math.hypot(o[6], o[7]) and not separated(c, o) for o in others):
+            continue
+        g0 = ground(cx, cz, y0)
+        bottom = min(y0, g0) - PROP_BURY_M
+        top = y1 if kind == "hull" else min(y1, g0 + FENCE_MAX_H)
+        if top - max(bottom, g0) < 0.3:
+            top = max(bottom, g0) + 0.3 if kind == "hull" else g0 + max(0.4, min(FENCE_MAX_H, y1 - g0))
+        cells.setdefault(k0, []).append(c)
+        prop_boxes.append((round(cx, 2), round(cz, 2), round(r, 2)))
+        kinds[kind] += 1
+        boxes.append(box_proxy((cx - hl, bottom, cz - hw), (cx + hl, top, cz + hw),
+                               yaw=math.degrees(math.atan2(-uz, ux)), center=(cx, cz)))
     if boxes:
         props = Mesh(id=new_uid("mesh_"), name="RCX prop collision", role=ROLE_COLLISION, source="rcx:" + name,
                      group="Props", materials=["rcx_prop_collision"])
@@ -465,7 +576,8 @@ def build_project(stage_dir: Path, out_dir: Path, *, key: str | None = None, tit
                 props.triangles.extend((b0, b0 + 1, b0 + 2))
                 props.tri_material.append(0)
         project.meshes.append(props)
-    report["solid_props"] = {"candidates": len(candidates), "trees": trees, "fence_panels": fences, "boxes": len(boxes), "dropped_spots": len(drop_props)}
+    report["solid_props"] = {"hull_components": len(components), "fence_segments": len(segs),
+                             "candidates": len(candidates), "boxes": len(boxes), **kinds, "dropped_spots": len(drop_props)}
     report["prop_boxes"] = prop_boxes
 
     # ---- route
@@ -546,6 +658,7 @@ def main(argv=None):
     ap.add_argument("--corridor", type=float, default=45.0, help="collision corridor around the driving line, m")
     ap.add_argument("--min-up", type=float, default=-0.05, help="solid ground faces need normal Y >= this (overhangs drawn only)")
     ap.add_argument("--barriers", action="store_true", help="keep the untextured RCX barrier walls as collision")
+    ap.add_argument("--seed", type=Path, help="start from a previous build-<stage>.json (its repair discs and dropped props)")
     a = ap.parse_args(argv)
     from master_rallye.studio.model import save_project
     from master_rallye.studio.build import build_course
@@ -555,6 +668,10 @@ def main(argv=None):
     t0 = time.time()
     pdir = a.work / "projects" / a.stage.name
     demote, drop_props, history = [], [], []
+    if a.seed:
+        prev = json.loads(a.seed.read_text())
+        demote = [tuple(d) for d in prev.get("demoted", [])]
+        drop_props = [tuple(d) for d in prev.get("dropped_props", [])]
     for npass in range(a.passes + 1):
         project = build_project(a.stage, pdir, title=a.title, corridor_m=a.corridor, min_up=a.min_up,
                                 barriers=a.barriers, demote=demote, drop_props=drop_props)
@@ -572,7 +689,9 @@ def main(argv=None):
         result = build_course(project, project_dir=pdir, resource_root=a.resource_root, output=a.work / "builds",
                               progress=say)
         errors = [f.to_dict() for f in result.findings if f.severity == "error"]
-        near = corridor_distance(project.route.points)
+        # dense line (2 m): route points are 10 m apart, a spot between two of them looked farther from the road
+        # than it is and its repair disc removed road ground (Clashin Darroch x -86 z -1778)
+        near = corridor_distance(resample3(project.route.points, 2.0)[0], cell=10.0)
         spots = [(e["position"][0], e["position"][2]) for e in errors
                  if e.get("position") and e["category"] == "collision"]
         # props first: a spot within PROP_DROP_M of a prop box drops the props there (solid union of thin boxes can
@@ -594,13 +713,28 @@ def main(argv=None):
                 # the same spots again after their 2 m discs: wider discs that still end NEAR_KEEP_M from the route
                 fixable = [(x, z) for x, z in spots if near(x, z) - NEAR_KEEP_M > 2.0]
                 radius = min(4.0, min((near(x, z) - NEAR_KEEP_M for x, z in fixable), default=2.0))
+                if not fixable:
+                    # last: verge spots 4.5-6 m out (stream banks with stacked ground layers): 1 m discs that end
+                    # EDGE_KEEP_M from the route
+                    fixable = [(x, z) for x, z in spots if near(x, z) - EDGE_KEEP_M >= 1.0 and (x, z, 1.0) not in demote]
+                    radius = 1.0
+                    if not fixable:
+                        # on the road edge (fords: road, bed and bank stacked within 1 m): keep only the top ground
+                        # layer solid in a disc (negative radius = unstack, see build_project)
+                        fixable = [(x, z) for x, z in spots if (x, z, -UNSTACK_M) not in demote]
+                        radius = -UNSTACK_M
+                        if not fixable:
+                            # still there: a hole the repair discs opened (cliff edge, BSP leaks solid into it):
+                            # the ground face over the spot is solid again, whatever disc covers it (radius 0)
+                            fixable = [(x, z) for x, z in spots if (x, z, 0.0) not in demote]
+                            radius = 0.0
         history.append({"pass": npass, "errors": len(errors), "spots": len(spots), "demoted": len(fixable), "radius": radius})
         print(f"  pass {npass}: ok={result.ok} errors={len(errors)} spots fixed={len(fixable)}/{len(spots)} r={radius}", flush=True)
         if result.ok or not fixable:
             break
         demote += [(x, z, radius) for x, z in fixable]
     summary = {"ok": result.ok, "output": str(result.output), "stages": marks, "passes": history,
-               "demoted": demote, "errors": errors[:40], "model_cache": result.report.get("model_cache")}
+               "demoted": demote, "dropped_props": drop_props, "errors": errors[:40], "model_cache": result.report.get("model_cache")}
     (a.work / f"build-{a.stage.name}.json").write_text(json.dumps(summary, indent=1, default=str))
     print(json.dumps({k: summary[k] for k in ("ok", "output", "passes")}, indent=1, default=str))
     return 0 if result.ok else 1

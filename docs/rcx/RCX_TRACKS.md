@@ -83,3 +83,39 @@ bridge barriers, piers) makes neighbouring empty cells solid. Keep collision to 
   - Boxes near a reported collision spot are dropped in the repair loop.
   - At most 1800 boxes are kept, nearest the route first: 4170 boxes needed 35.7 MB of collision pools against the 32 MB cache.
 * Results: Fire Rock was OK after 3 passes, with 31.5 MB of pools. Clashin Darroch was OK after 8 passes, with 29.2 MB.
+
+## Set 5: RCX collision hulls, vertex lighting (pack RCX-06)
+
+* **Hulls.** RCX trees are three NO_COLLIDE planes around the trunk. They are solid in RCX because of untextured
+  render-flag 0x2404 geometry: a 0.9 m pyramid on each trunk, closed boxes on woodpiles, and building shells.
+  Set 4 dropped these hulls and clustered tree triangles on a 1.5 m grid, which put boxes beside the trees.
+  - Each hull connected component now becomes one closed box: the minimum-area oriented rectangle in xz, with the
+    height capped 4 m above its base.
+  - Components longer than 12 m give their vertical faces to the slab builder instead.
+* **Fences.** Vertical Fence-surface faces become xz segments, de-duplicated across both sides and both rails.
+  - Each segment is a run of abutting 0.15 m slabs, at most 3 m long, with 0.1 m joints.
+  - 0.02 m joints made near-coplanar BSP slivers.
+* **Placement rules.**
+  - The route gap is measured over the whole outline (3.5 m to the 2 m dense line); reach is 35 m.
+  - Boxes are placed nearest first, at most 2400. Rectangle SAT keeps them from overlapping.
+  - Repair drops props within 6 m of a reported spot.
+* **Lighting.** RCX vertex RGB is baked light: slopes and tree shadows, on shared corners.
+  - It is now the vertex colour of every drawn mesh, scaled so the 90th percentile of ground reaches 245.
+    The scale is 0.96 on Fire Rock and 1.34 on Clashin Darroch.
+  - Course Studio's own bake lit each unwelded RCX face by its face normal, which made the ground faceted.
+  - The set 4 blend layer used an unnormalised normal, which made dark and bright triangles.
+* **Repair loop.**
+  - Route distance now uses the dense line: a 2 m disc between two 10 m route points had removed road ground.
+  - New last stages:
+    - 1 m discs 3.5 m out;
+    - unstack discs, negative radius: only the top of stacked ground layers stays solid (fords);
+    - protect points, radius 0: the ground face over a spot is solid again (holes the discs opened at a cliff edge).
+  - `--seed build-<stage>.json` resumes from a previous run's discs and dropped props.
+* **Results.**
+  - Fire Rock: OK after 3 passes, 25.1 MB of pools, 1330 boxes (122 hulls and 1208 fence slabs).
+  - Clashin Darroch: OK after 14 passes plus 1 seeded pass, 25.8 MB, 2168 boxes (612 hulls and 1556 fence slabs).
+* **Snag capture** (Observatory 2026-11-17 09:46, x -843 z -1445).
+  - The wheels sit 0 to 13 mm above the land.
+  - The terrain is smooth.
+  - BSP probes at 0.02 to 1 m above the ground and 0.1 m below it are clean at all four reported spots.
+  - It is not geometry. A model-cache hitch is suspected (Fire Rock pools were 31.5 of 32 MB).
