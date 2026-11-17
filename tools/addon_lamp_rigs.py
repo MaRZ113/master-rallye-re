@@ -37,7 +37,7 @@ def main() -> int:
     ap.add_argument('families', nargs='+'); a = ap.parse_args()
     root = a.host / 'MRMods/Vehicles/active/resources/DataGx/Vehicles'
     env = dict(os.environ, PYTHONPATH=str(SOLVER_SRC))
-    r = subprocess.run([sys.executable, str(SOLVER), str(a.out), '--root', str(root), *a.families], env=env, capture_output=True, text=True)
+    r = subprocess.run([sys.executable, str(SOLVER), str(a.out), '--addon', '--root', str(root), *a.families], env=env, capture_output=True, text=True)
     print(r.stdout[-4000:])
     if r.returncode:
         print(r.stderr[-4000:]); return r.returncode
