@@ -1286,6 +1286,15 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
             const auto& b=entry.bounds;if(world){const auto& w=*world;for(unsigned k=0;k<3;++k)c.centre[k]=b[0]*w[k]+b[1]*w[4+k]+b[2]*w[8+k]+w[12+k];
                 const float scale=std::max({std::hypot(w[0],w[1],w[2]),std::hypot(w[4],w[5],w[6]),std::hypot(w[8],w[9],w[10])});c.radius=b[3]*scale;}
             else{c.centre={b[0],b[1],b[2]};c.radius=b[3];}}}
+    // RCX-OVL1: an imported blend layer (Course Studio *_ovl-tga, the RCX second texture pass) is the same surface
+    // 2 cm higher; far away 24-bit depth cannot separate them (z-fighting). A constant NDC offset (projection _33)
+    // pulls this one draw towards the camera by about OverlayDepthBias*z^2/near: 4.5 mm at 30 m, 0.45 m at 300 m.
+    if(material&&p.overlay_depth_bias>0&&material->name.size()>8&&material->name.compare(material->name.size()-8,8,"_ovl-tga")==0&&!saved.projection_changed){
+        D3DMATRIX m{};if(SUCCEEDED(n.GetTransform(D3DTS_PROJECTION,&m))&&m._34==1&&m._44==0&&std::isfinite(m._33)){
+            saved.projection=m;saved.projection_changed=true;m._33-=p.overlay_depth_bias;
+            hr=n.SetTransform(D3DTS_PROJECTION,&m);notify(d,37,pack(D3DTS_PROJECTION,&m),hr);if(FAILED(hr))return repair(d);
+            ++p.overlay_offset_draws;
+            if(p.first_reason("overlay_depth_offset"))session().write("{\"type\":\"atmosphere_overlay_depth_offset\",\"material\":"+quote(material->name)+",\"bias\":"+std::to_string(p.overlay_depth_bias)+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");}}
     ++resolver.accepted;++p.resolved_draws;++p.world_draws;++p.category_draws[entry.category];p.category_vertices[entry.category]+=entry.changed;
     if(p.first_reason(("resolver_material_"+texture_sha).c_str()))session().write("{\"type\":\"atmosphere_resolver_draw\",\"course\":"+quote(std::string(course))+
         ",\"material\":"+quote(material?material->name:std::string("automatic_ground"))+",\"reason\":"+quote(std::string(entry.reason))+",\"category\":"+std::to_string(entry.category)+

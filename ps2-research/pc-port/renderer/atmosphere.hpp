@@ -306,6 +306,8 @@ public:
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
+    float overlay_depth_bias=1e-6f;   // RCX-OVL1: NDC depth pulled towards the camera for imported blend layers (*_ovl-tga)
+    uint64_t overlay_offset_draws=0;
     GlintStyle glint_style;bool day_lamps=false,day_lamps_key_down=false;uint64_t day_lamp_draws=0,day_brake_layers=0,day_lens_draws=0,day_glints=0,day_log_frame=0,off_lens_draws=0,rig_brake_frames=0;   // RCX-GLINT1
    struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;size_t rig_point=SIZE_MAX;float surface_error=1e30f;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
@@ -396,7 +398,8 @@ public:
         DWORD body_factor=0;std::array<DWORD,7> body_stage{};uint32_t body_pending=0;DWORD body_unit=2;
         std::array<DWORD,5> sky_stage{};uint32_t sky_pending=0;DWORD sky_factor=0;
         bool texture_changed=false,stream_changed=false,indices_changed=false,fog_changed=false,zwrite_changed=false;DWORD zwrite=TRUE;
-        bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||zwrite_changed||body_pending||sky_pending;}
+        bool projection_changed=false;D3DMATRIX projection{};   // RCX-OVL1: overlay depth offset for one draw
+        bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||zwrite_changed||projection_changed||body_pending||sky_pending;}
         void release()noexcept{if(environment)environment->Release();environment=nullptr;if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
@@ -505,6 +508,8 @@ private:
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;
+        {wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",L"OverlayDepthBias",L"",b,64,ini_.c_str());wchar_t* end=nullptr;const float v=std::wcstof(b,&end);
+         overlay_depth_bias=end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,0.f,1e-4f):1e-6f;}   // RCX-OVL1
         {auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.sha!=lamp_rigs.sha){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}
          lamp_attachments=LampAttachments{};lamp_attachment_queue.clear();
          if(lamp_rigs.loaded)lamp_attachments.load(std::filesystem::path(lamp_rigs.path).parent_path()/L"lamp_attachments.lpa",lamp_rigs);
@@ -585,6 +590,7 @@ template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8&
     auto check=[&](bool& pending,HRESULT hr){if(SUCCEEDED(hr))pending=false;else if(SUCCEEDED(result))result=hr;};
     if(s.fog_changed){auto a=pack(D3DRS_FOGCOLOR,s.fog);auto hr=n.SetRenderState(D3DRS_FOGCOLOR,s.fog);notify(50,a,hr);check(s.fog_changed,hr);}
     if(s.zwrite_changed){auto a=pack(D3DRS_ZWRITEENABLE,s.zwrite);auto hr=n.SetRenderState(D3DRS_ZWRITEENABLE,s.zwrite);notify(50,a,hr);check(s.zwrite_changed,hr);}
+    if(s.projection_changed){auto a=pack(D3DTS_PROJECTION,&s.projection);auto hr=n.SetTransform(D3DTS_PROJECTION,&s.projection);notify(37,a,hr);check(s.projection_changed,hr);}
     if(s.indices_changed){auto a=pack(s.indices,s.base);auto hr=n.SetIndices(s.indices,s.base);notify(85,a,hr);check(s.indices_changed,hr);}
     if(s.stream_changed){auto a=pack(0,s.stream,s.stride);auto hr=n.SetStreamSource(0,s.stream,s.stride);notify(83,a,hr);check(s.stream_changed,hr);}
     if(s.environment_changed){auto a=pack(1,s.environment);auto hr=n.SetTexture(1,s.environment);notify(61,a,hr);check(s.environment_changed,hr);}
