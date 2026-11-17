@@ -241,7 +241,22 @@ public:
     unsigned scene_diagnostic_count=0;
     Lighting lighting;SceneAtlas atlas;std::filesystem::path atlas_path;
     Lighting regional_base;std::string regional_scene_input,regional_name;int regional_sky=-2;uint64_t regional_race=UINT64_MAX;
-    void apply_regional_values(){lighting=regional_base;regional_name=regional_catalog(ini_).apply(regional_scene_input,lighting,regional_sky);}
+    void apply_regional_values(){lighting=regional_base;regional_name=regional_catalog(ini_).apply(regional_scene_input,lighting,regional_sky);
+        if(course_tint)tint_from_course_sky();}
+    // RCX-SKY1b: a course sky also tints the scene: fog hue from its horizon, ambient hue from its mean colour. The
+    // preset keeps the brightness (time of day); CourseSkyFog / CourseSkyAmbient = how much hue is taken (0..1).
+    bool course_tint=false;std::array<float,3> course_horizon{1,1,1},course_mean{1,1,1};float course_sky_fog=.7f,course_sky_ambient=.5f;
+    static float luma(const std::array<float,3>& c)noexcept{return c[0]*.2126f+c[1]*.7152f+c[2]*.0722f;}
+    void tint_from_course_sky()noexcept{
+        const float hl=luma(course_horizon),ml=luma(course_mean);if(hl<1e-3f||ml<1e-3f)return;
+        if(lighting.fog_enabled&&course_sky_fog>0){std::array<float,3> f{float((lighting.fog>>16)&255)/255,float((lighting.fog>>8)&255)/255,float(lighting.fog&255)/255};
+            const float fl=luma(f);uint32_t out=lighting.fog&0xff000000u;
+            for(unsigned i=0;i<3;++i){const float v=f[i]*(1-course_sky_fog)+fl*course_horizon[i]/hl*course_sky_fog;out|=uint32_t(std::clamp(std::lround(v*255),0l,255l))<<((2-i)*8);}
+            lighting.fog=out;}
+        if(course_sky_ambient>0){const float al=luma(lighting.ambient);
+            for(unsigned i=0;i<3;++i)lighting.ambient[i]=lighting.ambient[i]*(1-course_sky_ambient)+al*course_mean[i]/ml*course_sky_ambient;}
+    }
+
     void regional_epoch(const Lifecycle& life){
         if(!life.installed||!life.same_thread||!life.race||!life.scene||pending.any()||(regional_race==life.race&&regional_scene_input==life.scene_name.data()))return;
         capture.cancel(world);regional_race=life.race;regional_scene_input=life.scene_name.data();apply_regional_values();resolver.clear();clear_environment();sun.clear();
@@ -527,7 +542,8 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;
         course_sky=GetPrivateProfileIntW(L"Atmosphere",L"CourseSky",1,ini_.c_str())==1;course_sky_night=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyNight",0,ini_.c_str())==1;
-        course_sky_anchor=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyAnchor",1,ini_.c_str())==1;   // RCX-SKY1sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
+        course_sky_anchor=GetPrivateProfileIntW(L"Atmosphere",L"CourseSkyAnchor",1,ini_.c_str())==1;   // RCX-SKY1
+        course_sky_fog=std::clamp(number(L"CourseSkyFog",.7f),0.f,1.f);course_sky_ambient=std::clamp(number(L"CourseSkyAmbient",.5f),0.f,1.f);sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;
         {wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",L"OverlayDepthBias",L"",b,64,ini_.c_str());wchar_t* end=nullptr;const float v=std::wcstof(b,&end);
@@ -545,7 +561,8 @@ public:
     ~Pilot(){pending.release();reset();}
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!(set_.empty()&&course_set_.empty())&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
-    void release_sky()noexcept{for(auto*& t:textures_){if(t)t->Release();t=nullptr;}custom_ready_=false;custom_failed_=false;loaded_set_.clear();}
+    void release_sky()noexcept{for(auto*& t:textures_){if(t)t->Release();t=nullptr;}custom_ready_=false;custom_failed_=false;loaded_set_.clear();
+        if(course_tint){course_tint=false;apply_regional_values();resolver.clear();}}
     void disable()noexcept{enabled_=false;}
     void reset()noexcept{release_headlights();release_lens_night();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;if(ring)ring->Release();ring=nullptr;ring_size=ring_cursor=0;ring_failed=false;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
@@ -567,7 +584,15 @@ public:
             if(valid)for(unsigned y=0;y<256;++y)std::memcpy(static_cast<BYTE*>(l.pBits)+y*l.Pitch,pixels_[i].bgra.data()+y*256,1024);
             const HRESULT hr=textures_[i]->UnlockRect(0);if(!valid||FAILED(hr)){custom_failed_=true;reset();return false;}
         }
-        custom_ready_=true;loaded_set_=base;return true;
+        custom_ready_=true;loaded_set_=base;
+        if(!course_set_.empty()&&(course_sky_fog>0||course_sky_ambient>0)){   // RCX-SKY1b: tint from the clouds panorama
+            std::array<double,3> h{},m{};for(unsigned y=0;y<96;++y)for(unsigned x=0;x<256;++x){const uint32_t c=pixels_[0].bgra[y*256+x];
+                const double r=(c>>16)&255,g=(c>>8)&255,b=c&255;m[0]+=r;m[1]+=g;m[2]+=b;if(y<8){h[0]+=r;h[1]+=g;h[2]+=b;}}
+            for(unsigned i=0;i<3;++i){course_horizon[i]=float(h[i]/(8*256*255.0));course_mean[i]=float(m[i]/(96*256*255.0));}
+            course_tint=true;apply_regional_values();resolver.clear();
+            session().write("{\"type\":\"atmosphere_course_sky_tint\",\"horizon\":["+std::to_string(course_horizon[0])+","+std::to_string(course_horizon[1])+","+std::to_string(course_horizon[2])+
+                "],\"mean\":["+std::to_string(course_mean[0])+","+std::to_string(course_mean[1])+","+std::to_string(course_mean[2])+"],\"fog\":"+std::to_string(lighting.fog)+"}");}
+        return true;
         }catch(...){custom_failed_=true;reset();return false;}
     }
     IDirect3DTexture8* texture(unsigned layer)noexcept{return textures_[layer];}
