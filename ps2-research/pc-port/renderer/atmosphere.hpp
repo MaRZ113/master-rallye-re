@@ -406,7 +406,7 @@ public:
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
     // PERF-ATMO1: DYNAMIC DEFAULT upload ring (UploadRing, default 1 since PERF-ATMO2); released with the device reset.
-    IDirect3DVertexBuffer8* ring=nullptr;UINT ring_size=0,ring_cursor=0;bool ring_failed=false,upload_ring=false;unsigned body_shade_refresh=3;uint64_t ring_uploads=0,ring_discards=0;
+    IDirect3DVertexBuffer8* ring=nullptr;UINT ring_size=0,ring_cursor=0;bool ring_failed=false,upload_ring=false;unsigned body_shade_refresh=3;bool headlight_clip=true;uint64_t ring_uploads=0,ring_discards=0;
     Pilot(bool supported,const std::wstring& renderer_ini) {
         ini_=(std::filesystem::path(renderer_ini).parent_path()/L"Atmosphere.ini").wstring();
         enabled_=supported&&GetPrivateProfileIntW(L"Atmosphere",L"Enabled",0,ini_.c_str())==1;
@@ -436,6 +436,7 @@ public:
         upload_ring=GetPrivateProfileIntW(L"Atmosphere",L"UploadRing",1,ini_.c_str())==1;   // PERF-ATMO2: default on (owner A/B: -0.45 ms, no artifacts)
         // RCX-PERF2: a body's cached shading is reused up to this many frames while its pose drifts (1 = exact pose only).
         body_shade_refresh=std::clamp<unsigned>(GetPrivateProfileIntW(L"Atmosphere",L"BodyShadeRefresh",3,ini_.c_str()),1u,8u);
+        headlight_clip=GetPrivateProfileIntW(L"Atmosphere",L"HeadlightClip",1,ini_.c_str())==1;   // RCX-PERF3: map passes clipped to the lit area
         vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
         gear_probe=GetPrivateProfileIntW(L"Atmosphere",L"GearProbe",0,ini_.c_str())==1;
         reverse_from_gear=GetPrivateProfileIntW(L"Atmosphere",L"ReverseFromGear",1,ini_.c_str())==1;

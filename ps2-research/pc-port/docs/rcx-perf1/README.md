@@ -72,3 +72,12 @@ Logs 2026-11-17 (Fire Rock, culling on): 1 car day ~52 fps, night ~41 fps (`atmo
   up to `Atmosphere.ini [Atmosphere] BodyShadeRefresh` frames (default 3, 1 = old exact-pose rule),
   with per-entry offsets so the cars refresh on different frames. `atmosphere_body_shade_cache` logs
   `stale_hits` and `refresh`.
+
+## RCX-PERF3: headlight map passes clipped to the lit area
+
+F6 A/B (8 cars, night): skipping headlights saved ~6 ms of frame while their CPU time was ~1.6-2 ms: the
+rest is GPU fill of the additive map pass over whole course records (hundreds of metres) although the
+pools reach ~48 m. Each map pass now enables user clip planes 0..3 for an XZ box of
+1.3 x max(head, rear range) + 8 m around every car whose lamp reaches the draw (course draws use an
+identity WORLD, so the planes are world space). Plane state is part of the headlight state blocks;
+`Atmosphere.ini [Atmosphere] HeadlightClip=0` turns it off; `atmosphere_headlight_stats.clipped_passes`.

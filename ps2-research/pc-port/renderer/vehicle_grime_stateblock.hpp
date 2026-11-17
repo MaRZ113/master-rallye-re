@@ -6,7 +6,7 @@
 namespace gfx2::grimeintegration {
 struct StateBlocks { IDirect3DDevice8* device = nullptr; DWORD apply = 0, save = 0; bool failed = false; uint64_t created = 0;
                      DWORD sheen_apply = 0, sheen_save = 0; bool sheen_failed = false;   // G3.1 wet sheen pass
-                     DWORD head_apply[2] = {}, head_save = 0; bool head_failed = false; uint64_t head_created = 0; };   // RCX-PERF2 headlight passes
+                     DWORD head_apply[2] = {}, head_save = 0; bool head_failed = false, head_clip = false; uint64_t head_created = 0, head_clipped = 0; };   // RCX-PERF2 headlight passes
 inline StateBlocks& state_blocks() noexcept { static StateBlocks b; return b; }
 inline void grime_blocks_before_reset() noexcept {
     auto& b = state_blocks();
