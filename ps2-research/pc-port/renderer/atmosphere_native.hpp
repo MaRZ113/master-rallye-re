@@ -2,6 +2,7 @@
 #include "vehicle_grime_stateblock.hpp"
 #include "course_objects_native_integration.hpp"
 #include "ground_detail_native.hpp"
+#include "course_cull_native.hpp"
 #include "atmosphere.hpp"
 #include "buffer_provenance.hpp"
 #include "brake_glow.hpp"
@@ -731,7 +732,8 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
 inline void coverage_commit(Device8& d,atmosphere::Pilot& p)noexcept;
 inline void coverage_flush(Device8& d,atmosphere::Pilot& p,bool force)noexcept;
 inline void coverage_start(Device8& d,atmosphere::Pilot& p,UINT count)noexcept;
-inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UINT count,uintptr_t pc)noexcept {
+inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept {
+    coursecull::observe(d,type,min,vertices,start,count,pc);   // RCX-PERF1: decide before every other handler
     auto* p=pilot(d);if(!p||!p->enabled()||!count||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||
         d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA)return;
@@ -1305,6 +1307,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     return S_OK;
 }
 inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,const DrawClassification* classification=nullptr) noexcept {
+    if(coursecull::state().is_pending(d.trace.frame_number(),min,vertices,start,count))return S_OK;   // RCX-PERF1: culled, the ground handler consumes it
     auto* p=pilot(d);if(!p||!p->enabled()||(!p->custom()&&!p->world_route()&&!p->light_probe&&!p->sun_disk&&!p->sun_halo&&!p->sun_flare&&p->sun_style.vignette<=0)||!count||type!=D3DPT_TRIANGLELIST||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;

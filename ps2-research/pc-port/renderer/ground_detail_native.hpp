@@ -6,6 +6,7 @@
 // device and the stage1 texture is the exact PC noise-tga; anything else stays the original draw.
 #include "dip_integration.hpp"
 #include "ground_detail.hpp"
+#include "course_cull.hpp"
 
 namespace gfx2::groundintegration {
 // MRallye.exe course mesh draw loop (0x57707e), observed for every base_noise draw in F10 traces.
@@ -70,6 +71,8 @@ inline dipintegration::Result forest(Device8& d,ps2port::GroundDetail& g,IDirect
 }
 
 inline dipintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
+    // RCX-PERF1: a course draw outside the view (course_cull_native.hpp) is consumed without drawing.
+    if(coursecull::state().take(d.trace.frame_number(),min_index,vertices,start,count))return {true,S_OK};
     if(ps2port::perf::bypassed(ps2port::perf::BypassGround))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Ground);
     auto* g=ground(d);if(!g)return {};
     if(const char* startup=g->take_startup_reason())log(d,*g,startup);

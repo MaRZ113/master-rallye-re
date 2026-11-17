@@ -1,4 +1,5 @@
 #include "ground_detail.hpp"
+#include "course_cull.hpp"
 #include <filesystem>
 #include <fstream>
 #include <array>
@@ -127,4 +128,26 @@ void fps1_tests(){
     {Native n;Original o(n);GroundDetailTransaction t;CHECK(t.capture(n)==S_OK);CHECK(t.set(n,kForestAlphaRefOp,32)==S_OK);CHECK(t.set(n,kForestZWriteOp,FALSE)==S_OK);CHECK(t.restore(n)==S_OK);o.check(n);}
     std::error_code ec;std::filesystem::remove_all(dir,ec);
 }
-int main(){asset_tests();identity_hash_tests();identify_tests();transaction_tests();fps1_tests();if(failures)std::cerr<<failures<<" failures\n";return failures?1:0;}
+// RCX-PERF1 course culling core: camera at the origin looking down +Z (identity VIEW), 90 degree perspective, z 1..1000.
+void course_cull_tests(){
+    using namespace gfx2::coursecull;
+    float view[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+    const float zn=1,zf=1000,q=zf/(zf-zn);float proj[4][4]={{1,0,0,0},{0,1,0,0},{0,0,q,1},{0,0,-zn*q,0}};
+    auto f=frustum(view,proj);CHECK(f.valid&&std::fabs(f.znear-1)<1e-3f&&std::fabs(f.zfar-1000)<0.5f);
+    auto make=[](float x0,float y0,float z0,float x1,float y1,float z1){Box b;b.lo[0]=x0;b.lo[1]=y0;b.lo[2]=z0;b.hi[0]=x1;b.hi[1]=y1;b.hi[2]=z1;b.valid=true;return b;};
+    CHECK(!outside(f,make(-5,-5,50,5,5,60),2,0));        // ahead
+    CHECK(outside(f,make(-5,-5,-60,5,5,-50),2,0));        // behind
+    CHECK(outside(f,make(200,-5,50,210,5,60),2,0));       // far right of a 90 degree view
+    CHECK(!outside(f,make(-500,-5,-500,500,5,500),2,0));  // box around the camera
+    CHECK(outside(f,make(-5,-5,1200,5,5,1300),2,0));      // beyond the far plane
+    CHECK(!outside(f,make(-5,-5,300,5,5,310),2,0)&&outside(f,make(-5,-5,300,5,5,310),2,250));   // MaxDistance
+    CHECK(!outside(f,make(52,-5,50,60,5,60),3,0));        // inside the margin of the right plane
+    // Moved camera: VIEW translates the world by -eye.
+    float moved[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{-100,0,-200,1}};auto g=frustum(moved,proj);
+    CHECK(std::fabs(g.eye[0]-100)<1e-3f&&std::fabs(g.eye[2]-200)<1e-3f&&!outside(g,make(95,-5,250,105,5,260),2,0)&&outside(g,make(-5,-5,50,5,5,60),2,0));
+    CHECK(!outside(Frustum{},make(0,0,0,1,1,1),2,0)&&!outside(f,Box{},2,0));   // unknown = drawn
+    std::vector<uint8_t> v(3*24,0);float a[3]={1,2,3},b[3]={-4,5,-6},c[3]={7,-8,9};std::memcpy(v.data(),a,12);std::memcpy(v.data()+24,b,12);std::memcpy(v.data()+48,c,12);
+    auto bx=box(v.data(),3,24);CHECK(bx.valid&&bx.lo[0]==-4&&bx.hi[0]==7&&bx.lo[1]==-8&&bx.hi[2]==9);
+    CHECK(course_listed("Rcx,Evo2","RaceTest/RcxScottish2")&&course_listed("Rcx, Evo2","Evo2Peak")&&!course_listed("Rcx,Evo2","RaceTest/France1")&&course_listed("*","France1")&&!course_listed("","RcxKenya1"));
+}
+int main(){course_cull_tests();asset_tests();identity_hash_tests();identify_tests();transaction_tests();fps1_tests();if(failures)std::cerr<<failures<<" failures\n";return failures?1:0;}
