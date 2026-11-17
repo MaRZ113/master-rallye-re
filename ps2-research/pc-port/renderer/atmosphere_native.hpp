@@ -697,8 +697,12 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         if(l.kind==2&&l.rig_point!=SIZE_MAX&&p.lamp_rigs.loaded)if(auto* o=p.rig_owner(l.instance,frame,false);o&&o->rig>=0&&size_t(o->rig)<p.lamp_rigs.rigs.size()){
             const auto& rig=p.lamp_rigs.rigs[size_t(o->rig)];
             if(l.rig_point<rig.points.size()){
-                const bool now=brakesignal::now(l.instance,frame)||o->braking==frame||
-                    (!rig.off.empty()&&o->off_seen!=UINT64_MAX&&o->lens_last==frame&&o->off_seen!=frame);
+                // RCX-GLINT3: an OFF lens gone longer than OffLensTimeoutMs is broken/hidden, not a held brake
+                bool off_missing=!rig.off.empty()&&o->off_seen!=UINT64_MAX&&o->lens_last==frame&&o->off_seen!=frame;
+                if(off_missing){const uint64_t t=GetTickCount64();if(!o->off_missing_tick)o->off_missing_tick=t;
+                    else if(p.off_lens_timeout_ms&&t-o->off_missing_tick>p.off_lens_timeout_ms){off_missing=false;++p.off_lens_stale;}}
+                else if(o->off_seen==frame)o->off_missing_tick=0;
+                const bool now=brakesignal::now(l.instance,frame)||o->braking==frame||off_missing;
                 if(now)++p.rig_brake_frames;else{if(!rig.points[l.rig_point].tail)continue;l.kind=1;}}}
         std::array<float,3> to{eye[0]-l.world[0],eye[1]-l.world[1],eye[2]-l.world[2]};const float dist=std::sqrt(atmosphere::dot3(to,to));if(dist<.5f||dist>400)continue;
         for(auto& x:to)x/=dist;const float facing=std::clamp(atmosphere::dot3(to,l.axis),0.f,1.f);
@@ -808,7 +812,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT
                 ",\"brake_always\":"+std::string(p->glint_style.brake_always?"true":"false")+",\"day_lamps\":"+std::string(p->day_lamps?"true":"false")+
                 ",\"car_draws\":"+std::to_string(p->day_lamp_draws)+",\"brake_layers\":"+std::to_string(p->day_brake_layers)+",\"lens_draws\":"+std::to_string(p->day_lens_draws)+
                 ",\"glints\":"+std::to_string(p->day_glints)+",\"points\":"+std::to_string(p->lamp_points.size())+
-                ",\"brake_signals\":"+std::to_string(brakesignal::notes)+",\"rig_brake_frames\":"+std::to_string(p->rig_brake_frames)+",\"off_lens\":"+std::to_string(p->off_lens_draws)+
+                ",\"brake_signals\":"+std::to_string(brakesignal::notes)+",\"rig_brake_frames\":"+std::to_string(p->rig_brake_frames)+",\"off_lens\":"+std::to_string(p->off_lens_draws)+",\"off_lens_dented\":"+std::to_string(p->off_lens_dented)+",\"off_lens_stale\":"+std::to_string(p->off_lens_stale)+
                 ",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+
                 ",\"rig_foreign_lens\":"+std::to_string(p->rig_foreign_lens)+"}");}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);

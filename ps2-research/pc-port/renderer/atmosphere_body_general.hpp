@@ -280,8 +280,13 @@ inline int blight_off_rig(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,DW
         if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return -1;
         std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
         for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return -1;for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
-        if(hi[2]>-.5f)return -1;   // rear lamps only
-        const int r=p.lamp_rigs.blight_off_rig(vertices,lo,hi);
+        const uintptr_t vbkey=reinterpret_cast<uintptr_t>(vb.p);const uint64_t offset=uint64_t(base)+min;int r=-1;
+        for(const auto& s:p.off_lens_seen)if(s.vb==vbkey&&s.serial==generation&&s.offset==offset&&s.vertices==vertices){r=s.rig;break;}
+        if(r>=0)++p.off_lens_dented;   // RCX-GLINT3: same OFF lens buffer, possibly deformed by damage
+        else{
+            if(hi[2]>-.5f)return -1;   // rear lamps only
+            r=p.lamp_rigs.blight_off_rig(vertices,lo,hi);
+            if(r>=0){auto& s=p.off_lens_seen[p.off_lens_next++%p.off_lens_seen.size()];s={vbkey,generation,offset,vertices,r};}}
         if(r>=0){const auto frame=d.trace.frame_number();++p.off_lens_draws;for(auto& o:p.rig_owners)if(o.instance&&o.rig==r)o.off_seen=frame;}
         return r;
     }catch(...){return -1;}
