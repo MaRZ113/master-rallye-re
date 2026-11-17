@@ -282,7 +282,9 @@ inline bool rig_blight_off_draw(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8
 }
 inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;if(ps2port::perf::atmo(ps2port::perf::AtmoBodies))return S_OK;auto* p=atmosphereintegration::pilot(d);
-    if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!count||
+    // RCX-GLINT1: by day (BrakeGlints=Always) only the brake ON layer is observed below; the draw itself stays native.
+    const bool day=p&&p->lighting.ambient_strength>=.5f;
+    if(!p||!p->enabled()||!p->lighting.active()||(day&&!(p->glint_style.brake_always&&p->glint_style.enabled))||!count||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
@@ -298,9 +300,10 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                  atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u;D3DMATRIX w{};
                  if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){
                      remember_brake_boxes(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices);
-                     if(p->glint_style.enabled&&!(p->lamp_rigs.loaded&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)->rig>=0))record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);
+                     if(p->glint_style.enabled&&(day||!(p->lamp_rigs.loaded&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)->rig>=0)))record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);
                      if(p->first_reason("brake_layer_observed"))session().write("{\"type\":\"atmosphere_brake_layer\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"vertices\":"+std::to_string(vertices)+"}");}
                  if(!p->pending.any())p->pending.release();return S_OK;}}
+            if(day)return S_OK;   // RCX-GLINT1: nothing else changes by day
             for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
                 if(name.find("lightson")!=std::string::npos||name.find("glow")!=std::string::npos)return S_OK;}
             // 6.5: lamp lens textures (front white / rear red share one atlas) are
@@ -317,6 +320,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                 rear_lamp=centroid[2]<-1.2f;
                 if(!lamp&&rear_lamp)if(const auto* boxes=p->brake_boxes_for(owner.owner.instance))if(brake_share(d,n,min,vertices,*boxes)>=.5f){lamp=true;brake_zone=true;}}
             material=binding.names[0];
+        }else if(day){return S_OK;
         }else if(rig_blight_off_draw(d,*p,n,fvf,min,vertices)){
             lamp=true;brake_zone=true;blight_off=true;rear_lamp=true;material="rig_blight_off";++p->rig_blight_off;
         }else{

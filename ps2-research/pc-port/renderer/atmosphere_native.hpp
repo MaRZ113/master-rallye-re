@@ -646,7 +646,9 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         const auto* owner_lamps=lp.frame!=UINT64_MAX&&lp.frame+2>=frame?lp.find(l.instance):nullptr;
         if((l.kind==3||l.kind==4)&&!(owner_lamps&&owner_lamps->reversing))continue;
         if(l.kind==4){bool white=false;for(const auto& o:p.lamp_points)if(o.instance==l.instance&&o.kind==3){white=true;break;}if(white)continue;}   // fallback only
-        const float rear_k=l.kind==2?g.rear*g.brake:l.kind>=3?g.reverse:g.rear*.55f;
+        // RCX-GLINT1: by day, or with LampGlints off, only brake glints (BrakeGlints=Always), at BrakeGlintDayIntensity.
+        const bool day=p.lighting.ambient_strength>=.5f;if((day||!g.lamps)&&l.kind!=2)continue;
+        const float rear_k=(l.kind==2?g.rear*g.brake:l.kind>=3?g.reverse:g.rear*.55f)*(day?g.day_brake:1.f);
         if(facing<=0)continue;
         float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f));
         k*=1/(1+(dist/90)*(dist/90));if(k<.02f)continue;
