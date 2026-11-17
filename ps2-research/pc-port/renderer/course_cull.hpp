@@ -111,13 +111,13 @@ struct State {
         if(loaded)return;loaded=true;
         wchar_t exe[MAX_PATH]{};if(!GetModuleFileNameW(nullptr,exe,MAX_PATH))return;std::wstring ini(exe);const auto slash=ini.find_last_of(L"\\/");
         ini=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+L"PS2Port.ini";
-        enabled=GetPrivateProfileIntW(L"CourseCull",L"Enabled",1,ini.c_str())==1;
-        stats=GetPrivateProfileIntW(L"CourseCull",L"Stats",1,ini.c_str())==1;
-        wchar_t text[256]{};GetPrivateProfileStringW(L"CourseCull",L"Courses",L"Rcx,Evo2",text,256,ini.c_str());
+        enabled=GetPrivateProfileIntW(L"CourseCull",L"CourseCull",1,ini.c_str())==1;
+        stats=GetPrivateProfileIntW(L"CourseCull",L"CourseCullStats",1,ini.c_str())==1;
+        wchar_t text[256]{};GetPrivateProfileStringW(L"CourseCull",L"CourseCullCourses",L"Rcx,Evo2",text,256,ini.c_str());
         courses.clear();for(const wchar_t* c=text;*c;++c)courses.push_back(*c<128?char(*c):'?');
-        margin=float(GetPrivateProfileIntW(L"CourseCull",L"Margin",2,ini.c_str()));if(margin<0)margin=0;
-        max_distance=float(GetPrivateProfileIntW(L"CourseCull",L"MaxDistance",0,ini.c_str()));if(max_distance<0)max_distance=0;
-        fog_cull=GetPrivateProfileIntW(L"CourseCull",L"FogCull",1,ini.c_str())==1;
+        margin=float(GetPrivateProfileIntW(L"CourseCull",L"CourseCullMargin",2,ini.c_str()));if(margin<0)margin=0;
+        max_distance=float(GetPrivateProfileIntW(L"CourseCull",L"CourseCullMaxDistance",0,ini.c_str()));if(max_distance<0)max_distance=0;
+        fog_cull=GetPrivateProfileIntW(L"CourseCull",L"CourseCullFog",1,ini.c_str())==1;
     }
     bool take(uint64_t frame,UINT min,UINT vertices,UINT start,UINT count) noexcept {
         if(!pending)return false;pending=false;

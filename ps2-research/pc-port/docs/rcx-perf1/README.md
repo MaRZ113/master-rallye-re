@@ -36,12 +36,13 @@ pass per lit draw at night, classifiers) and the GPU cost.
 
 ```
 [CourseCull]
-Enabled=1          ; Ctrl+Alt+K toggles at runtime (course_cull_toggle record)
-Courses=Rcx,Evo2   ; RaceTest ids or prefixes, * = all courses
-FogCull=1          ; skip boxes deeper than the linear fog end
-MaxDistance=0      ; optional radial limit, m
-Margin=2           ; m
-Stats=1            ; course_cull_stats every 600 frames
+CourseCull=1               ; Ctrl+Alt+K toggles at runtime (course_cull_toggle record)
+CourseCullCourses=Rcx,Evo2 ; RaceTest ids or prefixes, * = all courses
+CourseCullFog=1            ; skip boxes deeper than the linear fog end
+CourseCullMaxDistance=0    ; optional radial limit, m
+CourseCullMargin=2         ; m
+CourseCullStats=1          ; course_cull_stats every 600 frames
+; prefixed keys: the PS2Port.ini reader (ps2_config.hpp) flattens all sections into one key map
 ```
 
 ## Offline estimate (evotracks `tools/rcx_tracks/rcx_cull_eval.py`)
