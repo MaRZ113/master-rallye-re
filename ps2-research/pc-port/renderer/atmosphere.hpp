@@ -283,10 +283,12 @@ public:
     // car poses seen by the body path, the per-frame lamp projectors.
     HeadlightStyle headlight_style;
     struct HeadlightCandidate {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;std::array<float,3> centre{};float radius=0;uintptr_t instance=0;} headlight_candidate;
-    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX,reverse_until=0,lit_frame=UINT64_MAX;};std::array<CarPose,8> car_poses{};
+    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX,reverse_until=0,lit_frame=UINT64_MAX;};std::array<CarPose,24> car_poses{};   // RCX-GLINT2: 8-car races + extra instances starved 8 slots (pose gaps, vanishing glints)
     void observe_car(uintptr_t instance,const Mat4& m,uint64_t frame)noexcept{
         CarPose* slot=nullptr;for(auto& c:car_poses)if(c.instance==instance){slot=&c;break;}
-        if(!slot){for(auto& c:car_poses)if(!c.instance||c.frame==UINT64_MAX||frame>c.frame+120){slot=&c;break;}if(!slot)return;*slot={};slot->instance=instance;}
+        if(!slot){for(auto& c:car_poses)if(!c.instance||c.frame==UINT64_MAX||frame>c.frame+120){slot=&c;break;}
+            if(!slot)for(auto& c:car_poses)if(c.frame+2<frame&&(!slot||c.frame<slot->frame))slot=&c;   // RCX-GLINT2: longest unseen
+            if(!slot)return;*slot={};slot->instance=instance;}
         if(slot->frame==frame){slot->m=m;return;}
         slot->prev=slot->m;slot->prev_frame=slot->frame;slot->m=m;slot->frame=frame;
     }
@@ -315,7 +317,7 @@ public:
     struct AttachmentTexture{uintptr_t pointer=0;uint64_t generation=0;std::string sha;};
     std::array<AttachmentTexture,256> attachment_textures{};size_t attachment_texture_next=0;
     // 6.15 lamp rigs (tools/atmosphere_lamp_rig.py): instance -> rig, matched once from a lens draw; braking = glow card seen.
-    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX,off_seen=UINT64_MAX,lens_prev=UINT64_MAX,lens_last=UINT64_MAX;std::vector<LampDrawAnchors> surfaces;};std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
+    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX,off_seen=UINT64_MAX,lens_prev=UINT64_MAX,lens_last=UINT64_MAX;std::vector<LampDrawAnchors> surfaces;};std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0,rig_foreign_lens=0;
     // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
     struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
     void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}

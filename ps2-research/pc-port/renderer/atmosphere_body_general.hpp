@@ -188,6 +188,9 @@ inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instan
             const int r=p.lamp_rigs.match(texture,count,lo,hi);
             matched=r;
             if(r<0&&o->rig>=0&&p.lamp_rigs.owns_texture(o->rig,texture)){}   // 6.15.1: a deformed lens of the same car keeps its rig
+            // RCX-GLINT2: a car that already has its rig keeps it on a lens draw the rig does not list (e.g. the brake
+            // lens texture): resetting it dropped the rig mid-frame and the attachment points (and glints) with it.
+            else if(r<0&&o->rig>=0){++p.rig_foreign_lens;return true;}
             else if(r<0){o->rig=-1;o->surfaces.clear();++p.rig_misses;return false;}
             else if(r!=o->rig){if(o->rig>=0)++p.rig_rematches;o->surfaces.clear();o->rig=r;++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}}
         auto* surface=static_cast<atmosphere::LampDrawAnchors*>(nullptr);

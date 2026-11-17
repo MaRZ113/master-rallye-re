@@ -126,7 +126,7 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
                 static ps2port::HudDamageFeedReader reader;ps2port::HudLiveMemory memory;
                 gear_count=reader.car_gears(memory,uint32_t(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))),cert.race_generation,gears);
                 for(unsigned g=0;g<gears.size();++g)if(gears[g].ok&&gears[g].gear>=2)p.gear_trusted[g]=true;}}
-        std::array<std::pair<float,unsigned>,8> order{};unsigned found=0;
+        std::array<std::pair<float,unsigned>,std::tuple_size<decltype(p.car_poses)>::value> order{};unsigned found=0;
         // 6.10: a body draw the observer missed (gate/LOD/state change) no longer drops the lamps at once:
         // the pose is extrapolated for up to HeadlightPoseHold frames.
         for(unsigned i=0;i<p.car_poses.size();++i){const auto& c=p.car_poses[i];if(!c.instance||c.frame==UINT64_MAX||c.frame+p.headlight_pose_hold<frame||c.frame>frame)continue;
@@ -756,7 +756,8 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
                 ",\"car_draws\":"+std::to_string(p->day_lamp_draws)+",\"brake_layers\":"+std::to_string(p->day_brake_layers)+",\"lens_draws\":"+std::to_string(p->day_lens_draws)+
                 ",\"glints\":"+std::to_string(p->day_glints)+",\"points\":"+std::to_string(p->lamp_points.size())+
                 ",\"brake_signals\":"+std::to_string(brakesignal::notes)+",\"rig_brake_frames\":"+std::to_string(p->rig_brake_frames)+",\"off_lens\":"+std::to_string(p->off_lens_draws)+
-                ",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+"}");}
+                ",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+
+                ",\"rig_foreign_lens\":"+std::to_string(p->rig_foreign_lens)+"}");}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;
