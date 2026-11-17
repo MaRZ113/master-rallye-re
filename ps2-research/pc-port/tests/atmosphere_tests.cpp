@@ -331,7 +331,7 @@ int main(){
         LampAttachmentDraw draw;draw.texture=texture;draw.uv=signature;draw.world=identity;draw.positions=positions;
         p.lamp_attachment_queue.begin(10,22,3);CHECK(p.lamp_attachment_queue.push(draw)); // owner arrives AFTER switch draw
         p.observe_car(0x1000,identity,10);auto* owner=p.rig_owner(0x1000,10,true);owner->rig=0;
-        resolve_lamp_attachments(p,10,22,3);CHECK(p.lamp_points.size()==2&&p.lamp_points[0].kind==1&&p.lamp_points[1].kind==3);
+        resolve_lamp_attachments(p,10,22,3);CHECK(p.lamp_points.size()==2&&p.lamp_points[0].kind==2&&p.lamp_points[1].kind==3); // RCX-GLINT1d: brake/tail decided in lamp_glints
         CHECK(std::abs(p.lamp_points[0].world[0]-.3f)<1e-5f&&std::abs(p.lamp_points[0].world[1]-.5f)<1e-5f);
         resolve_lamp_attachments(p,10,22,3);CHECK(p.lamp_points.size()==2); // drain is once per frame
         p.lamp_attachment_queue.begin(11,22,3);draw.positions[0][0]+=.6f;CHECK(p.lamp_attachment_queue.push(draw));
