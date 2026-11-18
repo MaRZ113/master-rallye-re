@@ -175,20 +175,6 @@ u.hook_add(UC_HOOK_CODE, stub2, begin=0x45D930, end=0x45D930)
 u.hook_add(UC_HOOK_CODE, stub2, begin=0x3300000, end=0x3300040)
 rel = struct.unpack("<i", bytes(img.recon[0x47EA52 - 0x400000:0x47EA56 - 0x400000]))[0]
 repeat = 0x47EA56 + rel
-seen = []
-wr(0x44, 0); wr(0x48, 0)
-script = [(0, -5, 0x25), (100, -2, 0x25), (290, -2, 0x25), (310, -2, 0x25), (340, -2, 0x25), (365, -2, 0x25),
-          (400, -2, None), (500, -4, 0x27), (600, -2, None), (1200, -2, 0x27)]
-for tick, action, held in script:
-    state.update(tick=tick, action=action, held=held)
-    call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
-    seen.append(u.reg_read(UC_X86_REG_EAX) - (1 << 32) if u.reg_read(UC_X86_REG_EAX) >= 1 << 31 else u.reg_read(UC_X86_REG_EAX))
-want = [-5, -2, -2, -5, -2, -5, -2, -4, -2, -2]
-print("repeat", seen)
-if seen != want:
-    fail.append(f"repeat {seen} != {want}")
-# acceleration (race row only, UI/Active == 2, screen idle): the position jumps ahead by 1 after 4 repeats and by 3
-# after 10, capped one short of the list end; the native step (simulated here) then adds its own one.
 ui = {"active": 2, "busy": 0}
 
 
@@ -212,6 +198,21 @@ def stub3(uc, addr, size, ud):
 
 for addr in (0x525A80, 0x525800, 0x4AE700, 0x4ADC30, 0x47F440):
     u.hook_add(UC_HOOK_CODE, stub3, begin=addr, end=addr)
+wr(0x10, 9); wr(0x54 + 9 * 4, 40); wr(0x14 + 9 * 4, 5)   # a race row: the jumps now start at the 2nd step
+seen = []
+wr(0x44, 0); wr(0x48, 0)
+script = [(0, -5, 0x25), (100, -2, 0x25), (290, -2, 0x25), (310, -2, 0x25), (340, -2, 0x25), (365, -2, 0x25),
+          (400, -2, None), (500, -4, 0x27), (600, -2, None), (1200, -2, 0x27)]
+for tick, action, held in script:
+    state.update(tick=tick, action=action, held=held)
+    call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+    seen.append(u.reg_read(UC_X86_REG_EAX) - (1 << 32) if u.reg_read(UC_X86_REG_EAX) >= 1 << 31 else u.reg_read(UC_X86_REG_EAX))
+want = [-5, -2, -2, -5, -2, -5, -2, -4, -2, -2]
+print("repeat", seen)
+if seen != want:
+    fail.append(f"repeat {seen} != {want}")
+# acceleration (race row only, UI/Active == 2, screen idle): the position jumps ahead by 1 after 4 repeats and by 3
+# after 10, capped one short of the list end; the native step (simulated here) then adds its own one.
 rd = lambda off: struct.unpack("<i", bytes(u.mem_read(OBJ + off, 4)))[0]
 
 
