@@ -130,7 +130,7 @@ def append_whine(source,image,blob,payload_va,profiles,allocation_size):
     if len(combined)>allocation_size:raise ValueError('transmission whine exceeds existing sealed allocation')
     return bytes(out),combined,{'operations':operations,'entries':entries,'chained_to':{k:hex(v) for k,v in chain.items()},'prefix_size':len(blob),'prefix_sha256':hashlib.sha256(blob).hexdigest(),
         'profiles':[{'physical_car_id':p['physical_car_id'],'layers':[k for k in ('transmission_whine','turbo_spool','bov_release') if k in p]} for p in selected],
-        'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':8192}],
+        'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':4096},{'offset':entries['telemetry']-payload_va,'size':4096}],   # launcher: one page per range
         'native_helper':__import__('native_audio_coff').compile_object()[1],
         'map_capacity':MAP_CAPACITY,'voice_slot_stride':48,'scope':'bounded independently owned native SFX list voices; timeGetTime response; owner-scoped publication cleanup; no physics-state writes',
         'runtime_qualified':False}
