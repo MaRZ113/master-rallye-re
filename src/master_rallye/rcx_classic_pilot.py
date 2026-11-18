@@ -224,9 +224,9 @@ def _lift_layer(author, car, sound_root):
     with wave.open(str(dst), 'wb') as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(rate); w.writeframes(struct.pack('<%dh' % frames, *pcm))
     return {'source': {'source_path': 'audio/lift_release.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
-                       'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': True, 'crossfade_frames': 0},
+                       'trim_frames': [0, frames], 'gain_db': -1.5, 'remove_dc': False, 'crossfade_frames': 0},
             'response': dict(response),
-            'provenance': 'Rally Championship Xtreme (PC) Data/Sound/%s, whole file, DC removed, RMS 12500 soft-limited; lift-off one-shot '
+            'provenance': 'Rally Championship Xtreme (PC) Data/Sound/%s, whole file, DC removed, RMS 12500 soft-limited, -1.5 dB resampling headroom; lift-off one-shot '
                           '(AUDIO-RALLY1 phase A, a placeholder until a common rally sound style is chosen).' % rel}
 
 
