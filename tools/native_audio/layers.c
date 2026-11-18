@@ -76,7 +76,10 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  }
  tau=target>old?p->sp[6]:((v->voice[2]&&*(B*)(v->voice[2]+0xe))?p->bov[5]:p->sp[7]);v->spool+=dt/(tau+dt)*(target-v->spool);
  if(v->voice[0]){
-  pitch=clamp(rpm/p->wh[0],p->wh[1],p->wh[2]);gain=(p->wh[4]+(p->wh[3]-p->wh[4])*load)*clamp(rpm/p->wh[5],0,1)*volume;
+  /* gear-mesh whine follows the gearbox, not only the crank (owner 2026-11-18): each gear above first (native
+     index 2) raises the pitch by 18 %; neutral / reverse keep the crank pitch */
+  {int g=(int)*(U*)(engine+0x78);float gf=g>=2&&g<=12?1.f+.18f*(float)(g-2):1.f;
+  pitch=clamp(rpm/p->wh[0]*gf,p->wh[1],p->wh[2]);}gain=(p->wh[4]+(p->wh[3]-p->wh[4])*load)*clamp(rpm/p->wh[5],0,1)*volume;
   if(finished||(p->wh[6]!=0&&*(U*)(engine+0x78)==1))gain=0;
   *(float*)(v->voice[0]+0x14)=pitch;*(float*)(v->voice[0]+0x10)=gain;
  }
