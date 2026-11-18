@@ -304,6 +304,11 @@ def _gt_layer(author, layer, response):
                 _GT_PROVENANCE[layer], ', RMS %d soft-limited' % LAYER_RMS[layer] if layer in LAYER_RMS else '')}
 
 
+# AUDIO-RALLY1 (owner choice '3-clean-pitched', 2026-11-18): the native RPM->pitch curve plays a loop at x1.0 only near
+# the limiter (x0.38 at 4000 of 7500 rpm), so the 4000 rpm RCX loop is pitched up x1.8 (engine_brightness_audition.py)
+ENGINE_PITCH = 1.8
+
+
 def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     """audio-profile.json + pinned audio/engine.wav (SDK addon_sdk/audio_profile.py schema)."""
     import hashlib, json, struct, wave
@@ -313,7 +318,12 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     with wave.open(str(src)) as w:
         rate, frames, raw = w.getframerate(), w.getnframes(), w.readframes(w.getnframes())
         assert w.getnchannels() == 1 and w.getsampwidth() == 2
-    pcm = louder_engine(list(struct.unpack('<%dh' % frames, raw)))
+    x = list(struct.unpack('<%dh' % frames, raw))
+    if ENGINE_PITCH != 1.:                           # cyclic linear resampling: the loop stays seamless
+        n = round(len(x) / ENGINE_PITCH)
+        x = [x[int(i * len(x) / n)] * (1 - (i * len(x) / n) % 1) + x[(int(i * len(x) / n) + 1) % len(x)] * ((i * len(x) / n) % 1) for i in range(n)]
+        frames = n
+    pcm = louder_engine(x)
     author = Path(author); dst = author / 'audio' / 'engine.wav'; dst.parent.mkdir(exist_ok=True)
     with wave.open(str(dst), 'wb') as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(rate); w.writeframes(struct.pack('<%dh' % frames, *pcm))
@@ -321,7 +331,7 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
                'stock_audio_profile_id': base.VEHICLES[car]['audio'], 'namespace': 'rcx_' + car.lower(),
                'engine': {'source_path': 'audio/engine.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
                           'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': False, 'crossfade_frames': 0},
-               'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop, whole '
+               'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop pitched x1.8, whole '
                         'file, DC removed, RMS %d with soft-limited peaks (MR engine level); one waveform through the '
                         'native MR engine synthesizer with the donor tuning.' % (folder.name, src.name, ENGINE_RMS)}
     lift = _lift_layer(author, car, sound_root)
