@@ -238,7 +238,8 @@ GT_LAYER_ROOT = ('D:/Game/Master Rallye/master-rallye-re-v-cap/.research-output/
                  'resource-root/DataAudio/vehicles/sdk/lancer_evo4')
 TURBO_SPOOL = {'reference_rpm': 4000, 'pitch_min': .35, 'pitch_max': 1.8, 'gain': .8, 'fade_in_rpm': 1500, 'load_threshold': .15,
                'spool_up_seconds': .35, 'spool_down_seconds': .55, 'mute_neutral': False}
-GEAR_WHINE = {'reference_rpm': 4000, 'pitch_min': .2, 'pitch_max': 1.8, 'gain_drive': .6, 'gain_coast': .35, 'fade_in_rpm': 1000,
+# owner 2026-11-18: the whine sounded as if always at high revs (RCX engines rev high): pitch reference 9000 rpm, top 1.2
+GEAR_WHINE = {'reference_rpm': 9000, 'pitch_min': .25, 'pitch_max': 1.2, 'gain_drive': .6, 'gain_coast': .35, 'fade_in_rpm': 1000,
               'mute_neutral': True}
 TURBO_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO'}
 WHINE_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206'}
@@ -246,16 +247,29 @@ _GT_PROVENANCE = {'turbo_spool': 'GT4 sound_gt/sound/gt4race2.ins :: 11 (Lancer 
                   'transmission_whine': 'GT4 sound_gt/sound/gt4race2.ins :: 12 (Lancer Evo IV roster layer, 48 kHz canonical)'}
 
 
+# the GT4 spool loop is quiet (RMS ~2900): scaled to LAYER_RMS like the other layers (owner: no turbo heard)
+LAYER_RMS = {'turbo_spool': 9000}
+
+
 def _gt_layer(author, layer, response):
-    import hashlib, wave
+    import hashlib, struct, wave
     from pathlib import Path
     src = Path(GT_LAYER_ROOT) / (layer + '.wav')
-    dst = Path(author) / 'audio' / (layer + '.wav'); dst.parent.mkdir(exist_ok=True); dst.write_bytes(src.read_bytes())
+    dst = Path(author) / 'audio' / (layer + '.wav'); dst.parent.mkdir(exist_ok=True)
+    if layer in LAYER_RMS:
+        with wave.open(str(src)) as w:
+            rate, frames, raw = w.getframerate(), w.getnframes(), w.readframes(w.getnframes())
+        pcm = louder_engine(list(struct.unpack('<%dh' % frames, raw)), rms=LAYER_RMS[layer])
+        with wave.open(str(dst), 'wb') as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(rate); w.writeframes(struct.pack('<%dh' % frames, *pcm))
+    else:
+        dst.write_bytes(src.read_bytes())
     with wave.open(str(dst)) as w: frames = w.getnframes()
     return {'source': {'source_path': 'audio/%s.wav' % layer, 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
-                       'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': False, 'crossfade_frames': 0},
+                       'trim_frames': [0, frames], 'gain_db': -1.0 if layer in LAYER_RMS else 0, 'remove_dc': False, 'crossfade_frames': 0},
             'response': dict(response),
-            'provenance': 'Private source adaptation: %s; shared turbo style of the roster (AUDIO-RALLY1).' % _GT_PROVENANCE[layer]}
+            'provenance': 'Private source adaptation: %s%s; shared turbo style of the roster (AUDIO-RALLY1).' % (
+                _GT_PROVENANCE[layer], ', RMS %d soft-limited' % LAYER_RMS[layer] if layer in LAYER_RMS else '')}
 
 
 def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
