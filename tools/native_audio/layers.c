@@ -5,6 +5,11 @@ typedef unsigned char B;
 typedef struct { U owner,voice[3],tick; float spool,load,cooldown; U events; float active; U public_state,lim; } Slot;
 typedef struct { U flags; const char *name[3]; float wh[7],sp[9],bov[8]; } Profile;
 typedef struct { U key,actor; } Map;
+/* FX-EXHAUST1 telemetry page (read by the renderer, found by its magic): one record per slot, same index.
+   pos = the entity's world position (004F65B0 reads [[entity+50]+4C]); ratio = omega / rev limit; load = net crank
+   torque / peak; gear = native index (1 = neutral); lifts = lift-off one-shots fired (sound and flame events). */
+typedef struct { U owner,tick; float pos[3],ratio,load; U gear,lifts,limiter,seq,reserved; } Tele;
+typedef struct { U magic[2],version,count,seq,reserved[3]; Tele car[64]; } Telemetry;
 typedef struct { U cursor; Map map[64]; Slot slot[64]; } State;
 typedef void * (__cdecl *Alloc)(U);
 typedef void (__cdecl *Free)(void *);
@@ -16,8 +21,9 @@ static Slot *find(State *s,U owner,int create) {
  U i; Slot *empty=0; for(i=0;i<64;i++){ if(s->slot[i].owner==owner)return &s->slot[i]; if(!s->slot[i].owner&&!empty)empty=&s->slot[i]; }
  if(create&&empty){empty->owner=owner;return empty;} return 0;
 }
-extern "C" void __cdecl layers_destroy(U owner,State *s) {
+extern "C" void __cdecl layers_destroy(U owner,State *s,Telemetry *t) {
  Slot *v=find(s,owner,0);U i,others=0;if(!v)return;
+ if(t){t->car[v-s->slot].owner=0;t->car[v-s->slot].tick=0;}
  for(i=0;i<3;i++)if(v->voice[i]){((Dtor)0x4f64a0)((void*)v->voice[i]);((Free)0x5b4c00)((void*)v->voice[i]);v->voice[i]=0;}
  for(i=0;i<64;i++)if(s->slot[i].owner&&s->slot[i].owner!=owner)others++;
  for(i=0;i<64;i++)if(!others||(v->public_state&&s->map[i].key==v->public_state)){s->map[i].key=0;s->map[i].actor=0;}
@@ -26,7 +32,7 @@ extern "C" void __cdecl layers_destroy(U owner,State *s) {
  v->owner=v->tick=v->events=v->lim=0;v->spool=v->load=v->cooldown=v->active=0;
 }
 extern "C" void __cdecl layers_construct(U owner,Profile *p,State *s) {
- Slot *v; U i,h,others=0; void *a; layers_destroy(owner,s);
+ Slot *v; U i,h,others=0; void *a; layers_destroy(owner,s,0);
  for(i=0;i<64;i++)if(s->slot[i].owner)others++;
  if(!others){for(i=0;i<64;i++){s->map[i].key=0;s->map[i].actor=0;}s->cursor=0;}
  v=find(s,owner,1);if(!v)return;
@@ -39,7 +45,7 @@ extern "C" void __cdecl layers_construct(U owner,Profile *p,State *s) {
 }
 /* now is original imported timeGetTime milliseconds, modulo-safe subtraction.
    Long gaps are capped; paused/menu time must not produce a spool jump. */
-extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float volume,int finished,U public_state) {
+extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float volume,int finished,U public_state,Telemetry *t) {
  Slot *v=find(s,owner,0);U i,actor=0,engine,entity,elapsed;float rpm,load,dt,target,tau,pitch,gain,fall,old,limit,ratio;U lifted;
  if(!v)return;
  v->public_state=public_state;
@@ -79,4 +85,7 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
   *(float*)(v->voice[1]+0x10)=finished?0:p->sp[3]*v->spool*volume;
  }
  if(v->voice[2])*(float*)(v->voice[2]+0x10)=finished?0:v->active*volume;
+ if(t&&entity&&*(U*)(entity+0x50)){Tele *r=&t->car[v-s->slot];float *w=(float*)(*(U*)(entity+0x50)+0x4c);
+  r->owner=owner;r->tick=now;r->pos[0]=w[0];r->pos[1]=w[1];r->pos[2]=w[2];r->ratio=ratio;r->load=load;
+  r->gear=*(U*)(engine+0x78);r->lifts=v->events;r->limiter=limit>0?1u:0u;r->seq++;t->seq++;}
 }

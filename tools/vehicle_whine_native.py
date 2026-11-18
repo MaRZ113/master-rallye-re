@@ -60,7 +60,7 @@ def make_payload(base_va,profiles,chain=None):
     for i,p in enumerate(profiles):
         c.label('construct_profile'+str(i));state();c.push_literal('profile'+str(i));emit('56');c.call(functions['_layers_construct']);emit('83c40c');c.jump('construct_done')
     c.label('construct_done');emit('619d');resume('construct',SITES['construct'][1],0x409cb4)
-    c.label('destroy');emit('9c60');state();emit('51');c.call(functions['_layers_destroy']);emit('83c408 619d');resume('destroy',SITES['destroy'][1],0x409e2a)
+    c.label('destroy');emit('9c60');c.push_literal('telemetry');state();emit('51');c.call(functions['_layers_destroy']);emit('83c40c 619d');resume('destroy',SITES['destroy'][1],0x409e2a)
     c.label('publish');emit('9c60 8b4f08 8b7c247c');c.mov_eax_literal('map');emit('89c2 bb40000000')
     c.label('map_scan');emit('390a');c.je('map_write');emit('833a00');c.je('map_write');emit('83c208 4b');c.jne('map_scan')
     c.emit(b'\xa1'+b'\0'*4);c.imm32.append((len(c.code)-4,'cursor'));emit('83e03f c1e003 01c2 81ea00020000')
@@ -71,7 +71,7 @@ def make_payload(base_va,profiles,chain=None):
         c.label('update_profile'+str(i));c.mov_eax_literal('profile'+str(i));emit('89c5');c.jump('update_selected')
     c.label('update_selected')
     # Imported native winmm timeGetTime: no new import or injected OS resolver.
-    emit('ff15a0f36800 8b4f08 0fb6542433 8b5c2434 51 52 53 50');state();emit('55 56');c.call(functions['_layers_update']);emit('83c41c')
+    emit('ff15a0f36800 8b4f08 0fb6542433 8b5c2434');c.push_literal('telemetry');emit('51 52 53 50');state();emit('55 56');c.call(functions['_layers_update']);emit('83c420')
     c.label('update_done');emit('619d');resume('update',SITES['update'][1],0x40a02c)
     for i,p in enumerate(profiles):
         flags=0
@@ -91,7 +91,9 @@ def make_payload(base_va,profiles,chain=None):
         values += [bv.get(k,d) for k,d in zip(('release_rate_threshold','boost_threshold','gain','pitch_variation','retrigger_seconds','release_decay_seconds','min_rpm','mute_neutral'),(3,.45,.45,.08,.5,.2,2000,True))]
         c.emit(struct.pack('<24f',*values))
     c.emit(b'\0'*(-(base_va+len(c.code))%4096));c.label('cursor');c.emit(b'\0'*4);c.label('map');c.emit(b'\0'*512);c.label('voices');c.emit(b'\0'*(64*48));c.emit(b'\0'*(4096-516-64*48))
-    entries={name:base_va+c.labels[name] for name in ('construct','publish','update','destroy','map','cursor','voices')}
+    # FX-EXHAUST1 telemetry page right after the state page (magic 'MRSFXTL1', version 1, 64 records of 48 bytes)
+    c.label('telemetry');c.emit(b'MRSFXTL1'+struct.pack('<5I',1,64,0,0,0)+b'\0'*12);c.emit(b'\0'*(64*48));c.emit(b'\0'*(4096-32-64*48))
+    entries={name:base_va+c.labels[name] for name in ('construct','publish','update','destroy','map','cursor','voices','telemetry')}
     return c.build(),entries
 
 
@@ -128,7 +130,7 @@ def append_whine(source,image,blob,payload_va,profiles,allocation_size):
     if len(combined)>allocation_size:raise ValueError('transmission whine exceeds existing sealed allocation')
     return bytes(out),combined,{'operations':operations,'entries':entries,'chained_to':{k:hex(v) for k,v in chain.items()},'prefix_size':len(blob),'prefix_sha256':hashlib.sha256(blob).hexdigest(),
         'profiles':[{'physical_car_id':p['physical_car_id'],'layers':[k for k in ('transmission_whine','turbo_spool','bov_release') if k in p]} for p in selected],
-        'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':4096}],
+        'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':8192}],
         'native_helper':__import__('native_audio_coff').compile_object()[1],
         'map_capacity':MAP_CAPACITY,'voice_slot_stride':48,'scope':'bounded independently owned native SFX list voices; timeGetTime response; owner-scoped publication cleanup; no physics-state writes',
         'runtime_qualified':False}
