@@ -188,6 +188,39 @@ def louder_engine(samples, rms=ENGINE_RMS, knee=KNEE):
     return out
 
 
+# AUDIO-RALLY1 phase A: the lift-off one-shot of each car, played by the SDK 'bov_release' layer (native SFX, fired
+# on a fast load release while the estimated boost and the RPM are high). WRC = the family's anti-lag crackle,
+# Quattro = the turbo dump valve, kit cars and Mini = the generic exhaust pops. (file under Data/Sound, response)
+_ANTILAG = {'release_rate_threshold': 3.0, 'boost_threshold': .4, 'gain': .55, 'pitch_variation': .1,
+            'retrigger_seconds': .35, 'release_decay_seconds': .2, 'min_rpm': 3500, 'mute_neutral': True}
+_POPS = {'release_rate_threshold': 3.0, 'boost_threshold': .5, 'gain': .45, 'pitch_variation': .12,
+         'retrigger_seconds': .6, 'release_decay_seconds': .2, 'min_rpm': 4000, 'mute_neutral': True}
+LIFT_SOUNDS = {'IMPREZA00': ('cars/sub/antilag2_ext.wav', _ANTILAG), 'FOCUS': ('cars/ford/antilag3_ext.wav', _ANTILAG),
+               'EVO6': ('cars/evo/antilag1_ext.wav', _ANTILAG), 'P206': ('cars/peug/antilag4_ext.wav', _ANTILAG),
+               'QUATTRO': ('Car/turbo1.wav', dict(_ANTILAG, boost_threshold=.45, gain=.5, pitch_variation=.06,
+                                                   retrigger_seconds=.8, min_rpm=3000)),
+               'ASTRA': ('Car/pops.wav', _POPS), 'SAXO': ('Car/pops.wav', _POPS), 'PUMA': ('Car/pops.wav', _POPS),
+               'MINI': ('Car/pops.wav', dict(_POPS, gain=.35, boost_threshold=.55, retrigger_seconds=1.0))}
+
+
+def _lift_layer(author, car, sound_root):
+    import hashlib, wave
+    from pathlib import Path
+    if car not in LIFT_SOUNDS: return None
+    rel, response = LIFT_SOUNDS[car]
+    folder = Path(sound_root).parent
+    src = folder
+    for part in rel.split('/'):                     # case-insensitive walk (RCX mixes case)
+        src = next(p for p in src.iterdir() if p.name.lower() == part.lower())
+    dst = Path(author) / 'audio' / 'lift_release.wav'; dst.parent.mkdir(exist_ok=True); dst.write_bytes(src.read_bytes())
+    with wave.open(str(dst)) as w: frames = w.getnframes()
+    return {'source': {'source_path': 'audio/lift_release.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
+                       'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': True, 'crossfade_frames': 0},
+            'response': dict(response),
+            'provenance': 'Rally Championship Xtreme (PC) Data/Sound/%s, whole file, DC removed; lift-off one-shot '
+                          '(AUDIO-RALLY1 phase A, a placeholder until a common rally sound style is chosen).' % rel}
+
+
 def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     """audio-profile.json + pinned audio/engine.wav (SDK addon_sdk/audio_profile.py schema)."""
     import hashlib, json, struct, wave
@@ -208,6 +241,8 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
                'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop, whole '
                         'file, DC removed, RMS %d with soft-limited peaks (MR engine level); one waveform through the '
                         'native MR engine synthesizer with the donor tuning.' % (folder.name, src.name, ENGINE_RMS)}
+    lift = _lift_layer(author, car, sound_root)
+    if lift: profile['bov_release'] = lift
     (author / 'audio-profile.json').write_text(json.dumps(profile, indent=1), encoding='utf-8')
     return profile
 
