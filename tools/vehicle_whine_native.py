@@ -40,7 +40,12 @@ def response_values(response,rpm,net_crank_torque,peak_torque,gear_index,volume=
     return {'pitch':pitch,'gain':gain,'load_proxy':load}
 
 
-def make_payload(base_va,profiles):
+def make_payload(base_va,profiles,chain=None):
+    chain=chain or {}
+    def resume(name,original,back):
+        # chained: a parent supplemental-audio payload already owns this site; it replays the original bytes itself
+        if name in chain:c.jump(chain[name])
+        else:c.emit(original);c.jump(back)
     from native_audio_coff import compile_object,link_object
     from master_rallye.addon_sdk.audio_profile import turbo_resource,bov_resource
     raw,compiler=compile_object();native,functions=link_object(raw,base_va)
@@ -54,20 +59,20 @@ def make_payload(base_va,profiles):
     c.label('construct');emit('9c60');guard('construct_profile');c.jump('construct_done')
     for i,p in enumerate(profiles):
         c.label('construct_profile'+str(i));state();c.push_literal('profile'+str(i));emit('56');c.call(functions['_layers_construct']);emit('83c40c');c.jump('construct_done')
-    c.label('construct_done');emit('619d');c.emit(SITES['construct'][1]);c.jump(0x409cb4)
-    c.label('destroy');emit('9c60');state();emit('51');c.call(functions['_layers_destroy']);emit('83c408 619d');c.emit(SITES['destroy'][1]);c.jump(0x409e2a)
+    c.label('construct_done');emit('619d');resume('construct',SITES['construct'][1],0x409cb4)
+    c.label('destroy');emit('9c60');state();emit('51');c.call(functions['_layers_destroy']);emit('83c408 619d');resume('destroy',SITES['destroy'][1],0x409e2a)
     c.label('publish');emit('9c60 8b4f08 8b7c247c');c.mov_eax_literal('map');emit('89c2 bb40000000')
     c.label('map_scan');emit('390a');c.je('map_write');emit('833a00');c.je('map_write');emit('83c208 4b');c.jne('map_scan')
     c.emit(b'\xa1'+b'\0'*4);c.imm32.append((len(c.code)-4,'cursor'));emit('83e03f c1e003 01c2 81ea00020000')
     c.emit(bytes.fromhex('ff05')+b'\0'*4);c.imm32.append((len(c.code)-4,'cursor'))
-    c.label('map_write');emit('890a 897a04 619d');c.emit(SITES['publish'][1]);c.jump(0x492cd1)
+    c.label('map_write');emit('890a 897a04 619d');resume('publish',SITES['publish'][1],0x492cd1)
     c.label('update');emit('9c60');guard('update_profile');c.jump('update_done')
     for i,p in enumerate(profiles):
         c.label('update_profile'+str(i));c.mov_eax_literal('profile'+str(i));emit('89c5');c.jump('update_selected')
     c.label('update_selected')
     # Imported native winmm timeGetTime: no new import or injected OS resolver.
     emit('ff15a0f36800 8b4f08 0fb6542433 8b5c2434 51 52 53 50');state();emit('55 56');c.call(functions['_layers_update']);emit('83c41c')
-    c.label('update_done');emit('619d');c.emit(SITES['update'][1]);c.jump(0x40a02c)
+    c.label('update_done');emit('619d');resume('update',SITES['update'][1],0x40a02c)
     for i,p in enumerate(profiles):
         flags=0
         for k,getter in enumerate((whine_resource,turbo_resource,bov_resource)):
@@ -100,15 +105,26 @@ def append_whine(source,image,blob,payload_va,profiles,allocation_size):
     if hashlib.sha256(source).hexdigest()!=RETAIL_SHA256:raise ValueError('unqualified transmission-whine executable')
     selected.sort(key=lambda p:p['physical_car_id'])
     pe=registry.parse_pe(source);out=bytearray(image);combined=blob+b'\x90'*((-len(blob))%16)
-    body,entries=make_payload(payload_va+len(combined),selected);combined+=body;operations=[]
+    # A parent payload (an earlier roster's own supplemental audio) may already own the four sites with
+    # 'jmp entry; nop..' into the existing blob: chain to it (each instance keeps its own map/voices/state page).
+    chain={}
+    for name,(site,before) in SITES.items():
+        off=registry.va_to_file_offset(pe,site,len(before));now=image[off:off+len(before)]
+        if source[off:off+len(before)]!=before:raise ValueError('whine '+name+' ABI preimage changed')
+        if now!=before:
+            target=site+5+struct.unpack_from('<i',now,1)[0] if now[:1]==b'\xe9' else None
+            if target is None or now[5:]!=b'\x90'*(len(before)-5) or not payload_va<=target<payload_va+len(blob):
+                raise ValueError('whine '+name+' ABI preimage changed')
+            chain[name]=target
+    if chain and set(chain)!=set(SITES):raise ValueError('whine sites partly owned by a parent')
+    body,entries=make_payload(payload_va+len(combined),selected,chain);combined+=body;operations=[]
     for name,(site,before) in SITES.items():
         off=registry.va_to_file_offset(pe,site,len(before))
-        if source[off:off+len(before)]!=before or image[off:off+len(before)]!=before:raise ValueError('whine '+name+' ABI preimage changed')
         after=b'\xe9'+struct.pack('<i',entries[name]-site-5)+b'\x90'*(len(before)-5)
         out[off:off+len(before)]=after
-        operations.append({'name':'independent_transmission_whine_'+name,'file_offset':off,'original_bytes':before.hex(),'replacement_bytes':after.hex()})
+        operations.append({'name':'independent_transmission_whine_'+name+('_chained' if chain else ''),'file_offset':off,'original_bytes':image[off:off+len(before)].hex(),'replacement_bytes':after.hex()})
     if len(combined)>allocation_size:raise ValueError('transmission whine exceeds existing sealed allocation')
-    return bytes(out),combined,{'operations':operations,'entries':entries,'prefix_size':len(blob),'prefix_sha256':hashlib.sha256(blob).hexdigest(),
+    return bytes(out),combined,{'operations':operations,'entries':entries,'chained_to':{k:hex(v) for k,v in chain.items()},'prefix_size':len(blob),'prefix_sha256':hashlib.sha256(blob).hexdigest(),
         'profiles':[{'physical_car_id':p['physical_car_id'],'layers':[k for k in ('transmission_whine','turbo_spool','bov_release') if k in p]} for p in selected],
         'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':4096}],
         'native_helper':__import__('native_audio_coff').compile_object()[1],

@@ -167,7 +167,7 @@ def derive(config):
     image,blob,core=native.extend_capacity_profile(source,image,blob,p,[native._profile(r) for r in rows],parent_allocation_size=rp['native_extension']['allocation_size'])
     budget=(p['memory_budget_bytes']-p['layout']['allocation_size'])//65536*65536
     if budget<len(blob):raise ValueError('Insufficient native extension budget')
-    operations=core['operations'][:];bindings={'capacity':core}
+    operations=core['operations'][:];bindings={'capacity':core};layer_writable=[]
     if rows:
         from sdk_registry_routes import append_routes
         image,blob,routes=append_routes(source,image,blob,json.loads((base/'addon-plan.json').read_text()),rows,allocation_size=budget)
@@ -196,13 +196,20 @@ def derive(config):
         profiles=[dict(copy.deepcopy(a['report']['audio_profile']),physical_car_id=a['row']['physical_id']) for a in authors if a['report'].get('audio_profile')]
         image,blob,report=audio.append_audio(source,image,blob,0x10000000,profiles,budget)
         if report:operations+=report['operations'];bindings['engine_audio_added']=report
+        # FX-EXHAUST1 / AUDIO-RALLY1: the supplemental native SFX layers (whine / spool / lift-off one-shot) of the
+        # new IDs; the retail sites must still be unredirected (append_whine checks the preimage), so a parent that
+        # already owns them fails closed.
+        import vehicle_whine_native as layers
+        image,blob,report=layers.append_whine(source,image,blob,0x10000000,profiles,budget)
+        if report:operations+=report['operations'];bindings['audio_layers_added']=report;layer_writable=report['writable_ranges']
         for a in authors:
             prof=a['report'].get('audio_profile')
             if not prof:continue
-            path='DataAudio/'+audio.engine_resource(prof)+'.wav'
-            if path not in a['resources']:raise ValueError('Authored audio resource missing from build: '+path)
-            if path.casefold() in {k.casefold() for k in output}:raise ValueError('Owned resource collision: '+path)
-            output[path]=a['resources'][path];ownership[path]=a['row']['addon_id']
+            paths=['DataAudio/'+audio.engine_resource(prof)+'.wav']+['DataAudio/vehicles/sdk/'+prof['namespace']+'/'+k+'.wav' for k in ('transmission_whine','turbo_spool','bov_release') if k in prof]
+            for path in paths:
+                if path not in a['resources']:raise ValueError('Authored audio resource missing from build: '+path)
+                if path.casefold() in {k.casefold() for k in output}:raise ValueError('Owned resource collision: '+path)
+                output[path]=a['resources'][path];ownership[path]=a['row']['addon_id']
         unsupported={key for a in authors for key in ('shadow_bounds','mechanical_attachments') if a['report'].get(key)}
         if unsupported:raise ValueError('Authored native contributors require explicit parent composition: '+', '.join(sorted(unsupported)))
     if config.get('wheel_profiles'):
@@ -214,7 +221,7 @@ def derive(config):
     from sdk_registry_network import append_network_guard
     image,blob,network=append_network_guard(source,image,blob,allocation_size=budget)
     operations+=network['operations'];bindings['network']=network
-    writable=copy.deepcopy(rp['native_extension'].get('writable_ranges',[]))+network['writable_ranges']
+    writable=sorted(copy.deepcopy(rp['native_extension'].get('writable_ranges',[]))+network['writable_ranges']+layer_writable,key=lambda r:r['offset'])
     allocation=max(rp['native_extension']['allocation_size'],(len(blob)+65535)//65536*65536)
     if allocation>budget:raise ValueError('Combined extension exceeds configured memory budget')
     plan['registry_layout'].update(record_count=p['record_count'],race_test_base=p['layout']['racetest_base'],allocation_size=p['layout']['allocation_size'])
