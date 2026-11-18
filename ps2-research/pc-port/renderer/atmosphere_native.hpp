@@ -194,12 +194,8 @@ inline void proxy_headlights(Device8& d,atmosphere::Pilot& p,std::vector<ps2port
         for(auto& x:v){const std::array<float,3> w{x.x,x.y,x.z};std::array<float,3> add{};
             for(unsigned i=0;i<lp.count;++i){const auto& L=lp.cars[i];
                 if(L.head){const float k=atmosphere::projector_light(L.head_frame,style.head,true,w)*style.intensity;if(k>0)for(unsigned c=0;c<3;++c)add[c]+=style.rgb[c]*k;}
-                if(L.rear){auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;
-                    float intensity=L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f);
-                    if(p.exhaust_flames&&p.exhaust_flame_light>0)if(const float fl=gfx2::exhaust::flame_level(L.instance,GetTickCount64());fl>0){   // FX-EXHAUST1 flame light
-                        const std::array<float,3> fire{1.f,.55f,.18f};for(unsigned c=0;c<3;++c)rgb[c]=rgb[c]*(1-fl)+fire[c]*fl;intensity+=fl*p.exhaust_flame_light;}
-                    const float k=atmosphere::projector_light(L.rear_frame,style.rear,false,w)*intensity;
-                    if(k>0){for(unsigned c=0;c<3;++c)add[c]+=rgb[c]*k;}}}
+                if(L.rear){const float k=atmosphere::projector_light(L.rear_frame,style.rear,false,w)*(L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f));
+                    if(k>0){const auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;for(unsigned c=0;c<3;++c)add[c]+=rgb[c]*k;}}}
             if(add[0]+add[1]+add[2]<=.002f)continue;++p.proxy_headlight_vertices;
             uint32_t out=x.color&0xff000000u;for(unsigned c=0;c<3;++c){const unsigned shift=(2-c)*8;out|=uint32_t(std::clamp(long(((x.color>>shift)&255)+std::lround(add[c]*255)),0l,255l))<<shift;}x.color=out;}
     }catch(...){}
@@ -230,12 +226,8 @@ struct HeadlightLamp{bool on;const atmosphere::LightFrame* f;const atmosphere::P
 inline HeadlightLamp headlight_lamp(const atmosphere::Pilot& p,const atmosphere::Pilot::CarLamps& L,bool head)noexcept{
     const auto& style=p.headlight_style;
     if(head)return {L.head,&L.head_frame,&style.head,&L.head_cookie,&L.head_ramp,p.headlight_cookie_texture,style.rgb,style.intensity,false};
-    auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;
-    float intensity=L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f);
-    // FX-EXHAUST1: an exhaust flame lights the ground behind the car (orange, ExhaustFlameLight) while it burns
-    if(p.exhaust_flames&&p.exhaust_flame_light>0)if(const float f=gfx2::exhaust::flame_level(L.instance,GetTickCount64());f>0){
-        const std::array<float,3> fire{1.f,.55f,.18f};for(unsigned i=0;i<3;++i)rgb[i]=rgb[i]*(1-f)+fire[i]*f;intensity+=f*p.exhaust_flame_light;}
-    return {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p.tail_cookie_texture,rgb,intensity,L.brake};
+    return {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p.tail_cookie_texture,L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,
+            L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f),L.brake};
 }
 // PERF-ATMO2 top-down headlight map: kHeadlightMapSize^2 texels over +-kHeadlightMapHalf m around the
 // camera (snapped to texels). Every lamp is drawn as one world quad on its car's ground plane with the
@@ -297,6 +289,19 @@ inline HRESULT headlight_map_render(Device8& d,atmosphere::Pilot& p,IDirect3DDev
             if(SUCCEEDED(hr))hr=stages.set_transform(d,n,1,atmosphere::ramp_matrix(inverse,*lamp.f,*lamp.pr));
             const float quad[12]{x-r,y,z-r, x+r,y,z-r, x-r,y,z+r, x+r,y,z+r};
             if(SUCCEEDED(hr)){hr=tx.draw(n,quad,12);if(SUCCEEDED(hr))++lamps_drawn;}}}
+    // FX-EXHAUST1: exhaust flame light = an orange pool on the ground right under each burning pipe (the flames of the
+    // previous glint pass): three nested additive discs (1.8 / 1.1 / 0.55 m) without the projector textures.
+    {const auto& fl=gfx2::exhaust::flame_lights();
+     if(SUCCEEDED(hr)&&p.exhaust_flames&&p.exhaust_flame_light>0&&!fl.now.empty()&&fl.frame+3>=frame){
+        ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+        for(const auto& f:fl.now){if(FAILED(hr))break;if(std::abs(f.x-cx)+2>kHeadlightMapHalf||std::abs(f.z-cz)+2>kHeadlightMapHalf)continue;
+            for(const float r:{1.8f,1.1f,.55f}){const float e=f.k*p.exhaust_flame_light*.11f;
+                DWORD c=0xff000000u;const float rgb[3]{1.f,.55f,.18f};for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(rgb[i]*e*255),0l,255l))<<((2-i)*8);
+                rs(D3DRS_TEXTUREFACTOR,c);float fan[16*9];
+                for(unsigned s=0;s<16;++s){const float a0=6.2831853f*s/16,a1=6.2831853f*(s+1)/16;
+                    const float v[9]{f.x,f.y,f.z, f.x+r*std::cos(a0),f.y,f.z+r*std::sin(a0), f.x+r*std::cos(a1),f.y,f.z+r*std::sin(a1)};std::memcpy(fan+s*9,v,sizeof v);}
+                if(SUCCEEDED(hr))hr=tx.triangles(n,fan,12,16);}
+            ++lamps_drawn;}}}
     HRESULT restored=stages.restore(d,n);
     if(transforms)for(unsigned i=0;i<3;++i){const auto r2=n.SetTransform(kinds[i],&saved[i]);notify(d,37,pack(kinds[i],&saved[i]),r2);if(FAILED(r2)&&SUCCEEDED(restored))restored=r2;}
     {const auto r3=tx.restore(n);if(FAILED(r3)&&SUCCEEDED(restored))restored=r3;}
@@ -762,6 +767,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         for(auto& c:gfx2::exhaust::reader().cars)while(c.instance&&c.pending_lifts){--c.pending_lifts;gfx2::exhaust::start_burst(c.instance,now);}
         if(p.exhaust_flame_test&&now>=fl.test_next){fl.test_next=now+1500;
             for(const auto& c:p.car_poses)if(c.instance&&c.frame!=UINT64_MAX&&c.frame+2>=frame)gfx2::exhaust::start_burst(c.instance,now);}
+        auto& lights=gfx2::exhaust::flame_lights();lights.now.clear();lights.frame=frame;
         for(auto& b:fl.bursts){float size=1;const float k=gfx2::exhaust::pop_at(b,now,size);if(k<=0)continue;
             const auto* pose=static_cast<const decltype(p.car_poses)::value_type*>(nullptr);for(const auto& c:p.car_poses)if(c.instance==b.instance&&c.frame!=UINT64_MAX&&c.frame+2>=frame){pose=&c;break;}
             auto* o=p.rig_owner(b.instance,frame,false);if(!pose||!o||o->rig<0||size_t(o->rig)>=p.lamp_rigs.rigs.size())continue;
@@ -771,6 +777,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
                 std::array<float,3> at{},dir{};
                 for(unsigned i=0;i<3;++i){at[i]=e.pos[0]*m[i]+e.pos[1]*m[4+i]+e.pos[2]*m[8+i]+m[12+i];dir[i]=e.dir[0]*m[i]+e.dir[1]*m[4+i]+e.dir[2]*m[8+i];}
                 dir=atmosphere::normalized(dir);const float len=.42f*size*p.exhaust_flame_size;
+                lights.now.push_back({at[0],pose->m[13],at[2],k});
                 static constexpr float kT[5]={0.f,.22f,.45f,.7f,1.f},kR[5]={.11f,.12f,.105f,.08f,.05f};
                 static constexpr float kC[5][3]={{1.f,.95f,.75f},{1.f,.78f,.35f},{1.f,.55f,.16f},{.95f,.32f,.07f},{.7f,.16f,.04f}};
                 for(unsigned s=0;s<5;++s){

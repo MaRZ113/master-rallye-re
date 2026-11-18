@@ -117,6 +117,11 @@ inline float pop_at(Burst& b,uint64_t now,float& size) noexcept {
     if(now>=t)b.instance=0;
     return 0;
 }
+// flames burning this frame at their pipe outlets (filled by the glint pass, drawn into the next ground light map)
+struct FlameLight {float x,y,z,k;};
+struct FlameLights {std::vector<FlameLight> now;uint64_t frame=UINT64_MAX;};
+inline FlameLights& flame_lights() noexcept {static FlameLights f;return f;}
+
 // strongest pop of the car's bursts now (0 = no flame): drives the flame light of the rear lamp projector
 inline float flame_level(uintptr_t instance,uint64_t now) noexcept {
     float best=0;for(const auto& b:flames().bursts)if(b.instance==instance){Burst c=b;float size=1;best=std::max(best,pop_at(c,now,size));}return best;
