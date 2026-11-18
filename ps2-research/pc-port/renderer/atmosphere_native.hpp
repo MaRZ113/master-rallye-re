@@ -684,15 +684,21 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
     atmosphere::resolve_lamp_attachments(p,frame,p.sun.proof.race,p.sun.proof.reset);
     if(p.lamp_attachments.ready&&(p.first_reason("lamp_attachment_stats")||(d.trace.control.active&&frame%60==0))){const auto& q=p.lamp_attachment_queue;
         session().write("{\"type\":\"atmosphere_lamp_attachment_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(q.candidates)+",\"signature_misses\":"+std::to_string(q.signature_misses)+",\"owner_misses\":"+std::to_string(q.owner_misses)+",\"points_total\":"+std::to_string(q.points)+"}");}
-    const auto& g=p.glint_style;if(!g.enabled||p.lamp_points_frame!=frame||p.lamp_points.empty()||!width||!height)return S_FALSE;
+    const auto& g=p.glint_style;if(!g.enabled||!width||!height)return S_FALSE;
+    const bool lamps_now=p.lamp_points_frame==frame&&!p.lamp_points.empty();
+    bool flames_now=false;if(p.exhaust_flames)for(const auto& b:gfx2::exhaust::flames().bursts)if(b.instance){flames_now=true;break;}
+    if(p.exhaust_flames)for(const auto& c:gfx2::exhaust::reader().cars)if(c.instance&&c.pending_lifts){flames_now=true;break;}
+    if(p.exhaust_flame_test)flames_now=true;
+    if(!lamps_now&&!flames_now)return S_FALSE;
     const auto& view=p.sun.proof.view;const auto& proj=p.sun.proof.projection;if(proj._11<=0||proj._22<=0||proj._34!=1||proj._44!=0)return S_FALSE;
     atmosphere::Mat4 v{},inverse{};std::memcpy(v.data(),&view,64);if(!atmosphere::mat_inverse(v,inverse))return S_FALSE;
     const std::array<float,3> eye{inverse[12],inverse[13],inverse[14]};const float ppt=height*.5f*proj._22;
     auto pixels=[&](float degrees){return std::tan(degrees*.017453293f)*ppt;};
-    std::vector<atmosphere::SunVertex> glow,streak;glow.reserve(p.lamp_points.size()*12);streak.reserve(p.lamp_points.size()*12);
+    std::vector<atmosphere::SunVertex> glow,streak;glow.reserve(p.lamp_points.size()*12+96);streak.reserve(p.lamp_points.size()*12+96);
     auto colour=[](const std::array<float,3>& rgb,float k){DWORD c=0xff000000u;for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(rgb[i]*k*255),0l,255l))<<((2-i)*8);return c;};
     const auto& style=p.headlight_style;const auto& lp=p.lamp_projectors;
     for(auto l:p.lamp_points){
+        if(!lamps_now)break;
         // RCX-GLINT1d: rig brake points: brake state of THIS frame (no lag): the PS2 fleet ON layer drawn, the night
         // glow card seen, or (rigs with a blight OFF lens) the car drawn without its OFF lens. Else tail or hidden.
         if(l.kind==2&&l.rig_point!=SIZE_MAX&&p.lamp_rigs.loaded)if(auto* o=p.rig_owner(l.instance,frame,false);o&&o->rig>=0&&size_t(o->rig)<p.lamp_rigs.rigs.size()){
@@ -740,7 +746,41 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         quad(glow,r,r,colour(glint_rgb,std::min(1.f,k)));(void)rgb;++p.day_glints;
         if(g.streak>0&&g.streak_degrees>0){const float star=std::max(r*1.5f,pixels(g.streak_degrees)*(l.front?1.f:.75f)*std::min(1.f,k+.25f));quad(streak,star,star,colour(glint_rgb,std::min(1.f,k*g.streak)));}
     }
+    // FX-EXHAUST1 step 3: exhaust flames. A lift-off event of the engine telemetry (the same one that fires the pop /
+    // anti-lag sound) starts a burst of 1..3 pops; each pop is a short additive flame along the pipe axis: a white-yellow
+    // core at the outlet, orange to red towards the tip. ExhaustFlameTest=1 fires a burst on every car every 1.5 s.
+    if(p.exhaust_flames&&p.lamp_rigs.loaded){
+        gfx2::exhaust::load_pipes(p.lamp_rigs.path);auto& fl=gfx2::exhaust::flames();const uint64_t now=GetTickCount64();
+        for(auto& c:gfx2::exhaust::reader().cars)while(c.instance&&c.pending_lifts){--c.pending_lifts;gfx2::exhaust::start_burst(c.instance,now);}
+        if(p.exhaust_flame_test&&now>=fl.test_next){fl.test_next=now+1500;
+            for(const auto& c:p.car_poses)if(c.instance&&c.frame!=UINT64_MAX&&c.frame+2>=frame)gfx2::exhaust::start_burst(c.instance,now);}
+        for(auto& b:fl.bursts){float size=1;const float k=gfx2::exhaust::pop_at(b,now,size);if(k<=0)continue;
+            const auto* pose=static_cast<const decltype(p.car_poses)::value_type*>(nullptr);for(const auto& c:p.car_poses)if(c.instance==b.instance&&c.frame!=UINT64_MAX&&c.frame+2>=frame){pose=&c;break;}
+            auto* o=p.rig_owner(b.instance,frame,false);if(!pose||!o||o->rig<0||size_t(o->rig)>=p.lamp_rigs.rigs.size())continue;
+            const auto it=gfx2::exhaust::pipes().cars.find(p.lamp_rigs.rigs[size_t(o->rig)].car);if(it==gfx2::exhaust::pipes().cars.end())continue;
+            const auto& m=pose->m;
+            for(const auto& e:it->second){
+                std::array<float,3> at{},dir{};
+                for(unsigned i=0;i<3;++i){at[i]=e.pos[0]*m[i]+e.pos[1]*m[4+i]+e.pos[2]*m[8+i]+m[12+i];dir[i]=e.dir[0]*m[i]+e.dir[1]*m[4+i]+e.dir[2]*m[8+i];}
+                dir=atmosphere::normalized(dir);const float len=.42f*size*p.exhaust_flame_size;
+                static constexpr float kT[5]={0.f,.22f,.45f,.7f,1.f},kR[5]={.11f,.12f,.105f,.08f,.05f};
+                static constexpr float kC[5][3]={{1.f,.95f,.75f},{1.f,.78f,.35f},{1.f,.55f,.16f},{.95f,.32f,.07f},{.7f,.16f,.04f}};
+                for(unsigned s=0;s<5;++s){
+                    const std::array<float,3> w{at[0]+dir[0]*len*kT[s],at[1]+dir[1]*len*kT[s],at[2]+dir[2]*len*kT[s]};
+                    const float x=w[0]*view._11+w[1]*view._21+w[2]*view._31+view._41,y=w[0]*view._12+w[1]*view._22+w[2]*view._32+view._42,z=w[0]*view._13+w[1]*view._23+w[2]*view._33+view._43;
+                    if(z<=.3f||z>250)continue;const float nx=(x*proj._11+z*proj._31)/z,ny=(y*proj._22+z*proj._32)/z,nz=(z*proj._33+proj._43)/z;
+                    if(!std::isfinite(nx+ny+nz)||std::abs(nx)>1.1f||std::abs(ny)>1.1f||nz<=0||nz>=1)continue;
+                    const float px=(nx+1)*width*.5f,py=(1-ny)*height*.5f,rhw=1/z,rad=std::max(1.5f,kR[s]*size*p.exhaust_flame_size*ppt/z);
+                    const DWORD col=colour({kC[s][0],kC[s][1],kC[s][2]},std::min(1.f,k*(s==0?1.f:.9f)));
+                    const atmosphere::SunVertex a{px-rad-.5f,py-rad-.5f,nz,rhw,col,0,0,0,0},bq{px+rad-.5f,py-rad-.5f,nz,rhw,col,1,0,0,0},e2{px-rad-.5f,py+rad-.5f,nz,rhw,col,0,1,0,0},f2{px+rad-.5f,py+rad-.5f,nz,rhw,col,1,1,0,0};
+                    for(const auto& q:{a,bq,e2,e2,bq,f2})glow.push_back(q);
+                    if(s==0&&g.streak>0)for(const auto& q:{a,bq,e2,e2,bq,f2})streak.push_back(atmosphere::SunVertex{q.x+(q.u-.5f)*rad*1.6f,q.y+(q.v-.5f)*rad*1.6f,q.z,q.rhw,colour({1.f,.7f,.3f},k*.6f),q.u,q.v,0,0});
+                }
+                ++fl.drawn;}
+        }
+    }
     const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    if(glow.empty()&&streak.empty())return S_FALSE;
     const auto hr=p.sun.lamp_sprites(n,glow,streak,&d,writer,g.texture);
     if(p.first_reason("lamp_glints")||(d.trace.control.active&&frame%60==0)){unsigned rear=0,kinds[4]{};for(const auto& l:p.lamp_points){rear+=!l.front;++kinds[std::min<unsigned>(l.kind,3)];}
         session().write("{\"type\":\"atmosphere_lamp_glints\",\"frame\":"+std::to_string(frame)+",\"lamps\":"+std::to_string(p.lamp_points.size())+",\"rear_lamps\":"+std::to_string(rear)+",\"head\":"+std::to_string(kinds[0])+",\"tail\":"+std::to_string(kinds[1])+",\"brake\":"+std::to_string(kinds[2])+",\"reverse\":"+std::to_string(kinds[3])+",\"sprite_from_file\":"+std::string(p.sun.glint_from_file()?"true":"false")+",\"sprites\":"+std::to_string((glow.size()+streak.size())/6)+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");}
@@ -810,7 +850,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT
             session().write("{\"type\":\"atmosphere_exhaust_telemetry\",\"frame\":"+std::to_string(frame)+",\"page\":"+std::to_string(er.page)+
                 ",\"scans\":"+std::to_string(er.scans)+",\"fresh\":"+std::to_string(er.fresh)+",\"matched\":"+std::to_string(er.matched)+
                 ",\"unmatched\":"+std::to_string(er.unmatched)+",\"lift_events\":"+std::to_string(er.events)+",\"worst_match_m\":"+std::to_string(er.worst_match)+
-                ",\"sample_record\":"+f3(er.sample_pos)+",\"sample_pose\":"+f3(er.sample_pose)+",\"sample_distance\":"+std::to_string(er.sample_distance)+"}");}}
+                ",\"sample_record\":"+f3(er.sample_pos)+",\"sample_pose\":"+f3(er.sample_pose)+",\"sample_distance\":"+std::to_string(er.sample_distance)+",\"flames_started\":"+std::to_string(gfx2::exhaust::flames().started)+",\"flame_sprites\":"+std::to_string(gfx2::exhaust::flames().drawn)+",\"pipe_cars\":"+std::to_string(gfx2::exhaust::pipes().cars.size())+"}");}}
         // RCX-GLINT1: DayLampsKey toggles the rear lamps (tail + reverse glints) by day; counters every 600 frames.
         if(p->glint_style.day_key>0&&p->glint_style.day_key<256){DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(p->glint_style.day_key)&0x8000)&&!(GetAsyncKeyState(VK_CONTROL)&0x8000)&&!(GetAsyncKeyState(VK_MENU)&0x8000);

@@ -11,6 +11,11 @@
 #include <cmath>
 #include <cstdint>
 #include <cstring>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace gfx2::exhaust {
 struct Record {uint32_t owner,tick;float pos[3],ratio,load;uint32_t gear,lifts,limiter,seq,reserved;};
@@ -75,5 +80,41 @@ template<class Poses> inline void update(uint64_t frame,Poses&& poses) noexcept 
         c->frame=frame;c->ratio=rec.ratio;c->load=rec.load;c->gear=rec.gear;c->limiter=rec.limiter;
         if(same&&rec.lifts>before){c->pending_lifts+=rec.lifts-before;r.events+=rec.lifts-before;}
     }
+}
+
+// ---- step 3: pipe outlets (Atmosphere/vehicles/exhaust_points.txt, model frame +X left, +Y up, +Z front) ----------
+struct Pipe {float pos[3],dir[3],radius;};
+struct Pipes {std::wstring path;bool tried=false;std::unordered_map<std::string,std::vector<Pipe>> cars;};
+inline Pipes& pipes() noexcept {static Pipes p;return p;}
+inline void load_pipes(const std::wstring& lamp_rigs_path) noexcept {
+    auto& p=pipes();if(p.tried&&p.path==lamp_rigs_path)return;p=Pipes{};p.path=lamp_rigs_path;p.tried=true;
+    try{const auto slash=lamp_rigs_path.find_last_of(L"\\/");if(slash==std::wstring::npos)return;
+        std::ifstream in(lamp_rigs_path.substr(0,slash+1)+L"exhaust_points.txt");std::string line,car;
+        while(std::getline(in,line)){std::istringstream q(line);std::string tag;q>>tag;
+            if(tag=="car")q>>car;
+            else if(tag=="exhaust"&&!car.empty()){Pipe e{};q>>e.pos[0]>>e.pos[1]>>e.pos[2]>>e.dir[0]>>e.dir[1]>>e.dir[2]>>e.radius;
+                const float l=std::sqrt(e.dir[0]*e.dir[0]+e.dir[1]*e.dir[1]+e.dir[2]*e.dir[2]);
+                if(q&&std::isfinite(e.pos[0]+e.pos[1]+e.pos[2])&&l>1e-3f){for(auto& d:e.dir)d/=l;p.cars[car].push_back(e);}}}
+    }catch(...){}
+}
+
+// ---- step 3: flame bursts. One lift-off event = 1..3 pops 70..110 ms apart, each visible 55 ms ---------------------
+struct Burst {uintptr_t instance=0;uint64_t start=0;uint32_t pops=0,seed=0;};
+struct Flames {std::array<Burst,32> bursts{};uint64_t test_next=0,started=0,drawn=0;};
+inline Flames& flames() noexcept {static Flames f;return f;}
+inline uint32_t mix(uint32_t x) noexcept {x^=x>>16;x*=0x7feb352dU;x^=x>>15;x*=0x846ca68bU;x^=x>>16;return x;}
+inline void start_burst(uintptr_t instance,uint64_t now) noexcept {
+    auto& f=flames();Burst* slot=nullptr;for(auto& b:f.bursts)if(!b.instance){slot=&b;break;}
+    if(!slot)return;const uint32_t seed=mix(uint32_t(now)^uint32_t(instance)^uint32_t(++f.started*2654435761u));
+    *slot=Burst{instance,now,1+seed%3,seed};
+}
+// intensity (0 = dark) and a per-pop size jitter of the burst at time now; retires finished bursts
+inline float pop_at(Burst& b,uint64_t now,float& size) noexcept {
+    if(!b.instance||now<b.start)return 0;
+    uint64_t t=b.start;for(uint32_t k=0;k<b.pops;++k){const uint32_t r=mix(b.seed+k*977);
+        if(now>=t&&now<t+55){const float a=float(now-t)/55.f;size=.8f+.5f*float(r&255)/255.f;return a<.25f?a/.25f:1.f-(a-.25f)/.75f*.85f;}
+        t+=70+r%41;}
+    if(now>=t)b.instance=0;
+    return 0;
 }
 }  // namespace gfx2::exhaust
