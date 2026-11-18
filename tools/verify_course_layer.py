@@ -200,7 +200,7 @@ for addr in (0x525A80, 0x525800, 0x4AE700, 0x4ADC30, 0x47F440):
 rd = lambda off: struct.unpack("<i", bytes(u.mem_read(OBJ + off, 4)))[0]
 
 
-def hold(key, action, count, pos, n, active=2, busy=0):
+def hold(key, action, count, pos, n, active=2, busy=0, native_press=False):
     """n repeats of a held key; returns the position after each native step (or None when no press fired)."""
     MODE = 9
     wr(0x10, MODE); wr(0x54 + MODE * 4, count); wr(0x14 + MODE * 4, pos); wr(0x44, 0); wr(0x48, 0); wr(0x4C, 0)
@@ -208,7 +208,7 @@ def hold(key, action, count, pos, n, active=2, busy=0):
     state.update(tick=0, action=action, held=key); call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
     out = []
     for k in range(n):
-        state.update(tick=300 + 50 * k, action=-2, held=key)
+        state.update(tick=300 + 50 * k, action=action if native_press and k % 2 else -2, held=key)
         call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
         fired = u.reg_read(UC_X86_REG_EAX) & 0xFFFFFFFF == action & 0xFFFFFFFF
         p = rd(0x14 + MODE * 4)
@@ -218,16 +218,27 @@ def hold(key, action, count, pos, n, active=2, busy=0):
     return out
 
 
-right = hold(0x27, -4, 40, 0, 14)
-want_right = [1, 2, 3, 5, 7, 9, 11, 13, 15, 19, 23, 27, 31, 35]
-left = hold(0x25, -5, 40, 30, 14)
-want_left = [29, 28, 27, 25, 23, 21, 19, 17, 15, 11, 7, 3, 0, 0]
-end = hold(0x27, -4, 12, 0, 14)
-want_end = [1, 2, 3, 5, 7, 9, 11, 11, 11, 11, 11, 11, 11, 11]
+def model(right_, count, pos, n, native_every=0):
+    """Expected positions: repeat k (1-based count) jumps 2 after 4 and 5 after 10, capped, then the native step."""
+    out = []; c = 0
+    for k in range(n):
+        c += 1
+        if c >= 4:
+            j = 5 if c >= 10 else 2
+            pos = max(pos, min(pos + j, count - 2)) if right_ else min(pos, max(pos - j, 1))
+        pos = min(pos + 1, count - 1) if right_ else max(pos - 1, 0)
+        out.append(pos)
+    return out
+
+
+right = hold(0x27, -4, 40, 0, 14); want_right = model(True, 40, 0, 14)
+left = hold(0x25, -5, 40, 30, 14); want_left = model(False, 40, 30, 14)
+end = hold(0x27, -4, 12, 0, 14); want_end = model(True, 12, 0, 14)
 modes = hold(0x27, -4, 40, 0, 14, active=1)                         # mode row: no jump (native mode step not simulated)
 busy = hold(0x27, -4, 40, 5, 14, busy=1)                            # animating: no jump
 print("accel right", right, "left", left, "end", end)
-for got, want, name in ((right, want_right, "right"), (left, want_left, "left"), (end, want_end, "end"),
+native = hold(0x27, -4, 60, 0, 14, native_press=True); want_native = model(True, 60, 0, 14)
+for got, want, name in ((native, want_native, "native presses"), (right, want_right, "right"), (left, want_left, "left"), (end, want_end, "end"),
                         (modes, [0] * 14, "mode row"), (busy, [5] * 14, "busy")):
     if got != want:
         fail.append(f"acceleration {name} {got} != {want}")
