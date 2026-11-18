@@ -7,6 +7,7 @@
 #include "buffer_provenance.hpp"
 #include "brake_glow.hpp"
 #include "brake_signal.hpp"
+#include "exhaust_telemetry.hpp"
 #include "ps2_hud_damage_feed.hpp"
 #include "ps2_perf_timing.hpp"
 #include "vehicle_grime_native.hpp"
@@ -802,6 +803,14 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT
                 float s=0,e=0;std::memcpy(&s,&start,4);std::memcpy(&e,&end,4);
                 if(((vertex==D3DFOG_LINEAR&&table==D3DFOG_NONE)||(table!=D3DFOG_NONE&&table<=D3DFOG_LINEAR))&&std::isfinite(s)&&std::isfinite(e)&&s>=0&&s<e)
                     p->course_fog={frame,vertex,table,start,end,color};}}
+        // FX-EXHAUST1 step 2: engine telemetry of the supplemental-audio cars, matched to the car poses; log every 600 frames.
+        gfx2::exhaust::update(frame,[&](auto&& visit){for(const auto& c:p->car_poses)if(c.instance&&c.frame!=UINT64_MAX&&c.frame+2>=frame)visit(c.instance,c.m[12],c.m[13],c.m[14]);});
+        {auto& er=gfx2::exhaust::reader();if(frame>=er.log_frame+600&&(er.page||er.scans)){er.log_frame=frame;
+            auto f3=[](const float* v){return "["+std::to_string(v[0])+","+std::to_string(v[1])+","+std::to_string(v[2])+"]";};
+            session().write("{\"type\":\"atmosphere_exhaust_telemetry\",\"frame\":"+std::to_string(frame)+",\"page\":"+std::to_string(er.page)+
+                ",\"scans\":"+std::to_string(er.scans)+",\"fresh\":"+std::to_string(er.fresh)+",\"matched\":"+std::to_string(er.matched)+
+                ",\"unmatched\":"+std::to_string(er.unmatched)+",\"lift_events\":"+std::to_string(er.events)+",\"worst_match_m\":"+std::to_string(er.worst_match)+
+                ",\"sample_record\":"+f3(er.sample_pos)+",\"sample_pose\":"+f3(er.sample_pose)+",\"sample_distance\":"+std::to_string(er.sample_distance)+"}");}}
         // RCX-GLINT1: DayLampsKey toggles the rear lamps (tail + reverse glints) by day; counters every 600 frames.
         if(p->glint_style.day_key>0&&p->glint_style.day_key<256){DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(p->glint_style.day_key)&0x8000)&&!(GetAsyncKeyState(VK_CONTROL)&0x8000)&&!(GetAsyncKeyState(VK_MENU)&0x8000);
