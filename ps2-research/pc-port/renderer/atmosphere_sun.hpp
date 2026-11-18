@@ -205,6 +205,7 @@ class SunFx {
     UINT width_=0,height_=0,tw_=0,th_=0;D3DFORMAT format_=D3DFMT_UNKNOWN;D3DMULTISAMPLE_TYPE msaa_=D3DMULTISAMPLE_NONE;
     uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;std::wstring ray_file_;
     float sprite_dither_=-1,sprite_bloom_dither_=-1;bool sprite_soft_=false;
+    IDirect3DTexture8* smoke_=nullptr;   // FX-EXHAUST1 smoke puff (64x64, soft noisy disc in alpha)
     IDirect3DTexture8* star_=nullptr,*streak_=nullptr;std::wstring streak_file_;bool streak_from_file_=false;std::vector<Star> field_;unsigned field_count_=0,field_seed_=0;std::vector<SunVertex> star_vertices_;
 public:
     // Procedural sprite intensity, r=1 at the sprite edge. kind: 0 core,
@@ -265,7 +266,7 @@ public:
     SunProof proof;SunTransaction transaction;bool ray_from_file=false;
     uint64_t drawn_frame=UINT64_MAX,gate_frame=UINT64_MAX,unsafe_frame=UINT64_MAX,attempts=0,rendered=0,failures=0,cpu_ticks=0;const char* reason="not_requested";HRESULT last_hr=S_OK;
     ~SunFx(){resources();}
-    void resources()noexcept{sun_drop(star_);sun_drop(streak_);sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();sprite_dither_=sprite_bloom_dither_=-1;width_=height_=tw_=th_=0;}
+    void resources()noexcept{sun_drop(smoke_);sun_drop(star_);sun_drop(streak_);sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();sprite_dither_=sprite_bloom_dither_=-1;width_=height_=tw_=th_=0;}
     void clear()noexcept{proof.clear();}
     void reset()noexcept{proof.clear();transaction.release();resources();latched_race_=latched_reset_=UINT64_MAX;drawn_frame=UINT64_MAX;}
     uint64_t stars_drawn=0,stars_frames=0;
@@ -387,6 +388,36 @@ public:
         if(!glow.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,star_);if(SUCCEEDED(hr))hr=transaction.triangles(n,visible_glow.data(),sizeof(SunVertex),unsigned(visible_glow.size()/3));}
         if(!streak.empty()){if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,streak_);if(SUCCEEDED(hr))hr=transaction.triangles(n,visible_streak.data(),sizeof(SunVertex),unsigned(visible_streak.size()/3));}
         const auto restored=transaction.restore(n);if(FAILED(restored))return restored;if(FAILED(hr)){reason="lamp_depth_mask_failed_no_visibility_fallback";last_hr=hr;return S_FALSE;}reason="lamp_current_frame_center_depth_mask";glints_drawn+=(glow.size()+streak.size())/6;return S_OK;
+    }
+    // FX-EXHAUST1 step 4: exhaust smoke. Camera-facing puffs (pre-transformed, each at its own depth), alpha blended
+    // over the scene with a per-pixel depth test and no depth writes; drawn back to front by the caller.
+    HRESULT smoke_sprites(IDirect3DDevice8& n,const std::vector<SunVertex>& puffs,void* context,SunWriter writer){
+        if(!proof.world||puffs.empty()||puffs.size()%6)return S_FALSE;
+        if(!smoke_){if(FAILED(n.CreateTexture(64,64,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&smoke_))||!smoke_){sun_drop(smoke_);return S_FALSE;}
+            D3DLOCKED_RECT l{};if(FAILED(smoke_->LockRect(0,&l,nullptr,0))||!l.pBits){sun_drop(smoke_);return S_FALSE;}
+            for(unsigned y=0;y<64;++y)for(unsigned x=0;x<64;++x){const float dx=(x+.5f)/32-1,dy=(y+.5f)/32-1,r=std::sqrt(dx*dx+dy*dy);
+                uint32_t h=x*73856093u^y*19349663u;h^=h>>13;h*=0x5bd1e995u;h^=h>>15;const float noise=float(h&255)/255.f;
+                const float lobes=.75f+.25f*std::sin(6.f*std::atan2(dy,dx)+2.f*r);
+                float a=std::clamp(1-r*r*(1.1f-.15f*lobes),0.f,1.f);a=a*a*(.82f+.18f*noise);
+                const DWORD c=DWORD(std::lround(225+30*noise)),px=DWORD(std::lround(a*255))<<24|c<<16|c<<8|c;
+                std::memcpy(static_cast<uint8_t*>(l.pBits)+size_t(y)*l.Pitch+x*4,&px,4);}
+            if(FAILED(smoke_->UnlockRect(0))){sun_drop(smoke_);return S_FALSE;}}
+        auto hr=transaction.capture(n,context,writer);if(FAILED(hr))return S_FALSE;
+        auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,0,0,k,v);};
+        auto ts=[&](unsigned stage,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,1,stage,k,v);};
+        rs(D3DRS_ZENABLE,D3DZB_TRUE);rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);rs(D3DRS_ZBIAS,0);
+        rs(D3DRS_ALPHATESTENABLE,FALSE);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);rs(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+        rs(D3DRS_CULLMODE,D3DCULL_NONE);rs(D3DRS_FILLMODE,D3DFILL_SOLID);rs(D3DRS_CLIPPING,TRUE);rs(D3DRS_LIGHTING,FALSE);rs(D3DRS_FOGENABLE,FALSE);rs(D3DRS_STENCILENABLE,FALSE);
+        rs(D3DRS_CLIPPLANEENABLE,0);rs(D3DRS_COLORWRITEENABLE,7);rs(D3DRS_SPECULARENABLE,FALSE);rs(D3DRS_VERTEXBLEND,D3DVBF_DISABLE);rs(D3DRS_WRAP0,0);
+        if(SUCCEEDED(hr))hr=transaction.set(n,3,0,0,D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX2);if(SUCCEEDED(hr))hr=transaction.set(n,4,0,0,0);
+        if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,smoke_);if(SUCCEEDED(hr))hr=transaction.set(n,2,1,0,0,nullptr);
+        ts(0,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);
+        ts(0,D3DTSS_ALPHAOP,D3DTOP_MODULATE);ts(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);ts(0,D3DTSS_ALPHAARG2,D3DTA_DIFFUSE);ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
+        ts(0,D3DTSS_TEXCOORDINDEX,0);ts(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);ts(0,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(0,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+        ts(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MIPFILTER,D3DTEXF_NONE);
+        ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+        if(SUCCEEDED(hr))hr=transaction.triangles(n,puffs.data(),sizeof(SunVertex),unsigned(puffs.size()/3));
+        const auto restored=transaction.restore(n);if(FAILED(restored))return restored;return FAILED(hr)?S_FALSE:S_OK;
     }
     HRESULT vignette(IDirect3DDevice8& n,UINT width,UINT height,float strength,void* context,SunWriter writer){
         if(!proof.world||!width||!height||!std::isfinite(strength)||strength<=0)return S_FALSE;

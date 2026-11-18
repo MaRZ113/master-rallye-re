@@ -194,8 +194,12 @@ inline void proxy_headlights(Device8& d,atmosphere::Pilot& p,std::vector<ps2port
         for(auto& x:v){const std::array<float,3> w{x.x,x.y,x.z};std::array<float,3> add{};
             for(unsigned i=0;i<lp.count;++i){const auto& L=lp.cars[i];
                 if(L.head){const float k=atmosphere::projector_light(L.head_frame,style.head,true,w)*style.intensity;if(k>0)for(unsigned c=0;c<3;++c)add[c]+=style.rgb[c]*k;}
-                if(L.rear){const float k=atmosphere::projector_light(L.rear_frame,style.rear,false,w)*(L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f));
-                    if(k>0){const auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;for(unsigned c=0;c<3;++c)add[c]+=rgb[c]*k;}}}
+                if(L.rear){auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;
+                    float intensity=L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f);
+                    if(p.exhaust_flames&&p.exhaust_flame_light>0)if(const float fl=gfx2::exhaust::flame_level(L.instance,GetTickCount64());fl>0){   // FX-EXHAUST1 flame light
+                        const std::array<float,3> fire{1.f,.55f,.18f};for(unsigned c=0;c<3;++c)rgb[c]=rgb[c]*(1-fl)+fire[c]*fl;intensity+=fl*p.exhaust_flame_light;}
+                    const float k=atmosphere::projector_light(L.rear_frame,style.rear,false,w)*intensity;
+                    if(k>0){for(unsigned c=0;c<3;++c)add[c]+=rgb[c]*k;}}}
             if(add[0]+add[1]+add[2]<=.002f)continue;++p.proxy_headlight_vertices;
             uint32_t out=x.color&0xff000000u;for(unsigned c=0;c<3;++c){const unsigned shift=(2-c)*8;out|=uint32_t(std::clamp(long(((x.color>>shift)&255)+std::lround(add[c]*255)),0l,255l))<<shift;}x.color=out;}
     }catch(...){}
@@ -226,8 +230,12 @@ struct HeadlightLamp{bool on;const atmosphere::LightFrame* f;const atmosphere::P
 inline HeadlightLamp headlight_lamp(const atmosphere::Pilot& p,const atmosphere::Pilot::CarLamps& L,bool head)noexcept{
     const auto& style=p.headlight_style;
     if(head)return {L.head,&L.head_frame,&style.head,&L.head_cookie,&L.head_ramp,p.headlight_cookie_texture,style.rgb,style.intensity,false};
-    return {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p.tail_cookie_texture,L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,
-            L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f),L.brake};
+    auto rgb=L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb;
+    float intensity=L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f);
+    // FX-EXHAUST1: an exhaust flame lights the ground behind the car (orange, ExhaustFlameLight) while it burns
+    if(p.exhaust_flames&&p.exhaust_flame_light>0)if(const float f=gfx2::exhaust::flame_level(L.instance,GetTickCount64());f>0){
+        const std::array<float,3> fire{1.f,.55f,.18f};for(unsigned i=0;i<3;++i)rgb[i]=rgb[i]*(1-f)+fire[i]*f;intensity+=f*p.exhaust_flame_light;}
+    return {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p.tail_cookie_texture,rgb,intensity,L.brake};
 }
 // PERF-ATMO2 top-down headlight map: kHeadlightMapSize^2 texels over +-kHeadlightMapHalf m around the
 // camera (snapped to texels). Every lamp is drawn as one world quad on its car's ground plane with the
@@ -688,7 +696,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
     const bool lamps_now=p.lamp_points_frame==frame&&!p.lamp_points.empty();
     bool flames_now=false;if(p.exhaust_flames)for(const auto& b:gfx2::exhaust::flames().bursts)if(b.instance){flames_now=true;break;}
     if(p.exhaust_flames)for(const auto& c:gfx2::exhaust::reader().cars)if(c.instance&&c.pending_lifts){flames_now=true;break;}
-    if(p.exhaust_flame_test)flames_now=true;
+    if(p.exhaust_flame_test||p.exhaust_smoke)flames_now=true;   // smoke runs every frame
     if(!lamps_now&&!flames_now)return S_FALSE;
     const auto& view=p.sun.proof.view;const auto& proj=p.sun.proof.projection;if(proj._11<=0||proj._22<=0||proj._34!=1||proj._44!=0)return S_FALSE;
     atmosphere::Mat4 v{},inverse{};std::memcpy(v.data(),&view,64);if(!atmosphere::mat_inverse(v,inverse))return S_FALSE;
@@ -780,6 +788,45 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         }
     }
     const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    // FX-EXHAUST1 step 4: exhaust smoke. Every car with pipe outlets emits soft puffs: a thin trickle at idle, more with
+    // revs x load (telemetry, else idle), a burst with every pop; puffs leave along the pipe, inherit a quarter of the
+    // car's speed, slow down, rise, grow 0.1 -> ~0.9 m and fade over 1.4..2.6 s; lit by the scene ambient.
+    if(p.exhaust_smoke&&p.lamp_rigs.loaded){
+        gfx2::exhaust::load_pipes(p.lamp_rigs.path);auto& sm=gfx2::exhaust::smoke();const uint64_t now=GetTickCount64();
+        const float dt=sm.tick?std::clamp(float(now-sm.tick)*.001f,0.f,.1f):0.f;sm.tick=now;gfx2::exhaust::step(dt);
+        static uint64_t last_started=0;const bool popped=gfx2::exhaust::flames().started!=last_started;last_started=gfx2::exhaust::flames().started;
+        for(const auto& c:p.car_poses){if(!c.instance||c.frame==UINT64_MAX||c.frame+2<frame)continue;
+            auto* o=p.rig_owner(c.instance,frame,false);if(!o||o->rig<0||size_t(o->rig)>=p.lamp_rigs.rigs.size())continue;
+            const auto it=gfx2::exhaust::pipes().cars.find(p.lamp_rigs.rigs[size_t(o->rig)].car);if(it==gfx2::exhaust::pipes().cars.end())continue;
+            float ratio=.15f,load=.1f;if(const auto* e=gfx2::exhaust::car(c.instance);e&&e->frame!=UINT64_MAX&&e->frame+30>=frame){ratio=e->ratio;load=std::clamp(e->load,0.f,1.f);}
+            std::array<float,3> vel{};if(c.prev_frame+1==c.frame&&dt>0)for(unsigned i=0;i<3;++i)vel[i]=std::clamp((c.m[12+i]-c.prev[12+i])/std::max(dt,.008f),-80.f,80.f);
+            float& acc=gfx2::exhaust::accumulator(c.instance);acc+=dt*p.exhaust_smoke_rate*(5.f+22.f*load*ratio+8.f*ratio);
+            const float strength=.22f+.3f*load*ratio;int burst=0;
+            if(popped&&gfx2::exhaust::flame_level(c.instance,now)>0)burst=3;
+            for(const auto& e:it->second){std::array<float,3> at{},dir{};const auto& m=c.m;
+                for(unsigned i=0;i<3;++i){at[i]=e.pos[0]*m[i]+e.pos[1]*m[4+i]+e.pos[2]*m[8+i]+m[12+i];dir[i]=e.dir[0]*m[i]+e.dir[1]*m[4+i]+e.dir[2]*m[8+i];}
+                dir=atmosphere::normalized(dir);float local=acc;
+                while(local>=1){local-=1;gfx2::exhaust::spawn(at,dir,vel,strength,1.f);}
+                for(int b=0;b<burst;++b)gfx2::exhaust::spawn(at,dir,vel,.45f,1.15f);}
+            acc-=std::floor(acc);}
+        // build back-to-front, grey from the scene ambient (darker at night)
+        const float amb=std::clamp(p.lighting.ambient_strength,0.f,1.f);const float grey=.32f+.5f*amb;
+        std::vector<std::pair<float,size_t>> order;std::vector<std::array<float,5>> proj_puffs;
+        for(size_t i=0;i<sm.puffs.size();++i){const auto& q=sm.puffs[i];if(!q.live)continue;
+            const float x=q.pos[0]*view._11+q.pos[1]*view._21+q.pos[2]*view._31+view._41,y=q.pos[0]*view._12+q.pos[1]*view._22+q.pos[2]*view._32+view._42,z=q.pos[0]*view._13+q.pos[1]*view._23+q.pos[2]*view._33+view._43;
+            if(z<=.4f||z>200)continue;const float nx=(x*proj._11+z*proj._31)/z,ny=(y*proj._22+z*proj._32)/z,nz=(z*proj._33+proj._43)/z;
+            if(!std::isfinite(nx+ny+nz)||std::abs(nx)>1.3f||std::abs(ny)>1.3f||nz<=0||nz>=1)continue;
+            const float t=q.age/q.life,size=q.size0+(q.size1-q.size0)*std::pow(t,.6f);
+            const float a=q.alpha*p.exhaust_smoke_density*std::pow(1-t,1.5f)*std::min(1.f,q.age/.08f);if(a<.01f)continue;
+            proj_puffs.push_back({(nx+1)*width*.5f,(1-ny)*height*.5f,nz,size*ppt/z,a});order.push_back({z,proj_puffs.size()-1});}
+        std::sort(order.begin(),order.end(),[](const auto& a,const auto& b){return a.first>b.first;});
+        std::vector<atmosphere::SunVertex> puffs;puffs.reserve(order.size()*6);
+        for(const auto& [z,i]:order){const auto& q=proj_puffs[i];const float r=std::max(1.f,q[3]);const float rhw=1/z;
+            const DWORD col=DWORD(std::clamp(std::lround(q[4]*255),0l,255l))<<24|DWORD(std::lround(grey*255))<<16|DWORD(std::lround(grey*250))<<8|DWORD(std::lround(grey*245));
+            const atmosphere::SunVertex a{q[0]-r-.5f,q[1]-r-.5f,q[2],rhw,col,0,0,0,0},b{q[0]+r-.5f,q[1]-r-.5f,q[2],rhw,col,1,0,0,0},e{q[0]-r-.5f,q[1]+r-.5f,q[2],rhw,col,0,1,0,0},f{q[0]+r-.5f,q[1]+r-.5f,q[2],rhw,col,1,1,0,0};
+            for(const auto& v:{a,b,e,e,b,f})puffs.push_back(v);}
+        if(!puffs.empty()){const auto sr=p.sun.smoke_sprites(n,puffs,&d,writer);if(FAILED(sr))return sr;}
+    }
     if(glow.empty()&&streak.empty())return S_FALSE;
     const auto hr=p.sun.lamp_sprites(n,glow,streak,&d,writer,g.texture);
     if(p.first_reason("lamp_glints")||(d.trace.control.active&&frame%60==0)){unsigned rear=0,kinds[4]{};for(const auto& l:p.lamp_points){rear+=!l.front;++kinds[std::min<unsigned>(l.kind,3)];}

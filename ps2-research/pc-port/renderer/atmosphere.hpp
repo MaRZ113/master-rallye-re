@@ -351,7 +351,7 @@ public:
     // RCX-GLINT3: OFF lenses already recognised, by vertex-buffer identity: a dented lens keeps its buffer but its
     // bounds move past the 1.5 cm match, which read as "OFF lens missing" = braking (glints lit by themselves).
     struct OffLensSeen{uintptr_t vb=0;uint64_t serial=0,offset=0;unsigned vertices=0;int rig=-1;};std::array<OffLensSeen,64> off_lens_seen{};unsigned off_lens_next=0;uint64_t off_lens_dented=0,off_lens_stale=0;
-    unsigned off_lens_timeout_ms=8000;bool exhaust_flames=true,exhaust_flame_test=false;float exhaust_flame_size=1.f;/* FX-EXHAUST1 step 3 */std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0,rig_foreign_lens=0;
+    unsigned off_lens_timeout_ms=8000;bool exhaust_flames=true,exhaust_flame_test=false,exhaust_smoke=true;float exhaust_flame_size=1.f,exhaust_flame_light=2.5f,exhaust_smoke_rate=1.f,exhaust_smoke_density=1.f;/* FX-EXHAUST1 step 3 */std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0,rig_foreign_lens=0;
     // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
     struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
     void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}
@@ -551,7 +551,9 @@ private:
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);day_lamps=glint_style.day_lamps;off_lens_timeout_ms=unsigned(std::min(GetPrivateProfileIntW(L"Atmosphere",L"OffLensTimeoutMs",8000,ini_.c_str()),600000u));
         exhaust_flames=GetPrivateProfileIntW(L"Atmosphere",L"ExhaustFlames",1,ini_.c_str())==1;exhaust_flame_test=GetPrivateProfileIntW(L"Atmosphere",L"ExhaustFlameTest",0,ini_.c_str())==1;
-        exhaust_flame_size=std::clamp(number(L"ExhaustFlameSize",1.f),.2f,4.f);
+        exhaust_flame_size=std::clamp(number(L"ExhaustFlameSize",1.f),.2f,4.f);exhaust_flame_light=std::clamp(number(L"ExhaustFlameLight",2.5f),0.f,8.f);
+        exhaust_smoke=GetPrivateProfileIntW(L"Atmosphere",L"ExhaustSmoke",1,ini_.c_str())==1;exhaust_smoke_rate=std::clamp(number(L"ExhaustSmokeRate",1.f),0.f,4.f);
+        exhaust_smoke_density=std::clamp(number(L"ExhaustSmokeDensity",1.f),0.f,3.f);
         {wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",L"OverlayDepthBias",L"",b,64,ini_.c_str());wchar_t* end=nullptr;const float v=std::wcstof(b,&end);
          overlay_depth_bias=end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,0.f,1e-4f):1e-6f;}   // RCX-OVL1
         {auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.sha!=lamp_rigs.sha){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}

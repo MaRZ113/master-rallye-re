@@ -117,4 +117,29 @@ inline float pop_at(Burst& b,uint64_t now,float& size) noexcept {
     if(now>=t)b.instance=0;
     return 0;
 }
+// strongest pop of the car's bursts now (0 = no flame): drives the flame light of the rear lamp projector
+inline float flame_level(uintptr_t instance,uint64_t now) noexcept {
+    float best=0;for(const auto& b:flames().bursts)if(b.instance==instance){Burst c=b;float size=1;best=std::max(best,pop_at(c,now,size));}return best;
+}
+
+// ---- step 4: smoke puffs ------------------------------------------------------------------------------------------------
+struct Puff {float pos[3]{},vel[3]{},age=0,life=0,size0=0,size1=0,alpha=0;bool live=false;};
+struct Smoke {std::array<Puff,384> puffs{};unsigned next=0;uint64_t tick=0;std::array<std::pair<uintptr_t,float>,24> acc{};uint64_t spawned=0;};
+inline Smoke& smoke() noexcept {static Smoke s;return s;}
+inline float& accumulator(uintptr_t instance) noexcept {
+    auto& s=smoke();for(auto& a:s.acc)if(a.first==instance)return a.second;
+    for(auto& a:s.acc)if(!a.first){a={instance,0.f};return a.second;}
+    s.acc[0]={instance,0.f};return s.acc[0].second;
+}
+inline void spawn(const std::array<float,3>& at,const std::array<float,3>& dir,const std::array<float,3>& carvel,float strength,float size) noexcept {
+    auto& s=smoke();Puff& p=s.puffs[s.next++%s.puffs.size()];const uint32_t r=mix(uint32_t(++s.spawned*2654435761u));
+    auto jit=[&](unsigned k){return (float((mix(r+k)>>8)&1023)/1023.f-.5f);};
+    for(unsigned i=0;i<3;++i){p.pos[i]=at[i];p.vel[i]=dir[i]*(1.1f+.6f*jit(1))+carvel[i]*.25f+.35f*jit(2+i);}
+    p.age=0;p.life=1.4f+1.2f*(jit(7)+.5f);p.size0=.10f*size;p.size1=(.75f+.4f*(jit(8)+.5f))*size;p.alpha=std::clamp(strength,0.f,1.f);p.live=true;
+}
+inline void step(float dt) noexcept {
+    const float drag=std::exp(-2.2f*dt);
+    for(auto& p:smoke().puffs){if(!p.live)continue;p.age+=dt;if(p.age>=p.life){p.live=false;continue;}
+        for(unsigned i=0;i<3;++i){p.vel[i]*=drag;p.pos[i]+=p.vel[i]*dt;}p.vel[1]+=.45f*dt;}
+}
 }  // namespace gfx2::exhaust
