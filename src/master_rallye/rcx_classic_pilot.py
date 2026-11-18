@@ -231,6 +231,33 @@ def _lift_layer(author, car, sound_root):
                           '(AUDIO-RALLY1 phase A, a placeholder until a common rally sound style is chosen).' % rel}
 
 
+# AUDIO-RALLY1 turbo set (owner 2026-11-18: full turbo effects, one style across cars): the turbo cars take the
+# Lancer Evo IV layers (GT4 / GT3 sources, roster evo-class-01) - spool whistle loop for every turbo car, the straight-cut
+# gearbox whine for the WRC cars. Their lift-off one-shot stays the RCX anti-lag / dump valve above.
+GT_LAYER_ROOT = ('D:/Game/Master Rallye/master-rallye-re-v-cap/.research-output/vehicles/evo-class-01/base-runtime/'
+                 'resource-root/DataAudio/vehicles/sdk/lancer_evo4')
+TURBO_SPOOL = {'reference_rpm': 4000, 'pitch_min': .35, 'pitch_max': 1.8, 'gain': .8, 'fade_in_rpm': 1500, 'load_threshold': .15,
+               'spool_up_seconds': .35, 'spool_down_seconds': .55, 'mute_neutral': False}
+GEAR_WHINE = {'reference_rpm': 4000, 'pitch_min': .2, 'pitch_max': 1.8, 'gain_drive': .6, 'gain_coast': .35, 'fade_in_rpm': 1000,
+              'mute_neutral': True}
+TURBO_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO'}
+WHINE_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206'}
+_GT_PROVENANCE = {'turbo_spool': 'GT4 sound_gt/sound/gt4race2.ins :: 11 (Lancer Evo IV roster layer, 48 kHz canonical)',
+                  'transmission_whine': 'GT4 sound_gt/sound/gt4race2.ins :: 12 (Lancer Evo IV roster layer, 48 kHz canonical)'}
+
+
+def _gt_layer(author, layer, response):
+    import hashlib, wave
+    from pathlib import Path
+    src = Path(GT_LAYER_ROOT) / (layer + '.wav')
+    dst = Path(author) / 'audio' / (layer + '.wav'); dst.parent.mkdir(exist_ok=True); dst.write_bytes(src.read_bytes())
+    with wave.open(str(dst)) as w: frames = w.getnframes()
+    return {'source': {'source_path': 'audio/%s.wav' % layer, 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
+                       'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': False, 'crossfade_frames': 0},
+            'response': dict(response),
+            'provenance': 'Private source adaptation: %s; shared turbo style of the roster (AUDIO-RALLY1).' % _GT_PROVENANCE[layer]}
+
+
 def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     """audio-profile.json + pinned audio/engine.wav (SDK addon_sdk/audio_profile.py schema)."""
     import hashlib, json, struct, wave
@@ -253,6 +280,8 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
                         'native MR engine synthesizer with the donor tuning.' % (folder.name, src.name, ENGINE_RMS)}
     lift = _lift_layer(author, car, sound_root)
     if lift: profile['bov_release'] = lift
+    if car in TURBO_CARS: profile['turbo_spool'] = _gt_layer(author, 'turbo_spool', TURBO_SPOOL)
+    if car in WHINE_CARS: profile['transmission_whine'] = _gt_layer(author, 'transmission_whine', GEAR_WHINE)
     (author / 'audio-profile.json').write_text(json.dumps(profile, indent=1), encoding='utf-8')
     return profile
 
