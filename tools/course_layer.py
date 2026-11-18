@@ -45,6 +45,8 @@ REPEAT_DIR, REPEAT_NEXT = 0x44, 0x48         # RCX-CAT2: held-arrow repeat state
 REPEAT_HOOK = 0x47EA51                       # E8 -> 0x45D930: the screen's per-frame action poll (UI/Control)
 ACTION_POLL = 0x45D930
 IAT_GETASYNCKEYSTATE, IAT_GETTICKCOUNT = 0x68F308, 0x68F0D8
+IAT_CREATEFILEA, IAT_WRITEFILE, IAT_CLOSEHANDLE = 0x68F1E0, 0x68F16C, 0x68F0A8
+SCROLL_DIAG = "scroll-diag.bin"   # RCX-CAT2 diagnostic: 36-byte records of the held-arrow repeat (tools/read_scroll_diag.py)
 REPEAT_DELAY_MS, REPEAT_RATE_MS = 300, 50
 REPEAT_JUMPS = (4, 2, 10, 5)                 # after 4 repeats jump 2 more, after 10 jump 5 more (race row)
 REPEAT_COUNT = 0x4C                          # repeats since the press: acceleration (x2 after 4, x4 after 10)
@@ -386,6 +388,9 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     for vk, code in ((0x27, -4), (0x25, -5)):
         c.emit(b"\x6a" + bytes([vk]) + b"\xff\x15" + u(IAT_GETASYNCKEYSTATE) + b"\x66\xa9\x00\x80")
         c.emit(b"\xba" + u(code)); c.jne("repeat_held")                                # mov edx,code (flags kept)
+    if SCROLL_DIAG:                                                                    # tag 6: a hold ended
+        c.emit(b"\x83\x7e" + bytes([REPEAT_DIR]) + b"\x00"); c.je("diag_no_hold"); c.emit(b"\x6a\x00\x6a\x06"); c.call("scroll_diag")
+        c.label("diag_no_hold")
     c.emit(b"\xc7\x46" + bytes([REPEAT_DIR]) + u(0) + b"\xc7\x46" + bytes([REPEAT_COUNT]) + u(0) + b"\x58\xc2\x04\x00")   # no arrow: reset
     c.label("repeat_held")
     c.emit(b"\x52\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x5a")                           # push edx; GetTickCount; pop edx
@@ -396,14 +401,19 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x8b\xc8\x2b\x4e" + bytes([REPEAT_NEXT])); c.js("repeat_wait")          # now - next < 0: wait
     c.emit(b"\x83\xc0" + bytes([REPEAT_RATE_MS]) + b"\x89\x46" + bytes([REPEAT_NEXT]))
     c.label("repeat_count")
+    if SCROLL_DIAG: c.emit(b"\x52\x6a\x02"); c.call("scroll_diag")                   # tag 2: a repeat fires (edx = dir)
     c.emit(b"\xff\x46" + bytes([REPEAT_COUNT]) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + bytes([REPEAT_JUMPS[0]])); c.jl("repeat_fire")
     # Acceleration on the race row (UI/Active == 2): the native step (0x47F440) refuses a step while the screen
     # animates, so extra calls in one frame did nothing (owner 2026-11-18). Instead, while the screen is idle, the
     # position moves ahead by 2 (after 4 repeats) or 5 (after 10) and the native step then adds its own one and
     # publishes once. The jump stops one short of the list end (right) / start (left), so the native step always has
     # room and the shown race never differs from the selected one.
-    c.emit(b"\x52"); c.call(UI_STATE); c.emit(b"\x8b\xc8"); c.call(UI_ACTIVE); c.emit(b"\x83\xf8\x02"); c.jne("repeat_extra_done")
-    c.call(UI_SCREEN); c.emit(b"\x8b\xc8"); c.call(UI_BUSY); c.emit(b"\x84\xc0"); c.jne("repeat_extra_done")
+    c.emit(b"\x52"); c.call(UI_STATE); c.emit(b"\x8b\xc8"); c.call(UI_ACTIVE)
+    if SCROLL_DIAG: c.emit(b"\x50\x6a\x03"); c.call("scroll_diag")                   # tag 3: UI/Active
+    c.emit(b"\x83\xf8\x02"); c.jne("repeat_extra_done")
+    c.call(UI_SCREEN); c.emit(b"\x8b\xc8"); c.call(UI_BUSY)
+    if SCROLL_DIAG: c.emit(b"\x50\x6a\x04"); c.call("scroll_diag")                   # tag 4: XYButton/Moving
+    c.emit(b"\x84\xc0"); c.jne("repeat_extra_done")
     c.emit(b"\xb8" + u(REPEAT_JUMPS[1]) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + bytes([REPEAT_JUMPS[2]])); c.jl("repeat_k")
     c.emit(b"\xb8" + u(REPEAT_JUMPS[3])); c.label("repeat_k")
     c.emit(b"\x8b\x4e\x10\x8b\x14\x24\x83\xfa\xfb"); c.je("repeat_left")                 # ecx = mode; edx = dir
@@ -414,11 +424,14 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x8b\x54\x8e\x14\x29\xc2\x83\xfa\x01"); c.jge("repeat_left_cap")
     c.emit(b"\xba" + u(1)); c.label("repeat_left_cap")                                # edx = max(pos - k, 1)
     c.emit(b"\x3b\x54\x8e\x14"); c.jge("repeat_extra_done"); c.emit(b"\x89\x54\x8e\x14")
-    c.label("repeat_extra_done"); c.emit(b"\x5a")
+    c.label("repeat_extra_done")
+    if SCROLL_DIAG: c.emit(b"\x6a\x00\x6a\x05"); c.call("scroll_diag")               # tag 5: position after the jump
+    c.emit(b"\x5a")
     c.label("repeat_fire")
     c.emit(b"\x83\xc4\x04\x8b\xc2\xc2\x04\x00")                                       # drop idle; eax = press; ret 4
     c.label("repeat_wait"); c.emit(b"\x58\xc2\x04\x00")
     c.label("repeat_pressed")
+    if SCROLL_DIAG: c.emit(b"\x50\x6a\x01"); c.call("scroll_diag")                   # tag 1: native press (eax = action)
     # The native poll also reports presses while a key stays down (owner 2026-11-18: no acceleration): one in the
     # direction already held continues the hold (count, acceleration) instead of restarting the delay.
     c.emit(b"\x39\x46" + bytes([REPEAT_DIR])); c.jne("repeat_fresh")
@@ -428,6 +441,20 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x50\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x05" + u(REPEAT_DELAY_MS) + b"\x89\x46" + bytes([REPEAT_NEXT]))
     c.emit(b"\x58\x89\x46" + bytes([REPEAT_DIR]) + b"\xc7\x46" + bytes([REPEAT_COUNT]) + u(0) + b"\xc2\x04\x00")
     c.label("repeat_done"); c.emit(b"\xc2\x04\x00")
+    if SCROLL_DIAG:
+        # record = tag, tick, extra, mode, position, count, repeat dir, repeat next, repeat count (9 dwords), appended
+        c.label("scroll_diag")
+        c.emit(b"\x9c\x60\x83\xec\x30\xff\x15" + u(IAT_GETTICKCOUNT) + b"\x89\x44\x24\x04")
+        c.emit(b"\x8b\x44\x24\x58\x89\x04\x24\x8b\x44\x24\x5c\x89\x44\x24\x08")
+        c.emit(b"\x8b\x4e\x10\x89\x4c\x24\x0c\x8b\x44\x8e\x14\x89\x44\x24\x10\x8b\x44\x8e\x54\x89\x44\x24\x14")
+        c.emit(b"\x8b\x46" + bytes([REPEAT_DIR]) + b"\x89\x44\x24\x18\x8b\x46" + bytes([REPEAT_NEXT]) + b"\x89\x44\x24\x1c")
+        c.emit(b"\x8b\x46" + bytes([REPEAT_COUNT]) + b"\x89\x44\x24\x20")
+        c.emit(b"\x6a\x00\x68" + u(0x80) + b"\x6a\x04\x6a\x00\x6a\x03\x6a\x04"); c.push_literal("scroll_diag_path")
+        c.emit(b"\xff\x15" + u(IAT_CREATEFILEA) + b"\x83\xf8\xff"); c.je("scroll_diag_out")
+        c.emit(b"\x8b\xd8\x6a\x00\x8d\x4c\x24\x2c\x51\x6a\x24\x8d\x54\x24\x0c\x52\x53\xff\x15" + u(IAT_WRITEFILE))
+        c.emit(b"\x53\xff\x15" + u(IAT_CLOSEHANDLE))
+        c.label("scroll_diag_out"); c.emit(b"\x83\xc4\x30\x61\x9d\xc2\x08\x00")
+        c.label("scroll_diag_path"); c.emit(SCROLL_DIAG.encode("ascii") + b"\0")
     hooks.append((REPEAT_HOOK, branch(REPEAT_HOOK, ACTION_POLL, 0xE8), ("call", "race_repeat")))
 
     # ---- invalid index stop, data ------------------------------------------------------------------------------

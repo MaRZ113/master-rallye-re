@@ -139,6 +139,11 @@ for g, flag, rid in cases:
 FAKE_KEY, FAKE_TICK, POLL = 0x3300000, 0x3300010, 0x45D930
 u.mem_map(0x3300000, 0x1000)
 u.mem_write(0x68F308, struct.pack("<I", FAKE_KEY)); u.mem_write(0x68F0D8, struct.pack("<I", FAKE_TICK))
+# scroll diagnostic file API (CreateFileA / WriteFile / CloseHandle): records collected in memory
+FAKE_CREATE, FAKE_WRITE, FAKE_CLOSE = 0x3300020, 0x3300030, 0x3300040
+u.mem_write(0x68F1E0, struct.pack("<I", FAKE_CREATE)); u.mem_write(0x68F16C, struct.pack("<I", FAKE_WRITE))
+u.mem_write(0x68F0A8, struct.pack("<I", FAKE_CLOSE))
+diag_records = []
 state = {"action": -2, "held": None, "tick": 0}
 
 
@@ -151,13 +156,23 @@ def stub2(uc, addr, size, ud):
         uc.reg_write(UC_X86_REG_EAX, 0x8000 if a1 == state["held"] else 0); pop = 8
     elif addr == FAKE_TICK:
         uc.reg_write(UC_X86_REG_EAX, state["tick"]); pop = 4
+    elif addr == FAKE_CREATE:
+        path = bytes(uc.mem_read(a1, 32)).split(b"\0")[0]
+        if path != b"scroll-diag.bin": fail.append(f"diag path {path}")
+        uc.reg_write(UC_X86_REG_EAX, 0x77); pop = 4 + 28
+    elif addr == FAKE_WRITE:
+        h, buf, n = struct.unpack("<3I", uc.mem_read(esp + 4, 12))
+        if h != 0x77 or n != 36: fail.append(f"diag write {h:#x} {n}")
+        diag_records.append(struct.unpack("<9i", uc.mem_read(buf, 36))); uc.reg_write(UC_X86_REG_EAX, 1); pop = 4 + 20
+    elif addr == FAKE_CLOSE:
+        uc.reg_write(UC_X86_REG_EAX, 1); pop = 4 + 4
     else:
         return
     uc.reg_write(UC_X86_REG_ESP, esp + pop); uc.reg_write(UC_X86_REG_EIP, ret)
 
 
 u.hook_add(UC_HOOK_CODE, stub2, begin=0x45D930, end=0x45D930)
-u.hook_add(UC_HOOK_CODE, stub2, begin=0x3300000, end=0x3300010)
+u.hook_add(UC_HOOK_CODE, stub2, begin=0x3300000, end=0x3300040)
 rel = struct.unpack("<i", bytes(img.recon[0x47EA52 - 0x400000:0x47EA56 - 0x400000]))[0]
 repeat = 0x47EA56 + rel
 seen = []
@@ -238,6 +253,10 @@ modes = hold(0x27, -4, 40, 0, 14, active=1)                         # mode row: 
 busy = hold(0x27, -4, 40, 5, 14, busy=1)                            # animating: no jump
 print("accel right", right, "left", left, "end", end)
 native = hold(0x27, -4, 60, 0, 14, native_press=True); want_native = model(True, 60, 0, 14)
+tags = sorted({r[0] for r in diag_records})
+print("diag records", len(diag_records), "tags", tags)
+if tags != [1, 2, 3, 4, 5, 6]:
+    fail.append(f"diag tags {tags}")
 for got, want, name in ((native, want_native, "native presses"), (right, want_right, "right"), (left, want_left, "left"), (end, want_end, "end"),
                         (modes, [0] * 14, "mode row"), (busy, [5] * 14, "busy")):
     if got != want:
