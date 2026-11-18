@@ -222,7 +222,7 @@ def derive(config):
     image,blob,network=append_network_guard(source,image,blob,allocation_size=budget)
     operations+=network['operations'];bindings['network']=network
     writable=sorted(copy.deepcopy(rp['native_extension'].get('writable_ranges',[]))+network['writable_ranges']+layer_writable,key=lambda r:r['offset'])
-    allocation=max(rp['native_extension']['allocation_size'],(len(blob)+65535)//65536*65536)
+    allocation=max(rp['native_extension']['allocation_size'],(len(blob)+65535)//65536*65536+65536)   # +64 KiB for later layers (course layer payload)
     if allocation>budget:raise ValueError('Combined extension exceeds configured memory budget')
     plan['registry_layout'].update(record_count=p['record_count'],race_test_base=p['layout']['racetest_base'],allocation_size=p['layout']['allocation_size'])
     mapping={'class_to_physical_ids':p['classes'],'physical_id_to_class_local':{str(i):{'vehicle_class':c,'class_local_index':n} for c,ids in p['classes'].items() for n,i in enumerate(ids)}}
