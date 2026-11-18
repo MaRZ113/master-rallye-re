@@ -196,9 +196,10 @@ def louder_engine(samples, rms=ENGINE_RMS, knee=KNEE):
 # low; the sources are scaled to the engine loop level (LIFT_RMS, soft-limited like the engine).
 LIFT_RMS = 12500
 # Owner 2026-11-18: pops also on neutral blips; the native layer skips the limiter cut (omega >= .95 rev limit).
-_ANTILAG = {'release_rate_threshold': 2.0, 'boost_threshold': .2, 'gain': 1.0, 'pitch_variation': .1,
+# owner 2026-11-18 (later): turbo one-shots louder than the spool -> .55 (about -9 dB on the native curve)
+_ANTILAG = {'release_rate_threshold': 2.0, 'boost_threshold': .2, 'gain': .55, 'pitch_variation': .1,
             'retrigger_seconds': .35, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
-_POPS = {'release_rate_threshold': 2.0, 'boost_threshold': .25, 'gain': 1.0, 'pitch_variation': .12,
+_POPS = {'release_rate_threshold': 2.0, 'boost_threshold': .25, 'gain': .55, 'pitch_variation': .12,
          'retrigger_seconds': .6, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
 # Owner 2026-11-18: the Evo IV blow-off / flutter is missing. One lift-off voice per car, so the turbo cars play a mix:
 # the Evo IV BOV + flutter (GT3 gt3se01.ins voice 7) and, 40 ms later, the RCX anti-lag crackle (WRC); the Quattro the BOV.
@@ -210,7 +211,7 @@ LIFT_SOUNDS = {'IMPREZA00': ([_BOV, ('cars/sub/antilag2_ext.wav', .04, .8)], _AN
                'QUATTRO': ([_BOV], dict(_ANTILAG, boost_threshold=.3, pitch_variation=.06, retrigger_seconds=.8)),
                'ASTRA': ([('Car/pops.wav', 0., 1.)], _POPS), 'SAXO': ([('Car/pops.wav', 0., 1.)], _POPS),
                'PUMA': ([('Car/pops.wav', 0., 1.)], _POPS),
-               'MINI': ([('Car/pops.wav', 0., 1.)], dict(_POPS, gain=.8, boost_threshold=.3, retrigger_seconds=1.0))}
+               'MINI': ([('Car/pops.wav', 0., 1.)], dict(_POPS, gain=.45, boost_threshold=.3, retrigger_seconds=1.0))}
 MIX_RATE = 48000
 
 
@@ -267,8 +268,10 @@ GT_LAYER_ROOT = ('D:/Game/Master Rallye/master-rallye-re-v-cap/.research-output/
 TURBO_SPOOL = {'reference_rpm': 4000, 'pitch_min': .35, 'pitch_max': 1.8, 'gain': .45, 'fade_in_rpm': 1500, 'load_threshold': .15,
                'spool_up_seconds': .35, 'spool_down_seconds': .55, 'mute_neutral': False}
 # owner 2026-11-18: the whine sounded as if always at high revs (RCX engines rev high): pitch reference 9000 rpm, top 1.2
-GEAR_WHINE = {'reference_rpm': 9000, 'pitch_min': .25, 'pitch_max': 1.2, 'gain_drive': .6, 'gain_coast': .35, 'fade_in_rpm': 1000,
-              'mute_neutral': True}
+# the native helper raises the pitch 18 % per gear above first (gear mesh), so the top is 2.0; levels near the spool;
+# the input shaft spins in neutral too (owner: some sounds silent in neutral)
+GEAR_WHINE = {'reference_rpm': 9000, 'pitch_min': .25, 'pitch_max': 2.0, 'gain_drive': .45, 'gain_coast': .25, 'fade_in_rpm': 1000,
+              'mute_neutral': False}
 TURBO_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO'}
 # owner 2026-11-18: no whine on the cars without a turbo: every RCX car (the Mini quieter, below)
 WHINE_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO', 'ASTRA', 'SAXO', 'PUMA', 'MINI'}
@@ -325,7 +328,7 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     if lift: profile['bov_release'] = lift
     if car in TURBO_CARS: profile['turbo_spool'] = _gt_layer(author, 'turbo_spool', TURBO_SPOOL)
     if car in WHINE_CARS: profile['transmission_whine'] = _gt_layer(author, 'transmission_whine',
-        dict(GEAR_WHINE, gain_drive=.4, gain_coast=.22) if car == 'MINI' else GEAR_WHINE)
+        dict(GEAR_WHINE, gain_drive=.3, gain_coast=.18) if car == 'MINI' else GEAR_WHINE)
     (author / 'audio-profile.json').write_text(json.dumps(profile, indent=1), encoding='utf-8')
     return profile
 
