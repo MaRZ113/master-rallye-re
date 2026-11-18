@@ -183,6 +183,16 @@ class Manager:
         self.save_selection(sel)
         return {"dev_menu": bool(enabled), "note": "takes effect on the next apply"}
 
+    def set_engine_tone(self, mix: float | None, pitch: float | None) -> dict:
+        """AUDIO-RALLY1 engine tone layer (tools/engine_tone.py): native synthesis mix scale + stock loop pitch; off = None."""
+        sel = self.selection()
+        if mix is None and pitch is None:
+            sel.pop("engine_tone", None)
+        else:
+            sel["engine_tone"] = {"mix": float(mix if mix is not None else 1.), "pitch": float(pitch if pitch is not None else 1.)}
+        self.save_selection(sel)
+        return {"engine_tone": sel.get("engine_tone"), "note": "takes effect on the next apply"}
+
     def course_races(self) -> tuple[list[dict], list[Path], dict]:
         """Enabled packs in selection order -> (races, pack folders, categories).
 
@@ -332,6 +342,11 @@ class Manager:
                 v1, exe, parse_roster(v1)["writable"], course_races,
                 {"categories": [{"label": c["label"], "logo_frame": c["logo_frame"]} for c in category["categories"]],
                  "flag_frame": category["flag_frame"]})
+        tone = self.selection().get("engine_tone")
+        tone_info = None
+        if tone and tone.get("mix", 1.) != 1.:          # AUDIO-RALLY1: de-clipped native engine synthesis tables
+            import engine_tone
+            v1, tone_info = engine_tone.apply_native(v1, exe, parse_roster(v1)["writable"], tone["mix"])
         masks = {pid: m for pid, m in native["masks"].items()}
         profile, summary = build_profile(v1, exe, core, masks=masks)
         roster = to_v2(v1, profile)
@@ -353,6 +368,9 @@ class Manager:
             scene.write_bytes(sync_unlock_frames(scene.read_bytes().decode("latin-1")).encode("latin-1"))
         if courses:                                      # course resources, screenshot pairs, category logo
             install_course_resources(res, self.game, course_races, course_folders, category)
+        if tone and tone.get("pitch", 1.) != 1.:         # AUDIO-RALLY1: pitched stock engine loops in the overlay
+            import engine_tone
+            tone_info = dict(tone_info or {}, pitch=tone["pitch"], loops=engine_tone.install_loops(res, self.game, tone["pitch"]))
         # Packages: variant folders, physics clones, variants.ini.
         ini = ["; Written by the Vehicle Manager (tools/vehicle_manager.py); edit the selection there."]
         enabled = self.selection().get("packages", [])
@@ -408,7 +426,7 @@ class Manager:
         catalog = json.loads(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() else {}
         catalog.update({"schema": "mr-vehicle-roster/1", "label": "Vehicle Manager", "classes": plan,
                         "removed": sorted(set(sum(native["classes"].values(), [])) - set(sum(plan.values(), []))),
-                        "packages": enabled, "roster_mrvr_sha256": sha(roster), "frontend_classes": frontend,
+                        "packages": enabled, "roster_mrvr_sha256": sha(roster), "frontend_classes": frontend, "engine_tone": tone_info,
                         "courses": courses and {"category": courses["category"], "races": courses["races"],
                                                 "payload_va": courses["payload_va"], "operations": len(courses["operations"])},
                         "resources": [{"path": p.relative_to(res).as_posix(), "sha256": sha(p.read_bytes()), "size": p.stat().st_size}
@@ -960,6 +978,8 @@ def main(argv=None):
     cr = sub.add_parser("course-pack-remove"); cr.add_argument("name")
     cc = sub.add_parser("course-category", help="Quick Race category label of the course packs"); cc.add_argument("label")
     sub.add_parser("seed-course-progress", help="add the course best-time keys to DataGame/PlayerState.xml (backup kept)")
+    et = sub.add_parser("engine-tone", help="native engine synthesis mix scale and stock loop pitch (e.g. --mix 0.55 --pitch 1.6), or --off")
+    et.add_argument("--mix", type=float); et.add_argument("--pitch", type=float); et.add_argument("--off", action="store_true")
     dm = sub.add_parser("dev-menu", help="developer menu (Broker editor / Observatory) in the applied overlay: on|off")
     dm.add_argument("state", choices=("on", "off"))
     k = sub.add_parser("make-kit", help="write a kit package: --choice NAME=FOLDER[:SOURCE_DIR] (no source = the family folder)")
@@ -1013,6 +1033,7 @@ def main(argv=None):
         "course-category": lambda: m.set_course_category(a.label),
         "seed-course-progress": m.seed_course_progress,
         "dev-menu": lambda: m.set_dev_menu(a.state == "on"),
+        "engine-tone": lambda: m.set_engine_tone(None if a.off else a.mix, None if a.off else a.pitch),
     }[a.cmd]()
     print(json.dumps(result, indent=1))
 
