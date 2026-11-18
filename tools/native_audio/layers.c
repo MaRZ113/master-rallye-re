@@ -82,7 +82,9 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  }
  if(v->voice[1]){
   *(float*)(v->voice[1]+0x14)=clamp(rpm/p->sp[0],p->sp[1],p->sp[2]);
-  *(float*)(v->voice[1]+0x10)=finished?0:p->sp[3]*v->spool*volume;
+  /* audible spool (owner 2026-11-18: no turbo heard): gain x estimate 0.3 was ~-20 dB on the steep native SFX curve;
+     from the 0.05 gate the whistle starts at 45 % of the layer gain and rises to 100 % with the estimate */
+  *(float*)(v->voice[1]+0x10)=(finished||v->spool<.05f)?0:p->sp[3]*(.45f+.55f*v->spool)*volume;
  }
  if(v->voice[2])*(float*)(v->voice[2]+0x10)=finished?0:v->active*volume;
  if(t&&entity&&*(U*)(entity+0x50)){Tele *r=&t->car[v-s->slot];float *w=(float*)(*(U*)(entity+0x50)+0x4c);
