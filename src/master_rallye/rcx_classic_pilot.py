@@ -200,35 +200,62 @@ _ANTILAG = {'release_rate_threshold': 2.0, 'boost_threshold': .2, 'gain': 1.0, '
             'retrigger_seconds': .35, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
 _POPS = {'release_rate_threshold': 2.0, 'boost_threshold': .25, 'gain': 1.0, 'pitch_variation': .12,
          'retrigger_seconds': .6, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
-LIFT_SOUNDS = {'IMPREZA00': ('cars/sub/antilag2_ext.wav', _ANTILAG), 'FOCUS': ('cars/ford/antilag3_ext.wav', _ANTILAG),
-               'EVO6': ('cars/evo/antilag1_ext.wav', _ANTILAG), 'P206': ('cars/peug/antilag4_ext.wav', _ANTILAG),
-               'QUATTRO': ('Car/turbo1.wav', dict(_ANTILAG, boost_threshold=.3, pitch_variation=.06,
-                                                   retrigger_seconds=.8)),
-               'ASTRA': ('Car/pops.wav', _POPS), 'SAXO': ('Car/pops.wav', _POPS), 'PUMA': ('Car/pops.wav', _POPS),
-               'MINI': ('Car/pops.wav', dict(_POPS, gain=.8, boost_threshold=.3, retrigger_seconds=1.0))}
+# Owner 2026-11-18: the Evo IV blow-off / flutter is missing. One lift-off voice per car, so the turbo cars play a mix:
+# the Evo IV BOV + flutter (GT3 gt3se01.ins voice 7) and, 40 ms later, the RCX anti-lag crackle (WRC); the Quattro the BOV.
+_BOV = ('GT:bov_release', 0., 1.)
+LIFT_SOUNDS = {'IMPREZA00': ([_BOV, ('cars/sub/antilag2_ext.wav', .04, .8)], _ANTILAG),
+               'FOCUS': ([_BOV, ('cars/ford/antilag3_ext.wav', .04, .8)], _ANTILAG),
+               'EVO6': ([_BOV, ('cars/evo/antilag1_ext.wav', .04, .8)], _ANTILAG),
+               'P206': ([_BOV, ('cars/peug/antilag4_ext.wav', .04, .8)], _ANTILAG),
+               'QUATTRO': ([_BOV], dict(_ANTILAG, boost_threshold=.3, pitch_variation=.06, retrigger_seconds=.8)),
+               'ASTRA': ([('Car/pops.wav', 0., 1.)], _POPS), 'SAXO': ([('Car/pops.wav', 0., 1.)], _POPS),
+               'PUMA': ([('Car/pops.wav', 0., 1.)], _POPS),
+               'MINI': ([('Car/pops.wav', 0., 1.)], dict(_POPS, gain=.8, boost_threshold=.3, retrigger_seconds=1.0))}
+MIX_RATE = 48000
+
+
+def _read_mono(path):
+    import struct, wave
+    with wave.open(str(path)) as w:
+        rate, frames, raw = w.getframerate(), w.getnframes(), w.readframes(w.getnframes())
+        assert w.getnchannels() == 1 and w.getsampwidth() == 2
+    x = struct.unpack('<%dh' % frames, raw)
+    if rate == MIX_RATE: return list(x)
+    n = int(len(x) * MIX_RATE / rate); out = []
+    for i in range(n):                                   # linear resampling to the mix rate
+        t = i * rate / MIX_RATE; k = int(t); f = t - k
+        out.append(x[k] * (1 - f) + (x[k + 1] if k + 1 < len(x) else 0) * f)
+    return out
 
 
 def _lift_layer(author, car, sound_root):
     import hashlib, struct, wave
     from pathlib import Path
     if car not in LIFT_SOUNDS: return None
-    rel, response = LIFT_SOUNDS[car]
+    parts, response = LIFT_SOUNDS[car]
     folder = Path(sound_root).parent
-    src = folder
-    for part in rel.split('/'):                     # case-insensitive walk (RCX mixes case)
-        src = next(p for p in src.iterdir() if p.name.lower() == part.lower())
-    with wave.open(str(src)) as w:
-        rate, frames, raw = w.getframerate(), w.getnframes(), w.readframes(w.getnframes())
-        assert w.getnchannels() == 1 and w.getsampwidth() == 2
-    pcm = louder_engine(list(struct.unpack('<%dh' % frames, raw)), rms=LIFT_RMS)
+    mix = []
+    for rel, delay, gain in parts:
+        if rel.startswith('GT:'):
+            src = Path(GT_LAYER_ROOT) / (rel[3:] + '.wav')
+        else:
+            src = folder
+            for part in rel.split('/'):                 # case-insensitive walk (RCX mixes case)
+                src = next(p for p in src.iterdir() if p.name.lower() == part.lower())
+        x = _read_mono(src); at = int(delay * MIX_RATE)
+        if len(mix) < at + len(x): mix += [0.] * (at + len(x) - len(mix))
+        for i, v in enumerate(x): mix[at + i] += v * gain
+    rate, frames = MIX_RATE, len(mix)
+    pcm = louder_engine(mix, rms=LIFT_RMS)
+    rel = ' + '.join('%s@%dms' % (r, round(d * 1000)) for r, d, g in parts)
     dst = Path(author) / 'audio' / 'lift_release.wav'; dst.parent.mkdir(exist_ok=True)
     with wave.open(str(dst), 'wb') as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(rate); w.writeframes(struct.pack('<%dh' % frames, *pcm))
     return {'source': {'source_path': 'audio/lift_release.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
                        'trim_frames': [0, frames], 'gain_db': -1.5, 'remove_dc': False, 'crossfade_frames': 0},
             'response': dict(response),
-            'provenance': 'Rally Championship Xtreme (PC) Data/Sound/%s, whole file, DC removed, RMS 12500 soft-limited, -1.5 dB resampling headroom; lift-off one-shot '
-                          '(AUDIO-RALLY1 phase A, a placeholder until a common rally sound style is chosen).' % rel}
+            'provenance': 'Mix of %s (RCX PC Data/Sound; GT: = Lancer Evo IV roster layer from GT3 gt3se01.ins voice 7), 48 kHz, '
+                          'DC removed, RMS 12500 soft-limited, -1.5 dB headroom; lift-off one-shot (AUDIO-RALLY1).' % rel}
 
 
 # AUDIO-RALLY1 turbo set (owner 2026-11-18: full turbo effects, one style across cars): the turbo cars take the
@@ -236,13 +263,15 @@ def _lift_layer(author, car, sound_root):
 # gearbox whine for the WRC cars. Their lift-off one-shot stays the RCX anti-lag / dump valve above.
 GT_LAYER_ROOT = ('D:/Game/Master Rallye/master-rallye-re-v-cap/.research-output/vehicles/evo-class-01/base-runtime/'
                  'resource-root/DataAudio/vehicles/sdk/lancer_evo4')
-TURBO_SPOOL = {'reference_rpm': 4000, 'pitch_min': .35, 'pitch_max': 1.8, 'gain': .8, 'fade_in_rpm': 1500, 'load_threshold': .15,
+# owner 2026-11-18: the spool was too loud over the whine: layer gain .45 (was .8)
+TURBO_SPOOL = {'reference_rpm': 4000, 'pitch_min': .35, 'pitch_max': 1.8, 'gain': .45, 'fade_in_rpm': 1500, 'load_threshold': .15,
                'spool_up_seconds': .35, 'spool_down_seconds': .55, 'mute_neutral': False}
 # owner 2026-11-18: the whine sounded as if always at high revs (RCX engines rev high): pitch reference 9000 rpm, top 1.2
 GEAR_WHINE = {'reference_rpm': 9000, 'pitch_min': .25, 'pitch_max': 1.2, 'gain_drive': .6, 'gain_coast': .35, 'fade_in_rpm': 1000,
               'mute_neutral': True}
 TURBO_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO'}
-WHINE_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206'}
+# owner 2026-11-18: no whine on the cars without a turbo: every RCX car (the Mini quieter, below)
+WHINE_CARS = {'IMPREZA00', 'FOCUS', 'EVO6', 'P206', 'QUATTRO', 'ASTRA', 'SAXO', 'PUMA', 'MINI'}
 _GT_PROVENANCE = {'turbo_spool': 'GT4 sound_gt/sound/gt4race2.ins :: 11 (Lancer Evo IV roster layer, 48 kHz canonical)',
                   'transmission_whine': 'GT4 sound_gt/sound/gt4race2.ins :: 12 (Lancer Evo IV roster layer, 48 kHz canonical)'}
 
@@ -295,7 +324,8 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
     lift = _lift_layer(author, car, sound_root)
     if lift: profile['bov_release'] = lift
     if car in TURBO_CARS: profile['turbo_spool'] = _gt_layer(author, 'turbo_spool', TURBO_SPOOL)
-    if car in WHINE_CARS: profile['transmission_whine'] = _gt_layer(author, 'transmission_whine', GEAR_WHINE)
+    if car in WHINE_CARS: profile['transmission_whine'] = _gt_layer(author, 'transmission_whine',
+        dict(GEAR_WHINE, gain_drive=.4, gain_coast=.22) if car == 'MINI' else GEAR_WHINE)
     (author / 'audio-profile.json').write_text(json.dumps(profile, indent=1), encoding='utf-8')
     return profile
 
