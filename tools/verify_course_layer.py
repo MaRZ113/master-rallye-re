@@ -172,38 +172,64 @@ want = [-5, -2, -2, -5, -2, -5, -2, -4, -2, -2]
 print("repeat", seen)
 if seen != want:
     fail.append(f"repeat {seen} != {want}")
-# acceleration: after 4 repeats one extra race step per repeat, after 10 three (race row only, UI/Active == 2)
-steps = []
+# acceleration (race row only, UI/Active == 2, screen idle): the position jumps ahead by 1 after 4 repeats and by 3
+# after 10, capped one short of the list end; the native step (simulated here) then adds its own one.
+ui = {"active": 2, "busy": 0}
 
 
 def stub3(uc, addr, size, ud):
     esp = uc.reg_read(UC_X86_REG_ESP)
-    ret, a1 = struct.unpack("<II", uc.mem_read(esp, 8))
+    ret = struct.unpack("<I", uc.mem_read(esp, 4))[0]
     if addr == 0x525A80:
-        uc.reg_write(UC_X86_REG_EAX, 0x5252); pop = 4
+        uc.reg_write(UC_X86_REG_EAX, 0x5252)
     elif addr == 0x525800:
-        uc.reg_write(UC_X86_REG_EAX, 2); pop = 4
+        uc.reg_write(UC_X86_REG_EAX, ui["active"])
+    elif addr == 0x4AE700:
+        uc.reg_write(UC_X86_REG_EAX, 0x5353)
+    elif addr == 0x4ADC30:
+        uc.reg_write(UC_X86_REG_EAX, ui["busy"])
     elif addr == 0x47F440:
-        if uc.reg_read(UC_X86_REG_ECX) != OBJ:
-            fail.append("race step this")
-        steps.append(a1); pop = 8
+        fail.append("race step called from the repeat hook"); return
     else:
         return
-    uc.reg_write(UC_X86_REG_ESP, esp + pop); uc.reg_write(UC_X86_REG_EIP, ret)
+    uc.reg_write(UC_X86_REG_ESP, esp + 4); uc.reg_write(UC_X86_REG_EIP, ret)
 
 
-for a in (0x525A80, 0x525800, 0x47F440):
-    u.hook_add(UC_HOOK_CODE, stub3, begin=a, end=a)
-wr(0x44, 0); wr(0x48, 0); wr(0x4C, 0)
-state.update(tick=0, action=-4, held=0x27); call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
-fires = []
-for k in range(14):
-    state.update(tick=300 + 50 * k, action=-2, held=0x27); before = len(steps)
-    call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
-    fires.append((u.reg_read(UC_X86_REG_EAX) & 0xFFFFFFFF == (-4 & 0xFFFFFFFF), len(steps) - before))
-print("accel", fires, "args", set(steps))
-want_extra = [0, 0, 0, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3]
-if [f[1] for f in fires] != want_extra or not all(f[0] for f in fires) or set(steps) != {0}:
-    fail.append(f"acceleration {fires}")
+for addr in (0x525A80, 0x525800, 0x4AE700, 0x4ADC30, 0x47F440):
+    u.hook_add(UC_HOOK_CODE, stub3, begin=addr, end=addr)
+rd = lambda off: struct.unpack("<i", bytes(u.mem_read(OBJ + off, 4)))[0]
+
+
+def hold(key, action, count, pos, n, active=2, busy=0):
+    """n repeats of a held key; returns the position after each native step (or None when no press fired)."""
+    MODE = 9
+    wr(0x10, MODE); wr(0x54 + MODE * 4, count); wr(0x14 + MODE * 4, pos); wr(0x44, 0); wr(0x48, 0); wr(0x4C, 0)
+    ui.update(active=active, busy=busy)
+    state.update(tick=0, action=action, held=key); call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+    out = []
+    for k in range(n):
+        state.update(tick=300 + 50 * k, action=-2, held=key)
+        call(repeat, {UC_X86_REG_ESI: OBJ}, (1,))
+        fired = u.reg_read(UC_X86_REG_EAX) & 0xFFFFFFFF == action & 0xFFFFFFFF
+        p = rd(0x14 + MODE * 4)
+        if fired and not busy and active == 2:                       # the native step: +-1 within the list, publish
+            p = min(p + 1, count - 1) if action == -4 else max(p - 1, 0); wr(0x14 + MODE * 4, p)
+        out.append(p if fired else None)
+    return out
+
+
+right = hold(0x27, -4, 40, 0, 14)
+want_right = [1, 2, 3, 5, 7, 9, 11, 13, 15, 19, 23, 27, 31, 35]
+left = hold(0x25, -5, 40, 30, 14)
+want_left = [29, 28, 27, 25, 23, 21, 19, 17, 15, 11, 7, 3, 0, 0]
+end = hold(0x27, -4, 12, 0, 14)
+want_end = [1, 2, 3, 5, 7, 9, 11, 11, 11, 11, 11, 11, 11, 11]
+modes = hold(0x27, -4, 40, 0, 14, active=1)                         # mode row: no jump (native mode step not simulated)
+busy = hold(0x27, -4, 40, 5, 14, busy=1)                            # animating: no jump
+print("accel right", right, "left", left, "end", end)
+for got, want, name in ((right, want_right, "right"), (left, want_left, "left"), (end, want_end, "end"),
+                        (modes, [0] * 14, "mode row"), (busy, [5] * 14, "busy")):
+    if got != want:
+        fail.append(f"acceleration {name} {got} != {want}")
 print("FAIL", fail) if fail else print("PASS course layer emulation")
 sys.exit(1 if fail else 0)

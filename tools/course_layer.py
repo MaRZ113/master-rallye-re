@@ -48,6 +48,7 @@ IAT_GETASYNCKEYSTATE, IAT_GETTICKCOUNT = 0x68F308, 0x68F0D8
 REPEAT_DELAY_MS, REPEAT_RATE_MS = 300, 50
 REPEAT_COUNT = 0x4C                          # repeats since the press: acceleration (x2 after 4, x4 after 10)
 RACE_STEP, UI_STATE, UI_ACTIVE = 0x47F440, 0x525A80, 0x525800
+UI_SCREEN, UI_BUSY = 0x4AE700, 0x4ADC30          # 0x47F440 refuses a step while the screen animates
 FACTORY_PUSH = 0x47E206                      # 6A 74
 LIST_HOOK = 0x47E605                         # 68 D4 70 6B 00  push "Frontend/RaceSelect/RaceList"
 LIST_RESUME = 0x47E60A
@@ -93,6 +94,8 @@ class Emitter:
     def jl(self, t): self._rel(b"\x0f\x8c", t)
     def jg(self, t): self._rel(b"\x0f\x8f", t)
     def js(self, t): self._rel(b"\x0f\x88", t)
+    def jle(self, t): self._rel(b"\x0f\x8e", t)
+    def jge(self, t): self._rel(b"\x0f\x8d", t)
 
     def push_literal(self, label):
         self.emit(b"\x68\0\0\0\0")
@@ -392,11 +395,23 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\x8b\xc8\x2b\x4e" + bytes([REPEAT_NEXT])); c.js("repeat_wait")          # now - next < 0: wait
     c.emit(b"\x83\xc0" + bytes([REPEAT_RATE_MS]) + b"\x89\x46" + bytes([REPEAT_NEXT]))
     c.emit(b"\xff\x46" + bytes([REPEAT_COUNT]) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + b"\x04"); c.jl("repeat_fire")
+    # Acceleration on the race row (UI/Active == 2): the native step (0x47F440) refuses a step while the screen
+    # animates, so extra calls in one frame did nothing (owner 2026-11-18). Instead, while the screen is idle, the
+    # position moves ahead by 1 (after 4 repeats) or 3 (after 10) and the native step then adds its own one and
+    # publishes once. The jump stops one short of the list end (right) / start (left), so the native step always has
+    # room and the shown race never differs from the selected one.
     c.emit(b"\x52"); c.call(UI_STATE); c.emit(b"\x8b\xc8"); c.call(UI_ACTIVE); c.emit(b"\x83\xf8\x02"); c.jne("repeat_extra_done")
-    for k in range(3):
-        if k == 1:
-            c.emit(b"\x83\x7e" + bytes([REPEAT_COUNT]) + b"\x0a"); c.jl("repeat_extra_done")
-        c.emit(b"\x8b\x14\x24\x33\xc0\x83\xfa\xfb\x0f\x94\xc0\x50\x8b\xce"); c.call(RACE_STEP)   # left -> 1, right -> 0
+    c.call(UI_SCREEN); c.emit(b"\x8b\xc8"); c.call(UI_BUSY); c.emit(b"\x84\xc0"); c.jne("repeat_extra_done")
+    c.emit(b"\xb8" + u(1) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + b"\x0a"); c.jl("repeat_k")
+    c.emit(b"\xb8" + u(3)); c.label("repeat_k")
+    c.emit(b"\x8b\x4e\x10\x8b\x14\x24\x83\xfa\xfb"); c.je("repeat_left")                 # ecx = mode; edx = dir
+    c.emit(b"\x8b\x54\x8e\x14\x01\xd0\x8b\x54\x8e\x54\x83\xea\x02\x39\xd0"); c.jle("repeat_right_cap")
+    c.emit(b"\x89\xd0"); c.label("repeat_right_cap")                                  # eax = min(pos + k, count - 2)
+    c.emit(b"\x3b\x44\x8e\x14"); c.jle("repeat_extra_done"); c.emit(b"\x89\x44\x8e\x14"); c.jump("repeat_extra_done")
+    c.label("repeat_left")
+    c.emit(b"\x8b\x54\x8e\x14\x29\xc2\x83\xfa\x01"); c.jge("repeat_left_cap")
+    c.emit(b"\xba" + u(1)); c.label("repeat_left_cap")                                # edx = max(pos - k, 1)
+    c.emit(b"\x3b\x54\x8e\x14"); c.jge("repeat_extra_done"); c.emit(b"\x89\x54\x8e\x14")
     c.label("repeat_extra_done"); c.emit(b"\x5a")
     c.label("repeat_fire")
     c.emit(b"\x83\xc4\x04\x8b\xc2\xc2\x04\x00")                                       # drop idle; eax = press; ret 4
