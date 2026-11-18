@@ -48,7 +48,7 @@ IAT_GETASYNCKEYSTATE, IAT_GETTICKCOUNT = 0x68F308, 0x68F0D8
 IAT_CREATEFILEA, IAT_WRITEFILE, IAT_CLOSEHANDLE = 0x68F1E0, 0x68F16C, 0x68F0A8
 SCROLL_DIAG = "scroll-diag.bin"   # RCX-CAT2 diagnostic: 36-byte records of the held-arrow repeat (tools/read_scroll_diag.py)
 REPEAT_DELAY_MS, REPEAT_RATE_MS = 300, 50
-REPEAT_JUMPS = (4, 2, 10, 5)                 # after 4 repeats jump 2 more, after 10 jump 5 more (race row)
+REPEAT_JUMPS = (1, 2, 3, 6)                  # owner diag 2026-11-18: each step animates ~0.85 s and the native repeat fires at its end, so jumps start at the 2nd step: +2, from the 4th +6
 REPEAT_COUNT = 0x4C                          # repeats since the press: acceleration (x2 after 4, x4 after 10)
 RACE_STEP, UI_STATE, UI_ACTIVE = 0x47F440, 0x525A80, 0x525800
 UI_SCREEN, UI_BUSY = 0x4AE700, 0x4ADC30          # 0x47F440 refuses a step while the screen animates
@@ -405,7 +405,7 @@ def compose(img: Image, exe: bytes, catalog: dict, category: dict) -> dict:
     c.emit(b"\xff\x46" + bytes([REPEAT_COUNT]) + b"\x83\x7e" + bytes([REPEAT_COUNT]) + bytes([REPEAT_JUMPS[0]])); c.jl("repeat_fire")
     # Acceleration on the race row (UI/Active == 2): the native step (0x47F440) refuses a step while the screen
     # animates, so extra calls in one frame did nothing (owner 2026-11-18). Instead, while the screen is idle, the
-    # position moves ahead by 2 (after 4 repeats) or 5 (after 10) and the native step then adds its own one and
+    # position moves ahead by 2 (from the 2nd step of a hold) or 6 (from the 4th) and the native step adds its own one and
     # publishes once. The jump stops one short of the list end (right) / start (left), so the native step always has
     # room and the shown race never differs from the selected one.
     c.emit(b"\x52"); c.call(UI_STATE); c.emit(b"\x8b\xc8"); c.call(UI_ACTIVE)

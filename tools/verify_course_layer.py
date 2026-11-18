@@ -238,8 +238,8 @@ def model(right_, count, pos, n, native_every=0):
     out = []; c = 0
     for k in range(n):
         c += 1
-        if c >= 4:
-            j = 5 if c >= 10 else 2
+        if c >= 1:
+            j = 6 if c >= 3 else 2
             pos = max(pos, min(pos + j, count - 2)) if right_ else min(pos, max(pos - j, 1))
         pos = min(pos + 1, count - 1) if right_ else max(pos - 1, 0)
         out.append(pos)
