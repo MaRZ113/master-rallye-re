@@ -195,10 +195,11 @@ def louder_engine(samples, rms=ENGINE_RMS, knee=KNEE):
 # native SFX volume curve is steep (0.16 -> -34 dB, 0.3 -> -18 dB, 0.5 -> -10 dB), so gain is 1 and the boost gate
 # low; the sources are scaled to the engine loop level (LIFT_RMS, soft-limited like the engine).
 LIFT_RMS = 12500
+# Owner 2026-11-18: pops also on neutral blips; the native layer skips the limiter cut (omega >= .95 rev limit).
 _ANTILAG = {'release_rate_threshold': 2.0, 'boost_threshold': .2, 'gain': 1.0, 'pitch_variation': .1,
-            'retrigger_seconds': .35, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': True}
+            'retrigger_seconds': .35, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
 _POPS = {'release_rate_threshold': 2.0, 'boost_threshold': .25, 'gain': 1.0, 'pitch_variation': .12,
-         'retrigger_seconds': .6, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': True}
+         'retrigger_seconds': .6, 'release_decay_seconds': .2, 'min_rpm': 3000, 'mute_neutral': False}
 LIFT_SOUNDS = {'IMPREZA00': ('cars/sub/antilag2_ext.wav', _ANTILAG), 'FOCUS': ('cars/ford/antilag3_ext.wav', _ANTILAG),
                'EVO6': ('cars/evo/antilag1_ext.wav', _ANTILAG), 'P206': ('cars/peug/antilag4_ext.wav', _ANTILAG),
                'QUATTRO': ('Car/turbo1.wav', dict(_ANTILAG, boost_threshold=.3, pitch_variation=.06,
