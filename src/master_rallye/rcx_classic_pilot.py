@@ -306,7 +306,7 @@ def _gt_layer(author, layer, response):
 
 # AUDIO-RALLY1 (owner choice '3-clean-pitched', 2026-11-18): the native RPM->pitch curve plays a loop at x1.0 only near
 # the limiter (x0.38 at 4000 of 7500 rpm), so the 4000 rpm RCX loop is pitched up x1.8 (engine_brightness_audition.py)
-ENGINE_PITCH = 1.8
+ENGINE_PITCH = 1.0   # owner 2026-11-18: x1.8 too high in game, chose 2-clean (no pitch)
 
 
 def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
@@ -331,7 +331,7 @@ def add_engine_audio(author, car, sound_root=RCX_SOUND_ROOT):
                'stock_audio_profile_id': base.VEHICLES[car]['audio'], 'namespace': 'rcx_' + car.lower(),
                'engine': {'source_path': 'audio/engine.wav', 'source_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
                           'trim_frames': [0, frames], 'gain_db': 0, 'remove_dc': False, 'crossfade_frames': 0},
-               'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop pitched x1.8, whole '
+               'notes': 'Rally Championship Xtreme (PC) Data/Sound/cars/%s/%s: 4000 rpm on-throttle exterior loop, whole '
                         'file, DC removed, RMS %d with soft-limited peaks (MR engine level); one waveform through the '
                         'native MR engine synthesizer with the donor tuning.' % (folder.name, src.name, ENGINE_RMS)}
     lift = _lift_layer(author, car, sound_root)
