@@ -351,7 +351,7 @@ public:
     // RCX-GLINT3: OFF lenses already recognised, by vertex-buffer identity: a dented lens keeps its buffer but its
     // bounds move past the 1.5 cm match, which read as "OFF lens missing" = braking (glints lit by themselves).
     struct OffLensSeen{uintptr_t vb=0;uint64_t serial=0,offset=0;unsigned vertices=0;int rig=-1;};std::array<OffLensSeen,64> off_lens_seen{};unsigned off_lens_next=0;uint64_t off_lens_dented=0,off_lens_stale=0;
-    unsigned off_lens_timeout_ms=8000;bool exhaust_flames=true,exhaust_flame_test=false;float exhaust_flame_size=1.f;   // FX-EXHAUST1 step 3std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0,rig_foreign_lens=0;
+    unsigned off_lens_timeout_ms=8000;bool exhaust_flames=true,exhaust_flame_test=false;float exhaust_flame_size=1.f;/* FX-EXHAUST1 step 3 */std::array<RigOwner,32> rig_owners{};uint64_t rig_race=UINT64_MAX,rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0,rig_foreign_lens=0;
     // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
     struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
     void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}
