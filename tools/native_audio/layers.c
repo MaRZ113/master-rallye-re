@@ -2,7 +2,7 @@
    shared stock effect ownership. All mutable state is caller-owned RW/NX. */
 typedef unsigned int U;
 typedef unsigned char B;
-typedef struct { U owner,voice[3],tick; float spool,load,cooldown; U events; float active; U public_state; } Slot;
+typedef struct { U owner,voice[3],tick; float spool,load,cooldown; U events; float active; U public_state,lim; } Slot;
 typedef struct { U flags; const char *name[3]; float wh[7],sp[9],bov[8]; } Profile;
 typedef struct { U key,actor; } Map;
 typedef struct { U cursor; Map map[64]; Slot slot[64]; } State;
@@ -23,7 +23,7 @@ extern "C" void __cdecl layers_destroy(U owner,State *s) {
  for(i=0;i<64;i++)if(!others||(v->public_state&&s->map[i].key==v->public_state)){s->map[i].key=0;s->map[i].actor=0;}
  if(!others)s->cursor=0;
  v->public_state=0;
- v->owner=v->tick=v->events=0;v->spool=v->load=v->cooldown=v->active=0;
+ v->owner=v->tick=v->events=v->lim=0;v->spool=v->load=v->cooldown=v->active=0;
 }
 extern "C" void __cdecl layers_construct(U owner,Profile *p,State *s) {
  Slot *v; U i,h,others=0; void *a; layers_destroy(owner,s);
@@ -40,7 +40,7 @@ extern "C" void __cdecl layers_construct(U owner,Profile *p,State *s) {
 /* now is original imported timeGetTime milliseconds, modulo-safe subtraction.
    Long gaps are capped; paused/menu time must not produce a spool jump. */
 extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float volume,int finished,U public_state) {
- Slot *v=find(s,owner,0);U i,actor=0,engine,entity,elapsed;float rpm,load,dt,target,tau,pitch,gain,fall,old,limit;
+ Slot *v=find(s,owner,0);U i,actor=0,engine,entity,elapsed;float rpm,load,dt,target,tau,pitch,gain,fall,old,limit,ratio;U lifted;
  if(!v)return;
  v->public_state=public_state;
  elapsed=now-v->tick;dt=v->tick?clamp((float)elapsed*.001f,0,.1f):0;v->tick=now;
@@ -50,7 +50,7 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  if(!actor)return;engine=*(U*)(actor+0x10);if(!engine)return;
  rpm=*(float*)(engine+0x28);rpm=rpm<0?-rpm:rpm;limit=*(float*)(engine+0x44);
  /* 0043C570 cuts the drive torque at omega >= +44: that drop is the limiter, not a lift-off */
- limit=(limit>1&&rpm>=.95f*limit)?1:0;rpm*=9.5492966f;
+ ratio=limit>1?rpm/limit:0;limit=ratio>=.95f?1:0;rpm*=9.5492966f;
  if(!(rpm>=0&&rpm<=30000))return;
  load=*(float*)(engine+0x50);if(!(load>=1&&load<=100000))return;
  target=*(float*)(engine+0x94);if(!(target>=-10000000&&target<=10000000&&volume>=0&&volume<=100))return;
@@ -59,7 +59,10 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  if(finished||(p->sp[8]!=0&&*(U*)(engine+0x78)==1))target=0;
  if(v->cooldown>0)v->cooldown=clamp(v->cooldown-dt,0,100);
  fall=dt>0?(v->load-load)/dt:0;v->load=load;
- if(v->voice[2]&&!finished&&(p->bov[7]==0||*(U*)(engine+0x78)!=1)&&rpm>=p->bov[6]&&old>=p->bov[1]&&fall>=p->bov[0]&&limit==0&&v->cooldown==0&&*(B*)(v->voice[2]+0xe)==0){
+ /* lift from the limiter: a neutral blip sits on the limiter (drive torque already 0), so a load fall never shows;
+    omega falling from >= .95 to < .9 of the limit after being there is the lift */
+ lifted=v->lim&&ratio<.9f;if(limit)v->lim=1;else if(ratio<.9f)v->lim=0;
+ if(v->voice[2]&&!finished&&(p->bov[7]==0||*(U*)(engine+0x78)!=1)&&rpm>=p->bov[6]&&((old>=p->bov[1]&&fall>=p->bov[0]&&limit==0)||lifted)&&v->cooldown==0&&*(B*)(v->voice[2]+0xe)==0){
   /* level = authored gain (the native SFX volume curve is steep: gain x boost 0.3 was -18 dB, owner 2026-11-18) */
   v->events++;v->cooldown=p->bov[4];v->active=p->bov[2];
   pitch=1+p->bov[3]*((float)((v->events*1664525u+1013904223u)&65535)/32767.5f-1);

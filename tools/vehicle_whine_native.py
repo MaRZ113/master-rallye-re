@@ -90,7 +90,7 @@ def make_payload(base_va,profiles,chain=None):
         values += [sp.get(k,d) for k,d in zip(('reference_rpm','pitch_min','pitch_max','gain','fade_in_rpm','load_threshold','spool_up_seconds','spool_down_seconds','mute_neutral'),(4000,.35,1.8,.3,1500,.15,.35,.55,mute))]
         values += [bv.get(k,d) for k,d in zip(('release_rate_threshold','boost_threshold','gain','pitch_variation','retrigger_seconds','release_decay_seconds','min_rpm','mute_neutral'),(3,.45,.45,.08,.5,.2,2000,True))]
         c.emit(struct.pack('<24f',*values))
-    c.emit(b'\0'*(-(base_va+len(c.code))%4096));c.label('cursor');c.emit(b'\0'*4);c.label('map');c.emit(b'\0'*512);c.label('voices');c.emit(b'\0'*(64*44));c.emit(b'\0'*(4096-516-64*44))
+    c.emit(b'\0'*(-(base_va+len(c.code))%4096));c.label('cursor');c.emit(b'\0'*4);c.label('map');c.emit(b'\0'*512);c.label('voices');c.emit(b'\0'*(64*48));c.emit(b'\0'*(4096-516-64*48))
     entries={name:base_va+c.labels[name] for name in ('construct','publish','update','destroy','map','cursor','voices')}
     return c.build(),entries
 
@@ -130,5 +130,5 @@ def append_whine(source,image,blob,payload_va,profiles,allocation_size):
         'profiles':[{'physical_car_id':p['physical_car_id'],'layers':[k for k in ('transmission_whine','turbo_spool','bov_release') if k in p]} for p in selected],
         'writable_ranges':[{'offset':entries['cursor']-payload_va,'size':4096}],
         'native_helper':__import__('native_audio_coff').compile_object()[1],
-        'map_capacity':MAP_CAPACITY,'voice_slot_stride':44,'scope':'bounded independently owned native SFX list voices; timeGetTime response; owner-scoped publication cleanup; no physics-state writes',
+        'map_capacity':MAP_CAPACITY,'voice_slot_stride':48,'scope':'bounded independently owned native SFX list voices; timeGetTime response; owner-scoped publication cleanup; no physics-state writes',
         'runtime_qualified':False}
