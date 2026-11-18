@@ -85,7 +85,9 @@ def make_payload(base_va,profiles,chain=None):
         sp=p.get('turbo_spool',{}).get('response',{})
         bv=p.get('bov_release',{}).get('response',{})
         values=[wh.get(k,d) for k,d in zip(('reference_rpm','pitch_min','pitch_max','gain_drive','gain_coast','fade_in_rpm','mute_neutral'),(4000,.35,1.8,.3,.1,1000,True))]
-        values += [sp.get(k,d) for k,d in zip(('reference_rpm','pitch_min','pitch_max','gain','fade_in_rpm','load_threshold','spool_up_seconds','spool_down_seconds','mute_neutral'),(4000,.35,1.8,.3,1500,.15,.35,.55,True))]
+        # without a spool layer the boost estimate follows the lift-off layer's neutral policy (blips in neutral)
+        mute=bv.get('mute_neutral',True) if 'turbo_spool' not in p else True
+        values += [sp.get(k,d) for k,d in zip(('reference_rpm','pitch_min','pitch_max','gain','fade_in_rpm','load_threshold','spool_up_seconds','spool_down_seconds','mute_neutral'),(4000,.35,1.8,.3,1500,.15,.35,.55,mute))]
         values += [bv.get(k,d) for k,d in zip(('release_rate_threshold','boost_threshold','gain','pitch_variation','retrigger_seconds','release_decay_seconds','min_rpm','mute_neutral'),(3,.45,.45,.08,.5,.2,2000,True))]
         c.emit(struct.pack('<24f',*values))
     c.emit(b'\0'*(-(base_va+len(c.code))%4096));c.label('cursor');c.emit(b'\0'*4);c.label('map');c.emit(b'\0'*512);c.label('voices');c.emit(b'\0'*(64*44));c.emit(b'\0'*(4096-516-64*44))

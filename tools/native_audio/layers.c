@@ -40,7 +40,7 @@ extern "C" void __cdecl layers_construct(U owner,Profile *p,State *s) {
 /* now is original imported timeGetTime milliseconds, modulo-safe subtraction.
    Long gaps are capped; paused/menu time must not produce a spool jump. */
 extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float volume,int finished,U public_state) {
- Slot *v=find(s,owner,0);U i,actor=0,engine,entity,elapsed;float rpm,load,dt,target,tau,pitch,gain,fall,old;
+ Slot *v=find(s,owner,0);U i,actor=0,engine,entity,elapsed;float rpm,load,dt,target,tau,pitch,gain,fall,old,limit;
  if(!v)return;
  v->public_state=public_state;
  elapsed=now-v->tick;dt=v->tick?clamp((float)elapsed*.001f,0,.1f):0;v->tick=now;
@@ -48,7 +48,9 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  for(i=0;i<3;i++)if(v->voice[i]){*(float*)(v->voice[i]+0x10)=0;*(U*)(v->voice[i]+0x24)=entity;*(B*)(v->voice[i]+4)=1;}
  for(i=0;i<64;i++)if(s->map[i].key==public_state){actor=s->map[i].actor;break;}
  if(!actor)return;engine=*(U*)(actor+0x10);if(!engine)return;
- rpm=*(float*)(engine+0x28);rpm=rpm<0?-rpm:rpm;rpm*=9.5492966f;
+ rpm=*(float*)(engine+0x28);rpm=rpm<0?-rpm:rpm;limit=*(float*)(engine+0x44);
+ /* 0043C570 cuts the drive torque at omega >= +44: that drop is the limiter, not a lift-off */
+ limit=(limit>1&&rpm>=.95f*limit)?1:0;rpm*=9.5492966f;
  if(!(rpm>=0&&rpm<=30000))return;
  load=*(float*)(engine+0x50);if(!(load>=1&&load<=100000))return;
  target=*(float*)(engine+0x94);if(!(target>=-10000000&&target<=10000000&&volume>=0&&volume<=100))return;
@@ -57,8 +59,9 @@ extern "C" void __cdecl layers_update(U owner,Profile *p,State *s,U now,float vo
  if(finished||(p->sp[8]!=0&&*(U*)(engine+0x78)==1))target=0;
  if(v->cooldown>0)v->cooldown=clamp(v->cooldown-dt,0,100);
  fall=dt>0?(v->load-load)/dt:0;v->load=load;
- if(v->voice[2]&&!finished&&(p->bov[7]==0||*(U*)(engine+0x78)!=1)&&rpm>=p->bov[6]&&old>=p->bov[1]&&fall>=p->bov[0]&&v->cooldown==0&&*(B*)(v->voice[2]+0xe)==0){
-  v->events++;v->cooldown=p->bov[4];v->active=p->bov[2]*old;
+ if(v->voice[2]&&!finished&&(p->bov[7]==0||*(U*)(engine+0x78)!=1)&&rpm>=p->bov[6]&&old>=p->bov[1]&&fall>=p->bov[0]&&limit==0&&v->cooldown==0&&*(B*)(v->voice[2]+0xe)==0){
+  /* level = authored gain (the native SFX volume curve is steep: gain x boost 0.3 was -18 dB, owner 2026-11-18) */
+  v->events++;v->cooldown=p->bov[4];v->active=p->bov[2];
   pitch=1+p->bov[3]*((float)((v->events*1664525u+1013904223u)&65535)/32767.5f-1);
   *(float*)(v->voice[2]+0x14)=pitch;*(B*)(v->voice[2]+0xe)=1;
  }
